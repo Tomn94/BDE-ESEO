@@ -1,0 +1,251 @@
+//
+//  ClubsMasterTVC.m
+//  ESEOmega
+//
+//  Created by Thomas Naudet on 22/07/2015.
+//  Copyright © 2015 Thomas Naudet. All rights reserved.
+//
+
+#import "ClubsMasterTVC.h"
+
+@implementation ClubsMasterTVC
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+    NSArray *viewControllers = self.splitViewController.viewControllers;
+    if ([viewControllers count] > 1)
+    {
+        detailNVC = viewControllers[1];
+        self.delegate = [detailNVC viewControllers][0];
+    }
+    
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
+    
+    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
+    [ctr addObserver:self selector:@selector(loadClubs) name:@"clubs" object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"clubsSent" object:nil];
+    
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
+        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+        [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    
+    [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    self.tableView.tableFooterView = [UIView new];
+    [self loadClubs];
+    
+    if (_delegate && [clubs count] > 0 && iPAD)
+        [_delegate selectedClub:clubs[0]];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadEmptyDataSet];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.refreshControl endRefreshing];
+    
+    if (_delegate && [clubs count] > 0 && !iPAD && [UIScreen mainScreen].bounds.size.width >= 736 && UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
+        [_delegate selectedClub:clubs[0]];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Actions
+
+- (void) recupClubs:(BOOL)forcer
+{
+    if (!forcer && ![[Data sharedData] shouldUpdateJSON:@"clubs"])
+    {
+        [self.refreshControl endRefreshing];
+        return;
+    }
+    
+    [[Data sharedData] updateJSON:@"clubs"];
+}
+
+- (void) loadClubs
+{
+    clubs = [[Data sharedData] clubs][@"clubs"];
+    
+    if (_delegate && [clubs count] > 0 && iPAD && [NSDate timeIntervalSinceReferenceDate] - [[Data sharedData] launchTime] < 30)
+        [_delegate selectedClub:clubs[0]];
+    
+    if ([clubs count])
+    {
+        [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        self.tableView.tableFooterView = nil;
+    }
+    else
+    {
+        [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+        self.tableView.tableFooterView = [UIView new];
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger) numberOfSectionsInTableView:(nonnull UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger) tableView:(nonnull UITableView *)tableView
+  numberOfRowsInSection:(NSInteger)section
+{
+    return [clubs count];
+}
+
+
+- (nonnull UITableViewCell *) tableView:(nonnull UITableView *)tableView
+                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    ClubsMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"clubsMasterCell" forIndexPath:indexPath];
+    
+    cell.titreLabel.layer.shadowRadius = 4;
+    cell.titreLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.titreLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    cell.titreLabel.layer.shadowOpacity = 1;
+    cell.detailLabel.layer.shadowRadius = 3;
+    cell.detailLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.detailLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    cell.detailLabel.layer.shadowOpacity = 1;
+    
+    NSDictionary *club = clubs[indexPath.row];
+    cell.titreLabel.text = club[@"nom"];
+    cell.detailLabel.text = club[@"desc"];
+    
+    if (club[@"img"] != nil && ![club[@"img"] isEqualToString:@""])
+        [cell.imgView sd_setImageWithURL:club[@"img"]
+                        placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    else
+        [cell.imgView setImage:[UIImage imageNamed:@"placeholder"]];
+    
+    [cell cellOnTableView:tableView didScrollOnView:self.view.superview];
+    
+    return cell;
+}
+
+- (void)      tableView:(nonnull UITableView *)tableView
+didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    if (_delegate)
+    {
+        [_delegate selectedClub:clubs[indexPath.row]];
+        [self.splitViewController showDetailViewController:detailNVC sender:nil];
+    }
+}
+
+- (void) scrollViewDidScroll:(nullable UIScrollView *)scrollView
+{
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
+        [[NSProcessInfo processInfo] isLowPowerModeEnabled])
+        return;
+    
+    NSArray *visibleCells = [self.tableView visibleCells];
+    
+    for (ClubsMasterCell *cell in visibleCells)
+        [cell cellOnTableView:self.tableView didScrollOnView:self.view.superview];
+}
+
+- (IBAction) refresh:(UIRefreshControl *)sender
+{
+    [self recupClubs:NO];
+}
+
+
+- (UIViewController *) previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+               viewControllerForLocation:(CGPoint)location
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil)
+    {
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ClubsDetailTVC *destinationViewController = [sb instantiateViewControllerWithIdentifier:@"clubsDetailTVC"];
+        
+        destinationViewController.infos = clubs[indexPath.row];
+        
+        previewingContext.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+        
+        [[Data sharedData] setT_currentTopVC:self];
+        
+        return destinationViewController;
+    }
+    
+    return nil;
+}
+
+- (void) previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+      commitViewController:(UIViewController *)viewControllerToCommit
+{
+    if (_delegate)
+    {
+        [self.splitViewController showDetailViewController:viewControllerToCommit sender:nil];
+        [_delegate selectedClub:((ClubsDetailTVC *)viewControllerToCommit).infos];
+        [[Data sharedData] setT_currentTopVC:nil];
+    }
+}
+
+#pragma mark - Mail Compose View Controller delegate
+
+- (void) mailComposeController:(MFMailComposeViewController*)controller
+           didFinishWithResult:(MFMailComposeResult)result
+                         error:(NSError*)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - DZNEmptyDataSet
+
+- (UIImage *) imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"clubsVide"];
+}
+
+- (NSAttributedString *) titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"Aucun club";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"Vérifiez votre connexion et tirez pour rafraîchir.";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CGPoint) offsetForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return CGPointMake(0, -self.tableView.tableHeaderView.frame.size.height / 2. - 65);
+}
+
+- (UIColor *) backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIColor groupTableViewBackgroundColor];
+}
+
+@end

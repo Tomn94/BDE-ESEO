@@ -1,0 +1,995 @@
+//
+//  Data.m
+//  ESEOmega
+//
+//  Created by Thomas NAUDET on 02/08/2015.
+//  Copyright © 2015 Thomas NAUDET. All rights reserved.
+//
+
+#import "Data.h"
+
+@implementation Data
+
++ (Data *) sharedData {
+    static Data *instance = nil;
+    if (instance == nil) {
+//        NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+        
+        static dispatch_once_t pred;        // Lock
+        dispatch_once(&pred, ^{             // This code is called at most once per app
+            instance = [[Data allocWithZone:NULL] init];
+        });
+        
+        // Préférences par défaut
+        /*[defaults registerDefaults:@{ @"userId": @"",
+                                      @"userName": @"" }];*/
+        
+        EGOCache *ec        = [EGOCache globalCache];
+//        [[EGOCache globalCache] clearCache];
+        instance.news       = (![ec hasCacheForKey:@"news"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"news"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.events     = (![ec hasCacheForKey:@"events"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"events"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.eventsCmds = (![ec hasCacheForKey:@"eventsCmds"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"eventsCmds"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.clubs      = (![ec hasCacheForKey:@"clubs"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"clubs"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.cmds       = (![ec hasCacheForKey:@"cmds"] || ![Data estConnecte]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"cmds"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.service    = nil;
+        instance.menus      = (![ec hasCacheForKey:@"menus"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"menus"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.sponsors   = (![ec hasCacheForKey:@"sponsors"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"sponsors"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.salles     = (![ec hasCacheForKey:@"salles"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"salles"]
+                                                                                               options:kNilOptions
+                                                                                                 error:nil];
+        instance.ingenews   = (![ec hasCacheForKey:@"ingenews"]) ? nil
+                                                                 : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"ingenews"]
+                                                                                                   options:kNilOptions
+                                                                                                     error:nil];
+        NSNumber *time      = [NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]];
+        instance.lastCheck  = [NSMutableDictionary dictionaryWithDictionary:@{ @"news":      time,
+                                                                               @"events":    time,
+                                                                               @"eventsCmds":time,
+                                                                               @"clubs":     time,
+                                                                               @"cmds":      time,
+                                                                               @"menus":     time,
+                                                                               @"sponsors":  time,
+                                                                               @"salles":    time,
+                                                                               @"ingenews":  time }];
+        instance.cafetToken      = @"";
+        instance.cafetDebut      = 0;
+        instance.cafetCmdEnCours = NO;
+        instance.tooManyConnect  = nil;
+        instance.tempPhone       = nil;
+        instance.alertRedir      = nil;
+        [instance cafetPanierVider];
+    }
+    return instance;
+}
+
+#pragma mark - Global actions
+
++ (NSString *) hashed_string:(NSString *)input
+{
+    const char *s = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *keyData = [NSData dataWithBytes:s length:strlen(s)];
+    
+    uint8_t digest[CC_SHA256_DIGEST_LENGTH]={0};
+    CC_SHA256(keyData.bytes, (unsigned int)keyData.length, digest);
+    NSData *out=[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
+    NSString *hash=[out description];
+    hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
+    return hash;
+}
+
++ (NSString *) encoderPourURL:(NSString *)url
+{
+    if (url == nil)
+        return url;
+    NSMutableString * output = [NSMutableString string];
+    const unsigned char * source = (const unsigned char *)[url UTF8String];
+    NSInteger sourceLen = strlen((const char *)source);
+    for (NSInteger i = 0; i < sourceLen; ++i)
+    {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' ')
+            [output appendString:@"+"];
+        else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
+                 (thisChar >= 'a' && thisChar <= 'z') ||
+                 (thisChar >= 'A' && thisChar <= 'Z') ||
+                 (thisChar >= '0' && thisChar <= '9'))
+            [output appendFormat:@"%c", thisChar];
+        else
+            [output appendFormat:@"%%%02X", thisChar];
+    }
+    return output;
+}
+
++ (BOOL) estConnecte
+{
+    return [JNKeychain loadValueForKey:@"login"] != nil;
+}
+
++ (void) connecter:(NSString *)user
+              pass:(NSString *)mdp
+               nom:(NSString *)nom
+{
+    [JNKeychain saveValue:user forKey:@"login"];
+    [JNKeychain saveValue:mdp  forKey:@"passw"];
+    [JNKeychain saveValue:nom  forKey:@"uname"];
+    
+    [[Data sharedData] updateJSON:@"cmds"];
+}
+
++ (void) deconnecter
+{
+    [Data delPushToken];
+    
+    [JNKeychain deleteValueForKey:@"login"];
+    [JNKeychain deleteValueForKey:@"passw"];
+    [JNKeychain deleteValueForKey:@"uname"];
+    [JNKeychain deleteValueForKey:@"phone"];
+    
+    [[Data sharedData] updateJSON:@"cmds"];
+}
+
++ (void) sendPushToken
+{
+    if (![Data estConnecte])
+        return;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURL *url = [NSURL URLWithString:URL_PUSH];
+    NSString *login  = [JNKeychain loadValueForKey:@"login"];
+    NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+    NSString *sToken = [[[NSString stringWithFormat:@"%@", [[Data sharedData] pushToken]]
+                        stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&token=%@&os=%@&hash=%@",
+                      [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:sToken], @"IOS", [Data hashed_string:
+                      [[[[@"Erreur mémoire cache" stringByAppendingString:login] stringByAppendingString:pass] stringByAppendingString:@"IOS"] stringByAppendingString:sToken]]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          [[EGOCache globalCache] setData:[[Data sharedData] pushToken] forKey:@"deviceTokenPush"];
+                                      }];
+    [dataTask resume];
+}
+
++ (void) delPushToken
+{
+    if (![Data estConnecte])
+        return;
+    
+    [[EGOCache globalCache] removeCacheForKey:@"deviceTokenPush"];
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURL *url = [NSURL URLWithString:URL_UNPUSH];
+    NSString *login  = [JNKeychain loadValueForKey:@"login"];
+    NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+    NSString *sToken = [[[NSString stringWithFormat:@"%@", [[Data sharedData] pushToken]]
+                         stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&token=%@&os=%@&hash=%@",
+                      [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:sToken], @"IOS",
+                      [Data encoderPourURL:[Data hashed_string:[[[[@"Bonjour %s !" stringByAppendingString:login] stringByAppendingString:pass] stringByAppendingString:@"IOS"] stringByAppendingString:sToken]]]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                      }];
+    [dataTask resume];
+}
+
++ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage
+                                            to:(CGSize)targetSize
+                                        retina:(BOOL)retina
+{
+    
+    return [Data imageByScalingAndCroppingForSize:(UIImage *)sourceImage
+                                               to:(CGSize)targetSize
+                                           retina:(BOOL)retina
+                                              fit:NO];
+}
+
++ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage
+                                            to:(CGSize)targetSize
+                                        retina:(BOOL)retina
+                                           fit:(BOOL)fit
+{
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (fit)
+        {
+            if (widthFactor < heightFactor)
+                scaleFactor = widthFactor;
+            else
+                scaleFactor = heightFactor;
+        }
+        else
+        {
+            if (widthFactor > heightFactor)
+                scaleFactor = widthFactor;
+            else
+                scaleFactor = heightFactor;
+        }
+        
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        if (fit)
+        {
+            if (widthFactor < heightFactor)
+                thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+            else if (widthFactor > heightFactor)
+                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+        else
+        {
+            if (widthFactor > heightFactor)
+                thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+            else if (widthFactor < heightFactor)
+                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    
+    if (retina)
+        UIGraphicsBeginImageContextWithOptions(targetSize, YES, 0.0);
+    else
+        UIGraphicsBeginImageContext(targetSize); // crop
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    if (fit)
+    {
+        [[UIColor whiteColor] set];
+        UIRectFill(CGRectMake(0.0, 0.0, targetSize.width, targetSize.height));
+    }
+    
+    [sourceImage drawInRect:thumbnailRect];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+#pragma mark - Update Data
+
+- (BOOL) shouldUpdateJSON:(NSString *)JSONname
+{
+    NSTimeInterval max = ([JSONname isEqualToString:@"cmds"]) ? 30 : 120;
+    /*if (!([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max))
+        NSLog(@"Refusé. Mis à jour il y a peu.");*/
+    return ([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max);
+}
+
+- (void) updateJSON:(NSString *)JSONname
+{
+    [self updateJSON:JSONname options:0];
+}
+
+- (void) updateJSON:(NSString *)JSONname
+            options:(NSInteger)options
+{
+    int randCache = (int)arc4random_uniform(9999);
+    NSURL *url;
+    if ([JSONname isEqualToString:@"news"])
+    {
+        CGSize sz = [UIScreen mainScreen].bounds.size;
+        CGFloat l = sz.height;
+        if (sz.width > sz.height)
+            l = sz.width;
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_NEWS, (int)MIN(20, l / 44), (int)options, randCache]];
+    }
+    else if ([JSONname isEqualToString:@"cmds"])
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_CMDS, randCache]];
+    else if ([JSONname isEqualToString:@"eventsCmds"])
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_EVENT_CM, randCache]];
+    else if ([JSONname isEqualToString:@"service"])
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_SERVICE, randCache]];
+    else if ([JSONname isEqualToString:@"ingenews"])
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_INGENEWS, randCache]];
+    else
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, JSONname, randCache]];
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    if ([JSONname isEqualToString:@"cmds"])
+    {
+        if (![Data estConnecte])
+        {
+            _cmds = nil;
+            [[EGOCache globalCache] removeCacheForKey:@"cmds"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdsSent" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"cmds" object:nil];
+            return;
+        }
+        
+        NSString *login  = [JNKeychain loadValueForKey:@"login"];
+        NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+        NSString *toHash = [[@"Connexion au serveur ..." stringByAppendingString:login] stringByAppendingString:pass];
+        NSString *body   = [NSString stringWithFormat:@"client=%@&password=%@&hash=%@",
+                            [Data encoderPourURL:login],
+                            [Data encoderPourURL:pass],
+                            [Data encoderPourURL:[Data hashed_string:toHash]]];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    else if ([JSONname isEqualToString:@"eventsCmds"])
+    {
+        if (![Data estConnecte])
+        {
+            _cmds = nil;
+            [[EGOCache globalCache] removeCacheForKey:@"eventsCmds"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmdsSent" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmds" object:nil];
+            return;
+        }
+        
+        NSString *login  = [JNKeychain loadValueForKey:@"login"];
+        NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+        NSString *toHash = [[@"Connexion en cours" stringByAppendingString:login] stringByAppendingString:pass];
+        NSString *body   = [NSString stringWithFormat:@"client=%@&password=%@&hash=%@",
+                            [Data encoderPourURL:login],
+                            [Data encoderPourURL:pass],
+                            [Data encoderPourURL:[Data hashed_string:toHash]]];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          NSDictionary *JSON = nil;
+                                          if (error == nil && data != nil)
+                                          {
+                                              JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                     options:kNilOptions
+                                                                                       error:nil];
+                                              
+                                              if (JSON[@"status"] != nil && [JSON[@"status"] intValue] == 1)
+                                                  JSON = JSON[@"data"];
+                                              
+                                              if (JSON != nil && JSON.count && options == 0 && ![JSONname isEqualToString:@"service"])
+                                                  [[EGOCache globalCache] setData:data
+                                                                           forKey:JSONname
+                                                              withTimeoutInterval:90 * 86400];
+                                          }
+                                          else if ([[EGOCache globalCache] hasCacheForKey:JSONname] && options == 0)
+                                              JSON = [NSJSONSerialization JSONObjectWithData:[[EGOCache globalCache] dataForKey:JSONname]
+                                                                                     options:kNilOptions
+                                                                                       error:nil];
+
+                                          if (JSON != nil)
+                                          {
+                                              if ([JSONname isEqualToString:@"news"])
+                                                  [self traiterNewNews:JSON start:options];
+                                              else if ([JSONname isEqualToString:@"events"])
+                                                  _events = JSON;
+                                              else if ([JSONname isEqualToString:@"eventsCmds"])
+                                                  _eventsCmds = JSON;
+                                              else if ([JSONname isEqualToString:@"clubs"])
+                                                  _clubs = JSON;
+                                              else if ([JSONname isEqualToString:@"cmds"])
+                                                  _cmds = JSON;
+                                              else if ([JSONname isEqualToString:@"service"])
+                                                  _service = JSON;
+                                              else if ([JSONname isEqualToString:@"menus"])
+                                                  _menus = JSON;
+                                              else if ([JSONname isEqualToString:@"sponsors"])
+                                                  _sponsors = JSON;
+                                              else if ([JSONname isEqualToString:@"salles"])
+                                                  _salles = JSON;
+                                              else if ([JSONname isEqualToString:@"ingenews"])
+                                                  _ingenews = JSON;
+                                              
+                                              // LastCheck
+                                              if (options == 0)
+                                                  [_lastCheck setValue:@([NSDate timeIntervalSinceReferenceDate]) forKey:JSONname];
+                                              
+                                              // Informer la vue
+                                              if (![JSONname isEqualToString:@"news"])
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:JSONname object:nil];
+                                          }
+                                          
+                                          [[NSNotificationCenter defaultCenter] postNotificationName:[NSString stringWithFormat:@"%@Sent", JSONname] object:nil];
+                                          if ([JSONname isEqualToString:@"news"] && options != 0)
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"moreNewsSent" object:nil];
+                                          [self updLoadingActivity:NO];
+                                      }];
+    [dataTask resume];
+    [self updLoadingActivity:YES];
+}
+
+- (void) updLoadingActivity:(BOOL)visible
+{
+    static NSInteger loadingCount = 0;
+    
+    if (visible)
+        ++loadingCount;
+    else
+        --loadingCount;
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(loadingCount > 0)];
+}
+
+- (void) traiterNewNews:(NSDictionary *)JSON
+                  start:(NSInteger)index
+{
+    if (_news == nil || [_news[@"articles"] count] < 1)
+        _news = JSON;
+    else
+    {
+        NSArray *oldNews = _news[@"articles"];
+        NSArray *newNews =  JSON[@"articles"];
+        NSMutableArray *toAddNews = [NSMutableArray array];
+        NSMutableIndexSet *toUpdNewsIndexes = [NSMutableIndexSet indexSet];
+        NSMutableArray    *toUpdNewsData  = [NSMutableArray array];
+        for (NSDictionary *newArticle in newNews)
+        {
+            BOOL pasDedans = YES;
+            NSUInteger index = 0;
+            for (NSDictionary *oldArticle in oldNews)
+            {
+                if ([newArticle[@"id"] integerValue] == [oldArticle[@"id"] integerValue])
+                {
+                    pasDedans = NO;
+                    break;
+                }
+                index++;
+            }
+            if (pasDedans)
+                [toAddNews addObject:newArticle];
+            else
+            {
+                [toUpdNewsIndexes addIndex:index];
+                [toUpdNewsData addObject:newArticle];
+            }
+        }
+        
+        NSMutableArray *m_oldNews = [NSMutableArray arrayWithArray:oldNews];
+        [m_oldNews replaceObjectsAtIndexes:toUpdNewsIndexes withObjects:toUpdNewsData];
+        
+        NSMutableArray *turfuNews = [NSMutableArray array];
+        if (index == 0)
+            [turfuNews addObjectsFromArray:toAddNews];
+        [turfuNews addObjectsFromArray:m_oldNews];
+        if (index != 0)
+            [turfuNews addObjectsFromArray:toAddNews];
+
+        _news = @{ @"articles": [NSArray arrayWithArray:turfuNews] };
+    }
+    
+    if (index > 0)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"moreNewsOK" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"news" object:nil];
+}
+
+#pragma mark - Cafet
+
+- (void) cafetPanierAjouter:(NSDictionary *)elem
+{
+    [_cafetPanier addObject:elem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
+}
+
+- (void) cafetPanierSupprimerAt:(NSInteger)index
+{
+    [_cafetPanier removeObjectAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
+}
+
+- (void) cafetPanierVider
+{
+    _cafetPanier = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
+}
+
+#pragma mark - Lydia
+
+- (void) startLydia:(NSInteger)idCmd
+            forType:(NSString *)catOrder
+{
+    if ([JNKeychain loadValueForKey:@"phone"] == nil)
+    {
+        NSString *message = @"Votre numéro de téléphone portable est utilisé par Lydia afin de lier la commande à votre compte. Il n'est pas stocké sur nos serveurs.";
+        if (self.tempPhone != nil)
+            message = [message stringByAppendingString:@"\n\nRéessayez, numéro incorrect."];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Paiement par Lydia"
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
+         {
+             textField.placeholder  = @"0601234242";
+             textField.keyboardType = UIKeyboardTypePhonePad;
+             textField.delegate     = self;
+             textField.text         = self.tempPhone;
+         }];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Payer maintenant"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                              [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
+                                      forType:catOrder];
+                          }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                           animated:YES completion:nil];
+    }
+    else
+        [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
+                forType:catOrder];
+}
+
+- (BOOL)            textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+            replacementString:(NSString *)string
+{
+    NSString  *proposedNewString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString  *result = [proposedNewString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.tempPhone = result;
+    return YES;
+}
+
+- (void) sendLydia:(NSString *)idCmd
+           forType:(NSString *)catOrder
+{
+    if ([JNKeychain loadValueForKey:@"phone"] == nil)
+    {
+        NSString *num = self.tempPhone;
+        if ([num rangeOfString:@"^((\\+|00)33\\s?|0)[679](\\s?\\d{2}){4}$" options:NSRegularExpressionSearch].location != NSNotFound)
+        {
+            self.tempPhone = nil;
+            [JNKeychain saveValue:num forKey:@"phone"];
+        }
+        else
+        {
+            [self startLydia:[idCmd intValue]
+                     forType:catOrder];  // Redemande le numéro de téléphone
+            return;
+        }
+    }
+    
+    if ([Data estConnecte])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Demande de paiement Lydia"
+                                                                       message:@"Veuillez patienter…"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                           animated:YES completion:nil];
+        
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                       delegate:nil
+                                                                                  delegateQueue:[NSOperationQueue mainQueue]];
+        
+        NSString *tel      = [[[JNKeychain loadValueForKey:@"phone"] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        NSURL    *url      = [NSURL URLWithString:URL_CMD_LY_1];
+        NSString *login    = [JNKeychain loadValueForKey:@"login"];
+        NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
+        NSString *body     = [NSString stringWithFormat:@"username=%@&password=%@&idcmd=%@&phone=%@&cat_order=%@&hash=%@&os=IOS",
+                              [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:idCmd],
+                              [Data encoderPourURL:tel],
+                              [Data encoderPourURL:catOrder],
+                              [Data encoderPourURL:[Data hashed_string:[[[[[login stringByAppendingString:pass] stringByAppendingString:tel] stringByAppendingString:idCmd] stringByAppendingString:catOrder] stringByAppendingString:@"Paiement effectué !"]]]];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+        NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                           completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                          {
+                                              [alert dismissViewControllerAnimated:YES completion:^{
+                                                  if (error == nil && data != nil)
+                                                  {
+                                                      NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                           options:kNilOptions
+                                                                                                             error:nil];
+                                                      [self openLydia:JSON];
+                                                  }
+                                                  else
+                                                  {
+                                                      UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Erreur" message:@"Impossible d'envoyer la requête de paiement." preferredStyle:UIAlertControllerStyleAlert];
+                                                      [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                                 style:UIAlertActionStyleCancel
+                                                                                               handler:nil]];
+                                                      [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert2 animated:YES completion:Nil];
+                                                  }
+                                              }];
+                                          }];
+        [dataTask resume];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes pas connecté"
+                                                                       message:@"Impossible de passer une commande."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                           animated:YES completion:nil];
+    }
+}
+
+- (void) openLydia:(NSDictionary *)JSON
+{
+    if (JSON != nil && [JSON[@"status"] intValue] == 1 &&
+        JSON[@"data"][@"lydia_intent"] && ![JSON[@"data"][@"lydia_intent"] isEqualToString:@""] &&
+        JSON[@"data"][@"lydia_url"]    && ![JSON[@"data"][@"lydia_url"]    isEqualToString:@""])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Redirection vers le paiement en cours…"
+                                                                       message:@"L'app/site Lydia devrait s'ouvrir…"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                           animated:YES completion:nil];
+        self.alertRedir = alert;
+        
+        NSURL *appLydia = [NSURL URLWithString:JSON[@"data"][@"lydia_intent"]];
+        if ([[UIApplication sharedApplication] canOpenURL:appLydia])
+            [[UIApplication sharedApplication] openURL:appLydia];
+        else
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:JSON[@"data"][@"lydia_url"]]];
+    }
+    else
+    {
+        NSString *cause = @"Demande de paiement annulée.\nRaison inconnue 😿";
+        if ([JSON[@"status"] intValue] == 1)
+            cause = @"Demande de paiement annulée.\nImpossible d'ouvrir l'app ou le site Lydia.";
+        else if (![JSON[@"cause"] isEqualToString:@""] && JSON[@"cause"] != nil)
+            cause = [@"Demande de paiement annulée.\nRaison :\n" stringByAppendingString:JSON[@"cause"]];
+    
+        switch ([JSON[@"status"] intValue])
+        {
+            case -2:
+                [JNKeychain deleteValueForKey:@"phone"];
+                break;
+                
+            case -4:
+                cause = [cause stringByAppendingString:@"\nSi votre mot de passe a été changé récemment, essayez de déconnecter votre compte de l'application puis de le reconnecter."];
+                break;
+        }
+        if ([JSON[@"status"] intValue] <= -8000)
+            cause = [cause stringByAppendingString:[NSString stringWithFormat:@"\nCode : %d", [JSON[@"status"] intValue]]];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
+                                                                       message:cause
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                           animated:YES completion:nil];
+    }
+}
+
+- (void) checkLydia:(NSDictionary *)data
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"État du paiement Lydia"
+                                                                   message:@"Vérification en cours…"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL    *url      = [NSURL URLWithString:URL_CMD_LY_2];
+    NSString *login    = [JNKeychain loadValueForKey:@"login"];
+    NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
+    NSString *body     = [NSString stringWithFormat:@"username=%@&password=%@&idcmd=%@&cat_order=%@&hash=%@",
+                          [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:data[@"id"]],
+                          [Data encoderPourURL:data[@"cat"]],
+                          [Data encoderPourURL:[Data hashed_string:[[[[login stringByAppendingString:pass] stringByAppendingString:data[@"id"]] stringByAppendingString:data[@"cat"]] stringByAppendingString:@"Paiement refusé par votre banque"]]]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data2, NSURLResponse *r, NSError *error)
+                                      {
+                                          [alert dismissViewControllerAnimated:YES completion:^{
+                                              NSString *message = @"Erreur inconnue… ¯\\_(ツ)_/¯\nParlez-en à un membre du BDE";
+                                              if (error == nil && data2 != nil)
+                                              {
+                                                  NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data2
+                                                                                                       options:kNilOptions
+                                                                                                         error:nil];
+                                                  if ([JSON[@"status"] intValue] == 1)
+                                                  {
+                                                      message = JSON[@"data"][@"info"];
+                                                      
+                                                      if ([data[@"cat"] isEqualToString:@"EVENT"] &&
+                                                          [JSON[@"data"][@"status"] integerValue] == 2)
+                                                          [self sendMail:data
+                                                                    inVC:[UIApplication sharedApplication].delegate.window.rootViewController];
+                                                  }
+                                                  else if (JSON[@"cause"] != nil)
+                                                      message = JSON[@"cause"];
+                                                  else
+                                                      message = @"Erreur inconnue : impossible de vérifier le paiement.\nParlez-en à un membre du BDE";
+                                              }
+                                              else
+                                                  message = @"Erreur : impossible de vérifier le paiement, vous n'êtes pas connecté à Internet.\nParlez-en à un membre du BDE";
+                                              
+                                              UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"État du paiement Lydia" message:message preferredStyle:UIAlertControllerStyleAlert];
+                                              [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                         style:UIAlertActionStyleCancel
+                                                                                       handler:nil]];
+                                              [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert2 animated:YES completion:Nil];
+                                          }];
+                                      }];
+    [dataTask resume];
+}
+
+#pragma mark - Event
+
+- (void) sendMail:(NSDictionary *)data
+             inVC:(UIViewController *)vc
+{
+    if (![Data estConnecte])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes pas connecté"
+                                                                       message:@"Impossible de vous envoyer votre place par mail.\nContactez un membre du BDE."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [vc presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    if ([self.tempPhone isEqualToString:@""])
+    {
+        self.tempPhone = nil;
+        return;
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Entrez votre mail pour recevoir votre place"
+                                                                   message:@"Entrez une adresse valide ci-dessous :"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
+     {
+         textField.placeholder  = @"sterling.archer@reseau.eseo.fr";
+         textField.keyboardType = UIKeyboardTypeEmailAddress;
+         textField.delegate     = self;
+     }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Valider"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+                          NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                                         delegate:nil
+                                                                                                    delegateQueue:[NSOperationQueue mainQueue]];
+                          NSURL    *url      = [NSURL URLWithString:URL_EVENT_ML];
+                          NSString *login    = [JNKeychain loadValueForKey:@"login"];
+                          NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
+                          NSString *mail     = [[self.tempPhone dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+                          NSString *body     = [NSString stringWithFormat:@"client=%@&password=%@&idcmd=%@&email=%@&hash=%@",
+                                                [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:data[@"id"]],
+                                                [Data encoderPourURL:mail],
+                                                [Data encoderPourURL:[Data hashed_string:[[[[@"Email invalide" stringByAppendingString:login] stringByAppendingString:pass] stringByAppendingString:data[@"id"]] stringByAppendingString:mail]]]];
+                          
+                          NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+                          [request setHTTPMethod:@"POST"];
+                          [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+                          NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                                             completionHandler:^(NSData *data2, NSURLResponse *r, NSError *error)
+                                                            {
+                                                                NSString *message = @"Erreur inconnue… ¯\\_(ツ)_/¯\nParlez-en à un membre du BDE";
+                                                                if (error == nil && data2 != nil)
+                                                                {
+                                                                    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data2
+                                                                                                                         options:kNilOptions
+                                                                                                                           error:nil];
+                                                                    if ([JSON[@"status"] intValue] == 1)
+                                                                        message = [NSString stringWithFormat:@"Votre place vous a été envoyée au mail indiqué (%@) !", self.tempPhone];
+                                                                    else if (JSON[@"cause"] != nil)
+                                                                        message = [@"Erreur ¯\\_(ツ)_/¯\nCause :\n" stringByAppendingString:JSON[@"cause"]];
+                                                                    else
+                                                                        message = @"Erreur inconnue : impossible de vérifier le mail.\nParlez-en à un membre du BDE";
+                                                                }
+                                                                else
+                                                                    message = @"Erreur : impossible d'envoyer le mail, vous n'êtes pas connecté à Internet.\nParlez-en à un membre du BDE";
+                                                                
+                                                                self.tempPhone = nil;
+                                                                UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Envoi de la place par mail" message:message preferredStyle:UIAlertControllerStyleAlert];
+                                                                [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                                           style:UIAlertActionStyleCancel
+                                                                                                         handler:nil]];
+                                                                [vc presentViewController:alert2 animated:YES completion:Nil];
+                                                            }];
+                          [dataTask resume];
+                      }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                             style:UIAlertActionStyleCancel
+                                           handler:nil]];
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Link actions
+
+- (void) openURL:(NSString *)url
+       currentVC:(UIViewController *)vc
+{
+    if ([[url substringToIndex:6] isEqualToString:@"mailto"])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        return;
+    }
+    
+    if ([SFSafariViewController class])
+    {
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
+                                                             entersReaderIfAvailable:NO];
+        safari.delegate = self;
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        [vc presentViewController:safari animated:YES completion:nil];
+    }
+    else
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+- (void) twitter:(NSString *)username
+       currentVC:(UIViewController *)vc
+{
+    NSURL *twitter = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", username]];
+    if ([[UIApplication sharedApplication] canOpenURL:twitter])
+        [[UIApplication sharedApplication] openURL:twitter];
+    else
+        [self openURL:[NSString stringWithFormat:@"https://twitter.com/%@", username] currentVC:vc];
+}
+/*
+- (void) youtube:(NSString *)username
+       currentVC:(UIViewController *)vc
+{
+    NSURL *linkToAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"youtube://user/%@", username]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:linkToAppURL])
+        [[UIApplication sharedApplication] openURL:linkToAppURL];
+    else
+        [self openURL:[NSString stringWithFormat:@"https://youtube.com/user/%@", username] currentVC:vc];
+}*/
+
+- (void) snapchat:(NSString *)username
+        currentVC:(UIViewController *)vc
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:username
+                                                                   message:@"Ajoutez le pseudo ci-dessus sur Snapchat !"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    
+    NSURL *snap = [NSURL URLWithString:@"snapchat://"];
+    if ([[UIApplication sharedApplication] canOpenURL:snap])
+    {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ouvrir Snapchat" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                          {
+                              [[UIApplication sharedApplication] openURL:snap];
+                          }]];
+    }
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) instagram:(NSString *)username
+         currentVC:(UIViewController *)vc
+{
+    NSURL *instagram = [NSURL URLWithString:[NSString stringWithFormat:@"instagram://user?username=%@", username]];
+    if ([[UIApplication sharedApplication] canOpenURL:instagram])
+        [[UIApplication sharedApplication] openURL:instagram];
+    else
+        [self openURL:[NSString stringWithFormat:@"https://instagram.com/%@/", username] currentVC:vc];
+}
+
+- (void) mail:(NSString *)dest
+    currentVC:(UIViewController <MFMailComposeViewControllerDelegate> *)vc
+{
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *controller = [MFMailComposeViewController new];
+        [[controller navigationBar] setTintColor:[UINavigationBar appearance].tintColor];
+        [controller setToRecipients:@[dest]];
+        [controller setMailComposeDelegate:vc];
+        [vc presentViewController:controller animated:YES completion:^(void){
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible d'envoyer un mail"
+                                                                       message:@"Vérifiez que vous avez un compte configuré sur cet appareil."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [vc presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void) tel:(NSString *)num
+   currentVC:(UIViewController *)vc
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:num
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSURL *tel = [NSURL URLWithString:[@"tel://" stringByAppendingString:num]];
+    if ([[UIApplication sharedApplication] canOpenURL:tel])
+    {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Appeler" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[UIApplication sharedApplication] openURL:tel];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+    }
+    else
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Safari Controller Delegate
+
+- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
+@end

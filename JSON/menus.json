@@ -1,0 +1,234 @@
+[
+    {
+        "lacmd-categories": [
+            {
+                "name": "Menus",
+                "imgUrl": "categories/menu.jpg",
+                "firstPrice": "2.8",
+                "catname": "cat_menus",
+                "briefText": "Un prix mini mÃªme pour les faims maxi"
+            },
+            {
+                "name": "Sandwiches & Paninis",
+                "imgUrl": "categories/sandwich.jpg",
+                "firstPrice": "2.5",
+                "catname": "cat_sandw",
+                "briefText": "Chaud ou froid, Ã  vous de dÃ©cider"
+            },
+            {
+                "name": "Boissons",
+                "imgUrl": "categories/boissons.jpg",
+                "firstPrice": "0.2",
+                "catname": "cat_drink",
+                "briefText": "DÃ©solÃ©, pas d'alcool dans nos boissons !"
+            },
+            {
+                "name": "Desserts",
+                "imgUrl": "categories/tiramisu.jpg",
+                "firstPrice": "0.4",
+                "catname": "cat_desserts",
+                "briefText": "C'est pas trop sucrÃ© t'inquiÃ¨tes"
+            },
+            {
+                "name": "Accompagnements",
+                "imgUrl": "categories/accompagnements.jpg",
+                "firstPrice": "0.5",
+                "catname": "cat_accompagn",
+                "briefText": "Petit grignotage pour de grosses fesses"
+            }
+        ]
+    },
+    {
+        "lacmd-menus": [
+            {
+                "name": "Grosse Dalle",
+                "idstr": "grsdalle",
+                "price": "5.7",
+                "items": [
+                    {
+                        "id": "sandw",
+                        "quantity": 2
+                    },
+                    {
+                        "id": "elements",
+                        "quantity": 3
+                    }
+                ]
+            },
+            {
+                "name": "Moyenne Dalle",
+                "idstr": "moydalle",
+                "price": "3.5",
+                "items": [
+                    {
+                        "id": "sandw",
+                        "quantity": 1
+                    },
+                    {
+                        "id": "elements",
+                        "quantity": 3
+                    }
+                ]
+            },
+            {
+                "name": "Petite Dalle",
+                "idstr": "petdalle",
+                "price": "2.8",
+                "items": [
+                    {
+                        "id": "sandw",
+                        "quantity": 1
+                    },
+                    {
+                        "id": "elements",
+                        "quantity": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "lacmd-elements": [
+            {
+                "name": "Beignet Chocolat",
+                "idstr": "beigncho",
+                "priceuni": "0.3",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_desserts"
+            },
+            {
+                "name": "CafÃ© Court",
+                "idstr": "cafecourt",
+                "priceuni": "0.45",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            },
+            {
+                "name": "Canette Ice Tea",
+                "idstr": "canicetea",
+                "priceuni": "0.3",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            },
+            {
+                "name": "Canette Orangina",
+                "idstr": "canoran",
+                "priceuni": "0.3",
+                "pricemore": "0",
+                "stock": "0",
+                "outofmenu": "1",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            },
+            {
+                "name": "Canette Sprite",
+                "idstr": "cansprite",
+                "priceuni": "0.3",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "1",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            },
+            {
+                "name": "Panini",
+                "idstr": "panini",
+                "priceuni": "2.7",
+                "pricemore": "0.2",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "3",
+                "idcat": "cat_sandw"
+            },
+            {
+                "name": "Paquet de Chips 300g",
+                "idstr": "chips300",
+                "priceuni": "0.35",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_accompagn"
+            },
+            {
+                "name": "Sandwich",
+                "idstr": "sandw",
+                "priceuni": "2.5",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "3",
+                "idcat": "cat_sandw"
+            },
+            {
+                "name": "Verre Coca",
+                "idstr": "verrecoca",
+                "priceuni": "0.2",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            },
+            {
+                "name": "Verre ThÃ© GlacÃ©",
+                "idstr": "verrethe",
+                "priceuni": "0.2",
+                "pricemore": "0",
+                "stock": "1",
+                "outofmenu": "0",
+                "hasingredients": "0",
+                "idcat": "cat_drink"
+            }
+        ]
+    },
+    {
+        "lacmd-ingredients": [
+            {
+                "name": "Chocolat",
+                "idstr": "choco",
+                "priceuni": "0.1",
+                "stock": "1"
+            },
+            {
+                "name": "Fromage RapÃ©",
+                "idstr": "fromrap",
+                "priceuni": "0.1",
+                "stock": "1"
+            },
+            {
+                "name": "Jambon",
+                "idstr": "jambon",
+                "priceuni": "0.1",
+                "stock": "1"
+            },
+            {
+                "name": "Salade Fraiche",
+                "idstr": "salade",
+                "priceuni": "0.1",
+                "stock": "1"
+            },
+            {
+                "name": "Saucisse",
+                "idstr": "saucisse",
+                "priceuni": "0.1",
+                "stock": "0"
+            },
+            {
+                "name": "Tomate",
+                "idstr": "tomate",
+                "priceuni": "0.1",
+                "stock": "1"
+            }
+        ]
+    }
+]
