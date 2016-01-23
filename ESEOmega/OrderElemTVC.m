@@ -346,12 +346,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     [self updSupplement];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
+}/*
+  // TODO: Tester sans
 - (void)                       tableView:(UITableView *)tableView
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     [self tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
+}*/
 
 @end

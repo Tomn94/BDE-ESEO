@@ -136,10 +136,4 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)                       tableView:(UITableView *)tableView
-accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-{
-    [self tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
-
 @end
