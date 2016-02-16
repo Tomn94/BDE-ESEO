@@ -146,7 +146,7 @@
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmez-vous votre achat ?"
-                                                                   message:[resume stringByAppendingString:@"\n\n⚠️ Les places sont nominatives.\nVotre carte étudiant vous sera demandée à l'entrée.\nLes CGV s'appliquent."]
+                                                                   message:[resume stringByAppendingString:@"\n\n⚠️ Les places sont nominatives.\nUne pièce d'identité peut vous être demandée à l'entrée.\nLes CGV s'appliquent."]
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Valider et payer ma place" style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * _Nonnull action) {

@@ -807,7 +807,7 @@ shouldChangeCharactersInRange:(NSRange)range
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Entrez votre mail pour recevoir votre place"
-                                                                   message:@"Entrez une adresse valide ci-dessous :"
+                                                                   message:@"Entrez une adresse valide ci-dessous.\nEn cas de soucis, vous pouvez toujours vous renvoyer un mail en tapant sur la place dans votre historique d'achats (onglet Événements › bouton ticket)."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
      {
