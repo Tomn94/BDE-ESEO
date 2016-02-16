@@ -23,6 +23,8 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil action:nil];
     
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     dataShuttles = [[Data sharedData] cafetData][0][@"event-navettes"];
     NSArray *events = [[Data sharedData] events][@"events"];
     NSMutableArray *t_dataEvent        = [NSMutableArray array];
@@ -31,7 +33,8 @@
     {
         BOOL ajouterEvent = NO;
         CGFloat minPrice  = 65640.;
-        if ([event[@"tickets"] count])
+        NSDate *dateFin   = [df dateFromString:event[@"dateFin"]];
+        if ([event[@"tickets"] count] && [dateFin compare:[NSDate date]] == NSOrderedDescending)
         {
             NSMutableArray *ticketsInfos = [NSMutableArray array];
             for (NSDictionary *ticket in event[@"tickets"])
