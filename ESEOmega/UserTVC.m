@@ -321,6 +321,7 @@ didFailLoadWithError:(nullable NSError *)error
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request2
                                                        completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
+                                          [[Data sharedData] updLoadingActivity:NO];
                                           NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
                                                                                                options:kNilOptions
                                                                                                  error:nil];

@@ -457,6 +457,7 @@
                                                                                        preferredStyle:UIAlertControllerStyleAlert];
                                               else
                                               {
+                                                  [[Data sharedData] setCafetCmdEnCours:NO];
                                                   [[Data sharedData] setCafetData:JSON];
                                                   [[Data sharedData] setCafetToken:dataToken[@"token"]];
                                                   

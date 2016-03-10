@@ -208,7 +208,7 @@
     NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitDay)
                                                            fromDate:[NSDate date]];
     NSString *header = [NSString stringWithFormat:@"%@ %d", [[df monthSymbols][dc.month - 1] capitalizedString], (int)dc.year];
-    if (eventsMonths == nil)
+    if (eventsMonths == nil || [eventsMonths count] < 1)
         return;
     NSUInteger pos = [eventsMonths indexOfObject:header];
     if (pos == NSNotFound)

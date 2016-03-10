@@ -65,15 +65,9 @@
     fichiers = [[Data sharedData] ingenews][@"fichiers"];
     
     if ([fichiers count])
-    {
         [self.collectionView setBackgroundColor:[UIColor whiteColor]];
-        self.collectionView.alwaysBounceVertical = YES;
-    }
     else
-    {
         [self.collectionView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-        self.collectionView.alwaysBounceVertical = NO;
-    }
     [self.collectionView reloadData];
 }
 
