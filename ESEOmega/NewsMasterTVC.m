@@ -307,16 +307,21 @@
     
     NSDictionary *article = news[indexPath.row];
     NSString *titre = [article[@"titre"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *contenuFormat = [article[@"contenuformat"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *contenuFormat = [article[@"resume"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"  +"
                                                                            options:NSRegularExpressionCaseInsensitive error:nil];
-    [cell.textLabel setText:[regex stringByReplacingMatchesInString:titre options:0
-                                                              range:NSMakeRange(0, [titre length])
-                                                       withTemplate:@" "]];
-    [cell.detailTextLabel setText:[regex stringByReplacingMatchesInString:contenuFormat options:0
-                                                                    range:NSMakeRange(0, [contenuFormat length])
-                                                             withTemplate:@" "]];
-//        cell.detailTextLabel.text = nil;
+    if (titre)
+        [cell.textLabel setText:[regex stringByReplacingMatchesInString:titre options:0
+                                                                  range:NSMakeRange(0, [titre length])
+                                                           withTemplate:@" "]];
+    else
+        cell.textLabel.text = nil;
+    if (contenuFormat)
+        [cell.detailTextLabel setText:[regex stringByReplacingMatchesInString:contenuFormat options:0
+                                                                        range:NSMakeRange(0, [contenuFormat length])
+                                                                 withTemplate:@" "]];
+    else
+        cell.detailTextLabel.text = nil;
     
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
     if (article[@"img"] != nil && ![article[@"img"] isEqualToString:@""])

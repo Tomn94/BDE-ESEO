@@ -36,10 +36,14 @@
     titles = [NSMutableArray array];
     links  = [NSMutableArray array];
     imgs   = [NSMutableArray array];
-    for (NSDictionary *club in clubs)
+    
+    if (clubs.count > 0)
     {
-        if ([club[@"id"] intValue] == 1)
-        {
+        NSDictionary *club = clubs[0];
+    //for (NSDictionary *club in clubs)
+    //{
+        //if ([club[@"id"] intValue] == 1)
+        //{
             if (club[@"web"] != nil && ![club[@"web"] isEqualToString:@""] && [NSURL URLWithString:club[@"web"]] != nil)
             {
                 [titles addObject:SITE_BDE_TITLE];
@@ -87,8 +91,9 @@
                 [links  addObject:club[@"youtube"]];
                 [imgs   addObject:[[UIImage imageNamed:@"youtube"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
             }
-            break;
-        }
+            //break;
+        //}
+    //}
     }
     
     if ([titles count])
