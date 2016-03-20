@@ -107,10 +107,11 @@
     
     NSURL *url = [NSURL URLWithString:URL_GP];
     NSString *client = [Data encoderPourURL:[JNKeychain loadValueForKey:@"login"]];
-    NSString *score = [NSString stringWithFormat:@"%d", (int)_score];
-    NSString *body = [NSString stringWithFormat:@"score=%@&client=%@&hash=%@",
-                      score, client,
-                      [Data encoderPourURL:[Data hashed_string:[[@"**** SCORES ****" stringByAppendingString:client] stringByAppendingString:score]]]];
+    NSString *pass   = [Data encoderPourURL:[JNKeychain loadValueForKey:@"passw"]];
+    NSString *score  = [NSString stringWithFormat:@"%d", (int)_score];
+    NSString *body   = [NSString stringWithFormat:@"score=%@&client=%@&password=%@&hash=%@",
+                        score, client, pass,
+                        [Data encoderPourURL:[Data hashed_string:[[[@"**** SCORES ****" stringByAppendingString:client] stringByAppendingString:score] stringByAppendingString:pass]]]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
@@ -149,7 +150,7 @@
                                               else
                                               {
                                                   SKLabelNode *score = _scoresHUD[0];
-                                                  if ([JSON[@"status"] intValue] == 1)
+                                                  if ([JSON[@"status"] intValue] == -2)
                                                       score.text = @"01  erreur mot-passe";
                                                   else
                                                       score.text = @"01  erreur -serveur-";

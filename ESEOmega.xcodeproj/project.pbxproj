@@ -80,6 +80,7 @@
 		64C9C3E71B6850AF009F05DC /* CreditsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C9C3E61B6850AF009F05DC /* CreditsTVC.m */; };
 		64CDF0941B642C670051C7BB /* CommandesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64CDF0931B642C670051C7BB /* CommandesTVC.m */; };
 		64D768371B87B43300C09215 /* OrderElemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D768361B87B43300C09215 /* OrderElemTVC.m */; };
+		64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 64DE993F1C9EBC6E00751204 /* bellum.mp3 */; };
 		64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E054A31B8620EB00C35F35 /* OrderMenuCell.m */; };
 		64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0D2611BEAA4C9003A623C /* TUSafariActivity.m */; };
 		64E273441B723E8000A84E68 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E273431B723E8000A84E68 /* GameScene.m */; };
@@ -268,6 +269,7 @@
 		64CDF0931B642C670051C7BB /* CommandesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesTVC.m; sourceTree = "<group>"; };
 		64D768351B87B43300C09215 /* OrderElemTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderElemTVC.h; sourceTree = "<group>"; };
 		64D768361B87B43300C09215 /* OrderElemTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderElemTVC.m; sourceTree = "<group>"; };
+		64DE993F1C9EBC6E00751204 /* bellum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bellum.mp3; sourceTree = "<group>"; };
 		64E054A21B8620EB00C35F35 /* OrderMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMenuCell.h; sourceTree = "<group>"; };
 		64E054A31B8620EB00C35F35 /* OrderMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMenuCell.m; sourceTree = "<group>"; };
 		64E0D2601BEAA4C9003A623C /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUSafariActivity.h; path = SDWebImage/TUSafariActivity.h; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 				6488AA4F1B728CDC000E2660 /* ka1.ttf */,
 				64E61EAD1B6973E200D89D79 /* linowrite.ttf */,
 				6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */,
+				64DE993F1C9EBC6E00751204 /* bellum.mp3 */,
 				64F93EB81B5EA97900EE5C72 /* Info.plist */,
 				6418DBA51B815436000069CB /* CCBottomRefreshControl */,
 				6425D8351BACB22E00F15BDD /* CustomiOSAlertView */,
@@ -877,6 +880,7 @@
 				64E61EAE1B69743D00D89D79 /* linowrite.ttf in Resources */,
 				64B7BE621B88C9E50093F7F5 /* LaunchScreen.xib in Resources */,
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
+				64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */,
 				64E61EB01B69790E00D89D79 /* Order.storyboard in Resources */,
 				64F93EB21B5EA97900EE5C72 /* Main.storyboard in Resources */,
 			);

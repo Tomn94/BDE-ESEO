@@ -8,11 +8,13 @@
 
 @import UIKit;
 @import SpriteKit;
+@import AVFoundation;
 #import "GameScene.h"
 
 @interface GameVC : UIViewController
 {
     SKView *gameView;
+    AVAudioPlayer *audioPlayer;
 }
 
 @end

@@ -17,16 +17,22 @@
 #import "GameVC.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 
+#define GUY_MODE 0
+
 @interface TabBarController : UITabBarController <UITabBarControllerDelegate, MFMailComposeViewControllerDelegate>
 {
     BOOL retapCmd;
+#if GUY_MODE == 1
     NSTimeInterval launchTime;
-//    UITapGestureRecognizer *tap;
+    UITapGestureRecognizer *tap;
+#endif
 }
 
 - (void) secret;
 - (void) ecranConnex;
-/*- (void) ajouterTap;
-- (void) retirerTap;*/
+#if GUY_MODE == 1
+- (void) ajouterTap;
+- (void) retirerTap;
+#endif
 
 @end

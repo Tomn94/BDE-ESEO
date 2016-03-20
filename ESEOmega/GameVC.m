@@ -18,8 +18,27 @@
         gameView.showsNodeCount = NO;
         gameView.ignoresSiblingOrder = YES;
         [self setView:gameView];
+        
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"bellum" ofType:@"mp3"]];
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        audioPlayer.numberOfLoops = -1;
+        [audioPlayer prepareToPlay];
     }
     return self;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+    
+    [audioPlayer play];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+    
+    [audioPlayer stop];
 }
 
 - (void) viewWillLayoutSubviews

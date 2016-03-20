@@ -15,8 +15,10 @@
     [[Data sharedData] setLaunchTime:[NSDate timeIntervalSinceReferenceDate]];
     self.delegate = self;
     retapCmd = NO;
-    
-//    [self ajouterTap];
+
+#if GUY_MODE == 1
+    [self ajouterTap];
+#endif
     
     [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
@@ -65,28 +67,30 @@
 
 - (void) secret
 {
-    /*if (tap)
+#if GUY_MODE == 1
+    if (tap)
         [self retirerTap];
-    if ([NSDate timeIntervalSinceReferenceDate] - launchTime > 10)
-        return;
-    */
+#endif
+//    if ([NSDate timeIntervalSinceReferenceDate] - launchTime > 10)
+//        return;
+    
     GameVC *gameVC = [GameVC new];
     [self presentViewController:gameVC animated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }];
-}/*
+}
 
+#if GUY_MODE == 1
 - (void) ajouterTap
 {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"userId"] isEqualToString:@""])
+    if ([[JNKeychain loadValueForKey:@"login"] isEqualToString:@""])
         return;
     
-    launchTime = [NSDate timeIntervalSinceReferenceDate];
+//    launchTime = [NSDate timeIntervalSinceReferenceDate];
     if (!tap)
     {
         tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(secret)];
         [tap setNumberOfTapsRequired:10];
-//        [tap setNumberOfTouchesRequired:2];
         [self.view addGestureRecognizer:tap];
     }
     [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(retirerTap) userInfo:nil repeats:NO];
@@ -99,7 +103,8 @@
         [self.view removeGestureRecognizer:tap];
         tap = nil;
     }
-}*/
+}
+#endif
 
 - (void) ecranConnex
 {
