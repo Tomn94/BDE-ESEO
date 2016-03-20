@@ -18,6 +18,8 @@
     self.navigationController.navigationBar.tintColor    = [UIColor colorWithRed:0.9964 green:0.8461 blue:0.8497 alpha:1];
     
     messageQuitterVu = NO;
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Événements"
                                                                              style:UIBarButtonItemStylePlain
@@ -58,6 +60,17 @@
     }
     dataEvents        = [NSArray arrayWithArray:t_dataEvent];
     dataEventsTickets = [NSArray arrayWithArray:t_dataEventTickets];
+    
+    if ([dataEvents count])
+    {
+        [self.tableView setBackgroundColor:[UIColor whiteColor]];
+        self.tableView.tableFooterView = nil;
+    }
+    else
+    {
+        [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+        self.tableView.tableFooterView = [UIView new];
+    }
     
     [[Data sharedData] setCafetCmdEnCours:NO];
     [[Data sharedData] setCafetDebut:[[NSDate date] timeIntervalSinceReferenceDate]];
@@ -379,6 +392,43 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [self presentViewController:dialog animated:YES completion:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - DZNEmptyDataSet
+
+- (UIImage *) imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"autreVide2"];
+}
+
+- (NSAttributedString *) titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"Aucun événement en vente actuellement";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"Revenez plus tard !";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (CGPoint) offsetForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return CGPointMake(0, -self.tableView.tableHeaderView.frame.size.height / 2. - 50);
 }
 
 @end

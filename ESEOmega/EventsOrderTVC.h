@@ -12,9 +12,10 @@
 #import "Data.h"
 #import "OrderMenuCell.h"
 #import "EventsOrderNavTVC.h"
+#import "UIScrollView+EmptyDataSet.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 
-@interface EventsOrderTVC : UITableViewController
+@interface EventsOrderTVC : UITableViewController <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
 {
     BOOL messageQuitterVu;
     NSArray *dataEvents;
