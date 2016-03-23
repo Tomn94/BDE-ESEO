@@ -832,6 +832,11 @@
 					64F93EA01B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 7HW87TV8LC;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					64F93EBC1B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
@@ -1143,10 +1148,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"iPAD=\"UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad\"",
+					"iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"",
 				);
 				INFOPLIST_FILE = ESEOmega/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega-debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1166,9 +1171,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad\"";
+				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"";
 				INFOPLIST_FILE = ESEOmega/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "$(TARGET_NAME)";

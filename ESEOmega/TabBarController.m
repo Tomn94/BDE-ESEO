@@ -16,9 +16,8 @@
     self.delegate = self;
     retapCmd = NO;
 
-#if GUY_MODE == 1
-    [self ajouterTap];
-#endif
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
+        [self ajouterTap];
     
     [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
@@ -67,10 +66,14 @@
 
 - (void) secret
 {
-#if GUY_MODE == 1
+    if ([[JNKeychain loadValueForKey:@"login"] isEqualToString:@""])
+        return;
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
+        return;
+    
     if (tap)
         [self retirerTap];
-#endif
 //    if ([NSDate timeIntervalSinceReferenceDate] - launchTime > 10)
 //        return;
     
@@ -80,12 +83,8 @@
     }];
 }
 
-#if GUY_MODE == 1
 - (void) ajouterTap
 {
-    if ([[JNKeychain loadValueForKey:@"login"] isEqualToString:@""])
-        return;
-    
 //    launchTime = [NSDate timeIntervalSinceReferenceDate];
     if (!tap)
     {
@@ -93,7 +92,7 @@
         [tap setNumberOfTapsRequired:10];
         [self.view addGestureRecognizer:tap];
     }
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(retirerTap) userInfo:nil repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(retirerTap) userInfo:nil repeats:NO];
 }
 
 - (void) retirerTap
@@ -104,7 +103,6 @@
         tap = nil;
     }
 }
-#endif
 
 - (void) ecranConnex
 {

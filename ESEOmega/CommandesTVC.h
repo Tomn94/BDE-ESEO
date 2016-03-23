@@ -47,6 +47,6 @@ typedef enum {
 
 @interface CustomHeaderView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *serviceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *__nullable serviceLabel;
 
 @end

@@ -74,7 +74,7 @@
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Thomas Naudet pour ESEOmega\n© Collection Été 2015 - Hiver 2016";
+    NSString *text = @"Thomas Naudet pour ESEOmega\n© Collection Été 2015 - Hiver 2016\nQuestion ? @tomn94";
 
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

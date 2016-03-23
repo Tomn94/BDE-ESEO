@@ -317,9 +317,14 @@
     else
         cell.textLabel.text = nil;
     if (contenuFormat)
-        [cell.detailTextLabel setText:[regex stringByReplacingMatchesInString:contenuFormat options:0
-                                                                        range:NSMakeRange(0, [contenuFormat length])
-                                                                 withTemplate:@" "]];
+    {
+        NSString *tempText = [regex stringByReplacingMatchesInString:contenuFormat options:0
+                                                               range:NSMakeRange(0, [contenuFormat length])
+                                                        withTemplate:@" "];
+        tempText = [tempText stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        tempText = [tempText stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+        [cell.detailTextLabel setText:tempText];
+    }
     else
         cell.detailTextLabel.text = nil;
     

@@ -242,7 +242,7 @@ sectionForSectionIndexTitle:(NSString *)title
 {
     if (search.active)
         return nil;
-    NSString *text = @"Aucune salle";
+    NSString *text = @"Aucune salle trouvée";
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -254,7 +254,7 @@ sectionForSectionIndexTitle:(NSString *)title
 {
     if (search.active)
         return nil;
-    NSString *text = @"Vérifiez votre connexion et tirez pour rafraîchir.";
+    NSString *text = @"Le bâtiment ESEO a peut-être été détruit, ou alors votre connexion Internet n'est pas au top de sa forme…";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

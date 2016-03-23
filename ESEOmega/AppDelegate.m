@@ -31,7 +31,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     if (userInfo[@"aps"])
     {
         NSInteger vers = [userInfo[@"version"] doubleValue];
-        if (vers >= VERSION_NOTIFS_iOS)
+        if (vers <= VERSION_NOTIFS_iOS)
         {
             NSInteger val = [userInfo[@"action"] integerValue];
             if (val >= 0)
@@ -127,6 +127,24 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 //    NSLog(@"%@", error);
 }
 
+- (void)         application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+      fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSInteger vers = [userInfo[@"version"] doubleValue];
+    if (vers <= VERSION_NOTIFS_iOS)
+    {
+        NSInteger val = [userInfo[@"action"] integerValue];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (val == 85)
+            [defaults setValue:@YES forKey:@"GPenabled"];
+        else if (val == 86)
+            [defaults setValue:@NO forKey:@"GPenabled"];
+        [defaults synchronize];
+    }
+    completionHandler(UIBackgroundFetchResultNoData);
+}
+
 - (void)          application:(UIApplication *)application
  didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -135,25 +153,27 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
     
     if (application.applicationState == UIApplicationStateActive)
     {
-        NSString *titre = userInfo[@"aps"][@"alert"];
-        NSString *message = nil;
-        if (vers < VERSION_NOTIFS_iOS)
+        NSString *titre = userInfo[@"aps"][@"title"];
+        NSString *message = userInfo[@"aps"][@"body"];
+        if (vers > VERSION_NOTIFS_iOS)
         {
             titre = NV_VERSION_TITRE;
             message = NV_VERSION_MESSG;
         }
-        else if ([titre rangeOfString:@"\n"].location != NSNotFound)
+        /*else if ([titre rangeOfString:@"\n"].location != NSNotFound)
         {
+            titre = userInfo[@"aps"][@"title"];
+            message = userInfo[@"aps"][@"body"];
             NSMutableArray *sep = [NSMutableArray arrayWithArray:[titre componentsSeparatedByString:@"\n"]];
             titre = sep[0];
             [sep removeObjectAtIndex:0];
             message = [sep componentsJoinedByString:@"\n"];
-        }
+        }*/
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:titre
                                                                        message:message
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        if (vers < VERSION_NOTIFS_iOS || val == 21)
+        if (vers > VERSION_NOTIFS_iOS || val == 21 || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]])
         {
             [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
@@ -198,15 +218,15 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
     }
     else if (val == 0)
     {
-        NSString *titre = userInfo[@"aps"][@"alert"];
-        NSString *message = nil;
-        if ([titre rangeOfString:@"\n"].location != NSNotFound)
+        NSString *titre   = userInfo[@"aps"][@"alert"][@"title"];
+        NSString *message = userInfo[@"aps"][@"alert"][@"body"];
+        /*if ([titre rangeOfString:@"\n"].location != NSNotFound)
         {
             NSMutableArray *sep = [NSMutableArray arrayWithArray:[titre componentsSeparatedByString:@"\n"]];
             titre = sep[0];
             [sep removeObjectAtIndex:0];
             message = [sep componentsJoinedByString:@"\n"];
-        }
+        }*/
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:titre
                                                                        message:message

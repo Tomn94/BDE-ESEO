@@ -21,8 +21,9 @@
         });
         
         // Préférences par défaut
-        /*[defaults registerDefaults:@{ @"userId": @"",
-                                      @"userName": @"" }];*/
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults registerDefaults:@{ @"GPenabled": @NO}];
+        [defaults synchronize];
         
         EGOCache *ec        = [EGOCache globalCache];
 //        [[EGOCache globalCache] clearCache];
