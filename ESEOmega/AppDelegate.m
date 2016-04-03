@@ -140,6 +140,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
             [defaults setValue:@YES forKey:@"GPenabled"];
         else if (val == 86)
             [defaults setValue:@NO forKey:@"GPenabled"];
+        else
+            [self application:application didReceiveRemoteNotification:userInfo];
         [defaults synchronize];
     }
     completionHandler(UIBackgroundFetchResultNoData);
@@ -149,31 +151,36 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
  didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSInteger vers = [userInfo[@"version"] doubleValue];
-    NSInteger val = [userInfo[@"action"] integerValue];
+    NSInteger val  = [userInfo[@"action"] integerValue];
     
     if (application.applicationState == UIApplicationStateActive)
     {
-        NSString *titre = userInfo[@"aps"][@"title"];
-        NSString *message = userInfo[@"aps"][@"body"];
+        NSString *titre   = @"";//userInfo[@"aps"][@"alert"][@"title"];
+        NSString *message = @"";//userInfo[@"aps"][@"alert"][@"body"];
         if (vers > VERSION_NOTIFS_iOS)
         {
-            titre = NV_VERSION_TITRE;
+            titre   = NV_VERSION_TITRE;
             message = NV_VERSION_MESSG;
         }
-        /*else if ([titre rangeOfString:@"\n"].location != NSNotFound)
+        else if (userInfo[@"aps"][@"alert"][@"title"] != nil && userInfo[@"aps"][@"alert"][@"body"] != nil)
         {
-            titre = userInfo[@"aps"][@"title"];
-            message = userInfo[@"aps"][@"body"];
-            NSMutableArray *sep = [NSMutableArray arrayWithArray:[titre componentsSeparatedByString:@"\n"]];
+            titre   = userInfo[@"aps"][@"alert"][@"title"];
+            message = userInfo[@"aps"][@"alert"][@"body"];
+        }
+        else if ([userInfo[@"aps"][@"alert"] rangeOfString:@"\n"].location != NSNotFound)
+        {
+            NSMutableArray *sep = [NSMutableArray arrayWithArray:[userInfo[@"aps"][@"alert"] componentsSeparatedByString:@"\n"]];
             titre = sep[0];
             [sep removeObjectAtIndex:0];
             message = [sep componentsJoinedByString:@"\n"];
-        }*/
+        }
+        else
+            message = userInfo[@"aps"][@"alert"];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:titre
                                                                        message:message
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        if (vers > VERSION_NOTIFS_iOS || val == 21 || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]])
+        if (vers > VERSION_NOTIFS_iOS || val == 21/* || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]]*/)
         {
             [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
@@ -216,17 +223,38 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
         return;
     }
+    else if (val == 85)
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:@YES forKey:@"GPenabled"];
+        [defaults synchronize];
+        return;
+    }
+    else if (val == 86)
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:@NO forKey:@"GPenabled"];
+        [defaults synchronize];
+        return;
+    }
     else if (val == 0)
     {
-        NSString *titre   = userInfo[@"aps"][@"alert"][@"title"];
-        NSString *message = userInfo[@"aps"][@"alert"][@"body"];
-        /*if ([titre rangeOfString:@"\n"].location != NSNotFound)
+        NSString *titre   = @"";//userInfo[@"aps"][@"alert"][@"title"];
+        NSString *message = @"";//userInfo[@"aps"][@"alert"][@"body"];
+        if (userInfo[@"aps"][@"alert"][@"title"] != nil && userInfo[@"aps"][@"alert"][@"body"] != nil)
         {
-            NSMutableArray *sep = [NSMutableArray arrayWithArray:[titre componentsSeparatedByString:@"\n"]];
+            titre   = userInfo[@"aps"][@"alert"][@"title"];
+            message = userInfo[@"aps"][@"alert"][@"body"];
+        }
+        else if ([userInfo[@"aps"][@"alert"] rangeOfString:@"\n"].location != NSNotFound)
+        {
+            NSMutableArray *sep = [NSMutableArray arrayWithArray:[userInfo[@"aps"][@"alert"] componentsSeparatedByString:@"\n"]];
             titre = sep[0];
             [sep removeObjectAtIndex:0];
             message = [sep componentsJoinedByString:@"\n"];
-        }*/
+        }
+        else
+            message = userInfo[@"aps"][@"alert"];
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:titre
                                                                        message:message
