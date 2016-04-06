@@ -47,6 +47,7 @@
 #define URL_PUSH     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/push/register.php"
 #define URL_UNPUSH   @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/push/unregister.php"
 #define URL_GP       @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/gantier/scores.php"
+#define URL_GP_STATE @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/gantier/state.php"
 
 #define URL_ACTIVITY @"http://eseomega.fr"
 #define URL_ACT_NEWS @"http://eseomega.fr/news"

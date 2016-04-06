@@ -305,7 +305,7 @@
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname
 {
-    NSTimeInterval max = ([JSONname isEqualToString:@"cmds"]) ? 30 : 120;
+    NSTimeInterval max = ([JSONname isEqualToString:@"cmds"]) ? 10 : 30;
     /*if (!([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max))
         NSLog(@"Refusé. Mis à jour il y a peu.");*/
     return ([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max);

@@ -126,7 +126,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
 //    NSLog(@"%@", error);
 }
-
+/*
 - (void)         application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
       fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -145,7 +145,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         [defaults synchronize];
     }
     completionHandler(UIBackgroundFetchResultNoData);
-}
+}*/
 
 - (void)          application:(UIApplication *)application
  didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -210,7 +210,10 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     
     if (val == 42)
     {
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(secret) userInfo:nil repeats:NO];
+        if (![Data estConnecte])
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
+        else
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(secret) userInfo:nil repeats:NO];
         return;
     }
     else if (val == 99)

@@ -113,7 +113,7 @@
         [[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
     
-    upd = [NSTimer scheduledTimerWithTimeInterval:42
+    upd = [NSTimer scheduledTimerWithTimeInterval:10
                                            target:self
                                          selector:@selector(recupCommandes:)
                                          userInfo:nil

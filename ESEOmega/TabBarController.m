@@ -16,8 +16,8 @@
     self.delegate = self;
     retapCmd = NO;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
-        [self ajouterTap];
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
+    [self ajouterTap];
     
     [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
@@ -66,11 +66,11 @@
 
 - (void) secret
 {
-    if ([[JNKeychain loadValueForKey:@"login"] isEqualToString:@""])
+    if (![Data estConnecte])
         return;
-    
+    /*
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
-        return;
+        return;*/
     
     if (tap)
         [self retirerTap];
@@ -85,14 +85,39 @@
 
 - (void) ajouterTap
 {
-//    launchTime = [NSDate timeIntervalSinceReferenceDate];
-    if (!tap)
-    {
-        tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(secret)];
-        [tap setNumberOfTapsRequired:10];
-        [self.view addGestureRecognizer:tap];
-    }
-//    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(retirerTap) userInfo:nil repeats:NO];
+    if (![Data estConnecte])
+        return;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:[NSURL URLWithString:URL_GP_STATE]
+                                                   completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          [[Data sharedData] updLoadingActivity:NO];
+                                          
+                                          NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                          
+                                          BOOL ok = [result containsString:@"g"] && [result containsString:@"P"];
+                                          [[NSUserDefaults standardUserDefaults] setBool:ok
+                                                                                  forKey:@"GPenabled"];
+                                          [[NSUserDefaults standardUserDefaults] synchronize];
+                                          
+                                          if (ok)
+                                          {
+                                              //    launchTime = [NSDate timeIntervalSinceReferenceDate];
+                                              if (!tap)
+                                              {
+                                                  tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(secret)];
+                                                  [tap setNumberOfTapsRequired:10];
+                                                  [self.view addGestureRecognizer:tap];
+                                              }
+                                              //    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(retirerTap) userInfo:nil repeats:NO];
+                                          }
+                                      }];
+    [dataTask resume];
+    [[Data sharedData] updLoadingActivity:YES];
 }
 
 - (void) retirerTap
