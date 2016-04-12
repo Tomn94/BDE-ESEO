@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 - (void) openNotif:(NSDictionary *)userInfo;
+- (void) delayedAlert:(NSTimer *)timer;
 
 @end
 

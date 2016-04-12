@@ -30,7 +30,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
     if (userInfo[@"aps"])
     {
-        NSInteger vers = [userInfo[@"version"] doubleValue];
+        double vers = [userInfo[@"version"] doubleValue];
         if (vers <= VERSION_NOTIFS_iOS)
         {
             NSInteger val = [userInfo[@"action"] integerValue];
@@ -38,16 +38,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
                 [self openNotif:userInfo];
         }
         else
-        {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NV_VERSION_TITRE
-                                                                           message:NV_VERSION_MESSG
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
-            [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-        }
+            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedAlert:)
+                                           userInfo:@{@"titre": NV_VERSION_TITRE, @"message": NV_VERSION_MESSG, @"upd": @YES} repeats:NO];
     }
     
     return YES;
@@ -150,19 +142,27 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 - (void)          application:(UIApplication *)application
  didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSInteger vers = [userInfo[@"version"] doubleValue];
-    NSInteger val  = [userInfo[@"action"] integerValue];
+    double vers = [userInfo[@"version"] doubleValue];
+    NSInteger val = [userInfo[@"action"] integerValue];
+    
+    if (vers > VERSION_NOTIFS_iOS || val == 21)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NV_VERSION_TITRE
+                                                                       message:NV_VERSION_MESSG
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
     
     if (application.applicationState == UIApplicationStateActive)
     {
         NSString *titre   = @"";//userInfo[@"aps"][@"alert"][@"title"];
         NSString *message = @"";//userInfo[@"aps"][@"alert"][@"body"];
-        if (vers > VERSION_NOTIFS_iOS)
-        {
-            titre   = NV_VERSION_TITRE;
-            message = NV_VERSION_MESSG;
-        }
-        else if (userInfo[@"aps"][@"alert"][@"title"] != nil && userInfo[@"aps"][@"alert"][@"body"] != nil)
+        if (![userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]] && ![userInfo[@"aps"][@"body"] isKindOfClass:[NSString class]])
         {
             titre   = userInfo[@"aps"][@"alert"][@"title"];
             message = userInfo[@"aps"][@"alert"][@"body"];
@@ -180,14 +180,14 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
                                                                        message:message
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        if (vers > VERSION_NOTIFS_iOS || val == 21/* || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]]*/)
-        {
+        //if (vers > VERSION_NOTIFS_iOS || val == 21/* || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]]*/)
+        /*{
             [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
         }
-        else if (val > 0)
+        else */if (val > 0)
         {
             [alert addAction:[UIAlertAction actionWithTitle:@"Voir" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                               {
@@ -199,7 +199,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
         [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
     }
-    else if (val > 0)
+    else if (val >= 0)
         [self openNotif:userInfo];
 }
 
@@ -211,14 +211,14 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     if (val == 42)
     {
         if (![Data estConnecte])
-            [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:0.5 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
         else
-            [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(secret) userInfo:nil repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:0.5 target:tab selector:@selector(secret) userInfo:nil repeats:NO];
         return;
     }
     else if (val == 99)
     {
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
         return;
     }
     else if (val == 21)
@@ -244,7 +244,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     {
         NSString *titre   = @"";//userInfo[@"aps"][@"alert"][@"title"];
         NSString *message = @"";//userInfo[@"aps"][@"alert"][@"body"];
-        if (userInfo[@"aps"][@"alert"][@"title"] != nil && userInfo[@"aps"][@"alert"][@"body"] != nil)
+        if (![userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]] && ![userInfo[@"aps"][@"body"] isKindOfClass:[NSString class]])
         {
             titre   = userInfo[@"aps"][@"alert"][@"title"];
             message = userInfo[@"aps"][@"alert"][@"body"];
@@ -259,11 +259,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         else
             message = userInfo[@"aps"][@"alert"];
 
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:titre
-                                                                       message:message
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedAlert:) userInfo:@{@"titre": titre, @"message": message} repeats:NO];
         return;
     }
     
@@ -285,6 +281,26 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         [[Data sharedData] updateJSON:@"sponsors"];
     
     [tab setSelectedIndex:index];
+}
+
+- (void) delayedAlert:(NSTimer *)timer
+{
+    NSDictionary *infos = timer.userInfo;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:infos[@"titre"]
+                                                                   message:infos[@"message"]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    if (infos[@"upd"] != nil && infos[@"upd"]) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+    } else {
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    }
+    
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - URL Scheme
