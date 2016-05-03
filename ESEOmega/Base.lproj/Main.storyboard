@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -471,7 +471,9 @@ Paquet de chips</string>
                             </tableViewSection>
                             <tableViewSection id="19G-Pt-71x">
                                 <string key="footerTitle">Votre profil ESEO est nécessaire pour pouvoir accéder à certaines fonctionnalités, comme la commande à la cafétéria/événements et les notifications.
-Une fois la connexion validée, uniquement vos identifiants, nom et prénom sont conservés jusqu'à votre déconnexion, rien de plus.</string>
+Une fois la connexion validée, uniquement vos identifiants, nom et prénom sont conservés jusqu'à votre déconnexion, rien de plus.
+
+Bâtiment : F. Rolland</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilCoCell" textLabel="0RU-mS-Rdu" style="IBUITableViewCellStyleDefault" id="NiU-es-bbA">
                                         <rect key="frame" x="0.0" y="222" width="600" height="44"/>
@@ -1054,8 +1056,8 @@ Une fois la connexion validée, uniquement vos identifiants, nom et prénom sont
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lkv-Aq-dDA"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="atF-cd-EdF"/>
+        <segue reference="JkH-fa-vWF"/>
     </inferredMetricsTieBreakers>
 </document>
