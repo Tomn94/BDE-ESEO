@@ -106,9 +106,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [[Data sharedData] setPushToken:deviceToken];
     
-    EGOCache *ec = [EGOCache globalCache];
-    if ([ec hasCacheForKey:@"deviceTokenPush"] && [[ec dataForKey:@"deviceTokenPush"] isEqualToData:deviceToken])
-        return;
+//    EGOCache *ec = [EGOCache globalCache];
+//    if ([ec hasCacheForKey:@"deviceTokenPush"] && [[ec dataForKey:@"deviceTokenPush"] isEqualToData:deviceToken])
+//        return;
     
     [Data sendPushToken];
 }
