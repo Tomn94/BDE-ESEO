@@ -60,13 +60,13 @@
     NSArray *sandwichesAcceptes = [_data[@"mainElemStr"] componentsSeparatedByString:@"|"];
     for (NSDictionary *element in elems)
     {
-        if ([element[@"outofmenu"] intValue] == 0)
-        {
+        //if ([element[@"outofmenu"] intValue] == 0)
+        //{
             if ([element[@"hasingredients"] intValue] == 0)
                 [t_elements   addObject:element];
             else if ([sandwichesAcceptes containsObject:element[@"idstr"]])
                 [t_sandwiches addObject:element];
-        }
+        //}
     }
     sandwiches = [NSArray arrayWithArray:t_sandwiches];
     elements = [NSArray arrayWithArray:t_elements];
