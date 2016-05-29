@@ -295,7 +295,7 @@
 		64ED61101B6D7A4D00456B01 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		64ED61121B710BA400456B01 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		64ED61131B710BA400456B01 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
-		64F93EA11B5EA97900EE5C72 /* ESEOmega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESEOmega.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE ESEO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F93EA51B5EA97900EE5C72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64F93EA71B5EA97900EE5C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64F93EA81B5EA97900EE5C72 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -686,7 +686,7 @@
 		64F93EA21B5EA97900EE5C72 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				64F93EA11B5EA97900EE5C72 /* ESEOmega.app */,
+				64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */,
 				64F93EBD1B5EA97900EE5C72 /* ESEOmegaTests.bundle */,
 				64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */,
 			);
@@ -794,7 +794,7 @@
 			);
 			name = ESEOmega;
 			productName = ESEOmega;
-			productReference = 64F93EA11B5EA97900EE5C72 /* ESEOmega.app */;
+			productReference = 64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */;
 			productType = "com.apple.product-type.application";
 		};
 		64F93EBC1B5EA97900EE5C72 /* ESEOmegaTests */ = {
@@ -1157,7 +1157,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega-debug";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BDE ESEO";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1179,7 +1179,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BDE ESEO";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
