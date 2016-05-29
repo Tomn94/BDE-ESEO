@@ -2,8 +2,8 @@
 //  OrderMenuCell.h
 //  ESEOmega
 //
-//  Created by Tomn on 20/08/2015.
-//  Copyright © 2015 Tomn. All rights reserved.
+//  Created by Thomas NAUDET on 20/08/2015.
+//  Copyright © 2015 Thomas NAUDET
 //
 
 @import UIKit;
