@@ -73,12 +73,12 @@
 		64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D51B61664800AD4C25 /* NewsDetailVC.m */; };
 		64B7B37A1B86722700A0E296 /* OrderItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B3791B86722700A0E296 /* OrderItemCell.m */; };
 		64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */; };
-		64B7BE621B88C9E50093F7F5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64B7BE611B88C9E50093F7F5 /* LaunchScreen.xib */; };
 		64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */; };
 		64C4B21E1B657F5600F43FB9 /* UIImage+Fit.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B21B1B657F5600F43FB9 /* UIImage+Fit.m */; };
 		64C4B21F1B657F5600F43FB9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B21D1B657F5600F43FB9 /* UIImage+ImageEffects.m */; };
 		64C9C3E71B6850AF009F05DC /* CreditsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C9C3E61B6850AF009F05DC /* CreditsTVC.m */; };
 		64CDF0941B642C670051C7BB /* CommandesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64CDF0931B642C670051C7BB /* CommandesTVC.m */; };
+		64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */; };
 		64D768371B87B43300C09215 /* OrderElemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D768361B87B43300C09215 /* OrderElemTVC.m */; };
 		64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 64DE993F1C9EBC6E00751204 /* bellum.mp3 */; };
 		64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E054A31B8620EB00C35F35 /* OrderMenuCell.m */; };
@@ -256,7 +256,6 @@
 		64B7B3791B86722700A0E296 /* OrderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemCell.m; sourceTree = "<group>"; };
 		64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderIngredTVC.h; sourceTree = "<group>"; };
 		64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderIngredTVC.m; sourceTree = "<group>"; };
-		64B7BE611B88C9E50093F7F5 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		64C4B2171B657F4D00F43FB9 /* JAQBlurryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAQBlurryTableViewController.h; sourceTree = "<group>"; };
 		64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAQBlurryTableViewController.m; sourceTree = "<group>"; };
 		64C4B21A1B657F5600F43FB9 /* UIImage+Fit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Fit.h"; sourceTree = "<group>"; };
@@ -267,6 +266,7 @@
 		64C9C3E61B6850AF009F05DC /* CreditsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsTVC.m; sourceTree = "<group>"; };
 		64CDF0921B642C670051C7BB /* CommandesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesTVC.h; sourceTree = "<group>"; };
 		64CDF0931B642C670051C7BB /* CommandesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesTVC.m; sourceTree = "<group>"; };
+		64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		64D768351B87B43300C09215 /* OrderElemTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderElemTVC.h; sourceTree = "<group>"; };
 		64D768361B87B43300C09215 /* OrderElemTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderElemTVC.m; sourceTree = "<group>"; };
 		64DE993F1C9EBC6E00751204 /* bellum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bellum.mp3; sourceTree = "<group>"; };
@@ -700,7 +700,7 @@
 				64F93EA81B5EA97900EE5C72 /* AppDelegate.m */,
 				64ED610F1B6D7A4D00456B01 /* Data.h */,
 				64ED61101B6D7A4D00456B01 /* Data.m */,
-				64B7BE611B88C9E50093F7F5 /* LaunchScreen.xib */,
+				64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */,
 				64F93EB01B5EA97900EE5C72 /* Main.storyboard */,
 				64F93EB31B5EA97900EE5C72 /* Assets.xcassets */,
 				6430D2721B63FF5E00F5C7F5 /* TabBarController.h */,
@@ -883,10 +883,10 @@
 				6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
 				640026271C0A305D00AEF79B /* Salles.storyboard in Resources */,
+				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				64E93CF61C43980F005FC9CF /* Events.storyboard in Resources */,
 				6488AA501B728CEE000E2660 /* ka1.ttf in Resources */,
 				64E61EAE1B69743D00D89D79 /* linowrite.ttf in Resources */,
-				64B7BE621B88C9E50093F7F5 /* LaunchScreen.xib in Resources */,
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
 				64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */,
 				64E61EB01B69790E00D89D79 /* Order.storyboard in Resources */,
