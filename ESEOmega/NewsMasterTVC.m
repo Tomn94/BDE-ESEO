@@ -163,15 +163,15 @@
     
     NSMutableArray *boutons = [NSMutableArray array];
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoPortail"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(portail)]];
-    [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoCampus"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(campus)]];
-    [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoMails"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(mails)]];
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseo"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(eseo)]];
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoProjets"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(projets)]];
+    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoPortail"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(portail)]];
+    [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseoCampus"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(campus)]];
+    [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    [boutons addObject:[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"dreamspark"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dreamspark)]];
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     eseomegaBarItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseomega"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(eseomega)];
     [boutons addObject:eseomegaBarItem];
@@ -254,18 +254,18 @@
     [[Data sharedData] openURL:URL_ESEO currentVC:self];
 }
 
-- (void) projets
+- (void) dreamspark
 {
     if (popoverVisible)
     {
         popoverVisible = NO;
         [self dismissViewControllerAnimated:YES completion:^{
-            [[Data sharedData] openURL:URL_PROJETS currentVC:self];
+            [[Data sharedData] openURL:URL_DREAMSP currentVC:self];
         }];
         return;
     }
     
-    [[Data sharedData] openURL:URL_PROJETS currentVC:self];
+    [[Data sharedData] openURL:URL_DREAMSP currentVC:self];
 }
 
 - (void) eseomega

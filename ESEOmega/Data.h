@@ -25,6 +25,7 @@
 #define URL_MAIL     @"http://mail.office365.com"
 #define URL_ESEO     @"http://www.eseo.fr"
 #define URL_PROJETS  @"http://www.projets.eseo.fr"
+#define URL_DREAMSP  @"https://portail.eseo.fr/+CSCO+0h756767633A2F2F72352E626167757275686F2E70627A++/WebStore/Welcome.aspx?vsro=8&ws=482d2b46-8d9b-e011-969d-0030487d8897"
 
 #define URL_JSONS    @"https://web59.secure-secure.co.uk/francoisle.fr/eseonews/jsondata/%@_data/%@.json?%d"
 #define URL_NEWS     @"https://web59.secure-secure.co.uk/francoisle.fr/eseonews/getData.php?height=%d&ptr=%d&uzless=%d"
