@@ -1146,7 +1146,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas NAUDET (HUB9PRV69B)";
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1158,7 +1158,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega-debug";
 				PRODUCT_NAME = "BDE ESEO";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fe70b35d-cb58-4682-9a9b-1b7dd12055b2";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1172,7 +1172,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas NAUDET (HUB9PRV69B)";
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"";
 				INFOPLIST_FILE = ESEOmega/Info.plist;
@@ -1180,7 +1180,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fe70b35d-cb58-4682-9a9b-1b7dd12055b2";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
