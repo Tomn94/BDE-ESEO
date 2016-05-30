@@ -1,5 +1,9 @@
 # Bureau des Étudiants du Groupe ESEO
-Thomas NAUDET pour ESEOmega
+![Version](https://img.shields.io/badge/version-3.1.5-green.svg)
+![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)
+![Platform](https://img.shields.io/badge/platform-iOS-red.svg)
+[![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
+![Licence](https://img.shields.io/badge/licence-GNU GPLv3-lightgrey.svg)
 
 [eseomega.fr](http://eseomega.fr) · [portail.eseomega.fr](http://portail.eseomega.fr)
 
