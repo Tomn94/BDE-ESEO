@@ -9,36 +9,36 @@ En cours de rédaction…
 
 ## Description
 
-	Découvrez l’application du Bureau des Étudiants du Groupe ESEO !
-	
-	Tout au long de l'année, profitez de toute la vie associative de l'ESEO en un seul endroit.
-	
-	NEWS
-	— Toute l'actualité de l'ESEO en un seul endroit, accédez facilement à la newsletter du dimanche
-	— Les notifications vous permettent de ne rien manquer !
-	— Accédez aux éditions du journal Ingénews
-	
-	EVENTS
-	— Retrouvez le calendrier annuel des événements de la vie associative.
-	Commandez vos places pour les événements, dont la Blue Moon !
-	
-	BDE & CLUBS
-	— Les infos, les photos, les liens, les contacts pour le BDE ainsi que tous les clubs de l'ESEO.
-	L'occasion rêvée de découvrir de nouveaux clubs et d'en rejoindre !
-	
-	CAFÉTÉRIA
-	— La cafétéria se modernise ! Désormais, commandez avec votre smartphone votre déjeuner !
-	— Visualisez votre historique de commandes et soyez informés, sans bouger, lorsque votre commande est prête par une notification
-	— Payez en liquide ou en carte bleue
-	
-	BONS PLANS
-	— Grâce à nos sponsors, profitez de multiples bons plans étudiants
-	
-	Retrouvez également tous les liens vers le portail, campus, mails, plans, …
-	Disponible sur iPhone & iPad.
-	
-	Créée par SheepDevs pour ESEOmega
-	Ω
+> Découvrez l’application du Bureau des Étudiants du Groupe ESEO !
+> 
+> Tout au long de l'année, profitez de toute la vie associative de l'ESEO en un seul endroit.
+> 
+> NEWS
+> - Toute l'actualité de l'ESEO en un seul endroit, accédez facilement à la newsletter du dimanche
+> - Les notifications vous permettent de ne rien manquer !
+> - Accédez aux éditions du journal Ingénews
+> 
+> EVENTS
+> - Retrouvez le calendrier annuel des événements de la vie associative.<br>
+> Commandez vos places pour les événements, dont la Blue Moon !
+> 
+> BDE & CLUBS
+> - Les infos, les photos, les liens, les contacts pour le BDE ainsi que tous les clubs de l'ESEO.<br>
+> L'occasion rêvée de découvrir de nouveaux clubs et d'en rejoindre !
+> 
+> CAFÉTÉRIA
+> - La cafétéria se modernise ! Désormais, commandez avec votre smartphone votre déjeuner !
+> - Visualisez votre historique de commandes et soyez informés, sans bouger, lorsque votre commande est prête par une notification
+> - Payez en liquide ou en carte bleue
+> 
+> BONS PLANS<br>
+> - Grâce à nos sponsors, profitez de multiples bons plans étudiants
+> 
+> Retrouvez également tous les liens vers le portail, campus, mails, plans, …<br>
+> Disponible sur iPhone & iPad.
+> 
+> Créée par SheepDevs pour ESEOmega<br>
+> Ω
 
 
 
