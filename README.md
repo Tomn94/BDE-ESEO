@@ -3,7 +3,9 @@
 http://eseomega.fr
 <br>http://portail.eseomega.fr
 
-Code bientôt disponible ici-même
+Description et informations à venir
+
+![Header Blue Moon 2016](twophoneapp.png)
 
 
     Copyright © 2015-2016 Thomas NAUDET
