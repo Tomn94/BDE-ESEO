@@ -1,9 +1,9 @@
 # Bureau des Étudiants du Groupe ESEO
-![Version](https://img.shields.io/badge/version-3.1.5-green.svg)
-![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)
-![Platform](https://img.shields.io/badge/platform-iOS-red.svg)
+[![Version](https://img.shields.io/badge/version-3.1.5-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
+[![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
-![Licence](https://img.shields.io/badge/licence-GNU GPLv3-lightgrey.svg)
+[![Licence](https://img.shields.io/badge/licence-GNU GPLv3-lightgrey.svg)](http://www.gnu.org/licenses/)
 
 Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8) &nbsp;·&nbsp; Site : [eseomega.fr](http://eseomega.fr) &nbsp;·&nbsp; Portail Clubs : [portail.eseomega.fr](http://portail.eseomega.fr)
 
