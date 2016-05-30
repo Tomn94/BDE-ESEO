@@ -5,7 +5,7 @@
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
 ![Licence](https://img.shields.io/badge/licence-GNU GPLv3-lightgrey.svg)
 
-[eseomega.fr](http://eseomega.fr) · [portail.eseomega.fr](http://portail.eseomega.fr)
+*Télécharger :* [App Store](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8) &nbsp;·&nbsp; *Site :* [eseomega.fr](http://eseomega.fr) &nbsp;·&nbsp; *Portail Clubs :* [portail.eseomega.fr](http://portail.eseomega.fr)
 
 
 En cours de rédaction…
@@ -48,6 +48,8 @@ En cours de rédaction…
 
 ![Header Blue Moon 2016](twophoneapp.png)
 
+
+## Licence
 
     Copyright © 2015-2016 Thomas NAUDET
 
@@ -239,3 +241,10 @@ En cours de rédaction…
 	– Corrections push, cafet et UI
 	
 	N'oubliez pas de noter l'app sur l'App Store !
+
+## TODO:
+- Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
+- Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad
+- Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
+- iOS 9 SFSafariViewController animation étrange lors des pop-ups
+- Simplifier le code (en Swift…) et commenter
