@@ -243,6 +243,7 @@ En cours de rédaction…
 	N'oubliez pas de noter l'app sur l'App Store !
 
 ## TODO:
+- Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
