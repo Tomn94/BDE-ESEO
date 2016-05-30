@@ -54,7 +54,7 @@
     // Handoff
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.events"];
     activity.title = @"Événements BDE ESEO";
-    activity.webpageURL = [NSURL URLWithString:@"http://eseomega.fr/events"];
+    activity.webpageURL = [NSURL URLWithString:URL_ACT_EVNT];
     if ([SFSafariViewController class])
     {
         activity.eligibleForSearch = YES;
