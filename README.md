@@ -8,7 +8,9 @@
 Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8) &nbsp;·&nbsp; Site : [eseomega.fr](http://eseomega.fr) &nbsp;·&nbsp; Portail Clubs : [portail.eseomega.fr](http://portail.eseomega.fr)
 
 
-En cours de rédaction…
+
+
+![Header Blue Moon 2016](twophoneapp.png)
 
 
 ## Description
@@ -44,9 +46,6 @@ En cours de rédaction…
 > Créée par SheepDevs pour ESEOmega<br>
 > Ω
 
-
-
-![Header Blue Moon 2016](twophoneapp.png)
 
 
 ## Licence
