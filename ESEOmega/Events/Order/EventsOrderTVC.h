@@ -26,7 +26,7 @@
 #import "OrderMenuCell.h"
 #import "EventsOrderNavTVC.h"
 #import "UIScrollView+EmptyDataSet.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "../../SDWebImage/UIImageView+WebCache.h"
 
 @interface EventsOrderTVC : UITableViewController <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
 {

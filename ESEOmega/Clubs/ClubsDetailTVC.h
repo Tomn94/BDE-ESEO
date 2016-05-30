@@ -26,8 +26,8 @@
 #import "JTSImageViewController.h"
 #import "ClubsSelectionDelegate.h"
 #import "JAQBlurryTableViewController.h"
-#import "SDWebImage/UIImageView+WebCache.h"
-#import "SDWebImage/SDWebImageDownloader.h"
+#import "../SDWebImage/UIImageView+WebCache.h"
+#import "../SDWebImage/SDWebImageDownloader.h"
 
 @interface ClubsDetailTVC : JAQBlurryTableViewController <ClubsSelectionDelegate, UIToolbarDelegate, MFMailComposeViewControllerDelegate>
 

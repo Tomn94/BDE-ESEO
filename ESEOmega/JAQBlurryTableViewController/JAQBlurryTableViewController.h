@@ -5,7 +5,7 @@
 //
 
 @import UIKit;
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "../SDWebImage/UIImageView+WebCache.h"
 
 @interface JAQBlurryTableViewController : UITableViewController
 @property (nonatomic, strong) UIView *contentView;

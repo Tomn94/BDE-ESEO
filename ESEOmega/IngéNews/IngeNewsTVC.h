@@ -24,7 +24,7 @@
 @import SafariServices;
 #import "Data.h"
 #import "UIScrollView+EmptyDataSet.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "../SDWebImage/UIImageView+WebCache.h"
 
 @interface IngeNewsCell : UICollectionViewCell
 

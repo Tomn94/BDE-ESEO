@@ -272,8 +272,8 @@
 		64DE993F1C9EBC6E00751204 /* bellum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bellum.mp3; sourceTree = "<group>"; };
 		64E054A21B8620EB00C35F35 /* OrderMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMenuCell.h; sourceTree = "<group>"; };
 		64E054A31B8620EB00C35F35 /* OrderMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMenuCell.m; sourceTree = "<group>"; };
-		64E0D2601BEAA4C9003A623C /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUSafariActivity.h; path = SDWebImage/TUSafariActivity.h; sourceTree = "<group>"; };
-		64E0D2611BEAA4C9003A623C /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUSafariActivity.m; path = SDWebImage/TUSafariActivity.m; sourceTree = "<group>"; };
+		64E0D2601BEAA4C9003A623C /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
+		64E0D2611BEAA4C9003A623C /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
 		64E273421B723E8000A84E68 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		64E273431B723E8000A84E68 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		64E273451B72444300A84E68 /* GameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameVC.h; sourceTree = "<group>"; };
@@ -341,7 +341,7 @@
 				640026291C0A3CAE00AEF79B /* SallesTVC.h */,
 				6400262A1C0A3CAE00AEF79B /* SallesTVC.m */,
 			);
-			name = Salles;
+			path = Salles;
 			sourceTree = "<group>";
 		};
 		6418DBA51B815436000069CB /* CCBottomRefreshControl */ = {
@@ -375,7 +375,7 @@
 				6418DBBD1B81551F000069CB /* ViewController+MASAdditions.h */,
 				6418DBBE1B81551F000069CB /* ViewController+MASAdditions.m */,
 			);
-			name = CCBottomRefreshControl;
+			path = CCBottomRefreshControl;
 			sourceTree = "<group>";
 		};
 		6425D8351BACB22E00F15BDD /* CustomiOSAlertView */ = {
@@ -385,6 +385,7 @@
 				6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */,
 			);
 			name = CustomiOSAlertView;
+			path = CustomIOSAlertView;
 			sourceTree = "<group>";
 		};
 		6430D2711B63DC9100F5C7F5 /* Events */ = {
@@ -397,7 +398,7 @@
 				6425D8391BACB7F700F15BDD /* EventAlertView.m */,
 				64E93CF11C439377005FC9CF /* Order */,
 			);
-			name = Events;
+			path = Events;
 			sourceTree = "<group>";
 		};
 		643B898B1C28CAB800B3A568 /* IngéNews */ = {
@@ -408,6 +409,7 @@
 				643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */,
 			);
 			name = "IngéNews";
+			path = "IngéNews";
 			sourceTree = "<group>";
 		};
 		64582C231BD6A9F50007C104 /* JTSImageViewController */ = {
@@ -437,7 +439,7 @@
 				64A271F11B645A350001063A /* CommandesCell.h */,
 				64A271F21B645A350001063A /* CommandesCell.m */,
 			);
-			name = Historique;
+			path = Historique;
 			sourceTree = "<group>";
 		};
 		6463B67F1B71511B00836C30 /* SDWebImage */ = {
@@ -490,6 +492,7 @@
 				64B7B37B1B86974100A0E296 /* Panier */,
 			);
 			name = Order;
+			path = ../Order;
 			sourceTree = "<group>";
 		};
 		6487C2EB1B5EF81300DC3B77 /* News */ = {
@@ -505,7 +508,7 @@
 				64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */,
 				64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */,
 			);
-			name = News;
+			path = News;
 			sourceTree = "<group>";
 		};
 		648F1E4F1B62ED8C008AC8D5 /* Profil */ = {
@@ -514,7 +517,7 @@
 				648F1E4C1B62ED7F008AC8D5 /* UserTVC.h */,
 				648F1E4D1B62ED7F008AC8D5 /* UserTVC.m */,
 			);
-			name = Profil;
+			path = Profil;
 			sourceTree = "<group>";
 		};
 		649F503B1B65146200F56263 /* DZNEmptyDataSet */ = {
@@ -534,7 +537,7 @@
 				649F503C1B65271B00F56263 /* ClubsMasterCell.h */,
 				649F503D1B65271B00F56263 /* ClubsMasterCell.m */,
 			);
-			name = Master;
+			path = Master;
 			sourceTree = "<group>";
 		};
 		64AD83C91B6013B100AD4C25 /* Clubs */ = {
@@ -547,7 +550,7 @@
 				64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */,
 				64AD83C81B6013A600AD4C25 /* ClubsSelectionDelegate.h */,
 			);
-			name = Clubs;
+			path = Clubs;
 			sourceTree = "<group>";
 		};
 		64AD83CD1B601DD800AD4C25 /* Sponsors */ = {
@@ -560,7 +563,7 @@
 				64C9C3E51B6850AF009F05DC /* CreditsTVC.h */,
 				64C9C3E61B6850AF009F05DC /* CreditsTVC.m */,
 			);
-			name = Sponsors;
+			path = Sponsors;
 			sourceTree = "<group>";
 		};
 		64B7B37B1B86974100A0E296 /* Panier */ = {
@@ -573,7 +576,7 @@
 				6482C3BB1BB33A7A008F8DF8 /* OrderConfirmCell.h */,
 				6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */,
 			);
-			name = Panier;
+			path = Panier;
 			sourceTree = "<group>";
 		};
 		64B7B37C1B86974900A0E296 /* Carte */ = {
@@ -588,7 +591,7 @@
 				64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */,
 				64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */,
 			);
-			name = Carte;
+			path = Carte;
 			sourceTree = "<group>";
 		};
 		64C4B2161B657F2800F43FB9 /* JAQBlurryTableViewController */ = {
@@ -601,7 +604,7 @@
 				64C4B21C1B657F5600F43FB9 /* UIImage+ImageEffects.h */,
 				64C4B21D1B657F5600F43FB9 /* UIImage+ImageEffects.m */,
 			);
-			name = JAQBlurryTableViewController;
+			path = JAQBlurryTableViewController;
 			sourceTree = "<group>";
 		};
 		64CDF0951B642C6E0051C7BB /* Cafet */ = {
@@ -614,7 +617,7 @@
 				646E56671B681F3300E357F8 /* CommandesDetailVC.m */,
 				6479F2F31B6D068A0004C867 /* Order */,
 			);
-			name = Cafet;
+			path = Cafet;
 			sourceTree = "<group>";
 		};
 		64E0D2631BEAA4DC003A623C /* TUSafariActivity */ = {
@@ -623,7 +626,7 @@
 				64E0D2601BEAA4C9003A623C /* TUSafariActivity.h */,
 				64E0D2611BEAA4C9003A623C /* TUSafariActivity.m */,
 			);
-			name = TUSafariActivity;
+			path = TUSafariActivity;
 			sourceTree = "<group>";
 		};
 		64E273481B72444B00A84E68 /* Game */ = {
@@ -636,7 +639,7 @@
 				6488AA511B72C299000E2660 /* LoseScreen.h */,
 				6488AA521B72C299000E2660 /* LoseScreen.m */,
 			);
-			name = Game;
+			path = Game;
 			sourceTree = "<group>";
 		};
 		64E63A701BC1F7F5005C350F /* JNKeychain */ = {
@@ -645,7 +648,7 @@
 				64E63A6D1BC1F7F0005C350F /* JNKeychain.h */,
 				64E63A6E1BC1F7F0005C350F /* JNKeychain.m */,
 			);
-			name = JNKeychain;
+			path = JNKeychain;
 			sourceTree = "<group>";
 		};
 		64E93CF11C439377005FC9CF /* Order */ = {
@@ -661,7 +664,7 @@
 				649D9D461C44534C00FDF2A8 /* EventsOrderNavTVC.h */,
 				649D9D471C44534C00FDF2A8 /* EventsOrderNavTVC.m */,
 			);
-			name = Order;
+			path = Order;
 			sourceTree = "<group>";
 		};
 		64ED61151B710BAD00456B01 /* EGOCache */ = {
@@ -670,7 +673,7 @@
 				64ED61121B710BA400456B01 /* EGOCache.h */,
 				64ED61131B710BA400456B01 /* EGOCache.m */,
 			);
-			name = EGOCache;
+			path = EGOCache;
 			sourceTree = "<group>";
 		};
 		64F93E981B5EA97900EE5C72 = {
@@ -1156,7 +1159,7 @@
 				INFOPLIST_FILE = ESEOmega/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";
 				PROVISIONING_PROFILE = "fe70b35d-cb58-4682-9a9b-1b7dd12055b2";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";

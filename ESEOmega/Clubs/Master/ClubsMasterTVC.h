@@ -21,7 +21,7 @@
 
 @import UIKit;
 #import "UIScrollView+EmptyDataSet.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "../../SDWebImage/UIImageView+WebCache.h"
 #import "Data.h"
 #import "ClubsSelectionDelegate.h"
 #import "ClubsMasterCell.h"

@@ -24,7 +24,7 @@
 #import "OrderMenuCell.h"
 #import "OrderElemTVC.h"
 #import "OrderIngredTVC.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "../../SDWebImage/UIImageView+WebCache.h"
 
 #define NBR_MAX_MENUS 2
 #define NBR_MAX_PANIER 10
