@@ -223,7 +223,7 @@ En cours de rédaction…
 ###v3.1.4 · 25/03/2016
 	[…] – (3.1.4) Retour sur iOS 8.1 pour les old school […]
 
-###v3.1.5 · 3?/05/2016
+###v3.1.5 · 31/05/2016
 	Merci d'avoir utilisé l'app pendant notre mandat ESEOmega !
 	Ω
 	Mais ce n'est pas fini…
