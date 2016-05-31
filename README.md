@@ -10,9 +10,6 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 
 
-![Header Blue Moon 2016](twophoneapp.png)
-
-
 ## Description
 
 > Découvrez l’application du Bureau des Étudiants du Groupe ESEO !
@@ -45,6 +42,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > 
 > Créée par SheepDevs pour ESEOmega<br>
 > Ω
+
 
 
 
@@ -117,6 +115,9 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v3.0 · 19/01/2016
+
+<img src="/Captures App Store/v3/iPad.png?raw=true" height="300" />
+
 > Méga mise à jour pour bien commencer la nouvelle année 2016 !
 > 
 > – Payez par carte à la cafet !<br>
@@ -159,6 +160,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v2.1.1 · 04/11/2015
+
+<img src="/Captures App Store/iPad/1.png?raw=true" height="300" />
+<img src="/Captures App Store/iPad/3.png?raw=true" height="300" />
+<img src="/Captures App Store/iPad/4.png?raw=true" height="300" />
+<img src="/Captures App Store/6/2.png?raw=true" height="300" />
+<img src="/Captures App Store/6/5.png?raw=true" height="300" />
+
 > Après les Notifications et l'optimisation iOS 9, quelques autres nouveautés pour l'app ESEOmega :
 > 
 > – 3D Touch<br>
@@ -209,6 +217,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v2.0 · 02/09/2015
+
+<img src="/Captures App Store/v2/iPad/1.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/iPad/3.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/iPad/4.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/6/2.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/6/5.png?raw=true" height="300" />
+
 > Nouvelle année scolaire, place à une toute nouvelle application !
 > 
 > NEWS<br>
@@ -248,4 +263,6 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Nous remercions tous nos sponsors !
 
 ###v1.0 · 29/03/2015
-> Version originale pour la campagne ESEOmega
+> *Publication originale pour la campagne ESEOmega*
+> 
+> *[Voir l'app](https://github.com/Tomn94/Campagne-ESEOmega)*
