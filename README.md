@@ -1,4 +1,5 @@
 # Bureau des Étudiants du Groupe ESEO
+
 [![Version](https://img.shields.io/badge/version-3.1.5-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
@@ -9,6 +10,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 
 ![Event online order](twophoneapp.png)
+
 
 ## Description
 
@@ -44,8 +46,6 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 
-
-
 ## Licence
 
     Copyright © 2015-2016 Thomas NAUDET
@@ -63,12 +63,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
     You should have received a copy of the GNU General Public License
     along with this program. If not, see http://www.gnu.org/licenses/
 
+
 ## Informations techniques
 
 Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
-## TODO:
+## TODO
 - Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad
