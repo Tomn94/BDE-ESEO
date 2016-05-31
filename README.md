@@ -265,4 +265,4 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 ###v1.0 · 29/03/2015
 > *Publication originale pour la campagne ESEOmega*
 > 
-> *[Voir l'app](https://github.com/Tomn94/Campagne-ESEOmega)*
+> *[Voir l'app de campagne](https://github.com/Tomn94/Campagne-ESEOmega)*
