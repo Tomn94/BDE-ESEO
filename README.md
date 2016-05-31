@@ -63,6 +63,10 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
     You should have received a copy of the GNU General Public License
     along with this program. If not, see http://www.gnu.org/licenses/
 
+## Informations techniques
+
+Nécessite une API Serveur SheepDevs pour fonctionner.
+
 
 ## TODO:
 - Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
