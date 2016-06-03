@@ -145,8 +145,19 @@
 
 - (void) validerAchat:(NSDictionary *)achat
 {
-    NSString *prix = [[NSString stringWithFormat:@"%.2f", [achat[@"ticket"][@"prix"] doubleValue]] stringByReplacingOccurrencesOfString:@"."
-                                                                                                                             withString:@","];
+    double prixAchat = [achat[@"ticket"][@"prix"] doubleValue];
+    if (prixAchat < 0.5 || prixAchat > 250.0)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible d'acheter ce produit"
+                                                                       message:@"Un paiement Lydia ne peut être effectué qu'entre 0.5 et 250 €."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    NSString *prix = [[NSString stringWithFormat:@"%.2f", prixAchat] stringByReplacingOccurrencesOfString:@"."
+                                                                                               withString:@","];
     
     NSString *resume = [NSString stringWithFormat:@"%@\n%@ · %@ €", achat[@"ticket"][@"donneesEvenement"][@"titre"],
                         achat[@"ticket"][@"nom"], prix];

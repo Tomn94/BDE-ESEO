@@ -263,7 +263,7 @@
         item.enabled = NO;
         [self.navigationItem setRightBarButtonItem:item animated:YES];
     }
-    else if (_infos[@"lydia_enabled"] != nil && [_infos[@"lydia_enabled"] boolValue] && [_infos[@"status"] intValue] != Done)
+    else if (_infos[@"lydia_enabled"] != nil && [_infos[@"lydia_enabled"] boolValue] && [_infos[@"status"] intValue] != Done && [_infos[@"price"] doubleValue] >= 0.5 && [_infos[@"price"] doubleValue] <= 250.0)
     {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Payer"
                                                                  style:UIBarButtonItemStylePlain
@@ -277,7 +277,7 @@
 
 - (void) payCmd
 {
-    if ([_infos[@"paidbefore"] intValue] == 1)
+    if ([_infos[@"paidbefore"] intValue] == 1 || [_infos[@"price"] doubleValue] < 0.5 || [_infos[@"price"] doubleValue] > 250.0)
         return;
     if (![Data estConnecte] && _infos[@"idcmd"] != nil && _infos[@"idlydia"] != nil)
         return;

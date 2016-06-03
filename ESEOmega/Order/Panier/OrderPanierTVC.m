@@ -318,6 +318,7 @@
                                                   {
                                                       BOOL cbOK = JSON[@"data"][@"idcmd"] && [JSON[@"data"][@"idcmd"] integerValue] > 0 &&
                                                                  [JSON[@"data"][@"price"] doubleValue] >= 0.5 &&
+                                                                 [JSON[@"data"][@"price"] doubleValue] <= 250.0 && 
                                                                  [JSON[@"data"][@"lydia_enabled"] boolValue];
                                                       alert = [UIAlertController alertControllerWithTitle:(cbOK) ? @"Commande validée !\nComment voulez-vous la payer ?" : @"Commande validée !"
                                                                                                   message:@"Celle-ci est en cours de préparation et sera disponible après avoir payé.\nVous serez averti d'une notification (si activées) quand elle vous attendra au comptoir.\nBon appétit ! 👌🏼"
