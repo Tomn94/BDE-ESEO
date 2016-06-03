@@ -1,4 +1,5 @@
 # Bureau des Étudiants du Groupe ESEO
+
 [![Version](https://img.shields.io/badge/version-3.1.5-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
@@ -8,9 +9,7 @@
 Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8) &nbsp;·&nbsp; Site : [eseomega.fr](http://eseomega.fr) &nbsp;·&nbsp; Portail Clubs : [portail.eseomega.fr](http://portail.eseomega.fr)
 
 
-
-
-![Header Blue Moon 2016](twophoneapp.png)
+![Event online order](twophoneapp.png)
 
 
 ## Description
@@ -47,7 +46,6 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 
-
 ## Licence
 
     Copyright © 2015-2016 Thomas NAUDET
@@ -66,17 +64,26 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
     along with this program. If not, see http://www.gnu.org/licenses/
 
 
-## TODO:
+## Informations techniques
+
+Nécessite une API Serveur SheepDevs pour fonctionner.
+
+
+## TODO
 - Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
+- Généraliser les achats de place (« navette »)
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
-- Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad
+- Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
-- iOS 9 SFSafariViewController animation étrange lors des pop-ups
+- iOS 9 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
 - Simplifier le code (en Swift…) et commenter
 
 
 ## Versions
-###v3.1.5 · 31/05/2016
+###v3.1.6 · 0?/06/2016
+> Correction des achats cafet, événements et Lydia […]
+
+###v3.1.5 · 02/06/2016
 > Merci d'avoir utilisé l'app pendant notre mandat ESEOmega !<br>
 > Ω<br>
 > Mais ce n'est pas fini…<br>
@@ -117,6 +124,9 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v3.0 · 19/01/2016
+
+<img src="/Captures App Store/v3/iPad.png?raw=true" height="300" />
+
 > Méga mise à jour pour bien commencer la nouvelle année 2016 !
 > 
 > – Payez par carte à la cafet !<br>
@@ -159,6 +169,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v2.1.1 · 04/11/2015
+
+<img src="/Captures App Store/iPad/1.png?raw=true" height="300" />
+<img src="/Captures App Store/iPad/3.png?raw=true" height="300" />
+<img src="/Captures App Store/iPad/4.png?raw=true" height="300" />
+<img src="/Captures App Store/6/2.png?raw=true" height="300" />
+<img src="/Captures App Store/6/5.png?raw=true" height="300" />
+
 > Après les Notifications et l'optimisation iOS 9, quelques autres nouveautés pour l'app ESEOmega :
 > 
 > – 3D Touch<br>
@@ -209,6 +226,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Ω
 
 ###v2.0 · 02/09/2015
+
+<img src="/Captures App Store/v2/iPad/1.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/iPad/3.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/iPad/4.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/6/2.png?raw=true" height="300" />
+<img src="/Captures App Store/v2/6/5.png?raw=true" height="300" />
+
 > Nouvelle année scolaire, place à une toute nouvelle application !
 > 
 > NEWS<br>
@@ -248,4 +272,6 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Nous remercions tous nos sponsors !
 
 ###v1.0 · 29/03/2015
-> Version originale pour la campagne ESEOmega
+> *Publication originale pour la campagne ESEOmega*
+> 
+> *[Voir l'app de campagne](https://github.com/Tomn94/Campagne-ESEOmega)*
