@@ -81,7 +81,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 ## Versions
 ###v3.1.6 · 0?/06/2016
-> - Correction des achats cafet, événements et Lydia […]
+> Correction des achats cafet, événements et Lydia […]
 
 ###v3.1.5 · 02/06/2016
 > Merci d'avoir utilisé l'app pendant notre mandat ESEOmega !<br>
