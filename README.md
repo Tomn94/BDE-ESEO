@@ -79,7 +79,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
 ## Versions
-###v3.1.5 · 01/06/2016
+###v3.1.5 · 02/06/2016
 > Merci d'avoir utilisé l'app pendant notre mandat ESEOmega !<br>
 > Ω<br>
 > Mais ce n'est pas fini…<br>
