@@ -33,10 +33,10 @@
         text = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
         text.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         text.font = [UIFont systemFontOfSize:11];
-        text.textColor = [UIColor grayColor];
+        text.textColor = [UIColor colorWithWhite:0.95 alpha:1];
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithCustomView:text],
                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                [[UIBarButtonItem alloc] initWithTitle:@"Ajouter au panier " style:UIBarButtonItemStylePlain
+                                [[UIBarButtonItem alloc] initWithTitle:@"Ajouter au panier " style:UIBarButtonItemStyleDone
                                                                 target:self action:@selector(valider)]]];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newSandw:) name:@"elemMenuSelec" object:nil];
@@ -48,6 +48,8 @@
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController.toolbar setBarTintColor:[[UINavigationBar appearance] barTintColor]];
+    [self.navigationController.toolbar setTintColor:[[UINavigationBar appearance] tintColor]];
     [self.navigationController setToolbarHidden:NO animated:YES];
     [self updSupplement];
 }
