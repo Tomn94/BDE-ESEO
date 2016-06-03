@@ -71,7 +71,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 ## TODO
 - Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
-- Généraliser les achats de place (« navette »)
+- Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
@@ -81,7 +81,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 ## Versions
 ###v3.1.6 · 0?/06/2016
-> Correction des achats cafet, événements et Lydia […]
+> Amélioration et correction des achats cafet, événements et Lydia […]
 
 ###v3.1.5 · 02/06/2016
 > Merci d'avoir utilisé l'app pendant notre mandat ESEOmega !<br>
