@@ -70,6 +70,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
 ## TODO
+- iOS 10 : SFSafariViewController barTintColor, couleurs UITabBarController/badges, notifications, … 
 - Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
