@@ -25,7 +25,7 @@
 #import "TabBarController.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
 
-@interface CommandesDetailVC : UIViewController
+@interface CommandesDetailVC : UIViewController <CAAnimationDelegate>
 {
     CGFloat brightness;
     NSTimer *upd;

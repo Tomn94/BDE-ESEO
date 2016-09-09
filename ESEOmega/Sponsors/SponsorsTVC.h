@@ -26,7 +26,7 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
 
-@interface SponsorsTVC : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate, SFSafariViewControllerDelegate>
+@interface SponsorsTVC : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate>
 {
     NSArray *sponsors;
 }

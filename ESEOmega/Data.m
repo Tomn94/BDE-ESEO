@@ -898,8 +898,11 @@ shouldChangeCharactersInRange:(NSRange)range
     {
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
                                                              entersReaderIfAvailable:NO];
-        safari.delegate = self;
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+        {
+            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+        }
         [vc presentViewController:safari animated:YES completion:nil];
     }
     else
@@ -997,13 +1000,6 @@ shouldChangeCharactersInRange:(NSRange)range
     else
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     [vc presentViewController:alert animated:YES completion:nil];
-}
-
-#pragma mark - Safari Controller Delegate
-
-- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 @end

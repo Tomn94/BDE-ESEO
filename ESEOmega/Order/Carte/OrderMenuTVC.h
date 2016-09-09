@@ -29,7 +29,7 @@
 #define NBR_MAX_MENUS 2
 #define NBR_MAX_PANIER 10
 
-@interface OrderMenuTVC : UITableViewController
+@interface OrderMenuTVC : UITableViewController <CAAnimationDelegate>
 {
     NSArray *data;
     UIWindow *statut;

@@ -34,7 +34,7 @@
 
 @end
 
-@interface IngeNewsCVC : UICollectionViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, SFSafariViewControllerDelegate,UIGestureRecognizerDelegate,UIViewControllerPreviewingDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface IngeNewsCVC : UICollectionViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate,UIViewControllerPreviewingDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSArray *fichiers;
     UIRefreshControl *refreshControl;
@@ -47,7 +47,7 @@
 
 @end
 
-@interface IngeNewsTVC : UITableViewController  <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, SFSafariViewControllerDelegate>
+@interface IngeNewsTVC : UITableViewController  <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSArray *fichiers;
 }

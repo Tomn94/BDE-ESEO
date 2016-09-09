@@ -565,13 +565,6 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Safari Controller Delegate
-
-- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-}
-
 #pragma mark - Tool Bar Delegate
 
 - (UIBarPosition) positionForBar:(id<UIBarPositioning>)bar

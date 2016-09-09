@@ -71,7 +71,7 @@
 
 #define MAX_ORDER_TIME 582
 
-@interface Data : NSObject <SFSafariViewControllerDelegate, UITextFieldDelegate>
+@interface Data : NSObject <UITextFieldDelegate>
 
 + (Data *) sharedData;
 

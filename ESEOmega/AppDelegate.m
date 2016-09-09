@@ -31,7 +31,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.000 green:0.647 blue:1 alpha:1]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.806 green:0.959 blue:1 alpha:1]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor] }];
-    [[UITabBarItem appearance]    setBadgeColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
+//    if ([[UITabBarItem appearance] respondsToSelector:@selector(setBadgeColor:)])
+//        [[UITabBarItem appearance] setBadgeColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
     [_window setTintColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
     
     if ([Data estConnecte])
@@ -317,7 +318,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
-#pragma mark - URL Scheme
+#pragma mark - URL Scheme Lydia
 
 - (BOOL) application:(UIApplication *)application
       handleOpenURL:(NSURL *)url

@@ -56,7 +56,6 @@
 
 - (IBAction) fermer:(id)sender
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -153,8 +152,11 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
     {
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:URL
                                                              entersReaderIfAvailable:NO];
-        safari.delegate = self;
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+        {
+            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+        }
         [self presentViewController:safari animated:YES completion:^{
             NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
             if ([d integerForKey:@"messageImpressionLu"] != 2 && !messageLu)
@@ -219,7 +221,11 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
         
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
                                                              entersReaderIfAvailable:NO];
-        safari.delegate = self;
+        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+        {
+            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+        }
         return safari;
     }
     return nil;
@@ -228,15 +234,7 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 - (void) previewingContext:(id<UIViewControllerPreviewing>)previewingContext
       commitViewController:(UIViewController *)viewControllerToCommit
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     [self presentViewController:viewControllerToCommit animated:YES completion:nil];
-}
-
-#pragma mark - Safari Controller Delegate
-
-- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 #pragma mark - DZNEmptyDataSet
@@ -378,8 +376,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     {
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:URL
                                                              entersReaderIfAvailable:NO];
-        safari.delegate = self;
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+        {
+            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+        }
         [self presentViewController:safari animated:YES completion:nil];
     }
     else
@@ -397,7 +398,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (IBAction) fermer:(id)sender
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -429,13 +429,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         self.tableView.tableFooterView = [UIView new];
     }
     [self.tableView reloadData];
-}
-
-#pragma mark - Safari Controller Delegate
-
-- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 #pragma mark - DZNEmptyDataSet

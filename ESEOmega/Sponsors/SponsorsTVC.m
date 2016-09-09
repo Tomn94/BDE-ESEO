@@ -191,7 +191,11 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
                                                              entersReaderIfAvailable:NO];
-        safari.delegate = self;
+        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+        {
+            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+        }
         return safari;
     }
     return nil;
@@ -200,7 +204,6 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (void) previewingContext:(id<UIViewControllerPreviewing>)previewingContext
       commitViewController:(UIViewController *)viewControllerToCommit
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     [self presentViewController:viewControllerToCommit animated:YES completion:nil];
 }
 
@@ -251,13 +254,6 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (UIColor *) backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
 {
     return [UIColor groupTableViewBackgroundColor];
-}
-
-#pragma mark - Safari Controller Delegate
-
-- (void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 @end

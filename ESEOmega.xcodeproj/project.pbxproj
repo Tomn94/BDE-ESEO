@@ -153,6 +153,7 @@
 		6418DBBC1B81551F000069CB /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		6418DBBD1B81551F000069CB /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		6418DBBE1B81551F000069CB /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE ESEO.entitlements"; sourceTree = "<group>"; };
 		6425D8321BACB22000F15BDD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6425D8361BACB2BE00F15BDD /* EventAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventAlertView.xib; sourceTree = "<group>"; };
@@ -256,6 +257,7 @@
 		64B7B3791B86722700A0E296 /* OrderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemCell.m; sourceTree = "<group>"; };
 		64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderIngredTVC.h; sourceTree = "<group>"; };
 		64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderIngredTVC.m; sourceTree = "<group>"; };
+		64B7ED401D803CBF004D2C63 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64C4B2171B657F4D00F43FB9 /* JAQBlurryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAQBlurryTableViewController.h; sourceTree = "<group>"; };
 		64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAQBlurryTableViewController.m; sourceTree = "<group>"; };
 		64C4B21A1B657F5600F43FB9 /* UIImage+Fit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Fit.h"; sourceTree = "<group>"; };
@@ -594,6 +596,14 @@
 			path = Carte;
 			sourceTree = "<group>";
 		};
+		64B7ED3F1D803CBF004D2C63 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64B7ED401D803CBF004D2C63 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		64C4B2161B657F2800F43FB9 /* JAQBlurryTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +693,7 @@
 				64F93EC01B5EA97900EE5C72 /* ESEOmegaTests */,
 				64F93ECB1B5EA97900EE5C72 /* ESEOmegaUITests */,
 				64F93EA21B5EA97900EE5C72 /* Products */,
+				64B7ED3F1D803CBF004D2C63 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -699,6 +710,7 @@
 		64F93EA31B5EA97900EE5C72 /* ESEOmega */ = {
 			isa = PBXGroup;
 			children = (
+				641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */,
 				64F93EA71B5EA97900EE5C72 /* AppDelegate.h */,
 				64F93EA81B5EA97900EE5C72 /* AppDelegate.m */,
 				64ED610F1B6D7A4D00456B01 /* Data.h */,
@@ -835,6 +847,7 @@
 					64F93EA01B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 7HW87TV8LC;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1152,9 +1165,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "ESEOmega/BDE ESEO.entitlements";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas NAUDET (HUB9PRV69B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1165,7 +1180,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";
-				PROVISIONING_PROFILE = "fe70b35d-cb58-4682-9a9b-1b7dd12055b2";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1178,16 +1194,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "ESEOmega/BDE ESEO.entitlements";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas NAUDET (HUB9PRV69B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"";
 				INFOPLIST_FILE = ESEOmega/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";
-				PROVISIONING_PROFILE = "fe70b35d-cb58-4682-9a9b-1b7dd12055b2";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -27,7 +27,7 @@
 #define SITE_BDE_TITLE @"Site BDE"
 #define MAIL_BDE_TITLE @"Nous contacter"
 
-@interface NewsLinksVC : UITableViewController <MFMailComposeViewControllerDelegate, UIViewControllerPreviewingDelegate, SFSafariViewControllerDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface NewsLinksVC : UITableViewController <MFMailComposeViewControllerDelegate, UIViewControllerPreviewingDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSMutableArray *titles, *links, *imgs;
 }

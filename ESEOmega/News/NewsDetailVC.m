@@ -146,7 +146,7 @@
 #pragma mark - Web View Delegate
 
 - (void)     webView:(nonnull UIWebView *)webView
-didFailLoadWithError:(nullable NSError *)error
+didFailLoadWithError:(nonnull NSError *)error
 {
     if (error.code == -999)
         return;
