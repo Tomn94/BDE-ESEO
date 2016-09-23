@@ -21,6 +21,7 @@
 
 @import UIKit;
 @import CoreSpotlight;
+@import UserNotifications;
 #import "Data.h"
 #import "TabBarController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
@@ -29,7 +30,9 @@
 #define NV_VERSION_TITRE @"Une nouvelle version de l'app est disponible"
 #define NV_VERSION_MESSG @"Impossible de recevoir les notifications, merci de mettre l'application à jour sur l'App Store."
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -28,6 +28,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
 //    [[SDImageCache sharedImageCache] clearDisk];
 //    [[SDImageCache sharedImageCache] clearMemory];
+    
+    /* UI COLORS */
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.000 green:0.647 blue:1 alpha:1]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.806 green:0.959 blue:1 alpha:1]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor] }];
@@ -35,26 +37,45 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 //        [[UITabBarItem appearance] setBadgeColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
     [_window setTintColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
     
+    /* NOTIFICATIONS */
     if ([Data estConnecte])
     {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    
-    NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
-    if (userInfo[@"aps"])
-    {
-        double vers = [userInfo[@"version"] doubleValue];
-        if (vers <= VERSION_NOTIFS_iOS)
+        if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
         {
-            NSInteger val = [userInfo[@"action"] integerValue];
-            if (val >= 0)
-                [self openNotif:userInfo];
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            center.delegate = self;
+            [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge)
+                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                if (!error)
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }];  
         }
         else
-            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedAlert:)
-                                           userInfo:@{@"titre": NV_VERSION_TITRE, @"message": NV_VERSION_MESSG, @"upd": @YES} repeats:NO];
+        {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+                                                                                     categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+    }
+    
+    // OPENED APP FROM NOTIFICATION
+    if (!SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
+    {
+        NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+        if (userInfo[@"aps"])
+        {
+            double vers = [userInfo[@"version"] doubleValue];
+            if (vers <= VERSION_NOTIFS_iOS)
+            {
+                NSInteger val = [userInfo[@"action"] integerValue];
+                if (val >= 0)
+                    [self openNotif:userInfo];
+            }
+            else
+                [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedAlert:)
+                                               userInfo:@{@"titre": NV_VERSION_TITRE, @"message": NV_VERSION_MESSG, @"upd": @YES} repeats:NO];
+        }
     }
     
     return YES;
@@ -154,6 +175,46 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     completionHandler(UIBackgroundFetchResultNoData);
 }*/
 
+
+// iOS 10: In-app support
+- (void) userNotificationCenter:(UNUserNotificationCenter *)center
+        willPresentNotification:(UNNotification *)notification
+          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    NSDictionary *userInfo = notification.request.content.userInfo;
+    
+    double vers = [userInfo[@"version"] doubleValue];
+    NSInteger val = [userInfo[@"action"] integerValue];
+    
+    if (vers > VERSION_NOTIFS_iOS || val == 21)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NV_VERSION_TITRE
+                                                                       message:NV_VERSION_MESSG
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+        completionHandler(UNNotificationPresentationOptionNone);
+        return;
+    }
+    
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+}
+
+
+// iOS 10: Action response
+- (void) userNotificationCenter:(UNUserNotificationCenter *)center
+ didReceiveNotificationResponse:(UNNotificationResponse *)response
+          withCompletionHandler:(void (^)())completionHandler
+{
+    NSLog(@"%@", response);
+    completionHandler();
+}
+
+// pre-iOS 10
 - (void)          application:(UIApplication *)application
  didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
