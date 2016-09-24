@@ -1,7 +1,7 @@
 # Bureau des Étudiants du Groupe ESEO
 
 [![Version](https://img.shields.io/badge/version-3.1.6-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
-[![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
+[![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
 [![Licence](https://img.shields.io/badge/licence-GNU GPLv3-lightgrey.svg)](http://www.gnu.org/licenses/)
@@ -81,8 +81,10 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
 ## Versions
-###v3.1.7 · 2016
-> iOS 10 : SFSafariViewController barTintColor, couleurs UITabBarController/badges, notifications, … 
+###v3.2 · 2016
+> - iOS 10 : SFSafariViewController barTintColor, couleurs UITabBarController/badges, notifications (images + actions)…
+> - Correction message lancement Lydia
+> - “Wednesday” events
 
 ###v3.1.6 · 05/06/2016
 > Amélioration et correction des achats cafet, événements et Lydia […]
