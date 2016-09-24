@@ -166,6 +166,27 @@
     [[Data sharedData] updateJSON:@"cmds"];
 }
 
++ (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate
+{
+    if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
+    {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = delegate;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                  if (!error)
+                                      [[UIApplication sharedApplication] registerForRemoteNotifications];
+                              }];
+    }
+    else
+    {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+                                                                                 categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+}
+
 + (void) sendPushToken
 {
     if (![Data estConnecte])
@@ -1003,3 +1024,4 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 @end
+

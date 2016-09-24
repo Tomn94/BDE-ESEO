@@ -21,6 +21,7 @@
 
 @import UIKit;
 #import "Data.h"
+#import "AppDelegate.h"
 #import "JAQBlurryTableViewController.h"
 #import "UIScrollView+EmptyDataSet.h"
 

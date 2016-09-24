@@ -370,9 +370,7 @@ didFailLoadWithError:(nullable NSError *)error
                                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                               if (connecte)
                                               {
-                                                  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-                                                  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-                                                  [[UIApplication sharedApplication] registerForRemoteNotifications];
+                                                  [Data registeriOSPush:(AppDelegate *)[[UIApplication sharedApplication] delegate]];
                                                   
                                                   if ([[Data sharedData] pushToken] != nil && [JNKeychain loadValueForKey:@"login"] != nil)
                                                       [Data sendPushToken];

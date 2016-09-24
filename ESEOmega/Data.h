@@ -24,6 +24,7 @@
 @import MessageUI;
 @import SafariServices;
 @import Security;
+@import UserNotifications;
 #import "EGOCache.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "JNKeychain.h"
@@ -71,7 +72,9 @@
 
 #define MAX_ORDER_TIME 582
 
-@interface Data : NSObject <UITextFieldDelegate>
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+@interface Data : NSObject <UITextFieldDelegate, UNUserNotificationCenterDelegate>
 
 + (Data *) sharedData;
 
@@ -105,6 +108,7 @@
               pass:(NSString *)mdp
                nom:(NSString *)nom;
 + (void) deconnecter;
++ (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void) sendPushToken;
 + (void) delPushToken;
 + (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage to:(CGSize)targetSize retina:(BOOL)retina;

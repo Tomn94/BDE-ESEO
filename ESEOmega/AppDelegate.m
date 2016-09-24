@@ -39,25 +39,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     
     /* NOTIFICATIONS */
     if ([Data estConnecte])
-    {
-        if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
-        {
-            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-            center.delegate = self;
-            [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge)
-                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                if (!error)
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-            }];  
-        }
-        else
-        {
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
-                                                                                     categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-        }
-    }
+        [Data registeriOSPush:self];
     
     // OPENED APP FROM NOTIFICATION
     if (!SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
@@ -141,6 +123,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [[Data sharedData] setPushToken:deviceToken];
+    
+    NSLog(@"%@", deviceToken);
     
 //    EGOCache *ec = [EGOCache globalCache];
 //    if ([ec hasCacheForKey:@"deviceTokenPush"] && [[ec dataForKey:@"deviceTokenPush"] isEqualToData:deviceToken])
