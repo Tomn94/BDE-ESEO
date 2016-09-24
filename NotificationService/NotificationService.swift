@@ -19,7 +19,7 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-
+import UIKit
 import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
@@ -37,10 +37,11 @@ class NotificationService: UNNotificationServiceExtension {
             
             if let attachmentID = request.content.userInfo["attchmt"] as? String,
                attachmentID != "" {
-                
+                let options = [UNNotificationAttachmentOptionsThumbnailClippingRectKey as NSObject:
+                               CGRect(x: 0, y: 0, width: 1, height: 1).dictionaryRepresentation]
                 var attachment: UNNotificationAttachment?
                 
-                // CHECK IMAGE TYPE
+                /*// CHECK IMAGE TYPE
                 if attachmentID == "cafetDone"    || attachmentID == "cafetReady" ||
                    attachmentID == "cafetNotPaid" || attachmentID == "cafetPreparing" ||
                    attachmentID == "spaceship",
@@ -48,19 +49,24 @@ class NotificationService: UNNotificationServiceExtension {
                     // Common Images
                     let attachmentURL: URL
                     if attachmentID == "spaceship" {
-                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + ".png")
+//                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + ".png")
                     } else {
-                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + "Precalc.png")
+//                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + "Precalc.png")
                     }
-                    attachment = try! UNNotificationAttachment(identifier: "image",
-                                                               url: attachmentURL,
-                                                               options: nil)
-                } else if let url = URL(string: attachmentID),
+                    attachmentURL = URL(fileURLWithPath: Bundle.main.path(forResource: attachmentID, ofType: "png")!)
+                    do {
+                        attachment = try UNNotificationAttachment(identifier: "image.png",
+                                                                  url: attachmentURL,
+                                                                  options: options)
+                    } catch {
+                        contentHandler(bestAttemptContent)
+                    }
+                } else*/ if let url = URL(string: attachmentID),
                    let imageData = NSData(contentsOf: url) {
                     // Other URL, download file
-                    attachment = UNNotificationAttachment.create(imageFileIdentifier: "image",
+                    attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.png",  // any extension needed
                                                                  data: imageData,
-                                                                 options: nil)
+                                                                 options: options)
                 }
                 
                 // ADD IMAGE TO NOTIFICATION
@@ -97,7 +103,7 @@ extension UNNotificationAttachment {
             try data.write(to: fileURL!, options: [])
             let imageAttachment = try UNNotificationAttachment(identifier: imageFileIdentifier, url: fileURL!, options: options)
             return imageAttachment
-        } catch {}
+        } catch { }
         
         return nil
     }
