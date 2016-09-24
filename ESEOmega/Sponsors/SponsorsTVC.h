@@ -22,7 +22,6 @@
 @import UIKit;
 #import "Data.h"
 #import "SponsorsCell.h"
-#import "CreditsTVC.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
 
@@ -34,6 +33,5 @@
 - (void) recupSponsors:(BOOL)forcer;
 - (void) loadSponsors;
 - (IBAction) refresh:(nullable UIRefreshControl *)sender;
-- (void) credits;
 
 @end

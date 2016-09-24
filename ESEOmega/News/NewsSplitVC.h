@@ -22,14 +22,16 @@
 @import UIKit;
 #import "NewsMasterTVC.h"
 #import "NewsDetailVC.h"
+#import "CreditsTVC.h"
 
 @interface NewsSplitVC : UISplitViewController <UISplitViewControllerDelegate>
 {
-//    UIBarButtonItem *userButton;
     NSArray *barButtons;
-//    NewsMasterTVC *master;
+    UIBarButtonItem *creditsItem;
 }
 
 @property (nonatomic, strong) NewsMasterTVC *master;
+
+- (void) credits;
 
 @end

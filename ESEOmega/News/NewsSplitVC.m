@@ -30,9 +30,13 @@
     self.delegate = self;
     _master = [(UINavigationController *)self.viewControllers[0] viewControllers][0];
     
-    // Affichage ou non du bouton Utilisateur
-//    userButton = (iPAD) ? nil : master.navigationItem.rightBarButtonItem;
-    barButtons = (iPAD) ? nil : _master.navigationItem.rightBarButtonItems;
+    // Credits navigation bar button
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [infoButton addTarget:self action:@selector(credits) forControlEvents:UIControlEventTouchUpInside];
+    creditsItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    
+    // Showing User & Share buttons to the right place depending on the context
+    barButtons = (iPAD) ? [NSArray array] : _master.navigationItem.rightBarButtonItems;
     [self splitViewController:self willChangeToDisplayMode:self.displayMode];
 }
 
@@ -42,9 +46,6 @@
 collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewController
       ontoPrimaryViewController:(nonnull UIViewController *)primaryViewController
 {
-    /*if ([secondaryViewController isKindOfClass:[UINavigationController class]]
-        && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[NewsDetailVC class]]
-        && ([(NewsDetailVC *)[(UINavigationController *)secondaryViewController topViewController] infos] == nil))*/
     if ([secondaryViewController isKindOfClass:[UINavigationController class]]
         && ([(UINavigationController *)secondaryViewController viewControllers][0] == nil
         || [(NewsDetailVC *)[(UINavigationController *)secondaryViewController viewControllers][0] infos] == nil))
@@ -60,10 +61,13 @@ collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewControl
 {
     if (displayMode == UISplitViewControllerDisplayModeAllVisible &&
         self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact)
-        [_master.navigationItem setRightBarButtonItem:nil        animated:YES];
+        [_master.navigationItem setRightBarButtonItem:creditsItem animated:YES];    // iPad landscape
     else
-//        [master.navigationItem setRightBarButtonItem:userButton animated:YES];
-        [_master.navigationItem setRightBarButtonItems:barButtons animated:YES];
+    {
+        NSMutableArray *buttons = barButtons.mutableCopy;
+        [buttons addObject:creditsItem];
+        [_master.navigationItem setRightBarButtonItems:buttons animated:YES];       // other
+    }
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size
@@ -74,6 +78,16 @@ collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewControl
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self splitViewController:self willChangeToDisplayMode:self.displayMode];
     } completion:nil];
+}
+
+#pragma mark Crédits
+
+- (void) credits
+{
+    CreditsTVC *credits = [[CreditsTVC alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:credits];
+    [nc setModalPresentationStyle:UIModalPresentationFormSheet];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 @end

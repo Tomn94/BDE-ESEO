@@ -37,10 +37,6 @@
         (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [infoButton addTarget:self action:@selector(credits) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-    
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(loadSponsors) name:@"sponsors" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
@@ -108,14 +104,6 @@
 - (IBAction) refresh:(UIRefreshControl *)sender
 {
     [self recupSponsors:NO];
-}
-
-- (void) credits
-{
-    CreditsTVC *credits = [[CreditsTVC alloc] initWithStyle:UITableViewStyleGrouped];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:credits];
-    [nc setModalPresentationStyle:UIModalPresentationFormSheet];
-    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

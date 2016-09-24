@@ -87,17 +87,23 @@
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Thomas Naudet pour ESEOmega\n© Collection Été 2015 - Hiver 2016\nQuestion ? @tomn94";
+    NSString *text = @"Thomas NAUDET pour ESEOmega\n© Collection Été 2015 - Hiver 2016\nAutomne 2016 pour ESEOasis\nQuestion ? → tomn72@gmail.com";
 
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+    CGFloat fontSize = 14.0;
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize],
                                  NSForegroundColorAttributeName: [UIColor lightGrayColor],
                                  NSParagraphStyleAttributeName: paragraph};
     
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    NSDictionary *boldDic = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize] };
+    NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+    [mas setAttributes:boldDic range:NSMakeRange(0, 13)];
+    [mas setAttributes:boldDic range:NSMakeRange(90, 29)];
+    
+    return mas;
 }
 
 - (CGPoint) offsetForEmptyDataSet:(UIScrollView *)scrollView

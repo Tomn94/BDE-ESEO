@@ -543,6 +543,8 @@
 				6487C2F61B5F06C000DC3B77 /* NewsSelectionDelegate.h */,
 				64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */,
 				64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */,
+				64C9C3E51B6850AF009F05DC /* CreditsTVC.h */,
+				64C9C3E61B6850AF009F05DC /* CreditsTVC.m */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -596,8 +598,6 @@
 				64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */,
 				64AD83D11B60230500AD4C25 /* SponsorsCell.h */,
 				64AD83D21B60230500AD4C25 /* SponsorsCell.m */,
-				64C9C3E51B6850AF009F05DC /* CreditsTVC.h */,
-				64C9C3E61B6850AF009F05DC /* CreditsTVC.m */,
 			);
 			path = Sponsors;
 			sourceTree = "<group>";
@@ -927,6 +927,7 @@
 					};
 					64FDD9501D95C33800A3ED8F = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7HW87TV8LC;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1334,7 +1335,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1344,6 +1345,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1354,7 +1356,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1363,6 +1365,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1412,6 +1415,7 @@
 				64FDD95A1D95C33800A3ED8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
