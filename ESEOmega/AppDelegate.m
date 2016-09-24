@@ -192,7 +192,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
  didReceiveNotificationResponse:(UNNotificationResponse *)response
           withCompletionHandler:(void (^)())completionHandler
 {
-    if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+    if (![response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
         [self openNotif:response.notification.request.content.userInfo];
     }
     completionHandler();

@@ -26,7 +26,7 @@
 #import "TabBarController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 
-#define VERSION_NOTIFS_iOS 1.1
+#define VERSION_NOTIFS_iOS 1.2
 #define NV_VERSION_TITRE @"Une nouvelle version de l'app est disponible"
 #define NV_VERSION_MESSG @"Impossible de recevoir les notifications, merci de mettre l'application à jour sur l'App Store."
 

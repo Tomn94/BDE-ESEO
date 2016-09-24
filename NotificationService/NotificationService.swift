@@ -64,7 +64,11 @@ class NotificationService: UNNotificationServiceExtension {
                 } else*/ if let url = URL(string: attachmentID),
                    let imageData = NSData(contentsOf: url) {
                     // Other URL, download file
-                    attachment = UNNotificationAttachment.create(imageFileIdentifier: "image.png",  // any extension needed
+                    var ext = url.pathExtension
+                    if ext == "" {
+                        ext = "png"
+                    }
+                    attachment = UNNotificationAttachment.create(imageFileIdentifier: "image." + ext,
                                                                  data: imageData,
                                                                  options: options)
                 }
@@ -103,7 +107,7 @@ extension UNNotificationAttachment {
             try data.write(to: fileURL!, options: [])
             let imageAttachment = try UNNotificationAttachment(identifier: imageFileIdentifier, url: fileURL!, options: options)
             return imageAttachment
-        } catch { }
+        } catch { NSLog(error.localizedDescription) }
         
         return nil
     }

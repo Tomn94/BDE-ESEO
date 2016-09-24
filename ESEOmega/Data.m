@@ -175,7 +175,79 @@
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge)
                               completionHandler:^(BOOL granted, NSError * _Nullable error) {
                                   if (!error)
+                                  {
                                       [[UIApplication sharedApplication] registerForRemoteNotifications];
+                                      
+                                      // Notifications Actions
+                                      UNNotificationAction *textA = [UNNotificationAction actionWithIdentifier:@"action-text"
+                                                                                                         title:@"Afficher"
+                                                                                                       options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *newsA = [UNNotificationAction actionWithIdentifier:@"action-news"
+                                                                                                         title:@"Afficher les news"
+                                                                                                       options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *eventsA = [UNNotificationAction actionWithIdentifier:@"action-events"
+                                                                                                           title:@"Afficher les événements"
+                                                                                                         options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *clubsA = [UNNotificationAction actionWithIdentifier:@"action-clubs"
+                                                                                                          title:@"Afficher les clubs"
+                                                                                                        options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *cafetA = [UNNotificationAction actionWithIdentifier:@"action-cafet"
+                                                                                                          title:@"Afficher les commandes"
+                                                                                                        options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *sponsorsA = [UNNotificationAction actionWithIdentifier:@"action-sponsors"
+                                                                                                             title:@"Afficher les bons plans"
+                                                                                                           options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *updateA = [UNNotificationAction actionWithIdentifier:@"action-update"
+                                                                                                           title:@"Mettre à jour"
+                                                                                                         options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *guyA = [UNNotificationAction actionWithIdentifier:@"action-guy"
+                                                                                                        title:@"Afficher… 😏🚀"
+                                                                                                      options: UNNotificationActionOptionForeground];
+                                      UNNotificationAction *userA = [UNNotificationAction actionWithIdentifier:@"action-user"
+                                                                                                         title:@"Afficher l'écran de connexion"
+                                                                                                       options: UNNotificationActionOptionForeground];
+                                      
+                                      UNNotificationCategory *text = [UNNotificationCategory categoryWithIdentifier:@"0"
+                                                                                                            actions:@[textA]
+                                                                                                  intentIdentifiers:@[]
+                                                                                                            options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *news = [UNNotificationCategory categoryWithIdentifier:@"1"
+                                                                                                            actions:@[newsA]
+                                                                                                  intentIdentifiers:@[]
+                                                                                                            options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *events = [UNNotificationCategory categoryWithIdentifier:@"2"
+                                                                                                              actions:@[eventsA]
+                                                                                                    intentIdentifiers:@[]
+                                                                                                              options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *clubs = [UNNotificationCategory categoryWithIdentifier:@"3"
+                                                                                                             actions:@[clubsA]
+                                                                                                   intentIdentifiers:@[]
+                                                                                                             options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *cafet = [UNNotificationCategory categoryWithIdentifier:@"4"
+                                                                                                             actions:@[cafetA]
+                                                                                                   intentIdentifiers:@[]
+                                                                                                             options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *sponsors = [UNNotificationCategory categoryWithIdentifier:@"5"
+                                                                                                                actions:@[sponsorsA]
+                                                                                                      intentIdentifiers:@[]
+                                                                                                                options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *update = [UNNotificationCategory categoryWithIdentifier:@"21"
+                                                                                                              actions:@[updateA]
+                                                                                                    intentIdentifiers:@[]
+                                                                                                              options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *guy = [UNNotificationCategory categoryWithIdentifier:@"42"
+                                                                                                           actions:@[guyA]
+                                                                                                 intentIdentifiers:@[]
+                                                                                                           options: UNNotificationCategoryOptionNone];
+                                      UNNotificationCategory *user = [UNNotificationCategory categoryWithIdentifier:@"99"
+                                                                                                            actions:@[userA]
+                                                                                                  intentIdentifiers:@[]
+                                                                                                            options: UNNotificationCategoryOptionNone];
+                                      
+                                      
+                                      NSSet *categories = [NSSet setWithObjects:text, news, events, clubs, cafet, sponsors, update, guy, user, nil];
+                                      [center setNotificationCategories:categories];
+                                  }
                               }];
     }
     else
@@ -724,6 +796,10 @@ shouldChangeCharactersInRange:(NSRange)range
             [[UIApplication sharedApplication] openURL:appLydia];
         else
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:JSON[@"data"][@"lydia_url"]]];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        });
     }
     else
     {

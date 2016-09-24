@@ -182,6 +182,7 @@
 		6425D8361BACB2BE00F15BDD /* EventAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventAlertView.xib; sourceTree = "<group>"; };
 		6425D8381BACB7F700F15BDD /* EventAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventAlertView.h; sourceTree = "<group>"; };
 		6425D8391BACB7F700F15BDD /* EventAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventAlertView.m; sourceTree = "<group>"; };
+		642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		6430D26E1B63DC8C00F5C7F5 /* EventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTVC.h; sourceTree = "<group>"; };
 		6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTVC.m; sourceTree = "<group>"; };
 		6430D2721B63FF5E00F5C7F5 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -633,6 +634,7 @@
 			isa = PBXGroup;
 			children = (
 				64B7ED401D803CBF004D2C63 /* UserNotifications.framework */,
+				642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
