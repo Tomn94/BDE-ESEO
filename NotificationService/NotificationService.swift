@@ -46,7 +46,12 @@ class NotificationService: UNNotificationServiceExtension {
                    attachmentID == "spaceship",
                    let path = Bundle.main.resourcePath {
                     // Common Images
-                    let attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + ".png")
+                    let attachmentURL: URL
+                    if attachmentID == "spaceship" {
+                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + ".png")
+                    } else {
+                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + "Precalc.png")
+                    }
                     attachment = try! UNNotificationAttachment(identifier: "image",
                                                                url: attachmentURL,
                                                                options: nil)
