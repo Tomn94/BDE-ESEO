@@ -326,6 +326,8 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     // Jour semaine
     CGRect rectTxt1 = imgFrame;
+    rectTxt1.origin.x -= 1;
+    rectTxt1.size.width += 2;
     rectTxt1.origin.y += 3;
     [text drawInRect:rectTxt1 withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:9], NSForegroundColorAttributeName : [UIColor whiteColor], NSParagraphStyleAttributeName: style}];
     
