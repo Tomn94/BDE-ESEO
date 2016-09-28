@@ -95,6 +95,13 @@
 		64ED610B1B6D251F00456B01 /* OrderPanierTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64ED610A1B6D251F00456B01 /* OrderPanierTVC.m */; };
 		64ED61111B6D7A4D00456B01 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 64ED61101B6D7A4D00456B01 /* Data.m */; };
 		64ED61141B710BA400456B01 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 64ED61131B710BA400456B01 /* EGOCache.m */; };
+		64EEB8F11D9BAE25003678E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64EEB8F01D9BAE25003678E2 /* Assets.xcassets */; };
+		64EEB8F81D9BAE25003678E2 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		64EEB8FC1D9BAE25003678E2 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64EEB8FB1D9BAE25003678E2 /* Messages.framework */; };
+		64EEB8FF1D9BAE25003678E2 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EEB8FE1D9BAE25003678E2 /* MessagesViewController.swift */; };
+		64EEB9021D9BAE25003678E2 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64EEB9001D9BAE25003678E2 /* MainInterface.storyboard */; };
+		64EEB9041D9BAE25003678E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64EEB9031D9BAE25003678E2 /* Assets.xcassets */; };
+		64EEB90E1D9BAF9A003678E2 /* StickerBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EEB90D1D9BAF9A003678E2 /* StickerBrowserViewController.swift */; };
 		64F93EA61B5EA97900EE5C72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EA51B5EA97900EE5C72 /* main.m */; };
 		64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EA81B5EA97900EE5C72 /* AppDelegate.m */; };
 		64F93EB21B5EA97900EE5C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB01B5EA97900EE5C72 /* Main.storyboard */; };
@@ -111,6 +118,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 64F93EA01B5EA97900EE5C72;
 			remoteInfo = ESEOmega;
+		};
+		64EEB8F91D9BAE25003678E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64EEB8F61D9BAE25003678E2;
+			remoteInfo = MessagesExtension;
 		};
 		64F93EBE1B5EA97900EE5C72 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -129,6 +143,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		64EEB90B1D9BAE25003678E2 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				64EEB8F81D9BAE25003678E2 /* MessagesExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		64FDD95C1D95C33800A3ED8F /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,6 +346,16 @@
 		64ED61101B6D7A4D00456B01 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		64ED61121B710BA400456B01 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		64ED61131B710BA400456B01 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		64EEB8EE1D9BAE25003678E2 /* Stickers ESEO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stickers ESEO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EEB8F01D9BAE25003678E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64EEB8F21D9BAE25003678E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EEB8FB1D9BAE25003678E2 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
+		64EEB8FE1D9BAE25003678E2 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		64EEB9011D9BAE25003678E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		64EEB9031D9BAE25003678E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64EEB9051D9BAE25003678E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64EEB90D1D9BAF9A003678E2 /* StickerBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerBrowserViewController.swift; sourceTree = "<group>"; };
 		64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE ESEO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F93EA51B5EA97900EE5C72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64F93EA71B5EA97900EE5C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -343,6 +378,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EEB8F41D9BAE25003678E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64EEB8FC1D9BAE25003678E2 /* Messages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +678,7 @@
 			children = (
 				64B7ED401D803CBF004D2C63 /* UserNotifications.framework */,
 				642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */,
+				64EEB8FB1D9BAE25003678E2 /* Messages.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -721,6 +765,27 @@
 			path = EGOCache;
 			sourceTree = "<group>";
 		};
+		64EEB8EF1D9BAE25003678E2 /* Stickers ESEO */ = {
+			isa = PBXGroup;
+			children = (
+				64EEB8F01D9BAE25003678E2 /* Assets.xcassets */,
+				64EEB8F21D9BAE25003678E2 /* Info.plist */,
+			);
+			path = "Stickers ESEO";
+			sourceTree = "<group>";
+		};
+		64EEB8FD1D9BAE25003678E2 /* MessagesExtension */ = {
+			isa = PBXGroup;
+			children = (
+				64EEB8FE1D9BAE25003678E2 /* MessagesViewController.swift */,
+				64EEB90D1D9BAF9A003678E2 /* StickerBrowserViewController.swift */,
+				64EEB9001D9BAE25003678E2 /* MainInterface.storyboard */,
+				64EEB9031D9BAE25003678E2 /* Assets.xcassets */,
+				64EEB9051D9BAE25003678E2 /* Info.plist */,
+			);
+			path = MessagesExtension;
+			sourceTree = "<group>";
+		};
 		64F93E981B5EA97900EE5C72 = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +793,8 @@
 				64F93EC01B5EA97900EE5C72 /* ESEOmegaTests */,
 				64F93ECB1B5EA97900EE5C72 /* ESEOmegaUITests */,
 				64FDD9521D95C33800A3ED8F /* NotificationService */,
+				64EEB8EF1D9BAE25003678E2 /* Stickers ESEO */,
+				64EEB8FD1D9BAE25003678E2 /* MessagesExtension */,
 				64F93EA21B5EA97900EE5C72 /* Products */,
 				64B7ED3F1D803CBF004D2C63 /* Frameworks */,
 			);
@@ -740,6 +807,8 @@
 				64F93EBD1B5EA97900EE5C72 /* ESEOmegaTests.bundle */,
 				64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */,
 				64FDD9511D95C33800A3ED8F /* NotificationService.appex */,
+				64EEB8EE1D9BAE25003678E2 /* Stickers ESEO.app */,
+				64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -841,6 +910,40 @@
 			productReference = 64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64EEB90C1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "Stickers ESEO" */;
+			buildPhases = (
+				64EEB8EC1D9BAE25003678E2 /* Resources */,
+				64EEB90B1D9BAE25003678E2 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64EEB8FA1D9BAE25003678E2 /* PBXTargetDependency */,
+			);
+			name = "Stickers ESEO";
+			productName = "Stickers ESEO";
+			productReference = 64EEB8EE1D9BAE25003678E2 /* Stickers ESEO.app */;
+			productType = "com.apple.product-type.application.messages";
+		};
+		64EEB8F61D9BAE25003678E2 /* MessagesExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64EEB90A1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "MessagesExtension" */;
+			buildPhases = (
+				64EEB8F31D9BAE25003678E2 /* Sources */,
+				64EEB8F41D9BAE25003678E2 /* Frameworks */,
+				64EEB8F51D9BAE25003678E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MessagesExtension;
+			productName = MessagesExtension;
+			productReference = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */;
+			productType = "com.apple.product-type.app-extension.messages";
+		};
 		64F93EA01B5EA97900EE5C72 /* ESEOmega */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64F93ED11B5EA97900EE5C72 /* Build configuration list for PBXNativeTarget "ESEOmega" */;
@@ -909,6 +1012,16 @@
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 64F93EA01B5EA97900EE5C72;
 					};
+					64EEB8ED1D9BAE25003678E2 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7HW87TV8LC;
+						ProvisioningStyle = Automatic;
+					};
+					64EEB8F61D9BAE25003678E2 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7HW87TV8LC;
+						ProvisioningStyle = Automatic;
+					};
 					64F93EA01B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 7HW87TV8LC;
@@ -950,6 +1063,8 @@
 				64F93EBC1B5EA97900EE5C72 /* ESEOmegaTests */,
 				64000B9D1B60063100C16830 /* ESEOmegaUITests */,
 				64FDD9501D95C33800A3ED8F /* NotificationService */,
+				64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */,
+				64EEB8F61D9BAE25003678E2 /* MessagesExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -959,6 +1074,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EEB8EC1D9BAE25003678E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64EEB8F11D9BAE25003678E2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EEB8F51D9BAE25003678E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64EEB9041D9BAE25003678E2 /* Assets.xcassets in Resources */,
+				64EEB9021D9BAE25003678E2 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1002,6 +1134,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EEB8F31D9BAE25003678E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64EEB8FF1D9BAE25003678E2 /* MessagesViewController.swift in Sources */,
+				64EEB90E1D9BAF9A003678E2 /* StickerBrowserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,6 +1257,11 @@
 			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
 			targetProxy = 64000BA31B60063100C16830 /* PBXContainerItemProxy */;
 		};
+		64EEB8FA1D9BAE25003678E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
+			targetProxy = 64EEB8F91D9BAE25003678E2 /* PBXContainerItemProxy */;
+		};
 		64F93EBF1B5EA97900EE5C72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
@@ -1129,6 +1275,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		64EEB9001D9BAE25003678E2 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64EEB9011D9BAE25003678E2 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		64F93EB01B5EA97900EE5C72 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1163,6 +1317,86 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = ESEOmega;
 				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		64EEB9061D9BAE25003678E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		64EEB9071D9BAE25003678E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		64EEB9081D9BAE25003678E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				INFOPLIST_FILE = MessagesExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO.MessagesExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		64EEB9091D9BAE25003678E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				INFOPLIST_FILE = MessagesExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO.MessagesExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1377,6 +1611,24 @@
 			buildConfigurations = (
 				64000BA61B60063100C16830 /* Debug */,
 				64000BA71B60063100C16830 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64EEB90A1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "MessagesExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EEB9081D9BAE25003678E2 /* Debug */,
+				64EEB9091D9BAE25003678E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64EEB90C1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "Stickers ESEO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EEB9061D9BAE25003678E2 /* Debug */,
+				64EEB9071D9BAE25003678E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

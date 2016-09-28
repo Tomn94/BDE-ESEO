@@ -98,7 +98,7 @@ extension UNNotificationAttachment {
             try data.write(to: fileURL!, options: [])
             let imageAttachment = try UNNotificationAttachment(identifier: imageFileIdentifier, url: fileURL!, options: options)
             return imageAttachment
-        } catch { NSLog(error.localizedDescription) }
+        } catch { }
         
         return nil
     }
