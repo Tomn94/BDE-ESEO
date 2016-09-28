@@ -35,35 +35,26 @@ class NotificationService: UNNotificationServiceExtension {
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification
             
+            /* Handle both iOS ≤ 9 and 10 APNs payloads */
+            if let aps = request.content.userInfo["aps"] as? [String: AnyObject] {
+                if let message = aps["alert"] as? String {
+                    var split = message.components(separatedBy: "\n")
+                    
+                    bestAttemptContent.title = split[0]
+                    split.removeFirst()
+                    bestAttemptContent.body = split.joined(separator: "\n")
+                }
+            }
+            
+            /* Retrieve attachment */
             if let attachmentID = request.content.userInfo["attchmt"] as? String,
                attachmentID != "" {
                 let options = [UNNotificationAttachmentOptionsThumbnailClippingRectKey as NSObject:
                                CGRect(x: 0, y: 0, width: 1, height: 1).dictionaryRepresentation]
                 var attachment: UNNotificationAttachment?
                 
-                /*// CHECK IMAGE TYPE
-                if attachmentID == "cafetDone"    || attachmentID == "cafetReady" ||
-                   attachmentID == "cafetNotPaid" || attachmentID == "cafetPreparing" ||
-                   attachmentID == "spaceship",
-                   let path = Bundle.main.resourcePath {
-                    // Common Images
-                    let attachmentURL: URL
-                    if attachmentID == "spaceship" {
-//                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + ".png")
-                    } else {
-//                        attachmentURL = URL(fileURLWithPath: path + "/" + attachmentID + "Precalc.png")
-                    }
-                    attachmentURL = URL(fileURLWithPath: Bundle.main.path(forResource: attachmentID, ofType: "png")!)
-                    do {
-                        attachment = try UNNotificationAttachment(identifier: "image.png",
-                                                                  url: attachmentURL,
-                                                                  options: options)
-                    } catch {
-                        contentHandler(bestAttemptContent)
-                    }
-                } else*/ if let url = URL(string: attachmentID),
+                if let url = URL(string: attachmentID),
                    let imageData = NSData(contentsOf: url) {
-                    // Other URL, download file
                     var ext = url.pathExtension
                     if ext == "" {
                         ext = "png"
