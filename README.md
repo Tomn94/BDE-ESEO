@@ -82,6 +82,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 ## Versions
 ###v3.2 · 2016
+<img src="/Captures App Store/iMessage/iPhone.png?raw=true" height="300" />
 > Mise à jour corrective de rentrée
 > 
 > Support d'iOS 10 :<br>
