@@ -65,6 +65,7 @@
 		649F503A1B65145300F56263 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F50391B65145300F56263 /* UIScrollView+EmptyDataSet.m */; };
 		649F503E1B65271B00F56263 /* ClubsMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F503D1B65271B00F56263 /* ClubsMasterCell.m */; };
 		64A271F31B645A350001063A /* CommandesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A271F21B645A350001063A /* CommandesCell.m */; };
+		64A85B291D9CCF7800020D18 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */; };
 		64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C31B60133900AD4C25 /* ClubsMasterTVC.m */; };
 		64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */; };
@@ -119,6 +120,13 @@
 			remoteGlobalIDString = 64F93EA01B5EA97900EE5C72;
 			remoteInfo = ESEOmega;
 		};
+		64A85B271D9CCF6A00020D18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64EEB8F61D9BAE25003678E2;
+			remoteInfo = MessagesExtension;
+		};
 		64EEB8F91D9BAE25003678E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
@@ -160,6 +168,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				64A85B291D9CCF7800020D18 /* MessagesExtension.appex in Embed App Extensions */,
 				64FDD9581D95C33800A3ED8F /* NotificationService.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -956,6 +965,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				64A85B281D9CCF6A00020D18 /* PBXTargetDependency */,
 				64FDD9571D95C33800A3ED8F /* PBXTargetDependency */,
 			);
 			name = ESEOmega;
@@ -1257,6 +1267,11 @@
 			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
 			targetProxy = 64000BA31B60063100C16830 /* PBXContainerItemProxy */;
 		};
+		64A85B281D9CCF6A00020D18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
+			targetProxy = 64A85B271D9CCF6A00020D18 /* PBXContainerItemProxy */;
+		};
 		64EEB8FA1D9BAE25003678E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
@@ -1331,7 +1346,7 @@
 				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1352,7 +1367,7 @@
 				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -1371,12 +1386,13 @@
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO.MessagesExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.MessagesExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1392,11 +1408,12 @@
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eseomega.ESEOmega.Stickers-ESEO.MessagesExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.MessagesExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
