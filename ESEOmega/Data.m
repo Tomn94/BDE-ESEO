@@ -1030,19 +1030,22 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) snapchat:(NSString *)username
         currentVC:(UIViewController *)vc
 {
+    if (username == nil)
+        return;
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:username
                                                                    message:@"Ajoutez le pseudo ci-dessus sur Snapchat !"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     
-    NSURL *snap = [NSURL URLWithString:@"snapchat://"];
-    if ([[UIApplication sharedApplication] canOpenURL:snap])
-    {
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ouvrir Snapchat" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-                          {
+    NSURL *snap = [NSURL URLWithString:[@"snapchat://add/" stringByAppendingString:username]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ajouter sur Snapchat" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                      {
+                          if ([[UIApplication sharedApplication] canOpenURL:snap])
                               [[UIApplication sharedApplication] openURL:snap];
-                          }]];
-    }
+                          else
+                              [self openURL:[NSString stringWithFormat:@"https://www.snapchat.com/add/%@", username] currentVC:vc];
+                      }]];
     [vc presentViewController:alert animated:YES completion:nil];
 }
 
