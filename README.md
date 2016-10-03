@@ -81,7 +81,8 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
 ## Versions
-###v3.2 · 2016
+###v3.2 · 02/10/2016
+<img src="/Captures App Store/iMessage/iPhone.png?raw=true" height="300" />
 > Mise à jour corrective de rentrée
 > 
 > Support d'iOS 10 :<br>
@@ -92,7 +93,7 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 > – Correction du message de paiement via Lydia
 > 
 > Partagez l'app et n'oubliez pas de la noter sur l'App Store !<br>
-> Une question, ou vous voulez proposer un sticker ? tomn72@gmail.com
+> Une question, ou vous voulez proposer un sticker ? Contactez Thomas Naudet sur Facebook
 
 ###v3.1.6 · 05/06/2016
 > Amélioration et correction des achats cafet, événements et Lydia […]
