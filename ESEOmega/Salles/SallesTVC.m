@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    [[Data sharedData] updateJSON:@"salles"];
+    [[Data sharedData] updateJSON:@"rooms"];
     
     filtre = [NSMutableArray array];
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -43,7 +43,7 @@
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-    [ctr addObserver:self selector:@selector(loadSalles) name:@"salles" object:nil];
+    [ctr addObserver:self selector:@selector(loadSalles) name:@"rooms" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
     
     [self loadSalles];
@@ -175,13 +175,13 @@ sectionForSectionIndexTitle:(NSString *)title
 
 - (IBAction) refresh:(id)sender
 {
-    if (![[Data sharedData] shouldUpdateJSON:@"salles"])
+    if (![[Data sharedData] shouldUpdateJSON:@"rooms"])
     {
         [self.refreshControl endRefreshing];
         return;
     }
     
-    [[Data sharedData] updateJSON:@"salles"];
+    [[Data sharedData] updateJSON:@"rooms"];
 }
 
 - (void) loadSalles

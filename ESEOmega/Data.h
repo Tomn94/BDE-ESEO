@@ -41,8 +41,8 @@
 #define URL_PROJETS  @"http://www.projets.eseo.fr"
 #define URL_DREAMSP  @"https://portail.eseo.fr/+CSCO+0h756767633A2F2F72352E626167757275686F2E70627A++/WebStore/Welcome.aspx?vsro=8&ws=482d2b46-8d9b-e011-969d-0030487d8897"
 
-#define URL_JSONS    @"https://web59.secure-secure.co.uk/francoisle.fr/eseonews/jsondata/%@_data/%@.json?%d"
-#define URL_NEWS     @"https://web59.secure-secure.co.uk/francoisle.fr/eseonews/getData.php?height=%d&ptr=%d&uzless=%d"
+#define URL_JSONS    @"https://api.eseoasis.com/%@?%d"
+#define URL_NEWS     @"https://api.eseoasis.com/news?height=%d&ptr=%d&uzless=%d"
 #define URL_CMDS     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/list.php?%d"
 #define URL_1CMD     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/resume.php"
 #define URL_CMD_NEW  @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/prepare.php"
@@ -64,11 +64,11 @@
 #define URL_GP       @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/gantier/scores.php"
 #define URL_GP_STATE @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/gantier/state.php"
 
-#define URL_ACTIVITY @"http://eseomega.fr"
-#define URL_ACT_NEWS @"http://eseomega.fr/news"
-#define URL_ACT_EVNT @"http://eseomega.fr/events"
-#define URL_ACT_CLUB @"http://eseomega.fr/clubs"
-#define URL_ACT_SPON @"http://eseomega.fr/partenaires"
+#define URL_ACTIVITY @"http://eseoasis.com"
+#define URL_ACT_NEWS @"http://eseoasis.com/news"
+#define URL_ACT_EVNT @"http://eseoasis.com/events"
+#define URL_ACT_CLUB @"http://eseoasis.com/clubs"
+#define URL_ACT_SPON @"http://eseoasis.com/sponsors"
 
 #define MAX_ORDER_TIME 582
 

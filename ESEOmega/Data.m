@@ -69,8 +69,8 @@
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"sponsors"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
-        instance.salles     = (![ec hasCacheForKey:@"salles"]) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"salles"]
+        instance.salles     = (![ec hasCacheForKey:@"rooms"]) ? nil
+                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"rooms"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
         instance.ingenews   = (![ec hasCacheForKey:@"ingenews"]) ? nil
@@ -85,7 +85,7 @@
                                                                                @"cmds":      time,
                                                                                @"menus":     time,
                                                                                @"sponsors":  time,
-                                                                               @"salles":    time,
+                                                                               @"rooms":     time,
                                                                                @"ingenews":  time }];
         instance.cafetToken      = @"";
         instance.cafetDebut      = 0;
@@ -444,7 +444,7 @@
     else if ([JSONname isEqualToString:@"ingenews"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_INGENEWS, randCache]];
     else
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, JSONname, randCache]];
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, randCache]];
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
@@ -536,7 +536,7 @@
                                                   _menus = JSON;
                                               else if ([JSONname isEqualToString:@"sponsors"])
                                                   _sponsors = JSON;
-                                              else if ([JSONname isEqualToString:@"salles"])
+                                              else if ([JSONname isEqualToString:@"rooms"])
                                                   _salles = JSON;
                                               else if ([JSONname isEqualToString:@"ingenews"])
                                                   _ingenews = JSON;
