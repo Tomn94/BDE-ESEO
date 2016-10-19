@@ -1,6 +1,6 @@
 # Bureau des Étudiants du Groupe ESEO
 
-[![Version](https://img.shields.io/badge/version-3.2-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-4.0-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -39,10 +39,13 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > 
 > BONS PLANS<br>
 > - Grâce à nos sponsors, profitez de multiples bons plans étudiants
+>
+> PRATIQUE
+> - Remontez l'arbre des parrainages étudiants !
+> - Consultez au plan du campus à Angers
+> - Retrouvez également tous les liens vers le portail, campus, mails, …
 > 
-> Retrouvez également tous les liens vers le portail, campus, mails, plans, …<br>
 > Disponible sur iPhone & iPad.
-> 
 > Créée par SheepDevs pour ESEOmega<br>
 > Ω
 
@@ -67,11 +70,10 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 ## Informations techniques
 
-Nécessite une API Serveur SheepDevs pour fonctionner.
+Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## TODO
-- Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
@@ -81,6 +83,13 @@ Nécessite une API Serveur SheepDevs pour fonctionner.
 
 
 ## Versions
+###v4.0 · 2016
+Non ce n'est pas un mirage…
+l'app a changé de logo !
+- API ESEOasis
+- Arbre parrainages
+- Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
+
 ###v3.2 · 02/10/2016
 <img src="/Captures App Store/iMessage/iPhone.png?raw=true" height="300" />
 > Mise à jour corrective de rentrée
