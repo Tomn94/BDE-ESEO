@@ -42,11 +42,11 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 >
 > PRATIQUE
 > - Remontez l'arbre des parrainages étudiants !
-> - Consultez au plan du campus à Angers
+> - Consultez le plan du campus à Angers
 > - Retrouvez également tous les liens vers le portail, campus, mails, …
 > 
 > Disponible sur iPhone & iPad.
-> Créée par SheepDevs pour ESEOmega<br>
+> Créée par SheepDevs<br>
 > Ω
 
 
