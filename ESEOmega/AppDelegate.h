@@ -24,6 +24,7 @@
 @import UserNotifications;
 #import "Data.h"
 #import "TabBarController.h"
+#import "SallesTVC.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 
 #define VERSION_NOTIFS_iOS 1.2

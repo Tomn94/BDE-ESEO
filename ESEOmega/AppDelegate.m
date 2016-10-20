@@ -115,6 +115,22 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
         [[Data sharedData] openURL:URL_PORTAIL currentVC:tab];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.campus"])
         [[Data sharedData] openURL:URL_CAMPUS currentVC:tab];
+    else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.salles"]) {
+        BOOL dontReopen = false;
+        UIViewController *vc = self.window.rootViewController.presentedViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *nvc = (UINavigationController *)self.window.rootViewController.presentedViewController;
+            if ([nvc isKindOfClass:[SallesTVC class]]) {
+                dontReopen = true;
+            }
+        }
+        if (!dontReopen) {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Salles" bundle:nil];
+            UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Salles"];
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
+        }
+    }
 }
 
 #pragma mark - Notifications

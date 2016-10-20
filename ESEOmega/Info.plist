@@ -84,13 +84,13 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeDate</string>
+			<string>UIApplicationShortcutIconTypeHome</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>Cette semaine</string>
+			<string>À l'ESEO Angers</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Événements</string>
+			<string>Trouver une salle</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.eseomega.ESEOmega.events</string>
+			<string>com.eseomega.ESEOmega.salles</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
