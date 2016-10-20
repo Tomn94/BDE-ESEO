@@ -74,6 +74,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## TODO
+- Tri des salles : alphabétique → bâtiment → étage
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
