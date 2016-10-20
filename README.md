@@ -89,7 +89,8 @@ Non ce n'est pas un mirage…
 l'app a changé de logo !
 - API ESEOasis
 - Arbre parrainages
-- Mise à jour des NSUserActivity/Handoff/… (URL_ACTIVITY, URL_ACT_*) vers le nouveau site BDE
+- Mise à jour des liens Handoff/Siri vers le nouveau site BDE
+- Changement du raccourci 3D Touch « Events cette semaine » en « Trouver une salle »
 
 ###v3.2 · 02/10/2016
 <img src="/Captures App Store/iMessage/iPhone.png?raw=true" height="300" />
