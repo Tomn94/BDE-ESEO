@@ -90,6 +90,7 @@ l'app a changé de logo !
 - API ESEOasis
 - Arbre parrainages
 - Mise à jour des liens Handoff/Siri vers le nouveau site BDE
+- Nouveau son pour les notifications
 - Changement du raccourci 3D Touch « Events cette semaine » en « Trouver une salle »
 
 ###v3.2 · 02/10/2016
