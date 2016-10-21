@@ -51,6 +51,7 @@
 		6463B6AF1B71511C00836C30 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B69E1B71511B00836C30 /* UIImageView+WebCache.m */; };
 		6463B6B01B71511C00836C30 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6A01B71511B00836C30 /* UIView+WebCacheOperation.m */; };
 		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
+		6473AEB91DBA2DB800381F98 /* bass.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEB81DBA2DB800381F98 /* bass.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
 		6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */; };
 		6487C2E41B5EF4A800DC3B77 /* NewsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */; };
@@ -271,6 +272,7 @@
 		6463B6A01B71511B00836C30 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		646E56661B681F3300E357F8 /* CommandesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesDetailVC.h; sourceTree = "<group>"; };
 		646E56671B681F3300E357F8 /* CommandesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesDetailVC.m; sourceTree = "<group>"; };
+		6473AEB81DBA2DB800381F98 /* bass.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bass.caf; sourceTree = "<group>"; };
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
 		6482C3BB1BB33A7A008F8DF8 /* OrderConfirmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderConfirmCell.h; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				6488AA4F1B728CDC000E2660 /* ka1.ttf */,
 				64E61EAD1B6973E200D89D79 /* linowrite.ttf */,
 				6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */,
+				6473AEB81DBA2DB800381F98 /* bass.caf */,
 				64DE993F1C9EBC6E00751204 /* bellum.mp3 */,
 				64F93EB81B5EA97900EE5C72 /* Info.plist */,
 				6418DBA51B815436000069CB /* CCBottomRefreshControl */,
@@ -1111,6 +1114,7 @@
 				6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */,
 				6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
+				6473AEB91DBA2DB800381F98 /* bass.caf in Resources */,
 				640026271C0A305D00AEF79B /* Salles.storyboard in Resources */,
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				64E93CF61C43980F005FC9CF /* Events.storyboard in Resources */,
