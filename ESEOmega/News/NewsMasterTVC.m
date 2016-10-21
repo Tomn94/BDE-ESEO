@@ -319,8 +319,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsMasterCell" forIndexPath:indexPath];
     
     NSDictionary *article = news[indexPath.row];
-    NSString *titre = [article[@"titre"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *contenuFormat = [article[@"resume"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *titre = [article[@"title"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *contenuFormat = [article[@"preview"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"  +"
                                                                            options:NSRegularExpressionCaseInsensitive error:nil];
     if (titre)

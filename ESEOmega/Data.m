@@ -39,7 +39,6 @@
         [defaults synchronize];
         
         EGOCache *ec        = [EGOCache globalCache];
-//        [[EGOCache globalCache] clearCache];
         instance.news       = (![ec hasCacheForKey:@"news"]) ? nil
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"news"]
                                                                                                options:kNilOptions
@@ -499,25 +498,50 @@
                                                        completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
                                           NSDictionary *JSON = nil;
+                                          /* Handle server data */
                                           if (error == nil && data != nil)
                                           {
-                                              JSON = [NSJSONSerialization JSONObjectWithData:data
-                                                                                     options:kNilOptions
-                                                                                       error:nil];
+                                              id baseJSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                         options:kNilOptions
+                                                                                           error:nil];
+                                              
+                                              JSON = baseJSON;    // ESEOasis API: [content] -> { "key": [content] }
+                                              if ([baseJSON isKindOfClass:[NSArray class]]) {
+                                                  NSString *key = JSONname;
+                                                  if ([JSONname isEqualToString:@"news"])
+                                                      key = @"articles";
+                                                  else if ([JSONname isEqualToString:@"eventsCmds"])
+                                                      key = @"tickets";
+                                                  else if ([JSONname isEqualToString:@"cmds"])
+                                                      key = @"history";
+                                                  else if ([JSONname isEqualToString:@"rooms"])
+                                                      key = @"salles";
+                                                  else if ([JSONname isEqualToString:@"ingenews"])
+                                                      key = @"fichiers";
+                                                  
+                                                  JSON = [NSDictionary dictionaryWithObject:baseJSON
+                                                                                     forKey:key];
+                                                  data = [NSJSONSerialization dataWithJSONObject:JSON
+                                                                                         options:kNilOptions
+                                                                                           error:nil];
+                                              }
                                               
                                               if (JSON[@"status"] != nil && [JSON[@"status"] intValue] == 1)
                                                   JSON = JSON[@"data"];
                                               
+                                              /* Cache data */
                                               if (JSON != nil && JSON.count && options == 0 && ![JSONname isEqualToString:@"service"])
                                                   [[EGOCache globalCache] setData:data
                                                                            forKey:JSONname
                                                               withTimeoutInterval:90 * 86400];
                                           }
+                                          /* Get cache if nothing from network */
                                           else if ([[EGOCache globalCache] hasCacheForKey:JSONname] && options == 0)
                                               JSON = [NSJSONSerialization JSONObjectWithData:[[EGOCache globalCache] dataForKey:JSONname]
                                                                                      options:kNilOptions
                                                                                        error:nil];
 
+                                          /* Set data in memory */
                                           if (JSON != nil)
                                           {
                                               if ([JSONname isEqualToString:@"news"])

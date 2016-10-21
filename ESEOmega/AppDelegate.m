@@ -26,8 +26,10 @@
 - (BOOL)          application:(nonnull UIApplication *)application
 didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
-//    [[SDImageCache sharedImageCache] clearDisk];
-//    [[SDImageCache sharedImageCache] clearMemory];
+    /* Clean debug 
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[EGOCache globalCache] clearCache];*/
     
     /* UI COLORS */
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.000 green:0.647 blue:1 alpha:1]];

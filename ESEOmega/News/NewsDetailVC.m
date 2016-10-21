@@ -58,7 +58,12 @@
 
 - (NSArray<id<UIPreviewActionItem>> *) previewActionItems
 {
-    if (_infos[@"lien"] == nil || [_infos[@"lien"] isEqualToString:@""] || ![NSURL URLWithString:_infos[@"lien"]])
+    /* Add a share action if there's a link */
+    NSString *link = _infos[@"link"];
+    if (link == nil)    // ESEOasis has no website link in the JSON data, so let's make one
+        link = [NSString stringWithFormat:URL_NEWS_LNK, [_infos[@"id"] intValue]];
+    NSURL *shareURL = [NSURL URLWithString:link];
+    if (shareURL == nil)
         return [NSArray array];
     
     UIPreviewAction *item = [UIPreviewAction actionWithTitle:@"Partager…"
@@ -77,29 +82,36 @@
     
     self.navigationItem.rightBarButtonItem = _userButton;
     
-    if (_infos[@"date"] == nil)
+    if (_infos[@"fulldate"] == nil)
     {
         //        self.title = @"Aucune news. Vérifiez votre connexion.";
         return;
     }
     
+    /* ESEOasis has no website link in the JSON data, so let's make one */
+    NSString *link = _infos[@"link"];
+    if (link == nil)
+        link = [NSString stringWithFormat:URL_NEWS_LNK, [_infos[@"id"] intValue]];
+    NSURL *shareURL = [NSURL URLWithString:link];
+    
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *date = [NSDateFormatter localizedStringFromDate:[dateFormatter dateFromString:_infos[@"date"]]
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.S'Z'"];
+    NSString *date = [NSDateFormatter localizedStringFromDate:[dateFormatter dateFromString:_infos[@"fulldate"]]
                                                     dateStyle:NSDateFormatterShortStyle
                                                     timeStyle:NSDateFormatterShortStyle];
     if ([UIScreen mainScreen].bounds.size.width < 350)
         date = [date stringByReplacingOccurrencesOfString:@"/20" withString:@"/"];
     self.title = date;
-    NSString *html = [NSString stringWithFormat:@"<html><head><style>body { -webkit-text-size-adjust: 100%%; font-family: -apple-system, 'Helvetica Neue', sans-serif; margin: 0; padding: 0; color: #757575; text-align: justify; } a { color: #FFA200; }  img { max-width: 98%%; } .header { background: url('%@'); background-size: cover; background-position: center center; height: 142px; width: 100%%; position: relative; } .titre { color: white; font-size: 20px; text-shadow: 0px 0px 5px black; position: absolute; bottom: -11px; padding: 0px 8px; } .content { padding: 0; margin: 0; margin-top: 8px; width: 100%%; }</style></head><body><div class='header'><p class='titre'>%@<br/><span style='font-size: 12px;'>%@</span></p></div><div class='content'><div style='padding: 0 10px 10px 10px; overflow: scroll;'>%@</div></div></body></html>", _infos[@"img"], _infos[@"titre"], _infos[@"auteur"], _infos[@"content"]];
+    NSString *html = [NSString stringWithFormat:@"<html><head><style>body { -webkit-text-size-adjust: 100%%; font-family: -apple-system, 'Helvetica Neue', sans-serif; margin: 0; padding: 0; color: #757575; text-align: justify; } a { color: #FFA200; }  img { max-width: 98%%; } .header { background: url('%@'); background-size: cover; background-position: center center; height: 142px; width: 100%%; position: relative; } .titre { color: white; font-size: 20px; text-shadow: 0px 0px 5px black; position: absolute; bottom: -11px; padding: 0px 8px; } .content { padding: 0; margin: 0; margin-top: 8px; width: 100%%; }</style></head><body><div class='header'><p class='titre'>%@<br/><span style='font-size: 12px;'>%@</span></p></div><div class='content'><div style='padding: 0 10px 10px 10px; overflow: scroll;'>%@</div></div></body></html>",
+                      _infos[@"img"], _infos[@"title"], _infos[@"author"], _infos[@"content"]];
     [_webView loadHTMLString:html baseURL:nil];
     
     // Handoff
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.article"];
-    activity.title = _infos[@"titre"];
+    activity.title = _infos[@"title"];
     activity.userInfo = _infos;
-    if (_infos[@"lien"] != nil && ![_infos[@"lien"] isEqualToString:@""] && [NSURL URLWithString:_infos[@"lien"]])
-        activity.webpageURL = [NSURL URLWithString:_infos[@"lien"]];
+    if (shareURL != nil)
+        activity.webpageURL = [NSURL URLWithString:_infos[@"link"]];
     if ([SFSafariViewController class])
     {
         activity.eligibleForSearch = YES;
@@ -109,30 +121,34 @@
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
     
-    if (_infos[@"lien"] == nil || [_infos[@"lien"] isEqualToString:@""] || ![NSURL URLWithString:_infos[@"lien"]])
-        return;
-    
-    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                               target:self action:@selector(share)];
-    NSArray *items = @[_userButton, shareItem];
-    self.navigationItem.rightBarButtonItems = items;
+    /* Share button */
+    if (shareURL != nil) {
+        UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                   target:self action:@selector(share)];
+        NSArray *items = @[_userButton, shareItem];
+        self.navigationItem.rightBarButtonItems = items;
+    }
 }
 
 - (void) share
 {
-    if (_infos[@"lien"] == nil || [_infos[@"lien"] isEqualToString:@""] || ![NSURL URLWithString:_infos[@"lien"]])
-        return;
+    NSString *link = _infos[@"link"];
+    if (link == nil)    // ESEOasis has no website link in the JSON data, so let's make one
+        link = [NSString stringWithFormat:URL_NEWS_LNK, [_infos[@"id"] intValue]];
     
-    NSURL *url = [NSURL URLWithString:_infos[@"lien"]];
-    TUSafariActivity *safari = [[TUSafariActivity alloc] init];
-    UIActivityViewController *menuPartage = [[UIActivityViewController alloc] initWithActivityItems:@[url]
-                                                                              applicationActivities:@[safari]];
-    if ([menuPartage respondsToSelector:@selector(popoverPresentationController)])
-        menuPartage.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[1];
-    if ([[Data sharedData] t_currentTopVC] != nil)
-        [[[Data sharedData] t_currentTopVC] presentViewController:menuPartage animated:YES completion:nil];
-    else
-        [self presentViewController:menuPartage animated:YES completion:nil];
+    NSURL *url = [NSURL URLWithString:link];
+    if (url != nil)
+    {
+        TUSafariActivity *safari = [[TUSafariActivity alloc] init];
+        UIActivityViewController *menuPartage = [[UIActivityViewController alloc] initWithActivityItems:@[url]
+                                                                                  applicationActivities:@[safari]];
+        if ([menuPartage respondsToSelector:@selector(popoverPresentationController)])
+            menuPartage.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[1];
+        if ([[Data sharedData] t_currentTopVC] != nil)
+            [[[Data sharedData] t_currentTopVC] presentViewController:menuPartage animated:YES completion:nil];
+        else
+            [self presentViewController:menuPartage animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Handoff
