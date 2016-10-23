@@ -37,7 +37,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > - Visualisez votre historique de commandes et soyez informés, sans bouger, lorsque votre commande est prête par une notification
 > - Payez en liquide ou en carte bleue
 > 
-> BONS PLANS<br>
+> BONS PLANS
 > - Grâce à nos sponsors, profitez de multiples bons plans étudiants
 >
 > PRATIQUE
@@ -45,7 +45,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > - Consultez le plan du campus à Angers
 > - Retrouvez également tous les liens vers le portail, campus, mails, …
 > 
-> Disponible sur iPhone & iPad.
+> Disponible sur iPhone & iPad<br>
 > Créée par SheepDevs<br>
 > Ω
 
