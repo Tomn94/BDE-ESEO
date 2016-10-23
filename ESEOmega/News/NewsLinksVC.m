@@ -52,7 +52,7 @@
     
     if (clubs.count > 0)
     {
-        NSDictionary *club = clubs[0];
+        NSDictionary *club = clubs[0][@"contacts"];
     //for (NSDictionary *club in clubs)
     //{
         //if ([club[@"id"] intValue] == 1)
