@@ -180,17 +180,19 @@
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [df dateFromString:event[@"date"]];
         
-        NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitMonth | NSCalendarUnitYear)
-                                                               fromDate:date];
-        NSString *header = [NSString stringWithFormat:@"%@ %d", [[df monthSymbols][dc.month - 1] capitalizedString], (int)dc.year];
-        
-        if ([evenementsMonths containsObject:header])
-            [evenements[[evenementsMonths indexOfObject:header]] addObject:event];
-        else
-        {
-            [evenementsMonths addObject:header];
-            NSMutableArray *eventsMois = [[NSMutableArray alloc] initWithObjects:event, nil];
-            [evenements addObject:eventsMois];
+        if (date != nil) {
+            NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitMonth | NSCalendarUnitYear)
+                                                                   fromDate:date];
+            NSString *header = [NSString stringWithFormat:@"%@ %d", [[df monthSymbols][dc.month - 1] capitalizedString], (int)dc.year];
+            
+            if ([evenementsMonths containsObject:header])
+                [evenements[[evenementsMonths indexOfObject:header]] addObject:event];
+            else
+            {
+                [evenementsMonths addObject:header];
+                NSMutableArray *eventsMois = [[NSMutableArray alloc] initWithObjects:event, nil];
+                [evenements addObject:eventsMois];
+            }
         }
     }
     events = [NSArray arrayWithArray:evenements];
