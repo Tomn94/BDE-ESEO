@@ -57,6 +57,7 @@
 - (void) eseomega;
 
 - (IBAction) salles:(nullable id)sender;
+- (IBAction) genealogy:(nullable id)sender;
 - (IBAction) ingenews:(nullable id)sender;
 
 @end

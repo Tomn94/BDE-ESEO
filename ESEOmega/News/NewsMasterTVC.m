@@ -418,6 +418,14 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+- (IBAction) genealogy:(nullable id)sender
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Genealogy" bundle:nil];
+    UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Genealogy"];
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 - (IBAction) ingenews:(nullable id)sender
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"IngeNews" bundle:nil];
