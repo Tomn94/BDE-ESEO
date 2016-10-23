@@ -124,17 +124,45 @@
 {
     SponsorsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sponsorsCell" forIndexPath:indexPath];
     
+    /* Get current data and set name */
     NSDictionary *sponsor = sponsors[indexPath.row];
-    cell.nomLabel.text = sponsor[@"nom"];
-    cell.descLabel.text = [sponsor[@"detail"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    cell.nomLabel.text = sponsor[@"name"];
     
-    NSString *contact = [[[sponsor[@"url"] stringByReplacingOccurrencesOfString:@"http://"
-                                                                     withString:@""] stringByReplacingOccurrencesOfString:@"www." withString:@""] stringByReplacingOccurrencesOfString:@"https://" withString:@""];
-    if (![contact isEqualToString:@""] && ![sponsor[@"adr"] isEqualToString:@""])
+    /* Description label, allow HTML */
+    NSString *detail = [sponsor[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
+    detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // no-breaking space
+    detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}}</style>",
+               cell.descLabel.font.fontName, cell.descLabel.font.pointSize]
+              stringByAppendingString:detail];
+    // Remove trailing HTML useless tags
+    while ([detail hasSuffix:@"<br>"] || [detail hasSuffix:@"<br/>"] || [detail hasSuffix:@"<br />"]) {
+        detail = [detail substringToIndex:[detail rangeOfString:@"<br" options:NSBackwardsSearch].location];
+    }
+    NSAttributedString *as = [[NSAttributedString alloc] initWithData:[detail dataUsingEncoding:NSUnicodeStringEncoding]
+                                                              options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                   documentAttributes:nil error:nil];
+    cell.descLabel.attributedText = as;
+    
+    /* Build URL/address contact string */
+    NSString *contact = @"";
+    if (sponsor[@"url"] != nil) {
+        /* Remove unnecessary spaces and slashes */
+        NSString *url = sponsor[@"url"];
+        url = [url stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if ([url hasSuffix:@"/"])
+            url = [url substringToIndex:url.length - 1];
+        /* Remove old-school URL parts */
+        contact = [[[url stringByReplacingOccurrencesOfString:@"http://"
+                                                   withString:@""] stringByReplacingOccurrencesOfString:@"www." withString:@""] stringByReplacingOccurrencesOfString:@"https://" withString:@""];
+    }
+    if (![contact isEqualToString:@""] && sponsor[@"address"] != nil && ![sponsor[@"address"] isEqualToString:@""])
         contact = [contact stringByAppendingString:@"\n"];
-    contact = [contact stringByAppendingString:sponsor[@"adr"]];
+    if (sponsor[@"address"] != nil)
+        contact = [contact stringByAppendingString:sponsor[@"address"]];
     cell.contactLabel.text = contact;
     
+    /* Set logo */
     if (sponsor[@"img"] != nil && ![sponsor[@"img"] isEqualToString:@""])
         [cell.logoView sd_setImageWithURL:[NSURL URLWithString:sponsor[@"img"]]
                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -143,10 +171,12 @@
     cell.logoView.layer.cornerRadius = 4;
     cell.logoView.clipsToBounds = YES;
     
-    [cell setAvantages:sponsor[@"avantages"]];
+    /* Advantages */
+    [cell setAvantages:sponsor[@"perks"]];
     
-    [cell setSelectionStyle:([sponsor[@"url"] isEqualToString:@""]) ? UITableViewCellSelectionStyleNone
-                                                                    : UITableViewCellSelectionStyleDefault];
+    /* Disable selection if no link */
+    [cell setSelectionStyle:(sponsor[@"url"] == nil || [sponsor[@"url"] isEqualToString:@""]) ? UITableViewCellSelectionStyleNone
+                                                                                              : UITableViewCellSelectionStyleDefault];
     
     return cell;
 }
@@ -155,7 +185,7 @@
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     NSString *url = sponsors[indexPath.row][@"url"];
-    if ([url isEqualToString:@""])
+    if (url == nil || [url isEqualToString:@""])
         return;
     
     [[Data sharedData] openURL:url currentVC:self];
@@ -172,7 +202,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     if (index != nil)
     {
         NSString *url = sponsors[index.row][@"url"];
-        if ([url isEqualToString:@""])
+        if (url == nil || [url isEqualToString:@""])
             return nil;
         
         previewingContext.sourceRect = [self.tableView rectForRowAtIndexPath:index];
