@@ -73,13 +73,13 @@
     {
         if (![filtre[section] count])
             return nil;
-        if ([filtre[section][0][@"nom"] isEqualToString:@""])
+        if ([filtre[section][0][@"name"] isEqualToString:@""])
             return @"#";
-        return [filtre[section][0][@"nom"] substringToIndex:1];
+        return [filtre[section][0][@"name"] substringToIndex:1];
     }
-    if ([salles[section][0][@"nom"] isEqualToString:@""])
+    if ([salles[section][0][@"name"] isEqualToString:@""])
         return @"#";
-    return [salles[section][0][@"nom"] substringToIndex:1];
+    return [salles[section][0][@"name"] substringToIndex:1];
 }
 
 - (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView
@@ -108,10 +108,10 @@ sectionForSectionIndexTitle:(NSString *)title
     for (NSArray *lettre in salles)
     {
         NSComparisonResult res;
-        if ([lettre[0][@"nom"] isEqualToString:@""])
+        if ([lettre[0][@"name"] isEqualToString:@""])
             res = [@"" caseInsensitiveCompare:title];
         else
-            res = [[lettre[0][@"nom"] substringToIndex:1] caseInsensitiveCompare:title];
+            res = [[lettre[0][@"name"] substringToIndex:1] caseInsensitiveCompare:title];
         if (res == NSOrderedSame)
             return i;
         else if (res == NSOrderedAscending)
@@ -135,8 +135,9 @@ sectionForSectionIndexTitle:(NSString *)title
         salle = salles[indexPath.section][indexPath.row];
     
     
-    cell.textLabel.text = salle[@"nom"];
-    NSString *desc = [NSString stringWithFormat:@"%@%@Bâtiment %@ · Étage %d", salle[@"num"], ([salle[@"num"] isEqualToString:@""]) ? @"" : @" · ", salle[@"bat"], [salle[@"etage"] intValue]];
+    cell.textLabel.text = salle[@"name"];
+    NSString *desc = [NSString stringWithFormat:@"%@%@Bâtiment %@ · Étage %d",
+                      salle[@"num"], ([salle[@"num"] isEqualToString:@""]) ? @"" : @" · ", salle[@"bat"], [salle[@"floor"] intValue]];
     if (![salle[@"info"] isEqualToString:@""])
         desc = [desc stringByAppendingString:[NSString stringWithFormat:@" · %@", salle[@"info"]]];
     cell.detailTextLabel.text = desc;
@@ -161,7 +162,7 @@ sectionForSectionIndexTitle:(NSString *)title
     [filtre removeAllObjects];
     filtre = [NSMutableArray array];
     
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(nom contains[cd] %@) OR (num contains[cd] %@) OR (info contains[cd] %@)", search.searchBar.text, search.searchBar.text, search.searchBar.text, search.searchBar.text];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(name contains[cd] %@) OR (num contains[cd] %@) OR (info contains[cd] %@)", search.searchBar.text, search.searchBar.text, search.searchBar.text, search.searchBar.text];
     for (NSArray *lettre in salles)
         [filtre addObject:[lettre filteredArrayUsingPredicate:resultPredicate]];
     
@@ -189,10 +190,10 @@ sectionForSectionIndexTitle:(NSString *)title
     [self.refreshControl endRefreshing];
     
     NSMutableArray *t_salles = [NSMutableArray array];
-    NSMutableArray *lesSalles = [NSMutableArray arrayWithArray:[[Data sharedData] salles][@"salles"]];
+    NSMutableArray *lesSalles = [NSMutableArray arrayWithArray:[[Data sharedData] salles][@"rooms"]];
     
     // Tri ordre alpha
-    [lesSalles sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"nom"
+    [lesSalles sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                     ascending:YES
                                                                      selector:@selector(caseInsensitiveCompare:)]]];
     
@@ -201,10 +202,10 @@ sectionForSectionIndexTitle:(NSString *)title
     for (NSDictionary *salle in lesSalles)
     {
         NSString *lettreTest;
-        if ([salle[@"nom"] isEqualToString:@""])
+        if ([salle[@"name"] isEqualToString:@""])
             lettreTest = @" ";
         else
-            lettreTest = [salle[@"nom"] substringToIndex:1];
+            lettreTest = [salle[@"name"] substringToIndex:1];
         if ([lettreTest caseInsensitiveCompare:lettreActuelle] == NSOrderedSame)
             [[t_salles lastObject] addObject:salle];
         else

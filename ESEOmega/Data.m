@@ -515,7 +515,7 @@
                                                   else if ([JSONname isEqualToString:@"cmds"])
                                                       key = @"history";
                                                   else if ([JSONname isEqualToString:@"rooms"])
-                                                      key = @"salles";
+                                                      key = @"rooms";
                                                   else if ([JSONname isEqualToString:@"ingenews"])
                                                       key = @"fichiers";
                                                   
