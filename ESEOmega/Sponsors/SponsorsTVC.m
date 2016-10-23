@@ -131,8 +131,8 @@
     /* Description label, allow HTML */
     NSString *detail = [sponsor[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
-    detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // no-breaking space
-    detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}}</style>",
+    detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // nbsp
+    detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}</style>",
                cell.descLabel.font.fontName, cell.descLabel.font.pointSize]
               stringByAppendingString:detail];
     // Remove trailing HTML useless tags
