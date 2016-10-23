@@ -76,7 +76,6 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 ## TODO
 - Tri des salles : alphabétique → bâtiment → étage
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
-- Refaire AlertBox d'infos d'un événement (taille dynamique et centrage en Split View iPad)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
 - iOS 9/10 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
@@ -91,6 +90,8 @@ l'app a changé de logo !
 - Arbre parrainages
 - Mise à jour des liens Handoff/Siri vers le nouveau site BDE
 - Nouveau son pour les notifications
+- Améliorations Snapchat
+- AlertBox infos événement scrollables ! 🎉
 - Changement du raccourci 3D Touch « Events cette semaine » en « Trouver une salle »
 
 ###v3.2 · 02/10/2016
