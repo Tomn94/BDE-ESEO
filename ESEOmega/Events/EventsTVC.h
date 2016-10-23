@@ -26,6 +26,8 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "CustomIOSAlertView.h"
 
+#define JSON_DATE_FORMAT @"yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+
 @interface EventsTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, CustomIOSAlertViewDelegate, UIViewControllerPreviewingDelegate>
 {
     NSArray *events;

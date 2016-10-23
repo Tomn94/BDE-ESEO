@@ -100,8 +100,8 @@
     NSString *detailString = @"";
     
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [df dateFromString:event[@"date"]];
+    [df setDateFormat:JSON_DATE_FORMAT];
+    NSDate *date = [df dateFromString:event[@"fulldate"]];
     NSString *dateTxt = [NSDateFormatter localizedStringFromDate:date
                                                        dateStyle:NSDateFormatterNoStyle
                                                        timeStyle:NSDateFormatterShortStyle];
@@ -109,9 +109,9 @@
     
     if (dc.hour != 0 || dc.minute != 2)
         detailString = [@"À : " stringByAppendingString:dateTxt];
-    if (![event[@"dateFin"] isEqualToString:@""])
+    if (event[@"fullenddate"] != nil && ![event[@"fullenddate"] isEqualToString:@""])
     {
-        NSDate *dateFin = [df dateFromString:event[@"dateFin"]];
+        NSDate *dateFin = [df dateFromString:event[@"fullenddate"]];
         NSDateComponents *dcFin = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:dateFin];
         NSDateComponents *dcDiff = [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:date toDate:dateFin options:0];
         BOOL sameDay = (dc.day == dcFin.day && dc.month == dcFin.month && dc.year == dcFin.year) || dcDiff.second < 36000;
@@ -137,12 +137,12 @@
         else
             detailString = [@"Lieu : " stringByAppendingString:event[@"lieu"]];
     }
-    */if (![event[@"club"] isEqualToString:@""])
+    */if (event[@"from"] != nil && ![event[@"from"] isEqualToString:@""])
     {
         if (![detailString isEqualToString:@""])
-            detailString = [detailString stringByAppendingString:[NSString stringWithFormat:@"\nPar : %@", event[@"club"]]];
+            detailString = [detailString stringByAppendingString:[NSString stringWithFormat:@"\nPar : %@", event[@"from"]]];
         else
-            detailString = [@"Par : " stringByAppendingString:event[@"club"]];
+            detailString = [@"Par : " stringByAppendingString:event[@"from"]];
     }/*
     if (![event[@"detail"] isEqualToString:@""])
     {
@@ -177,8 +177,8 @@
     for (NSDictionary *event in eventsBruts)
     {
         NSDateFormatter *df = [NSDateFormatter new];
-        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSDate *date = [df dateFromString:event[@"date"]];
+        [df setDateFormat:JSON_DATE_FORMAT];
+        NSDate *date = [df dateFromString:event[@"fulldate"]];
         
         if (date != nil) {
             NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitMonth | NSCalendarUnitYear)
@@ -219,7 +219,7 @@
 - (void) scrollerMoisActuel
 {
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [df setDateFormat:JSON_DATE_FORMAT];
     NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitDay)
                                                            fromDate:[NSDate date]];
     NSString *header = [NSString stringWithFormat:@"%@ %d", [[df monthSymbols][dc.month - 1] capitalizedString], (int)dc.year];
@@ -241,7 +241,7 @@
         NSDictionary *event = events[pos][posR];
         NSDateComponents *dcEvent = [[NSCalendar currentCalendar] components:(NSCalendarUnitWeekday | NSCalendarUnitDay |
                                                                               NSCalendarUnitHour | NSCalendarUnitMinute)
-                                                                    fromDate:[df dateFromString:event[@"dateFin"]]];
+                                                                    fromDate:[df dateFromString:event[@"fullenddate"]]];
         if (dcEvent.day >= dc.day)
             break;
     }
@@ -295,14 +295,18 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     NSDictionary *event = events[indexPath.section][indexPath.row];
     
     // Création du badge du jour
-    UIColor *color = [UIColor colorWithRed:[event[@"color"][0] floatValue]/255.
-                                     green:[event[@"color"][1] floatValue]/255.
-                                      blue:[event[@"color"][2] floatValue]/255.
-                                     alpha:1];
+    UIColor *color;
+    if (event[@"color"] == nil)
+        color = [UIColor colorWithRed:1 green:45/255. blue:85/255. alpha:1];   // fraise écrasée
+    else
+        color = [UIColor colorWithRed:[event[@"color"][0] floatValue]/255.
+                                green:[event[@"color"][1] floatValue]/255.
+                                 blue:[event[@"color"][2] floatValue]/255.
+                                alpha:1];
     
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *dateFin = [df dateFromString:event[@"dateFin"]];
+    [df setDateFormat:JSON_DATE_FORMAT];
+    NSDate *dateFin = [df dateFromString:event[@"fullenddate"]];
     if ([dateFin compare:[NSDate date]] == NSOrderedAscending)
         color = [UIColor colorWithRed:145/255. green:164/255. blue:173/255. alpha:1];
     
@@ -317,7 +321,7 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:imgFrame cornerRadius:7];
     [roundedRect fillWithBlendMode:kCGBlendModeNormal alpha:1];
     
-    NSDate *date = [df dateFromString:event[@"date"]];
+    NSDate *date = [df dateFromString:event[@"fulldate"]];
     NSDateComponents *dc = [[NSCalendar currentCalendar] components:(NSCalendarUnitWeekday | NSCalendarUnitDay |
                                                                      NSCalendarUnitHour | NSCalendarUnitMinute)
                                                            fromDate:date];
@@ -344,7 +348,7 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [[cell imageView] setImage:newImage];
     
     // Texte
-    [cell.textLabel       setText:event[@"titre"]];
+    [cell.textLabel setText:event[@"title"]];
     cell.textLabel.textColor = [UIColor blackColor];
     [cell.detailTextLabel setText:[self texteDetail:indexPath]];
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -449,21 +453,40 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     CGFloat min = MIN(self.view.bounds.size.width, self.view.bounds.size.height);
     CGFloat dec = (self.view.bounds.size.width < 350) ? 20 : 50;
+    
     EventAlertView *view = [[NSBundle mainBundle] loadNibNamed:@"EventAlertView" owner:self options:nil][0];
     [view setFrame:CGRectMake(0, 0, min - dec, min - 100)];
     view.clipsToBounds = YES;
     view.layer.cornerRadius = 7;
     
-    
-    view.title.text  = event[@"titre"];
-    view.backTitle.backgroundColor = [UIColor colorWithRed:[event[@"color"][0] floatValue]/255.
-                                                     green:[event[@"color"][1] floatValue]/255.
-                                                      blue:[event[@"color"][2] floatValue]/255.
-                                                     alpha:1];
+    view.title.text  = event[@"title"];
+    if (event[@"color"] == nil)
+        view.backTitle.backgroundColor = [UIColor colorWithRed:1 green:45/255. blue:85/255. alpha:1];   // fraise écrasée
+    else
+        view.backTitle.backgroundColor = [UIColor colorWithRed:[event[@"color"][0] floatValue]/255.
+                                                         green:[event[@"color"][1] floatValue]/255.
+                                                          blue:[event[@"color"][2] floatValue]/255.
+                                                         alpha:1];
     /*if ([event[@"detail"] isEqualToString:@""])
      [view.detail removeFromSuperview];
      else
-     */view.detail.text = event[@"detail"];
+     view.detail.text = event[@"detail"];*/
+    
+    /* Description label, allow HTML */
+    NSString *detail = [event[@"text"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
+    detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // no-breaking space
+    detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; line-height: 90%%;}</style>",
+               view.detail.font.fontName, view.detail.font.pointSize]
+              stringByAppendingString:detail];
+    // Remove trailing HTML useless tags
+    while ([detail hasSuffix:@"<br>"] || [detail hasSuffix:@"<br/>"] || [detail hasSuffix:@"<br />"]) {
+        detail = [detail substringToIndex:[detail rangeOfString:@"<br" options:NSBackwardsSearch].location];
+    }
+    NSAttributedString *as = [[NSAttributedString alloc] initWithData:[detail dataUsingEncoding:NSUnicodeStringEncoding]
+                                                              options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                   documentAttributes:nil error:nil];
+    view.detail.attributedText = as;
     
     if ([UIScreen mainScreen].bounds.size.width < 350)
     {
@@ -479,33 +502,33 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         [view.dateFinLabel setFont:[UIFont systemFontOfSize:13]];
     }
     
-    if ([event[@"lieu"] isEqualToString:@""])
+    if (event[@"place"] == nil || [event[@"place"] isEqualToString:@""])
     {
         [view.lieu removeFromSuperview];
         [view.lieuLabel removeFromSuperview];
     }
     else
-        view.lieu.text   = event[@"lieu"];
+        view.lieu.text   = event[@"place"];
     
-    if ([event[@"club"] isEqualToString:@""])
+    if (event[@"from"] == nil || [event[@"from"] isEqualToString:@""])
     {
         [view.club removeFromSuperview];
         [view.clubLabel removeFromSuperview];
     }
     else
-        view.club.text   = event[@"club"];
+        view.club.text   = event[@"from"];
     
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [df dateFromString:event[@"date"]];
+    [df setDateFormat:JSON_DATE_FORMAT];
+    NSDate *date = [df dateFromString:event[@"fulldate"]];
     NSDateComponents *dc = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:date];
     NSString *dateTxt = [NSDateFormatter localizedStringFromDate:date
                                                        dateStyle:NSDateFormatterFullStyle
                                                        timeStyle:(dc.hour != 0 || dc.minute != 2) ? NSDateFormatterShortStyle : NSDateFormatterNoStyle];
     view.date.text = dateTxt;
-    if (![event[@"dateFin"] isEqualToString:@""])
+    if (event[@"fullenddate"] != nil && ![event[@"fullenddate"] isEqualToString:@""])
     {
-        NSDate *dateFin = [df dateFromString:event[@"dateFin"]];
+        NSDate *dateFin = [df dateFromString:event[@"fullenddate"]];
         NSDateComponents *dcFin = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:dateFin];
         NSDateComponents *dcDiff = [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:date toDate:dateFin options:0];
         BOOL sameDay = (dc.day == dcFin.day && dc.month == dcFin.month && dc.year == dcFin.year) || dcDiff.second < 36000;
@@ -536,7 +559,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     NSMutableArray *boutons = [NSMutableArray arrayWithObject:@"OK"];
     NSDictionary *event = events[index.section][index.row];
-    if (![event[@"url"] isEqualToString:@""])
+    if (event[@"url"] != nil && ![event[@"url"] isEqualToString:@""])
     {
         if ([event[@"url"] rangeOfString:@"facebook.com"].location != NSNotFound ||
             [event[@"url"] rangeOfString:@"fb.me"].location != NSNotFound)
