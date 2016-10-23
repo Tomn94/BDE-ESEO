@@ -135,8 +135,8 @@
     cell.detailLabel.layer.shadowOpacity = 1;
     
     NSDictionary *club = clubs[indexPath.row];
-    cell.titreLabel.text = club[@"nom"];
-    cell.detailLabel.text = club[@"desc"];
+    cell.titreLabel.text = club[@"name"];
+    cell.detailLabel.text = club[@"description"];
     
     if (club[@"img"] != nil && ![club[@"img"] isEqualToString:@""])
         [cell.imgView sd_setImageWithURL:club[@"img"]

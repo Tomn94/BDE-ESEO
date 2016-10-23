@@ -76,31 +76,32 @@
 {
     NSMutableArray *array = [NSMutableArray array];
     
-    if (_infos[@"web"] != nil && ![_infos[@"web"] isEqualToString:@""])
+    NSDictionary *contacts = _infos[@"contacts"];
+    if (contacts[@"web"] != nil && ![contacts[@"web"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Site" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self site]; }]];
-    if (_infos[@"fb"] != nil && ![_infos[@"fb"] isEqualToString:@""])
+    if (contacts[@"fb"] != nil && ![contacts[@"fb"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Facebook" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self facebook]; }]];
-    if (_infos[@"mail"] != nil && ![_infos[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
+    if (contacts[@"mail"] != nil && ![contacts[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
         [array addObject:[UIPreviewAction actionWithTitle:@"Mail" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self mail]; }]];
-    if (_infos[@"tel"] != nil && ![_infos[@"tel"] isEqualToString:@""])
+    if (contacts[@"tel"] != nil && ![contacts[@"tel"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Appeler" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self tel]; }]];
-    if (_infos[@"youtube"] != nil && ![_infos[@"youtube"] isEqualToString:@""])
+    if (contacts[@"youtube"] != nil && ![contacts[@"youtube"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"YouTube" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self youtube]; }]];
-    if (_infos[@"instagram"] != nil && ![_infos[@"instagram"] isEqualToString:@""])
+    if (contacts[@"instagram"] != nil && ![contacts[@"instagram"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Instagram" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self instagram]; }]];
-    if (_infos[@"snap"] != nil && ![_infos[@"snap"] isEqualToString:@""])
+    if (contacts[@"snap"] != nil && ![contacts[@"snap"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Snapchat" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self snapchat]; }]];
-    if (_infos[@"twitter"] != nil && ![_infos[@"twitter"] isEqualToString:@""])
+    if (contacts[@"twitter"] != nil && ![contacts[@"twitter"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"Twitter" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self twitter]; }]];
-    if (_infos[@"linkedin"] != nil && ![_infos[@"linkedin"] isEqualToString:@""])
+    if (contacts[@"linkedin"] != nil && ![contacts[@"linkedin"] isEqualToString:@""])
         [array addObject:[UIPreviewAction actionWithTitle:@"LinkedIn" style:UIPreviewActionStyleDefault
                                                   handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self linkedin]; }]];
     
@@ -141,10 +142,10 @@
 
 - (void) loadClub
 {
-    if (_infos[@"nom"] == nil)
+    if (_infos[@"name"] == nil)
         return;
     
-    self.title = _infos[@"nom"];
+    self.title = _infos[@"name"];
     
     [self.tableView reloadData];
     
@@ -156,7 +157,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont systemFontOfSize:15];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = [_infos[@"detail"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    label.text = [_infos[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     label.textColor = [UIColor whiteColor];
     label.numberOfLines = 0;
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -167,55 +168,56 @@
     
     // Boutons
     NSMutableArray *boutons = [NSMutableArray array];
-    if (_infos[@"web"] != nil && ![_infos[@"web"] isEqualToString:@""])
+    NSDictionary *contacts = _infos[@"contacts"];
+    if (contacts[@"web"] != nil && ![contacts[@"web"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"site"] style:UIBarButtonItemStylePlain target:self action:@selector(site)];
         [boutons addObject:item];
     }
-    if (_infos[@"fb"] != nil && ![_infos[@"fb"] isEqualToString:@""])
+    if (contacts[@"fb"] != nil && ![contacts[@"fb"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fb"] style:UIBarButtonItemStylePlain target:self action:@selector(facebook)];
         [boutons addObject:item];
     }
-    if (_infos[@"twitter"] != nil && ![_infos[@"twitter"] isEqualToString:@""])
+    if (contacts[@"twitter"] != nil && ![contacts[@"twitter"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"twitter"] style:UIBarButtonItemStylePlain target:self action:@selector(twitter)];
         [boutons addObject:item];
     }
-    if (_infos[@"youtube"] != nil && ![_infos[@"youtube"] isEqualToString:@""])
+    if (contacts[@"youtube"] != nil && ![contacts[@"youtube"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"youtube"] style:UIBarButtonItemStylePlain target:self action:@selector(youtube)];
         [boutons addObject:item];
     }
-    if (_infos[@"snap"] != nil && ![_infos[@"snap"] isEqualToString:@""])
+    if (contacts[@"snap"] != nil && ![contacts[@"snap"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"snap"] style:UIBarButtonItemStylePlain target:self action:@selector(snapchat)];
         [boutons addObject:item];
     }
-    if (_infos[@"instagram"] != nil && ![_infos[@"instagram"] isEqualToString:@""])
+    if (contacts[@"instagram"] != nil && ![contacts[@"instagram"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"instagram"] style:UIBarButtonItemStylePlain target:self action:@selector(instagram)];
         [boutons addObject:item];
     }
-    if (_infos[@"linkedin"] != nil && ![_infos[@"linkedin"] isEqualToString:@""])
+    if (contacts[@"linkedin"] != nil && ![contacts[@"linkedin"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"linkedin"] style:UIBarButtonItemStylePlain target:self action:@selector(linkedin)];
         [boutons addObject:item];
     }
-    if (_infos[@"mail"] != nil && ![_infos[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
+    if (contacts[@"mail"] != nil && ![contacts[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail"] style:UIBarButtonItemStylePlain target:self action:@selector(mail)];
         [boutons addObject:item];
     }
-    if (_infos[@"tel"] != nil && ![_infos[@"tel"] isEqualToString:@""])
+    if (contacts[@"tel"] != nil && ![contacts[@"tel"] isEqualToString:@""])
     {
         [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tel"] style:UIBarButtonItemStylePlain target:self action:@selector(tel)];
@@ -284,74 +286,74 @@
 - (void) site
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] openURL:_infos[@"web"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"web"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] openURL:_infos[@"web"] currentVC:self];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"web"] currentVC:self];
 }
 
 - (void) facebook
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] openURL:_infos[@"fb"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"fb"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] openURL:_infos[@"fb"] currentVC:self];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"fb"] currentVC:self];
 }
 
 - (void) twitter
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] twitter:_infos[@"twitter"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] twitter:_infos[@"contacts"][@"twitter"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] twitter:_infos[@"twitter"] currentVC:self];
+        [[Data sharedData] twitter:_infos[@"contacts"][@"twitter"] currentVC:self];
 }
 
 - (void) youtube
 {
 //    [[Data sharedData] youtube:_infos[@"youtube"] currentVC:self];
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] openURL:_infos[@"youtube"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"youtube"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] openURL:_infos[@"youtube"] currentVC:self];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"youtube"] currentVC:self];
 }
 
 - (void) snapchat
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] snapchat:_infos[@"snap"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] snapchat:_infos[@"contacts"][@"snap"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] snapchat:_infos[@"snap"] currentVC:self];
+        [[Data sharedData] snapchat:_infos[@"contacts"][@"snap"] currentVC:self];
 }
 
 - (void) instagram
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] instagram:_infos[@"instagram"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] instagram:_infos[@"contacts"][@"instagram"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] instagram:_infos[@"instagram"] currentVC:self];
+        [[Data sharedData] instagram:_infos[@"contacts"][@"instagram"] currentVC:self];
 }
 
 - (void) linkedin
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] openURL:_infos[@"linkedin"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"linkedin"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] openURL:_infos[@"linkedin"] currentVC:self];
+        [[Data sharedData] openURL:_infos[@"contacts"][@"linkedin"] currentVC:self];
 }
 
 - (void) mail
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] mail:_infos[@"mail"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] mail:_infos[@"contacts"][@"mail"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] mail:_infos[@"mail"] currentVC:self];
+        [[Data sharedData] mail:_infos[@"contacts"][@"mail"] currentVC:self];
 }
 
 - (void) tel
 {
     if ([[Data sharedData] t_currentTopVC] != nil)
-        [[Data sharedData] tel:_infos[@"tel"] currentVC:[[Data sharedData] t_currentTopVC]];
+        [[Data sharedData] tel:_infos[@"contacts"][@"tel"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
-        [[Data sharedData] tel:_infos[@"tel"] currentVC:self];
+        [[Data sharedData] tel:_infos[@"contacts"][@"tel"] currentVC:self];
 }
 
 #pragma mark - Mail Compose View Controller delegate
