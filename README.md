@@ -74,7 +74,11 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## TODO
+- Liens clubs (news, events, …)
+- Arbre parrainages
+- Inscription événement
 - Tri des salles : alphabétique → bâtiment → étage
+
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
