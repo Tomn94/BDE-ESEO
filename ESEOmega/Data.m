@@ -1015,9 +1015,10 @@ shouldChangeCharactersInRange:(NSRange)range
         return;
     }
     
+    NSURL *cleanURL = [NSURL URLWithString:[url stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     if ([SFSafariViewController class])
     {
-        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:cleanURL
                                                              entersReaderIfAvailable:NO];
         if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
         {
@@ -1027,7 +1028,7 @@ shouldChangeCharactersInRange:(NSRange)range
         [vc presentViewController:safari animated:YES completion:nil];
     }
     else
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        [[UIApplication sharedApplication] openURL:cleanURL];
 }
 
 - (void) twitter:(NSString *)username
