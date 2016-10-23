@@ -191,7 +191,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         
         previewingContext.sourceRect = [self.tableView rectForRowAtIndexPath:index];
         
-        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:[url stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]
                                                              entersReaderIfAvailable:NO];
         if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
         {

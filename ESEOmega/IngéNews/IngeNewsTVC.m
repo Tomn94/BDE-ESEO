@@ -146,7 +146,7 @@
 - (void)  collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSURL *URL = [NSURL URLWithString:fichiers[indexPath.row][@"file"]];
+    NSURL *URL = [NSURL URLWithString:[fichiers[indexPath.row][@"file"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     if ([SFSafariViewController class])
     {
@@ -219,7 +219,7 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
         
         previewingContext.sourceRect = [self.collectionView layoutAttributesForItemAtIndexPath:index].frame;
         
-        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:[url stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]
                                                              entersReaderIfAvailable:NO];
         if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
         {
@@ -370,7 +370,7 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 - (void)      tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSURL *URL = [NSURL URLWithString:fichiers[indexPath.row][@"file"]];
+    NSURL *URL = [NSURL URLWithString:[fichiers[indexPath.row][@"file"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     if ([SFSafariViewController class])
     {
