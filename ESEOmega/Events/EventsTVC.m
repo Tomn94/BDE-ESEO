@@ -170,7 +170,7 @@
 
 - (void) loadEvents
 {
-    NSArray *eventsBruts = [[Data sharedData] events][@"events"];
+    NSEnumerator *eventsBruts = [[[Data sharedData] events][@"events"] reverseObjectEnumerator];
     
     NSMutableArray *evenementsMonths = [NSMutableArray new];
     NSMutableArray *evenements = [NSMutableArray new];
