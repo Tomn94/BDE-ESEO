@@ -76,7 +76,6 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 ## TODO
 - Liens clubs (news, events, …)
 - Arbre parrainages
-- Inscription événement
 - Tri des salles : alphabétique → bâtiment → étage
 
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
@@ -91,6 +90,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 Non ce n'est pas un mirage…
 l'app a changé de logo !
 - API ESEOasis
+- Inscription événements
 - Arbre parrainages
 - Mise à jour des liens Handoff/Siri vers le nouveau site BDE
 - Nouveau son pour les notifications
