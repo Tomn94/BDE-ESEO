@@ -362,8 +362,19 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.75 alpha:1];
     }
     
-    [cell setSelectionStyle:([event[@"url"] isEqualToString:@""]) ? UITableViewCellSelectionStyleNone
-                                                                  : UITableViewCellSelectionStyleDefault];
+    [cell setSelectionStyle:(event[@"url"] == nil || [event[@"url"] isEqualToString:@""]) ? UITableViewCellSelectionStyleNone
+                                                                                          : UITableViewCellSelectionStyleDefault];
+    
+    /* Register for */
+    if (event[@"signup"] == nil || ![event[@"signup"] boolValue])
+        [cell setAccessoryView:nil];
+    else
+    {
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"signup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        [imgView setUserInteractionEnabled:YES];
+        [imgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(quickSignUp:)]];
+        [cell setAccessoryView:imgView];
+    }
     
     return cell;
 }
@@ -377,6 +388,199 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [alert show];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) quickSignUp:(UITapGestureRecognizer *)tgr
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[tgr locationInView:self.tableView]];
+    if (indexPath == nil)
+        return;
+    
+    NSDictionary *event = events[indexPath.section][indexPath.row];
+    
+    /* Ask validation */
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous vous inscrire pour cet événement ?"
+                                                                   message:[event[@"title"] stringByAppendingString:@"\n\nVotre nom, mail et № de téléphone seront communiqués au BDE"]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Confirmer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [Data sharedData].tempPhone = nil;
+        [self signUp:[event[@"id"] intValue]];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) signUp:(int)eventID
+{
+    if (![Data estConnecte])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous devez vous connecter pour vous inscrire à un événement"
+                                                                       message:@"Utilisez votre profil ESEO pour vous connecter dans l'application."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    
+    if ([JNKeychain loadValueForKey:@"phone"] == nil)
+    {
+        NSString *message = @"Celui-ci ne sera utilisé que pour vous recontacter plus facilement";
+        if ([Data sharedData].tempPhone != nil)
+            message = [message stringByAppendingString:@"\n\nRéessayez, numéro incorrect."];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Veuillez nous communiquer votre numéro de téléphone"
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
+         {
+             textField.placeholder  = @"0601234242";
+             textField.keyboardType = UIKeyboardTypePhonePad;
+             textField.delegate     = self;
+             textField.text         = [Data sharedData].tempPhone;
+         }];
+        [alert addAction:[UIAlertAction actionWithTitle:@"S'inscrire"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                              [self sendSignUp:eventID];
+                          }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else
+        [self sendSignUp:eventID];
+}
+
+- (BOOL)            textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+            replacementString:(NSString *)string
+{
+    NSString  *proposedNewString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString  *result = [proposedNewString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [Data sharedData].tempPhone = result;
+    return YES;
+}
+
+- (void) sendSignUp:(int)eventID
+{
+    if (![Data estConnecte])
+        return;
+    
+    if ([JNKeychain loadValueForKey:@"phone"] == nil)
+    {
+        NSString *num = [Data sharedData].tempPhone;
+        if ([num rangeOfString:@"^((\\+|00)33\\s?|0)[679](\\s?\\d{2}){4}$" options:NSRegularExpressionSearch].location != NSNotFound)
+        {
+            [Data sharedData].tempPhone = nil;
+            [JNKeychain saveValue:num forKey:@"phone"];
+        }
+        else
+        {
+            [self signUp:eventID];
+            return;
+        }
+    }
+    
+    /* Loading (auto-dismissing) indication */
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Réservation en cours"
+                                                                   message:@"Veuillez patienter…"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    double delayInSeconds = 30.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^{
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    });
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSString *prenom = @"";
+    NSString *nom = @"";
+    
+    /* Lowercased and without accented letters */
+    NSMutableString *username = [[[JNKeychain loadValueForKey:@"uname"] lowercaseString] mutableCopy];
+    CFStringTransform((__bridge CFMutableStringRef)username, NULL, kCFStringTransformStripCombiningMarks, NO);
+    
+    /* Separate first & last names */
+    NSUInteger space = [username rangeOfString:@" " options:NSBackwardsSearch].location;
+    if (space == NSNotFound || space + 2 > username.length) {
+        prenom = username;
+    } else {
+        prenom = [username substringToIndex:space];
+        nom    = [username substringFromIndex:space + 1];
+    }
+    
+    /* No composed names, ahhh Frenchies */
+    prenom = [prenom stringByReplacingOccurrencesOfString:@" " withString:@""];
+    prenom = [prenom stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    prenom = [prenom stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    nom    = [nom    stringByReplacingOccurrencesOfString:@" " withString:@""];
+    nom    = [nom    stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    nom    = [nom    stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    
+    /* Prepare GET & POST */
+    NSString *mail = [NSString stringWithFormat:@"%@.%@@reseau.eseo.fr", prenom, nom];
+    NSURL    *url  = [NSURL URLWithString:[NSString stringWithFormat:URL_EVN_SIGN, eventID]];
+    NSString *body = [NSString stringWithFormat:@"name=%@&email=%@&tel=%@",
+                      [Data encoderPourURL:[JNKeychain loadValueForKey:@"uname"]],
+                      [Data encoderPourURL:mail],
+                      [Data encoderPourURL:[JNKeychain loadValueForKey:@"phone"]]];
+    
+    /* Send */
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          [alert dismissViewControllerAnimated:YES completion:^{
+                                              
+                                              NSString *titre = @"Erreur";
+                                              NSString *message = @"Impossible d'envoyer la requête d'inscription.";
+                                              
+                                              if (error == nil && data != nil)
+                                              {
+                                                  NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                       options:kNilOptions
+                                                                                                         error:nil];
+                                                  NSLog(@"%@", JSON);
+                                                  if (JSON[@"signedup"] != nil)
+                                                  {
+                                                      if ([JSON[@"signedup"] boolValue])
+                                                      {
+                                                          titre = @"Inscription acceptée !";
+                                                          message = @"Merci, nous vous recontacterons";
+                                                      }
+                                                      else
+                                                      {
+                                                          titre = @"Inscription refusée";
+                                                          message = @"L'événement doit être plein, sinon contactez le BDE";
+                                                      }
+                                                  }
+                                                  else
+                                                  {
+                                                      titre = @"Impossible de réaliser l'inscription";
+                                                      message = @"Erreur inconnue.";
+                                                      if (JSON[@"info"] != nil && ![JSON[@"info"] isEqualToString:@""])
+                                                          message = JSON[@"info"];
+                                                  }
+                                              }
+                                              
+                                              UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:titre
+                                                                                                              message:message
+                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                              [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                         style:UIAlertActionStyleCancel
+                                                                                       handler:nil]];
+                                              [self presentViewController:alert2 animated:YES completion:Nil];
+                                          }];
+                                      }];
+    [dataTask resume];
 }
 
 #pragma mark - 3D Touch
@@ -393,7 +597,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         EventAlertViewController *vc = [EventAlertViewController new];
         NSMutableArray *previewItems = [NSMutableArray array];
         for (NSString *titre in boutons3DPop)
-            if (![titre isEqualToString:@"OK"])
+            if (![titre isEqualToString:DEFAULT_BTN])
                 [previewItems addObject:[UIPreviewAction actionWithTitle:titre
                                                                    style:UIPreviewActionStyleDefault
                                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
@@ -543,6 +747,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
             [view.dateFinLabel removeFromSuperview];
         }
     }
+    view.identifier = [event[@"id"] intValue];
     view.URL = event[@"url"];
     
     
@@ -557,7 +762,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (nullable NSArray *) boutonsPopUp:(NSIndexPath *)index
 {
-    NSMutableArray *boutons = [NSMutableArray arrayWithObject:@"OK"];
+    NSMutableArray *boutons = [NSMutableArray arrayWithObject:DEFAULT_BTN];
     NSDictionary *event = events[index.section][index.row];
     if (event[@"url"] != nil && ![event[@"url"] isEqualToString:@""])
     {
@@ -578,7 +783,15 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
             [boutons replaceObjectAtIndex:[boutons indexOfObject:@"Voir sur Facebook"] withObject:@"Facebook"];
         else if ([boutons indexOfObject:@"Voir Facebook"] != NSNotFound)
             [boutons replaceObjectAtIndex:[boutons indexOfObject:@"Voir Facebook"] withObject:@"Facebook"];
-        [boutons addObject:@"Réserver !"];
+        [boutons addObject:BUY_BTN];
+    }
+    if (event[@"signup"] != nil && [event[@"signup"] boolValue])
+    {
+        if ([boutons indexOfObject:@"Voir sur Facebook"] != NSNotFound)
+            [boutons replaceObjectAtIndex:[boutons indexOfObject:@"Voir sur Facebook"] withObject:@"Facebook"];
+        else if ([boutons indexOfObject:@"Voir Facebook"] != NSNotFound)
+            [boutons replaceObjectAtIndex:[boutons indexOfObject:@"Voir Facebook"] withObject:@"Facebook"];
+        [boutons addObject:SUBSCRIBE_BTN];
     }
     return [NSArray arrayWithArray:boutons];
 }
@@ -607,9 +820,23 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                         clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [alertView close];
-    if ([[alertView buttonTitles][buttonIndex] isEqualToString:@"Réserver !"])
+    if ([[alertView buttonTitles][buttonIndex] isEqualToString:BUY_BTN])
         [self commanderEvent:nil];
-    else if (![[alertView buttonTitles][buttonIndex] isEqualToString:@"OK"])
+    else if ([[alertView buttonTitles][buttonIndex] isEqualToString:SUBSCRIBE_BTN])
+    {
+        /* Ask validation */
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous vous inscrire pour cet événement ?"
+                                                                       message:[((EventAlertView *)alertView.containerView).title.text stringByAppendingString:@"\n\nVotre nom, mail et № de téléphone seront communiqués au BDE"]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Confirmer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [Data sharedData].tempPhone = nil;
+            int eventID = ((EventAlertView *)alertView.containerView).identifier;
+            [self signUp:eventID];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else if (![[alertView buttonTitles][buttonIndex] isEqualToString:DEFAULT_BTN])
     {
         NSString *URL = ((EventAlertView *)alertView.containerView).URL;
         if (![URL isEqualToString:@""])

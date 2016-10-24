@@ -597,7 +597,7 @@ Bâtiment : F. Rolland</string>
         <scene sceneID="cHp-kP-2Cs">
             <objects>
                 <navigationController id="PJx-tp-jgP" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PZF-Gb-Wdq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PZF-Gb-Wdq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -654,7 +654,7 @@ Bâtiment : F. Rolland</string>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commandeCell" id="UvV-Fm-Ak6" customClass="CommandesCell">
-                                <rect key="frame" x="0.0" y="164" width="375" height="61"/>
+                                <rect key="frame" x="0.0" y="163.5" width="375" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UvV-Fm-Ak6" id="OPa-8T-lSc">
                                     <frame key="frameInset" width="342" height="60"/>
@@ -951,7 +951,7 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Événements" image="events" selectedImage="eventsSel" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kmd-T4-Thd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kmd-T4-Thd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1005,7 +1005,7 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="L2W-8W-8mC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1039,8 +1039,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hZX-Yt-D3E"/>
-        <segue reference="atF-cd-EdF"/>
         <segue reference="mMl-75-8h7"/>
+        <segue reference="atF-cd-EdF"/>
+        <segue reference="fQb-79-xAc"/>
     </inferredMetricsTieBreakers>
 </document>

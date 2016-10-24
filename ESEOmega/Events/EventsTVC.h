@@ -27,8 +27,11 @@
 #import "CustomIOSAlertView.h"
 
 #define JSON_DATE_FORMAT @"yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+#define DEFAULT_BTN      @"OK"
+#define BUY_BTN          @"Réserver !"
+#define SUBSCRIBE_BTN    @"S'inscrire !"
 
-@interface EventsTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, CustomIOSAlertViewDelegate, UIViewControllerPreviewingDelegate>
+@interface EventsTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, CustomIOSAlertViewDelegate, UIViewControllerPreviewingDelegate, UITextFieldDelegate>
 {
     NSArray *events;
     NSArray *eventsMonths;

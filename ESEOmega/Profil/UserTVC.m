@@ -490,7 +490,7 @@ didFailLoadWithError:(nullable NSError *)error
 - (void) retirerTel
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous oublier le numéro de téléphone ?"
-                                                                   message:@"Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé à la prochaine commande."
+                                                                   message:@"Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé au prochain achat cafet/event via Lydia.\n\nCependant lorsque vous vous inscrivez à un événement (sans utiliser Lydia), ce numéro est communiqué au BDE."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:[UIAlertAction actionWithTitle:@"Supprimer" style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * _Nonnull action) {

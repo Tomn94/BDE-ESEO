@@ -44,6 +44,7 @@
 #define URL_JSONS    @"https://api.eseoasis.com/%@?%d"
 #define URL_NEWS     @"https://api.eseoasis.com/news?height=%d&ptr=%d&uzless=%d"
 #define URL_NEWS_LNK @"http://eseoasis.com/news/%d"
+#define URL_EVN_SIGN @"http://api.eseoasis.com/events/signup/%d"
 #define URL_CMDS     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/list.php?%d"
 #define URL_1CMD     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/resume.php"
 #define URL_CMD_NEW  @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/prepare.php"

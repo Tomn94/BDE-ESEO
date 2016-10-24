@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lieuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lieu;
 @property (weak, nonatomic) NSString *URL;
+@property (assign, nonatomic) int identifier;
 
 @end
 
