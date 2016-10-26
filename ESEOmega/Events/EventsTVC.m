@@ -548,7 +548,7 @@ shouldChangeCharactersInRange:(NSRange)range
                                                   NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
                                                                                                        options:kNilOptions
                                                                                                          error:nil];
-                                                  NSLog(@"%@", JSON);
+                                                  
                                                   if (JSON[@"signedup"] != nil)
                                                   {
                                                       if ([JSON[@"signedup"] boolValue])

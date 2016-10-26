@@ -26,16 +26,25 @@
 #import "JTSImageViewController.h"
 #import "UIScrollView+EmptyDataSet.h"
 
+#define ROOM_KEY_NAME     @"name"
+#define ROOM_KEY_NUM      @"num"
+#define ROOM_KEY_BUILDING @"bat"
+#define ROOM_KEY_FLOOR    @"floor"
+#define ROOM_KEY_INFO     @"info"
+#define USR_DEFAULTS_KEY  @"roomsSortMode"
+
 @interface SallesTVC : UITableViewController <UISearchResultsUpdating,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate,UISearchBarDelegate>
 {
     NSArray *salles;
     NSMutableArray *filtre;
     UISearchController *search;
+    int sortMode;
 }
 
 - (IBAction) fermer:(id)sender;
 - (IBAction) refresh:(id)sender;
 - (void) loadSalles;
 - (IBAction) afficherPlans:(id)sender;
+- (IBAction) sort:(id)sender;
 
 @end

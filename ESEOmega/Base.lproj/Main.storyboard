@@ -84,16 +84,16 @@
             <objects>
                 <tableViewController id="BNE-Uv-ud8" customClass="SponsorsTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="207" sectionHeaderHeight="22" sectionFooterHeight="22" id="5w8-u2-lpL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="123" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sponsorsCell" rowHeight="207" id="Vzf-zu-EHZ" customClass="SponsorsCell">
-                                <rect key="frame" x="0.0" y="22" width="375" height="207"/>
+                                <rect key="frame" x="0.0" y="22" width="384" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vzf-zu-EHZ" id="y02-m3-xku">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="206"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batiment" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-Ci-3lm">
@@ -202,14 +202,14 @@
             <objects>
                 <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubsDetailTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ln4-AE-9it">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsDetailCell" textLabel="jOh-1N-lBN" detailTextLabel="hgl-pA-9i2" style="IBUITableViewCellStyleSubtitle" id="J64-Bb-giS">
-                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="384" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J64-Bb-giS" id="3Jh-gM-LTL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOh-1N-lBN">
@@ -545,15 +545,15 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsMasterTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsMasterCell" rowHeight="142" id="zZB-eN-ivf" customClass="ClubsMasterCell">
-                                <rect key="frame" x="0.0" y="22" width="375" height="142"/>
+                                <rect key="frame" x="0.0" y="22" width="384" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZB-eN-ivf" id="4FT-8Z-gmo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="141"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2un-D0-LF5">
@@ -624,7 +624,7 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <navigationController id="PJx-tp-jgP" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PZF-Gb-Wdq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -808,7 +808,7 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <viewController storyboardIdentifier="newsDetailVC" id="iYf-NG-Y3x" customClass="NewsDetailVC" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="gjs-cz-J68">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -882,11 +882,13 @@ Bâtiment : F. Rolland</string>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="genealogy" id="p8E-j9-lhg">
+                                <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <action selector="genealogy:" destination="rVk-wj-hnv" id="ebQ-Np-5K6"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="ingenews" id="rqC-m9-Uef">
+                                <inset key="imageInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <action selector="ingenews:" destination="rVk-wj-hnv" id="da4-F1-AOZ"/>
                                 </connections>
@@ -949,7 +951,7 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" selectedImage="sponsorsSel" id="sSY-rw-nz9"/>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="krn-aS-nQJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1010,7 +1012,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Njh-RV-AH8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bIi-bw-Kn2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1029,6 +1031,8 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZa-VF-6Df" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fCe-Zp-Ibl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1083,8 +1087,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mMl-75-8h7"/>
+        <segue reference="hZX-Yt-D3E"/>
         <segue reference="atF-cd-EdF"/>
-        <segue reference="fQb-79-xAc"/>
+        <segue reference="mMl-75-8h7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,6 +29,8 @@
     
     [[Data sharedData] updateJSON:@"rooms"];
     
+    sortMode = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"roomsSortMode"];
+    
     filtre = [NSMutableArray array];
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.searchResultsUpdater = self;
@@ -69,17 +71,33 @@
 - (NSString *) tableView:(UITableView *)tableView
  titleForHeaderInSection:(NSInteger)section
 {
+    NSString *key = ROOM_KEY_NAME;
+    NSString *pre = @"";
+    if (sortMode == 1) {
+        key = ROOM_KEY_BUILDING;
+        pre = @"Bâtiment ";
+    }
+    else if (sortMode == 2) {
+        key = ROOM_KEY_FLOOR;
+        pre = @"Étage ";
+    }
+    
+    NSString *res = @"#";
     if (search.active)
     {
         if (![filtre[section] count])
             return nil;
-        if ([filtre[section][0][@"name"] isEqualToString:@""])
-            return @"#";
-        return [filtre[section][0][@"name"] substringToIndex:1];
+        
+        NSString *value = (sortMode == 2) ? [filtre[section][0][key] stringValue] : filtre[section][0][key];
+        if (![value isEqualToString:@""])
+            res = (sortMode == 0) ? [value substringToIndex:1] : value;
+        return [NSString stringWithFormat:@"%@%@", pre, res];
     }
-    if ([salles[section][0][@"name"] isEqualToString:@""])
-        return @"#";
-    return [salles[section][0][@"name"] substringToIndex:1];
+    
+    NSString *value = (sortMode == 2) ? [salles[section][0][key] stringValue] : salles[section][0][key];
+    if (![value isEqualToString:@""])
+        res = (sortMode == 0) ? [value substringToIndex:1] : value;
+    return [NSString stringWithFormat:@"%@%@", pre, res];
 }
 
 - (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView
@@ -87,9 +105,24 @@
     if (search.active || ![salles count])
         return nil;
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
+    NSMutableArray *array;
+    if (sortMode == 0)  // Just letters
+        array = [[[UILocalizedIndexedCollation currentCollation] sectionIndexTitles] mutableCopy];
+    else
+    {
+        array = [NSMutableArray array];
+        /* Let's get each Building or Floor ID */
+        for (NSArray *section in salles)
+        {
+            if (section.count) {
+                id header = section[0][(sortMode == 2) ? ROOM_KEY_FLOOR : ROOM_KEY_BUILDING];
+                if (sortMode == 2)
+                    header = [header stringValue];
+                [array addObject:header];
+            }
+        }
+    }
     [array insertObject:UITableViewIndexSearch atIndex:0];
-    [array removeLastObject];
 
     return array;
 }
@@ -103,15 +136,25 @@ sectionForSectionIndexTitle:(NSString *)title
         self.tableView.contentOffset = CGPointMake(0, -64);
         return NSNotFound;
     }
+    if ([title isEqualToString:@"#"])
+        return salles.count - 1;
+    
+    NSString *key = ROOM_KEY_NAME;
+    if (sortMode == 1)
+        key = ROOM_KEY_BUILDING;
+    else if (sortMode == 2)
+        key = ROOM_KEY_FLOOR;
     
     NSInteger i = 0;
     for (NSArray *lettre in salles)
     {
+        NSString *value = (sortMode == 2) ? [lettre[0][key] stringValue] : lettre[0][key];
         NSComparisonResult res;
-        if ([lettre[0][@"name"] isEqualToString:@""])
-            res = [@"" caseInsensitiveCompare:title];
+        if (sortMode != 0 || [value isEqualToString:@""])
+            res = [value caseInsensitiveCompare:title];
         else
-            res = [[lettre[0][@"name"] substringToIndex:1] caseInsensitiveCompare:title];
+            res = [[value substringToIndex:1] caseInsensitiveCompare:title];
+        
         if (res == NSOrderedSame)
             return i;
         else if (res == NSOrderedAscending)
@@ -135,11 +178,11 @@ sectionForSectionIndexTitle:(NSString *)title
         salle = salles[indexPath.section][indexPath.row];
     
     
-    cell.textLabel.text = salle[@"name"];
+    cell.textLabel.text = salle[ROOM_KEY_NAME];
     NSString *desc = [NSString stringWithFormat:@"%@%@Bâtiment %@ · Étage %d",
-                      salle[@"num"], ([salle[@"num"] isEqualToString:@""]) ? @"" : @" · ", salle[@"bat"], [salle[@"floor"] intValue]];
-    if (![salle[@"info"] isEqualToString:@""])
-        desc = [desc stringByAppendingString:[NSString stringWithFormat:@" · %@", salle[@"info"]]];
+                      salle[ROOM_KEY_NUM], ([salle[ROOM_KEY_NUM] isEqualToString:@""]) ? @"" : @" · ", salle[ROOM_KEY_BUILDING], [salle[ROOM_KEY_FLOOR] intValue]];
+    if (![salle[ROOM_KEY_INFO] isEqualToString:@""])
+        desc = [desc stringByAppendingString:[NSString stringWithFormat:@" · %@", salle[ROOM_KEY_INFO]]];
     cell.detailTextLabel.text = desc;
     
     UIFontDescriptor *const existingDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
@@ -162,18 +205,25 @@ sectionForSectionIndexTitle:(NSString *)title
     [filtre removeAllObjects];
     filtre = [NSMutableArray array];
     
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(name contains[cd] %@) OR (num contains[cd] %@) OR (info contains[cd] %@)", search.searchBar.text, search.searchBar.text, search.searchBar.text, search.searchBar.text];
+    NSString *query = search.searchBar.text;
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(%K contains[cd] %@) OR (%K contains[cd] %@) OR (%K contains[cd] %@)",
+                                    ROOM_KEY_NAME, query, ROOM_KEY_NUM, query, ROOM_KEY_INFO, query];
+    
     for (NSArray *lettre in salles)
         [filtre addObject:[lettre filteredArrayUsingPredicate:resultPredicate]];
     
     [self.tableView reloadData];
 }
 
+#pragma mark - Actions
+
+/** Close this View Controller */
 - (IBAction) fermer:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/** Refresh rooms data if needed */
 - (IBAction) refresh:(id)sender
 {
     if (![[Data sharedData] shouldUpdateJSON:@"rooms"])
@@ -185,39 +235,63 @@ sectionForSectionIndexTitle:(NSString *)title
     [[Data sharedData] updateJSON:@"rooms"];
 }
 
+/** Sort rooms from the received data */
 - (void) loadSalles
 {
     [self.refreshControl endRefreshing];
     
-    NSMutableArray *t_salles = [NSMutableArray array];
-    NSMutableArray *lesSalles = [NSMutableArray arrayWithArray:[[Data sharedData] salles][@"rooms"]];
+    NSMutableArray *sortedRooms = [NSMutableArray array];
+    NSMutableArray *allRooms = [NSMutableArray arrayWithArray:[[Data sharedData] salles][@"rooms"]];
     
-    // Tri ordre alpha
-    [lesSalles sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                    ascending:YES
-                                                                     selector:@selector(caseInsensitiveCompare:)]]];
+    /* Sort alphabetically or by building or byfloor */
+    NSString *sortKey = ROOM_KEY_NAME;
+    if (sortMode == 1)
+        sortKey = ROOM_KEY_BUILDING;
+    else if (sortMode == 2)
+        sortKey = ROOM_KEY_FLOOR;
+    if (sortMode == 2)
+        [allRooms sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:sortKey ascending:YES]]];
+    else
+        [allRooms sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:sortKey
+                                                                       ascending:YES
+                                                                        selector:@selector(localizedStandardCompare:)]]];
     
-    // Séparation ordre alpha
-    NSString *lettreActuelle = nil;
-    for (NSDictionary *salle in lesSalles)
+    /* Split rooms into building sections or floor sections or letter sections for alpha */
+    NSString *currentSectionID = nil;
+    for (NSDictionary *room in allRooms)
     {
-        NSString *lettreTest;
-        if ([salle[@"name"] isEqualToString:@""])
-            lettreTest = @" ";
-        else
-            lettreTest = [salle[@"name"] substringToIndex:1];
-        if ([lettreTest caseInsensitiveCompare:lettreActuelle] == NSOrderedSame)
-            [[t_salles lastObject] addObject:salle];
-        else
-        {
-            NSMutableArray *nv = [NSMutableArray arrayWithObject:salle];
-            [t_salles addObject:nv];
-        }
-        lettreActuelle = lettreTest;
+        NSString *roomID = (sortMode == 2) ? [room[sortKey] stringValue] : room[sortKey];
+        if (sortMode == 0)  // alpha = sort by 1st letter
+            roomID = [room[sortKey] substringToIndex:1];
+        
+        // Let's fill the current section if it belongs to it
+        if ([roomID caseInsensitiveCompare:currentSectionID] == NSOrderedSame)
+            [[sortedRooms lastObject] addObject:room];
+        else   // or create a new section
+            [sortedRooms addObject:[NSMutableArray arrayWithObject:room]];
+        
+        // In any case we take the current ID for the next test
+        currentSectionID = roomID;
     }
     
-    salles = [NSArray arrayWithArray:t_salles];
+    /* Inner sorting */
+    if (sortMode) {
+        for (NSMutableArray *rooms in sortedRooms)
+        {
+            NSSortDescriptor *alphaSD = [NSSortDescriptor sortDescriptorWithKey:ROOM_KEY_NAME
+                                                                      ascending:YES
+                                                                       selector:@selector(localizedStandardCompare:)];
+            if (sortMode == 1)  // Sort by building inner sorting by floor, then alpha
+                [rooms sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ROOM_KEY_FLOOR
+                                                                            ascending:YES], alphaSD]];
+            else                // Sort by floor inner sorting alphabetically
+                [rooms sortUsingDescriptors:@[alphaSD]];
+        }
+    }
     
+    salles = [NSArray arrayWithArray:sortedRooms];
+    
+    /* Now, present */
     if ([salles count] || search.active)
     {
         [self.tableView setBackgroundColor:[UIColor whiteColor]];
@@ -231,6 +305,7 @@ sectionForSectionIndexTitle:(NSString *)title
     [self.tableView reloadData];
 }
 
+/** Display the map picture on the whole screen */
 - (IBAction) afficherPlans:(id)sender
 {
     JTSImageInfo *imageInfo = [JTSImageInfo new];
@@ -241,6 +316,23 @@ sectionForSectionIndexTitle:(NSString *)title
                                                                             backgroundStyle:JTSImageViewControllerBackgroundOption_Scaled | JTSImageViewControllerBackgroundOption_Blurred];
     
     [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+}
+
+/** Change rooms sorting mode,
+    cycles through alphabetically → building → floor */
+- (IBAction) sort:(id)sender
+{
+    sortMode = (sortMode + 1) % 3;
+    [[NSUserDefaults standardUserDefaults] setInteger:sortMode forKey:USR_DEFAULTS_KEY];
+    
+    /* Animate while the change */
+    CATransition *animation = [CATransition animation];
+    [animation setDuration:0.45f];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.tableView.layer addAnimation:animation forKey:NULL];
+
+    /* Sort data again */
+    [self loadSalles];
 }
 
 #pragma mark - DZNEmptyDataSet
