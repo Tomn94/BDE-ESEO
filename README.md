@@ -25,7 +25,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > - Accédez aux éditions du journal Ingénews
 > 
 > EVENTS
-> - Retrouvez le calendrier annuel des événements de la vie associative.
+> - Retrouvez le calendrier annuel des événements de la vie associative
 > - Inscrivez-vous aux événements et commandez vos places, notamment pour la Blue Moon !
 > 
 > BDE & CLUBS
@@ -77,12 +77,12 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 - Liens clubs (news, events, …)
 - Arbre parrainages
 - Tri des salles : alphabétique → bâtiment → étage
-
+<br>
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
 - iOS 9/10 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
-- Simplifier le code (en Swift…) et commenter
+- Simplifier le code (Swift…) et commenter
 
 
 ## Versions
