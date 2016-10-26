@@ -76,7 +76,6 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 ## TODO
 - Liens clubs (news, events, …)
 - Arbre parrainages
-- Tri des salles : alphabétique → bâtiment → étage
 <br>
 - Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
@@ -95,6 +94,7 @@ l'app a changé de logo !
 - Mise à jour des liens Handoff/Siri vers le nouveau site BDE
 - Nouveau son pour les notifications
 - Améliorations Snapchat
+- Tri des salles : alphabétique → bâtiment → étage
 - AlertBox infos événement scrollables ! 🎉
 - Changement du raccourci 3D Touch « Events cette semaine » en « Trouver une salle »
 
