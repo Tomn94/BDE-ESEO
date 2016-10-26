@@ -25,8 +25,8 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > - Accédez aux éditions du journal Ingénews
 > 
 > EVENTS
-> - Retrouvez le calendrier annuel des événements de la vie associative.<br>
-> Commandez vos places pour les événements, dont la Blue Moon !
+> - Retrouvez le calendrier annuel des événements de la vie associative.
+> - Inscrivez-vous aux événements et commandez vos places, notamment pour la Blue Moon !
 > 
 > BDE & CLUBS
 > - Les infos, les photos, les liens, les contacts pour le BDE ainsi que tous les clubs de l'ESEO.<br>
