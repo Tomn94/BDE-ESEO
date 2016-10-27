@@ -27,27 +27,20 @@
 {
     [super viewDidLoad];
     
+    /* JSON key, UI Name, 3D Touch peek action, selector */
+    contactModes  = @[ @[@"web",       @"Site",      PREVIEW_ACTION_BLOCK { [self site]; },      @"site"],
+                       @[@"fb",        @"Facebook",  PREVIEW_ACTION_BLOCK { [self facebook]; },  @"facebook"],
+                       @[@"twitter",   @"Twitter",   PREVIEW_ACTION_BLOCK { [self twitter]; },   @"twitter"],
+                       @[@"youtube",   @"YouTube",   PREVIEW_ACTION_BLOCK { [self youtube]; },   @"youtube"],
+                       @[@"snap",      @"Snapchat",  PREVIEW_ACTION_BLOCK { [self snapchat]; },  @"snapchat"],
+                       @[@"instagram", @"Instagram", PREVIEW_ACTION_BLOCK { [self instagram]; }, @"instagram"],
+                       @[@"linkedin",  @"LinkedIn",  PREVIEW_ACTION_BLOCK { [self linkedin]; },  @"linkedin"],
+                       @[@"mail",      @"Mail…",     PREVIEW_ACTION_BLOCK { [self mail]; },      @"mail"],
+                       @[@"tel",       @"Appeler…",  PREVIEW_ACTION_BLOCK { [self tel]; },       @"tel"] ];
+    
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
     self.navigationItem.leftItemsSupplementBackButton = true;
     self.tableView.backgroundColor = [UIColor colorWithRed:248/255. green:248/255. blue:248/255. alpha:1];
-//    _toolbar.clipsToBounds = YES;
-    /*
-    
-    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-//        self.view.backgroundColor = [UIColor clearColor];
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        blurEffectView.frame = _backImg.frame;
-        [self.view addSubview:blurEffectView];
-        
-        [blurEffectView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:blurEffectView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:blurEffectView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:blurEffectView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:blurEffectView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
-    }  else {
-        self.view.backgroundColor = [UIColor blackColor];
-    }*/
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotatePic)
                                                  name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -70,42 +63,23 @@
 {
     [super viewWillAppear:animated];
     [self loadPic];
+    [self getDetailData];
 }
 
 - (NSArray<id<UIPreviewActionItem>> *) previewActionItems
 {
-    NSMutableArray *array = [NSMutableArray array];
-    
+    /* Online club data */
     NSDictionary *contacts = _infos[@"contacts"];
-    if (contacts[@"web"] != nil && ![contacts[@"web"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Site" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self site]; }]];
-    if (contacts[@"fb"] != nil && ![contacts[@"fb"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Facebook" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self facebook]; }]];
-    if (contacts[@"mail"] != nil && ![contacts[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Mail" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self mail]; }]];
-    if (contacts[@"tel"] != nil && ![contacts[@"tel"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Appeler" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self tel]; }]];
-    if (contacts[@"youtube"] != nil && ![contacts[@"youtube"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"YouTube" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self youtube]; }]];
-    if (contacts[@"instagram"] != nil && ![contacts[@"instagram"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Instagram" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self instagram]; }]];
-    if (contacts[@"snap"] != nil && ![contacts[@"snap"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Snapchat" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self snapchat]; }]];
-    if (contacts[@"twitter"] != nil && ![contacts[@"twitter"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"Twitter" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self twitter]; }]];
-    if (contacts[@"linkedin"] != nil && ![contacts[@"linkedin"] isEqualToString:@""])
-        [array addObject:[UIPreviewAction actionWithTitle:@"LinkedIn" style:UIPreviewActionStyleDefault
-                                                  handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) { [self linkedin]; }]];
     
-    return [NSArray arrayWithArray:array];
+    /* Add a peek action for each available method */
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSArray *contactMode in contactModes)
+        if (contacts[contactMode[0]] != nil && ![contacts[contactMode[0]] isEqualToString:@""])
+            [array addObject:[UIPreviewAction actionWithTitle:contactMode[1]
+                                                        style:UIPreviewActionStyleDefault
+                                                      handler:contactMode[2]]];
+    
+    return [array copy];
 }
 
 #pragma mark - Actions
@@ -120,22 +94,7 @@
     
     [self configureBannerWithImage:[UIImage imageNamed:@"placeholder"]];
     if (_infos[@"img"] != nil && ![_infos[@"img"] isEqualToString:@""])
-    {
-        /*[[Data sharedData] moreLoadingActivity];
-        [SDWebImageDownloader.sharedDownloader downloadImageWithURL:[NSURL URLWithString:_infos[@"img"]]
-                                                            options:0
-                                                           progress:nil
-                                                          completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished)
-         {
-             if (image && finished)
-             {
-                 [self configureBannerWithImage:image];
-                 [self loadClub];
-             }
-             [[Data sharedData] lessLoadingActivity];
-         }];*/
         [self configureBannerWithURL:[NSURL URLWithString:_infos[@"img"]]];
-    }
 
     [self loadClub];
 }
@@ -149,7 +108,7 @@
     
     [self.tableView reloadData];
     
-    // Description
+    /* Description pane */
     CGRect frame = self.contentView.bounds;
     frame.origin.x += 10;
     frame.origin.y -= 15;
@@ -166,75 +125,34 @@
     [label addGestureRecognizer:tap];
     [self.contentView addSubview:label];
     
-    // Boutons
-    NSMutableArray *boutons = [NSMutableArray array];
+    /* Contact bar buttons */
+    NSMutableArray *buttons = [NSMutableArray array];
     NSDictionary *contacts = _infos[@"contacts"];
-    if (contacts[@"web"] != nil && ![contacts[@"web"] isEqualToString:@""])
+    for (NSArray *contactMode in contactModes)
     {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"site"] style:UIBarButtonItemStylePlain target:self action:@selector(site)];
-        [boutons addObject:item];
+        if (contacts[contactMode[0]] != nil && ![contacts[contactMode[0]] isEqualToString:@""])
+        {
+            [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                             target:nil action:nil]];
+            [buttons addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:contactMode[0]]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:NSSelectorFromString(contactMode[3])]];
+        }
     }
-    if (contacts[@"fb"] != nil && ![contacts[@"fb"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fb"] style:UIBarButtonItemStylePlain target:self action:@selector(facebook)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"twitter"] != nil && ![contacts[@"twitter"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"twitter"] style:UIBarButtonItemStylePlain target:self action:@selector(twitter)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"youtube"] != nil && ![contacts[@"youtube"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"youtube"] style:UIBarButtonItemStylePlain target:self action:@selector(youtube)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"snap"] != nil && ![contacts[@"snap"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"snap"] style:UIBarButtonItemStylePlain target:self action:@selector(snapchat)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"instagram"] != nil && ![contacts[@"instagram"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"instagram"] style:UIBarButtonItemStylePlain target:self action:@selector(instagram)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"linkedin"] != nil && ![contacts[@"linkedin"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"linkedin"] style:UIBarButtonItemStylePlain target:self action:@selector(linkedin)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"mail"] != nil && ![contacts[@"mail"] isEqualToString:@""] && [MFMailComposeViewController canSendMail])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail"] style:UIBarButtonItemStylePlain target:self action:@selector(mail)];
-        [boutons addObject:item];
-    }
-    if (contacts[@"tel"] != nil && ![contacts[@"tel"] isEqualToString:@""])
-    {
-        [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tel"] style:UIBarButtonItemStylePlain target:self action:@selector(tel)];
-        [boutons addObject:item];
-    }
-    [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                     target:nil action:nil]];
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height - 44, self.contentView.frame.size.width, 44)];
     toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [toolbar setDelegate:self];
-    [toolbar setItems:boutons];
+    [toolbar setItems:buttons];
     [toolbar setBarStyle:UIBarStyleBlack];
     [toolbar setTranslucent:YES];
     [toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     toolbar.layer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.42].CGColor;
     [self.contentView addSubview:toolbar];
     
-    // Handoff
+    /* Handoff */
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.clubs"];
     activity.title = @"Clubs & BDE ESEO";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_CLUB];
@@ -246,6 +164,38 @@
     }
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
+}
+
+- (void) getDetailData
+{
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:[URL_JSONS stringByAppendingString:@"/%d"],
+                                       @"clubs", (int)arc4random_uniform(9999), [_infos[@"id"] intValue]]];
+    
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:url
+                                                   completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          [[Data sharedData] updLoadingActivity:NO];
+                                          if (error == nil && data != nil)
+                                          {
+                                              NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                   options:kNilOptions
+                                                                                                     error:nil];
+                                              
+                                              NSMutableDictionary *infos = [_infos mutableCopy];
+                                              [infos addEntriesFromDictionary:JSON];
+                                              _infos = [infos copy];
+                                              
+                                              [self.tableView reloadData];
+                                          }
+
+                                      }];
+    [dataTask resume];
+    [[Data sharedData] updLoadingActivity:YES];
 }
 
 - (void) rotatePic
@@ -309,7 +259,6 @@
 
 - (void) youtube
 {
-//    [[Data sharedData] youtube:_infos[@"youtube"] currentVC:self];
     if ([[Data sharedData] t_currentTopVC] != nil)
         [[Data sharedData] openURL:_infos[@"contacts"][@"youtube"] currentVC:[[Data sharedData] t_currentTopVC]];
     else
@@ -369,39 +318,140 @@
 
 - (NSInteger) numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
-    return [_infos[@"modules"] count];
+    /* ESEOmega: Crews */
+    if (_infos[@"modules"] != nil)
+        return [_infos[@"modules"] count];
+    
+    /* ESEOasis: Board, News & Events */
+    return 3;
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
-    return [_infos[@"modules"][section][@"membres"] count];
+    /* ESEOmega: Crews */
+    if (_infos[@"modules"] != nil)
+        return [_infos[@"modules"][section][@"membres"] count];
+    
+    /* ESEOasis: Board, News & Events */
+    if (section == 0)
+        return MAX([_infos[@"bureau"] count], 1);
+    else if (section == 1)
+        return MAX([_infos[@"related"] count], 1);
+    else if (section == 2)
+        return MAX([_infos[@"events"] count], 1);
+    
+    return 0;
 }
 
 - (nullable NSString *) tableView:(nonnull UITableView *)tableView
           titleForHeaderInSection:(NSInteger)section
 {
-    return _infos[@"modules"][section][@"nomModule"];
+    /* ESEOmega: Crews */
+    if (_infos[@"modules"] != nil)
+        return _infos[@"modules"][section][@"nomModule"];
+    
+    /* ESEOasis: Board, News & Event */
+    if (section == 0)
+        return @"Bureau";
+    else if (section == 1)
+        return @"News liées";
+    else if (section == 2)
+        return @"Événements liés";
+    
+    return nil;
 }
 
 - (nonnull UITableViewCell *) tableView:(nonnull UITableView *)tableView
                   cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"clubsDetailCell" forIndexPath:indexPath];
-    
-    NSDictionary *membre = _infos[@"modules"][indexPath.section][@"membres"][indexPath.row];
-    cell.textLabel.text = membre[@"nom"];
-    cell.detailTextLabel.text = membre[@"detail"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
-    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    if (membre[@"img"] != nil && ![membre[@"img"] isEqualToString:@""])
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:membre[@"img"]]
-                          placeholderImage:[UIImage imageNamed:@"placeholder2"]];
+    /* Crew(s) */
+    if (_infos[@"modules"] != nil || indexPath.section == 0)
+    {
+        /* Whether ESEOmega or ESEOasis API is used */
+        BOOL eseomega = _infos[@"modules"] != nil;
+        
+        /* Get data */
+        if (!eseomega && [_infos[@"bureau"] count] == 0)
+        {
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = @"\tInformation non disponible";
+            cell.imageView.image = nil;
+            return cell;
+        }
+        NSDictionary *membre = (eseomega) ? _infos[@"modules"][indexPath.section][@"membres"][indexPath.row]
+                                          : _infos[@"bureau"][indexPath.row];
+        
+        /* Labels */
+        cell.textLabel.text = membre[(eseomega) ? @"nom" : @"name"];
+        cell.detailTextLabel.text = membre[(eseomega) ? @"detail" : @"role"];
+        
+        /* Image */
+        [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
+        if (membre[@"img"] != nil && ![membre[@"img"] isEqualToString:@""])
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:membre[@"img"]]
+                              placeholderImage:[UIImage imageNamed:@"placeholder2"]];
+        else
+            [cell.imageView setImage:nil];
+    }
     else
-        [cell.imageView setImage:nil];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    {
+        NSInteger section = indexPath.section;
+        
+        /* Get data */
+        NSDictionary *infos;
+        if (section == 1)
+        {
+            if ([_infos[@"related"] count] == 0)
+            {
+                cell.textLabel.text = @"";
+                cell.detailTextLabel.text = @"\tAucun article lié au club";
+                cell.imageView.image = nil;
+                return cell;
+            }
+            infos = _infos[@"related"][indexPath.row];
+        }
+        else if (section == 2)
+        {
+            if ([_infos[@"related"] count] == 0)
+            {
+                cell.textLabel.text = @"";
+                cell.detailTextLabel.text = @"\tAucun événement lié au club";
+                cell.imageView.image = nil;
+                return cell;
+            }
+            infos = _infos[@"events"][indexPath.row];
+        }
+        else
+        {
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = @"";
+            cell.imageView.image = nil;
+            return cell;
+        }
+        
+        /* Labels */
+        cell.textLabel.text = infos[@"title"];
+        
+        NSDateFormatter *df = [NSDateFormatter new];
+        [df setDateFormat:JSON_DATE_FORMAT];
+        NSDate *date = [df dateFromString:infos[@"date"]];
+        NSDateComponents *dc = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:date];
+        NSString *dateTxt = [NSDateFormatter localizedStringFromDate:date
+                                                           dateStyle:NSDateFormatterFullStyle
+                                                           timeStyle:(dc.hour != 0 || dc.minute != 2) ? NSDateFormatterShortStyle : NSDateFormatterNoStyle];
+        cell.detailTextLabel.text = dateTxt;
+        
+        /* Icon */
+        cell.imageView.contentMode = UIViewContentModeCenter;
+        cell.imageView.image = [[UIImage imageNamed:(section == 1) ? @"news" : @"events"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
     
     return cell;
 }
@@ -410,6 +460,45 @@
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    /* ESEOasis: News & Events */
+    if (_infos[@"modules"] == nil)
+    {
+        if (indexPath.section == 1 && [_infos[@"related"] count])
+        {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            NewsDetailVC *articleVC = [sb instantiateViewControllerWithIdentifier:@"newsDetailVC"];
+            articleVC.infos = _infos[@"related"][indexPath.row];
+            [self presentViewController:articleVC animated:YES completion:nil];
+        }
+        else if (indexPath.section == 2 && [_infos[@"events"] count])
+        {
+            NSDictionary *eventsData = _infos[@"events"][indexPath.row];
+            CustomIOSAlertView *alert = [EventsTVC popUp:eventsData
+                                              inDelegate:self];
+            [alert setButtonTitles:[EventsTVC boutonsPopUp:eventsData]];
+            [alert setUseMotionEffects:YES];
+            [alert show];
+        }
+    }
+}
+
+#pragma mark - CustomIOSAlertView
+
+- (void) customIOS7dialogButtonTouchUpInside:(CustomIOSAlertView *)alertView
+                        clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
+    
+    if (![[alertView buttonTitles][buttonIndex] isEqualToString:DEFAULT_BTN])
+    {
+        // TODO: Pop-up action buttons
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Action non supportée"
+                                                                       message:@"Réessayez d'afficher cet événement depuis l'onglet Events"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Tool Bar Delegate

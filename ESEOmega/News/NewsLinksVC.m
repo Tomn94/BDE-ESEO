@@ -61,12 +61,12 @@
             {
                 [titles addObject:SITE_BDE_TITLE];
                 [links  addObject:club[@"web"]];
-                [imgs   addObject:[[UIImage imageNamed:@"site"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+                [imgs   addObject:[[UIImage imageNamed:@"web"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
                 
                 [titles addObject:@"Portail vie asso."];
                 [links  addObject:([club[@"web"] hasSuffix:@"/"]) ? [club[@"web"] stringByAppendingString:@"portail"]
                                                                   : [club[@"web"] stringByAppendingString:@"/portail"]];
-                [imgs   addObject:[[UIImage imageNamed:@"site"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+                [imgs   addObject:[[UIImage imageNamed:@"web"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
             }
             if (club[@"mail"] != nil && ![club[@"mail"] isEqualToString:@""] && [NSURL URLWithString:club[@"mail"]] != nil)
             {

@@ -643,20 +643,18 @@ shouldChangeCharactersInRange:(NSRange)range
 - (nullable CustomIOSAlertView *) popUp:(NSIndexPath *)index
 {
     NSDictionary *event = events[index.section][index.row];
-    /*if ([event[@"url"] isEqualToString:@""])
-     return;*/
+    return [EventsTVC popUp:event
+                 inDelegate:self];
+}
+
++ (nullable CustomIOSAlertView *) popUp:(NSDictionary *)event
+                             inDelegate:(UIViewController<CustomIOSAlertViewDelegate> *)delegate
+{
+    if (event == nil)
+        return nil;
     
-    /*if (![event[@"numEventFb"] isEqualToString:@""] &&
-     [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"fb://event/%@", event[@"numEventFb"]]]])
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"fb://event/%@", event[@"numEventFb"]]]];
-     else
-     {
-     */
-    //    [[Data sharedData] openURL:event[@"url"] currentVC:self];
-    //}
-    
-    CGFloat min = MIN(self.view.bounds.size.width, self.view.bounds.size.height);
-    CGFloat dec = (self.view.bounds.size.width < 350) ? 20 : 50;
+    CGFloat min = MIN(delegate.view.bounds.size.width, delegate.view.bounds.size.height);
+    CGFloat dec = (delegate.view.bounds.size.width < 350) ? 20 : 50;
     
     EventAlertView *view = [[NSBundle mainBundle] loadNibNamed:@"EventAlertView" owner:self options:nil][0];
     [view setFrame:CGRectMake(0, 0, min - dec, min - 100)];
@@ -671,10 +669,6 @@ shouldChangeCharactersInRange:(NSRange)range
                                                          green:[event[@"color"][1] floatValue]/255.
                                                           blue:[event[@"color"][2] floatValue]/255.
                                                          alpha:1];
-    /*if ([event[@"detail"] isEqualToString:@""])
-     [view.detail removeFromSuperview];
-     else
-     view.detail.text = event[@"detail"];*/
     
     /* Description label, allow HTML */
     NSString *detail = [event[@"text"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
@@ -754,16 +748,21 @@ shouldChangeCharactersInRange:(NSRange)range
     CustomIOSAlertView *alert = [CustomIOSAlertView new];
     [alert setButtonTitles:nil];
     [alert setUseMotionEffects:NO];
-    [alert setDelegate:self];
+    [alert setDelegate:delegate];
     [alert setContainerView:view];
-//    [alert show];
+
     return alert;
 }
 
 - (nullable NSArray *) boutonsPopUp:(NSIndexPath *)index
 {
-    NSMutableArray *boutons = [NSMutableArray arrayWithObject:DEFAULT_BTN];
     NSDictionary *event = events[index.section][index.row];
+    return [EventsTVC boutonsPopUp:event];
+}
+
++ (nullable NSArray *) boutonsPopUp:(NSDictionary *)event
+{
+    NSMutableArray *boutons = [NSMutableArray arrayWithObject:DEFAULT_BTN];
     if (event[@"url"] != nil && ![event[@"url"] isEqualToString:@""])
     {
         if ([event[@"url"] rangeOfString:@"facebook.com"].location != NSNotFound ||
@@ -793,7 +792,7 @@ shouldChangeCharactersInRange:(NSRange)range
             [boutons replaceObjectAtIndex:[boutons indexOfObject:@"Voir Facebook"] withObject:@"Facebook"];
         [boutons addObject:SUBSCRIBE_BTN];
     }
-    return [NSArray arrayWithArray:boutons];
+    return [boutons copy];
 }
 
 - (IBAction) commanderEvent:(id)sender

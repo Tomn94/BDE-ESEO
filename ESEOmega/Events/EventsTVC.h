@@ -44,7 +44,10 @@
 - (IBAction) refresh:(nullable UIRefreshControl *)sender;
 - (void) scrollerMoisActuel;
 - (nullable CustomIOSAlertView *) popUp:(nonnull NSIndexPath *)index;
++ (nullable CustomIOSAlertView *) popUp:(nullable NSDictionary *)event
+                             inDelegate:(nullable UIViewController<CustomIOSAlertViewDelegate> *)delegate;
 - (nullable NSArray *) boutonsPopUp:(nonnull NSIndexPath *)index;
++ (nullable NSArray *) boutonsPopUp:(nullable NSDictionary *)event;
 - (IBAction) commanderEvent:(nullable id)sender;
 
 @end
