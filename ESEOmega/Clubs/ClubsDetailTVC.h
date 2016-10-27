@@ -32,12 +32,14 @@
 #import "EventsTVC.h"
 #import "CustomIOSAlertView.h"
 
-#define JSON_DATE_FORMAT @"yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+#define JSON_DATE_FORMAT  @"yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+#define JSON_DATE_FORMAT2 @"dd-MM-yyyy"
 #define PREVIEW_ACTION_BLOCK ^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController)
 
 @interface ClubsDetailTVC : JAQBlurryTableViewController <ClubsSelectionDelegate, UIToolbarDelegate, MFMailComposeViewControllerDelegate, CustomIOSAlertViewDelegate>
 {
     NSArray *contactModes;  // Available contact methods
+    UILabel *clubDescription;
 }
 
 @property (strong, nonatomic) NSDictionary *infos;

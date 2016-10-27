@@ -113,17 +113,19 @@
     frame.origin.x += 10;
     frame.origin.y -= 15;
     frame.size.width -= 20;
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = [_infos[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-    label.textColor = [UIColor whiteColor];
-    label.numberOfLines = 0;
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    label.userInteractionEnabled = YES;
+    if (clubDescription == nil)
+        clubDescription = [UILabel new];
+    clubDescription.frame = frame;
+    clubDescription.font = [UIFont systemFontOfSize:15];
+    clubDescription.textAlignment = NSTextAlignmentCenter;
+    clubDescription.text = [_infos[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    clubDescription.textColor = [UIColor whiteColor];
+    clubDescription.numberOfLines = 0;
+    clubDescription.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    clubDescription.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeaderClub)];
-    [label addGestureRecognizer:tap];
-    [self.contentView addSubview:label];
+    [clubDescription addGestureRecognizer:tap];
+    [self.contentView addSubview:clubDescription];
     
     /* Contact bar buttons */
     NSMutableArray *buttons = [NSMutableArray array];
@@ -173,8 +175,8 @@
                                                                                    delegate:nil
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:[URL_JSONS stringByAppendingString:@"/%d"],
-                                       @"clubs", (int)arc4random_uniform(9999), [_infos[@"id"] intValue]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_CLB_MORE,
+                                       [_infos[@"id"] intValue], (int)arc4random_uniform(9999)]];
     
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:url
                                                    completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
@@ -190,9 +192,14 @@
                                               [infos addEntriesFromDictionary:JSON];
                                               _infos = [infos copy];
                                               
-                                              [self.tableView reloadData];
+                                              /* Animate to display new data */
+                                              CATransition *animation = [CATransition animation];
+                                              [animation setDuration:0.45f];
+                                              [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                                              [self.tableView.layer addAnimation:animation forKey:NULL];
+                                              
+                                              [self loadClub];
                                           }
-
                                       }];
     [dataTask resume];
     [[Data sharedData] updLoadingActivity:YES];
@@ -355,9 +362,9 @@
     if (section == 0)
         return @"Bureau";
     else if (section == 1)
-        return @"News liées";
+        return @"Articles associés";
     else if (section == 2)
-        return @"Événements liés";
+        return @"Événements associés";
     
     return nil;
 }
@@ -406,25 +413,27 @@
         NSDictionary *infos;
         if (section == 1)
         {
-            if ([_infos[@"related"] count] == 0)
+            NSUInteger nbrNews = [_infos[@"related"] count];
+            if (nbrNews == 0)
             {
                 cell.textLabel.text = @"";
                 cell.detailTextLabel.text = @"\tAucun article lié au club";
                 cell.imageView.image = nil;
                 return cell;
             }
-            infos = _infos[@"related"][indexPath.row];
+            infos = _infos[@"related"][nbrNews - indexPath.row - 1]; // Reverse chronological order
         }
         else if (section == 2)
         {
-            if ([_infos[@"related"] count] == 0)
+            NSUInteger nbrEvents = [_infos[@"events"] count];
+            if (nbrEvents == 0)
             {
                 cell.textLabel.text = @"";
                 cell.detailTextLabel.text = @"\tAucun événement lié au club";
                 cell.imageView.image = nil;
                 return cell;
             }
-            infos = _infos[@"events"][indexPath.row];
+            infos = _infos[@"events"][nbrEvents - indexPath.row - 1]; // Reverse chronological order
         }
         else
         {
@@ -438,8 +447,8 @@
         cell.textLabel.text = infos[@"title"];
         
         NSDateFormatter *df = [NSDateFormatter new];
-        [df setDateFormat:JSON_DATE_FORMAT];
-        NSDate *date = [df dateFromString:infos[@"date"]];
+        [df setDateFormat:(section == 1) ? JSON_DATE_FORMAT2 : JSON_DATE_FORMAT];
+        NSDate *date = [df dateFromString:(section == 1) ? infos[@"date"] : infos[@"fulldate"]];
         NSDateComponents *dc = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:date];
         NSString *dateTxt = [NSDateFormatter localizedStringFromDate:date
                                                            dateStyle:NSDateFormatterFullStyle
@@ -459,28 +468,98 @@
 - (void)      tableView:(nonnull UITableView *)tableView
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     /* ESEOasis: News & Events */
     if (_infos[@"modules"] == nil)
     {
-        if (indexPath.section == 1 && [_infos[@"related"] count])
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                       delegate:nil
+                                                                                  delegateQueue:[NSOperationQueue mainQueue]];
+        
+        NSUInteger nbrNews   = [_infos[@"related"] count];
+        NSUInteger nbrEvents = [_infos[@"events"] count];
+        if (indexPath.section == 1 && nbrNews)
         {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            NewsDetailVC *articleVC = [sb instantiateViewControllerWithIdentifier:@"newsDetailVC"];
-            articleVC.infos = _infos[@"related"][indexPath.row];
-            [self presentViewController:articleVC animated:YES completion:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Chargement de l'article"
+                                                                           message:@"Veuillez patienter…"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+            double delayInSeconds = 20.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [alert dismissViewControllerAnimated:YES completion:nil];
+            });
+            
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_NWS_MORE,
+                                               [_infos[@"related"][nbrNews - indexPath.row - 1][@"id"] intValue], // Reverse chronological order
+                                               (int)arc4random_uniform(9999)]];
+            
+            NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:url
+                                                           completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                              {
+                                                  [alert dismissViewControllerAnimated:YES completion:nil];
+                                                  [[Data sharedData] updLoadingActivity:NO];
+                                                  
+                                                  if (error == nil && data != nil)
+                                                  {
+                                                      NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                           options:kNilOptions
+                                                                                                             error:nil];
+                                                      NSMutableDictionary *mJSON = [JSON mutableCopy];
+                                                      [mJSON setObject:_infos[@"name"] forKey:@"author"];
+                                                      
+                                                      UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                      NewsDetailVC *articleVC = [sb instantiateViewControllerWithIdentifier:@"newsDetailVC"];
+                                                      [articleVC selectedNews:[mJSON copy]];
+                                                      [self.navigationController pushViewController:articleVC animated:YES];
+                                                  }
+                                              }];
+            [dataTask resume];
+            [[Data sharedData] updLoadingActivity:YES];
         }
-        else if (indexPath.section == 2 && [_infos[@"events"] count])
+        else if (indexPath.section == 2 && nbrEvents)
         {
-            NSDictionary *eventsData = _infos[@"events"][indexPath.row];
-            CustomIOSAlertView *alert = [EventsTVC popUp:eventsData
-                                              inDelegate:self];
-            [alert setButtonTitles:[EventsTVC boutonsPopUp:eventsData]];
-            [alert setUseMotionEffects:YES];
-            [alert show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Chargement de l'événement"
+                                                                           message:@"Veuillez patienter…"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+            double delayInSeconds = 20.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [alert dismissViewControllerAnimated:YES completion:nil];
+            });
+            
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_EVN_MORE,
+                                               [_infos[@"events"][nbrEvents - indexPath.row - 1][@"id"] intValue], // Reverse chronological order
+                                               (int)arc4random_uniform(9999)]];
+            
+            NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:url
+                                                           completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                              {
+                                                  [alert dismissViewControllerAnimated:YES completion:nil];
+                                                  [[Data sharedData] updLoadingActivity:NO];
+                                                  
+                                                  if (error == nil && data != nil)
+                                                  {
+                                                      NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                           options:kNilOptions
+                                                                                                             error:nil];
+                                                      
+                                                      CustomIOSAlertView *alert = [EventsTVC popUp:JSON
+                                                                                        inDelegate:self];
+                                                      [alert setButtonTitles:[EventsTVC boutonsPopUp:JSON]];
+                                                      [alert setUseMotionEffects:YES];
+                                                      [alert show];
+                                                  }
+                                              }];
+            [dataTask resume];
+            [[Data sharedData] updLoadingActivity:YES];
         }
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - CustomIOSAlertView
