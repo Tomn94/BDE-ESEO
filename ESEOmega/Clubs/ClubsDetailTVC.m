@@ -483,9 +483,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Chargement de l'article"
                                                                            message:@"Veuillez patienter…"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
-            double delayInSeconds = 20.0;
+            double delayInSeconds = 10.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                 [alert dismissViewControllerAnimated:YES completion:nil];
@@ -523,9 +522,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Chargement de l'événement"
                                                                            message:@"Veuillez patienter…"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
-            double delayInSeconds = 20.0;
+            double delayInSeconds = 10.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                 [alert dismissViewControllerAnimated:YES completion:nil];
@@ -571,12 +569,15 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     if (![[alertView buttonTitles][buttonIndex] isEqualToString:DEFAULT_BTN])
     {
-        // TODO: Pop-up action buttons
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Action non supportée"
-                                                                       message:@"Réessayez d'afficher cet événement depuis l'onglet Events"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        self.tabBarController.selectedIndex = 1;
+        
+        /* Add a delay in case the tab has never been accessed before */
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"switchClubEventToEvent" object:nil
+                                                              userInfo:@{ @"alertView": alertView,
+                                                                          @"buttonIndex": @(buttonIndex)}];
+        });
     }
 }
 

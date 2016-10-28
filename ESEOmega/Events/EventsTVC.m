@@ -37,6 +37,7 @@
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(loadEvents) name:@"events" object:nil];
+    [ctr addObserver:self selector:@selector(showEvent:) name:@"switchClubEventToEvent" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"eventsSent" object:nil];
     
@@ -813,6 +814,35 @@ shouldChangeCharactersInRange:(NSRange)range
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Events" bundle:nil];
     UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Events"];
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+
+- (void) showEvent:(NSNotification *)notif
+{
+    /* Get previous customIOS7dialogButtonTouchUpInside:clickedButtonAtIndex: data */
+    CustomIOSAlertView *alertView = (CustomIOSAlertView *)notif.userInfo[@"alertView"];
+    NSInteger buttonIndex = [notif.userInfo[@"buttonIndex"] integerValue];
+    if (alertView != nil)
+    {
+        /* Find the event in the list to scroll to // and yeah GOTOs are bad */
+        NSInteger section = 0,
+                  row     = 0;
+        for (NSArray *month in events) {
+            for (NSDictionary *event in month) {
+                if ([event[@"id"] intValue] == ((EventAlertView *)alertView.containerView).identifier)
+                    goto JUMP;
+                row++;
+            }
+            section++;
+        }
+    JUMP:
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]
+                              atScrollPosition:UITableViewScrollPositionMiddle
+                                      animated:YES];
+        /* Deliver the action according to the previous tap */
+        [self customIOS7dialogButtonTouchUpInside:alertView
+                             clickedButtonAtIndex:buttonIndex];
+    }
 }
 
 - (void) customIOS7dialogButtonTouchUpInside:(CustomIOSAlertView *)alertView
