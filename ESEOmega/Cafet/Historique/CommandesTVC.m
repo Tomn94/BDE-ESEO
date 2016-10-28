@@ -306,7 +306,7 @@
     NSTimeZone *timeZone = [NSTimeZone localTimeZone];
     if (![[timeZone name] isEqualToString:@"Europe/Paris"])
     {
-        alert = [UIAlertController alertControllerWithTitle:@"Erreur"
+        alert = [UIAlertController alertControllerWithTitle:@"Erreur 🌍"
                                                     message:@"L'accès à la cafet ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !"
                                              preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"D'accord" style:UIAlertActionStyleCancel handler:nil]];
@@ -339,87 +339,41 @@
                                                            completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                           {
                                               [[Data sharedData] updLoadingActivity:NO];
-                                              UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                              message:@"Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
-                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                              int result = 0;
+                                              NSString *title = @"Erreur";
+                                              NSString *message = @"Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir.";
                                               
                                               if (error == nil && data != nil)
                                               {
                                                   NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
                                                                                                   options:kNilOptions
                                                                                                     error:nil];
-                                                  switch ([JSON[@"status"] intValue])
+                                                  result = [JSON[@"status"] intValue];
+                                                  if (result == 1)
                                                   {
-                                                      case 1:
-                                                          alert = nil;
-                                                          [self showCommande:JSON[@"data"]];
-                                                          break;
-                                                          
-                                                      case -1:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur 😏"
-                                                                                                      message:@"On dirait que votre appareil n'est pas à l'heure.\nBien tenté, mais vous ne pouvez pas tricher pour commander à la cafet avant les autres."
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -2:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                      message:@"Impossible de vous connecter avec ce nom d'utilisateur/mot de passe.\n\nSi vous avez changé de mot de passe récemment, merci de bien vouloir vous déconnecter puis reconnecter."
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -3:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                      message:@"La cafet n'est pas ouverte aujourd'hui ou le système est en maintenance (dans ce cas vous pouvez toujours venir commander au comptoir)."
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -4:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                      message:@"Vous ne pouvez pas commander, veuillez d'abord régler toutes vos commandes dues."
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -6:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                      message:@"Le système est en maintenance pour iOS, nous sommes en train de corriger cela.\nEn attendant, vous pouvez toujours commander au comptoir. ☺️"
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -7:
-                                                      {
-                                                          NSString *raison = (![JSON[@"cause"] isEqualToString:@""])
-                                                                                ? [@"Raison :\n" stringByAppendingString:JSON[@"cause"]]
-                                                                                : @"Raison inconnue.";
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes pas autorisé à accéder au service"
-                                                                                                      message:raison
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                      }
-                                                          
-                                                      case -8:
-                                                          alert = [UIAlertController alertControllerWithTitle:NEW_UPD_TI
-                                                                                                      message:NEW_UPD_TE
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -10:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                      message:@"Impossible de détecter si vous êtes bien sur iOS…\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
-                                                          
-                                                      case -11:
-                                                          alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes plus autorisé à commander"
-                                                                                                      message:@"Vous ne pouvez pas passer plus de 3 commandes par jour ! Attendez demain …"
-                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                                          break;
+                                                      title = nil;
+                                                      message = nil;
+                                                      [self showCommande:JSON[@"data"]];
+                                                  }
+                                                  else
+                                                  {
+                                                      if (result == -1)
+                                                          title = @"Erreur 😏";
+                                                      else if (result == -7)
+                                                          title = @"Vous n'êtes pas autorisé à accéder au service";
+                                                      
+                                                      message = JSON[@"cause"];
                                                   }
                                               }
                                               
-                                              if (alert != nil)
+                                              if (title != nil && message != nil)
                                               {
                                                   [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
-                                                  if ([alert.title isEqualToString:NEW_UPD_TI])
+                                                  
+                                                  UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                                                                 message:message
+                                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+                                                  if (result == -8)
                                                       [alert addAction:[UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
                                                       }]];

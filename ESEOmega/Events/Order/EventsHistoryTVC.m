@@ -242,7 +242,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     NSTimeZone *timeZone = [NSTimeZone localTimeZone];
     if (![[timeZone name] isEqualToString:@"Europe/Paris"])
     {
-        alert = [UIAlertController alertControllerWithTitle:@"Erreur"
+        alert = [UIAlertController alertControllerWithTitle:@"Erreur 🌍"
                                                     message:@"L'accès à la réservation ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !"
                                              preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"D'accord" style:UIAlertActionStyleCancel handler:nil]];
