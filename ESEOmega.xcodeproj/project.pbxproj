@@ -521,6 +521,13 @@
 			path = JTSImageViewController;
 			sourceTree = "<group>";
 		};
+		645852961DC3D0B5008AF43C /* Genealogy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Genealogy;
+			sourceTree = "<group>";
+		};
 		645ACDE01B695724005ABCE2 /* Historique */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,6 +853,7 @@
 				648F1E4F1B62ED8C008AC8D5 /* Profil */,
 				640026281C0A3C8300AEF79B /* Salles */,
 				643B898B1C28CAB800B3A568 /* IngéNews */,
+				645852961DC3D0B5008AF43C /* Genealogy */,
 				6488AA4F1B728CDC000E2660 /* ka1.ttf */,
 				64E61EAD1B6973E200D89D79 /* linowrite.ttf */,
 				6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */,
