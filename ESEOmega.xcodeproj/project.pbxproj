@@ -34,6 +34,7 @@
 		64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2B1BD6A9F50007C104 /* JTSSimpleImageDownloader.m */; };
 		64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2D1BD6A9F50007C104 /* UIApplication+JTSImageViewController.m */; };
 		64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */; };
+		645852981DC3D21C008AF43C /* Genealogy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645852971DC3D21C008AF43C /* Genealogy.storyboard */; };
 		6463B6A11B71511B00836C30 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */; };
 		6463B6A21B71511C00836C30 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6831B71511B00836C30 /* NSData+ImageContentType.m */; };
 		6463B6A31B71511C00836C30 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6851B71511B00836C30 /* SDImageCache.m */; };
@@ -237,6 +238,7 @@
 		64582C2D1BD6A9F50007C104 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		64582C2E1BD6A9F50007C104 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
 		64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Genealogy.storyboard; path = Genealogy/Genealogy.storyboard; sourceTree = "<group>"; };
 		6463B6801B71511B00836C30 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6463B6821B71511B00836C30 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 		645852961DC3D0B5008AF43C /* Genealogy */ = {
 			isa = PBXGroup;
 			children = (
+				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
 			);
 			name = Genealogy;
 			sourceTree = "<group>";
@@ -1131,6 +1134,7 @@
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
 				64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */,
 				64E61EB01B69790E00D89D79 /* Order.storyboard in Resources */,
+				645852981DC3D21C008AF43C /* Genealogy.storyboard in Resources */,
 				64F93EB21B5EA97900EE5C72 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
