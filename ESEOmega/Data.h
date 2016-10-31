@@ -48,6 +48,8 @@
 #define URL_EVN_MORE @"https://api.eseoasis.com/events/%d?%d"
 #define URL_EVN_SIGN @"https://api.eseoasis.com/events/signup/%d"
 #define URL_CLB_MORE @"https://api.eseoasis.com/clubs/%d?%d"
+#define URL_FML_INFO @"https://api.eseoasis.com/family/"
+#define URL_FML_SRCH @"https://api.eseoasis.com/family/search/"
 #define URL_CMDS     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/list.php?%d"
 #define URL_1CMD     @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/resume.php"
 #define URL_CMD_NEW  @"https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/order/prepare.php"

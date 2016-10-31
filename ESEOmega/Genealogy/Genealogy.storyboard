@@ -13,12 +13,14 @@
         <scene sceneID="Jf2-ti-6Vl">
             <objects>
                 <navigationController storyboardIdentifier="Genealogy" id="Fu0-zS-f5M" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kR9-Ai-X19">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="yPt-xC-z2j" kind="relationship" relationship="rootViewController" id="BMf-Dg-ATU"/>
+                        <segue destination="O43-FL-dEv" kind="relationship" relationship="rootViewController" id="U1x-6X-zHP"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EyV-MW-sOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -26,25 +28,39 @@
             <point key="canvasLocation" x="-2613" y="-514"/>
         </scene>
         <!--Généalogie-->
-        <scene sceneID="hRd-Fj-Y4A">
+        <scene sceneID="ksx-1M-zX0">
             <objects>
-                <viewController id="yPt-xC-z2j" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FTo-mO-kzZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="kF0-l5-xD4"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="LfA-VM-4At">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <tableViewController id="O43-FL-dEv" customClass="Genealogy" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TuV-AV-WKb">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    </view>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="genealogyCell" id="IjL-Dh-Aa8">
+                                <rect key="frame" x="0.0" y="28" width="384" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IjL-Dh-Aa8" id="EFy-oY-Xgf">
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="O43-FL-dEv" id="i6H-qb-zcp"/>
+                            <outlet property="delegate" destination="O43-FL-dEv" id="Hb9-UL-lnI"/>
+                        </connections>
+                    </tableView>
                     <navigationItem key="navigationItem" title="Généalogie" id="nqy-sb-Abr">
-                        <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="u0R-6w-ler"/>
+                        <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="u0R-6w-ler">
+                            <connections>
+                                <action selector="close:" destination="O43-FL-dEv" id="R7v-9Z-rkB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VSf-fk-d3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s4l-E7-Zov" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1798" y="-514"/>
+            <point key="canvasLocation" x="-1860" y="-514"/>
         </scene>
     </scenes>
 </document>

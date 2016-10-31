@@ -35,6 +35,7 @@
 		64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2D1BD6A9F50007C104 /* UIApplication+JTSImageViewController.m */; };
 		64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */; };
 		645852981DC3D21C008AF43C /* Genealogy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645852971DC3D21C008AF43C /* Genealogy.storyboard */; };
+		6458529A1DC722A3008AF43C /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645852991DC722A3008AF43C /* Student.swift */; };
 		6463B6A11B71511B00836C30 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */; };
 		6463B6A21B71511C00836C30 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6831B71511B00836C30 /* NSData+ImageContentType.m */; };
 		6463B6A31B71511C00836C30 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6851B71511B00836C30 /* SDImageCache.m */; };
@@ -74,6 +75,9 @@
 		64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */; };
 		64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D21B60230500AD4C25 /* SponsorsCell.m */; };
 		64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D51B61664800AD4C25 /* NewsDetailVC.m */; };
+		64AF21411DC73EA80000F987 /* Genealogy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21401DC73EA80000F987 /* Genealogy.swift */; };
+		64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */; };
+		64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21441DC7409C0000F987 /* GenealogySearch.swift */; };
 		64B7B37A1B86722700A0E296 /* OrderItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B3791B86722700A0E296 /* OrderItemCell.m */; };
 		64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */; };
 		64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */; };
@@ -239,6 +243,7 @@
 		64582C2E1BD6A9F50007C104 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
 		64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Genealogy.storyboard; path = Genealogy/Genealogy.storyboard; sourceTree = "<group>"; };
+		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Student.swift; path = Genealogy/Student.swift; sourceTree = "<group>"; };
 		6463B6801B71511B00836C30 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6463B6821B71511B00836C30 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -315,6 +320,10 @@
 		64AD83D21B60230500AD4C25 /* SponsorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsCell.m; sourceTree = "<group>"; };
 		64AD83D41B61664800AD4C25 /* NewsDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailVC.h; sourceTree = "<group>"; };
 		64AD83D51B61664800AD4C25 /* NewsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailVC.m; sourceTree = "<group>"; };
+		64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESEOmega-Bridging-Header.h"; sourceTree = "<group>"; };
+		64AF21401DC73EA80000F987 /* Genealogy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Genealogy.swift; path = Genealogy/Genealogy.swift; sourceTree = "<group>"; };
+		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = GenealogySearch.storyboard; path = Genealogy/GenealogySearch.storyboard; sourceTree = "<group>"; };
+		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogySearch.swift; path = Genealogy/GenealogySearch.swift; sourceTree = "<group>"; };
 		64B7B3781B86722700A0E296 /* OrderItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemCell.h; sourceTree = "<group>"; };
 		64B7B3791B86722700A0E296 /* OrderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemCell.m; sourceTree = "<group>"; };
 		64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderIngredTVC.h; sourceTree = "<group>"; };
@@ -527,6 +536,10 @@
 			isa = PBXGroup;
 			children = (
 				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
+				64AF21401DC73EA80000F987 /* Genealogy.swift */,
+				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,
+				64AF21441DC7409C0000F987 /* GenealogySearch.swift */,
+				645852991DC722A3008AF43C /* Student.swift */,
 			);
 			name = Genealogy;
 			sourceTree = "<group>";
@@ -857,6 +870,7 @@
 				640026281C0A3C8300AEF79B /* Salles */,
 				643B898B1C28CAB800B3A568 /* IngéNews */,
 				645852961DC3D0B5008AF43C /* Genealogy */,
+				64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */,
 				6488AA4F1B728CDC000E2660 /* ka1.ttf */,
 				64E61EAD1B6973E200D89D79 /* linowrite.ttf */,
 				6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */,
@@ -1044,11 +1058,13 @@
 					64EEB8F61D9BAE25003678E2 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7HW87TV8LC;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					64F93EA01B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 7HW87TV8LC;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1066,6 +1082,7 @@
 					64FDD9501D95C33800A3ED8F = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7HW87TV8LC;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1129,6 +1146,7 @@
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				64E93CF61C43980F005FC9CF /* Events.storyboard in Resources */,
 				6488AA501B728CEE000E2660 /* ka1.ttf in Resources */,
+				64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */,
 				64E61EAE1B69743D00D89D79 /* linowrite.ttf in Resources */,
 				6473AEC01DBA337C00381F98 /* elec.caf in Resources */,
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
@@ -1213,8 +1231,10 @@
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,
 				649F503E1B65271B00F56263 /* ClubsMasterCell.m in Sources */,
+				64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */,
 				64E273471B72444300A84E68 /* GameVC.m in Sources */,
 				6463B6A51B71511C00836C30 /* SDWebImageDecoder.m in Sources */,
+				64AF21411DC73EA80000F987 /* Genealogy.swift in Sources */,
 				64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */,
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				6418DBC51B81551F000069CB /* NSArray+MASAdditions.m in Sources */,
@@ -1243,6 +1263,7 @@
 				64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */,
 				6463B6AD1B71511C00836C30 /* UIImage+WebP.m in Sources */,
 				6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */,
+				6458529A1DC722A3008AF43C /* Student.swift in Sources */,
 				6488AA531B72C299000E2660 /* LoseScreen.m in Sources */,
 				6418DBC41B81551F000069CB /* MASViewConstraint.m in Sources */,
 				64E273441B723E8000A84E68 /* GameScene.m in Sources */,
@@ -1544,6 +1565,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1569,6 +1591,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ESEOmega/ESEOmega-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
