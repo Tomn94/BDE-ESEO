@@ -45,9 +45,9 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
         query = query.folding(options: .diacriticInsensitive, locale: .current).trimmingCharacters(in: CharacterSet.whitespaces)
         query = Data.encoderPourURL(query)
         
-        // Don't overload servers, let's assume everyone has at least 3 letters in their name
+        /* Don't overload servers, let's assume everyone has at least 3 letters in their name */
         guard query.characters.count >= 3 else {
-            // Make sure nothing is displayed
+            /* Make sure nothing is displayed */
             results.removeAll()
             shouldDisplayEmptyDataPane = false
             tableView.tableFooterView = nil
@@ -55,11 +55,11 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
             return
         }
         
-        // Allows No Results message if no data
+        /* Allows No Results message if no data */
         self.shouldDisplayEmptyDataPane = true
         let urlString = URL_FML_SRCH + query
 
-        // Ask students results
+        /* Ask students results */
         let defaultSession = URLSession(configuration: URLSessionConfiguration.default,
                                           delegate: nil, delegateQueue: OperationQueue.main)
         let dataTask = defaultSession.dataTask(with: URL(string: urlString)!, completionHandler: { (data, resp, error) in
@@ -67,19 +67,23 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
             guard let data = data, error == nil else { return }
             do {
                 if let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: AnyObject]] {
-                    // Fill with the new data
+                    /* Fill with the new data */
                     self.results.removeAll()
                     for result in JSON {
                         if let id        = result["id"]    as? StudentID,
                            let name      = result["name"]  as? String,
                            let rank      = result["rank"]  as? StudentRankRaw,
                            let promotion = result["promo"] as? String {
-                            // Create a new result entry
+                            /* Create a new result entry */
                             let student = GenealogySearchResult(id: id, name: name, rank: StudentRank.parse(rank), promotion: promotion)
                             self.results.append(student)
                         }
                     }
-                    // Reload data and display No Results accordingly
+                    
+                    /* Sort alphabetically */
+                    self.results.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+                    
+                    /* Reload data and display No Results accordingly */
                     self.tableView.tableFooterView = self.results.count > 0 ? nil : UIView()
                     self.tableView.reloadData()
                 }
