@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
+        <deployment version="2304" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,18 +31,42 @@
         <scene sceneID="ksx-1M-zX0">
             <objects>
                 <tableViewController id="O43-FL-dEv" customClass="Genealogy" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TuV-AV-WKb">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="101" sectionHeaderHeight="28" sectionFooterHeight="28" id="TuV-AV-WKb">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="genealogyCell" id="IjL-Dh-Aa8">
-                                <rect key="frame" x="0.0" y="28" width="384" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="genealogyCell" rowHeight="101" id="IjL-Dh-Aa8" customClass="GenealogyCell" customModule="BDE_ESEO" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="384" height="101"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IjL-Dh-Aa8" id="EFy-oY-Xgf">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="101"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YmS-Sy-fgB">
+                                            <rect key="frame" x="5" y="9" width="374" height="92"/>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I3 · De Gennes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9q-Zc-uU7">
+                                            <rect key="frame" x="5" y="4" width="375" height="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="q9q-Zc-uU7" firstAttribute="top" secondItem="EFy-oY-Xgf" secondAttribute="top" constant="4" id="Euw-Bx-KHl"/>
+                                        <constraint firstItem="q9q-Zc-uU7" firstAttribute="leading" secondItem="EFy-oY-Xgf" secondAttribute="leading" constant="5" id="H0x-h1-hBE"/>
+                                        <constraint firstItem="YmS-Sy-fgB" firstAttribute="leading" secondItem="EFy-oY-Xgf" secondAttribute="leading" constant="5" id="KkX-h4-Zox"/>
+                                        <constraint firstAttribute="bottom" secondItem="YmS-Sy-fgB" secondAttribute="bottom" id="dX5-4c-8f9"/>
+                                        <constraint firstItem="YmS-Sy-fgB" firstAttribute="top" secondItem="EFy-oY-Xgf" secondAttribute="top" constant="9" id="gyy-5S-HL6"/>
+                                        <constraint firstAttribute="trailing" secondItem="q9q-Zc-uU7" secondAttribute="trailing" constant="4" id="kt2-5U-Ol1"/>
+                                        <constraint firstAttribute="trailing" secondItem="YmS-Sy-fgB" secondAttribute="trailing" constant="5" id="vbk-EM-p8q"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="infoLabel" destination="q9q-Zc-uU7" id="aYk-Id-mQd"/>
+                                    <outlet property="stackView" destination="YmS-Sy-fgB" id="zO5-s2-Yer"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -79,7 +103,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4l-E7-Zov" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1860" y="-514"/>
+            <point key="canvasLocation" x="-1860.8" y="-514.09295352323841"/>
         </scene>
     </scenes>
 </document>

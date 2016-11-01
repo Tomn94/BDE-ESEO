@@ -43,18 +43,38 @@ enum StudentRank: String {
             case 2:  return I1
             case 3:  return I2
             case 4:  return I3
-            default: return .Alumni
+            default: return Alumni
         }
     }
+    
+    /** Convert enum type to JSON raw value
+        This function is needed to sort students by rank */
+    var dataValue: StudentRankRaw {
+        switch self {
+            case .P1: return 0
+            case .P2: return 1
+            case .I1: return 2
+            case .I2: return 3
+            case .I3: return 4
+            default:  return 5
+        }
+    }
+}
+
+func >(left: StudentRank, right: StudentRank) -> Bool {
+    return left.dataValue > right.dataValue
 }
 
 /// Describes a student and their characteristics
 struct Student {
     let id: StudentID
-    let familyID: Int
     let name: String
     let promotion: String
     let rank: StudentRank
     let parents: [StudentID]
     let children: [StudentID]
+}
+
+func ==(left: Student, right: Student) -> Bool {
+    return left.id == right.id
 }

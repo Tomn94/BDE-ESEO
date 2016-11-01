@@ -8,6 +8,12 @@
 
 import UIKit
 
+@available(iOS 9.0, *)
+class GenealogyCell: UITableViewCell {
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var infoLabel: UILabel!
+}
+
 class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     var search: UISearchController!
@@ -17,6 +23,10 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.tableFooterView = UIView()
         
         /* Configure Search Bar and Search Display Controller */
         let storyboard = UIStoryboard(name: "GenealogySearch", bundle: nil)
@@ -31,9 +41,17 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             self.tableView.tableHeaderView = search.searchBar;
         }
         
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-        self.tableView.tableFooterView = self.family.count > 0 ? nil : UIView()
+        /* Need UIStackView */
+        guard #available(iOS 9, *) else {
+            let alert = UIAlertController(title: "Veuillez mettre à jour\nvotre appareil (iOS 8)",
+                                          message: "L'arbre des parrainages n'est disponible qu'à partir d'iOS 9",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true, completion: nil)
+            return
+        }
     }
     
     func setUpFamily(for student: GenealogySearchResult) {
@@ -58,13 +76,15 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
                            let rank      = result["rank"]     as? StudentRankRaw,
                            let children  = result["children"] as? [StudentID],
                            let parents   = result["parents"]  as? [StudentID],
-                           let family    = result["family"]   as? Int,
                            let promotion = result["promo"]    as? String {
                             // Add this student to the family
-                            let student = Student(id: id, familyID: family, name: name,
+                            let member = Student(id: id, name: name,
                                                   promotion: promotion, rank: StudentRank.parse(rank),
                                                   parents: parents, children: children)
-                            familyMembers.append(student)
+                            familyMembers.append(member)
+                            if member.id == student.id {
+                                self.query = member
+                            }
                         }
                     }
                     self.arrangeFamily(members: familyMembers)
@@ -72,18 +92,48 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             } catch {}
         })
         Data.shared().updLoadingActivity(true)
-        self.loadingIndicator.startAnimating()
+        loadingIndicator.startAnimating()
         dataTask.resume()
     }
     
     func arrangeFamily(members: [Student]) {
-        self.family.removeAll()
+        family.removeAll()
+        
+        /* 1: Split students by rank */
+        // Prepare: sort students by rank
+        let students = members.sorted { $0.rank > $1.rank }
+        var currentRank = StudentRank.Alumni
+        var currentRankMembers: [Student]?
+        // Allocate each rank
+        for student in students {
+            if currentRank == student.rank {
+                // If still the same rank
+                currentRankMembers?.append(student)
+            } else {
+                // If changed rank, save previous and start a new one
+                if let previousRankMembers = currentRankMembers {
+                    family.append(previousRankMembers)
+                }
+                currentRank = student.rank
+                currentRankMembers = [student]
+            }
+        }
+        // Fill last rank
+        if let previousRankMembers = currentRankMembers {
+            family.append(previousRankMembers)
+        }
+        
+        /* 2: Order ranks by same children */
+        /* 3: Order ranks below by parent position */
         
         // Reload data and display No Results accordingly
-        self.tableView.tableFooterView = self.family.count > 0 ? nil : UIView()
         self.tableView.reloadData()
     }
 
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     // MARK: - Table view data source
 
@@ -94,16 +144,55 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return family.count
     }
-    
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "gnealogyCell", for: indexPath)
-
-        // Alternate rows
-        cell.backgroundColor = indexPath.row & 1 == 0 ? UIColor.groupTableViewBackground : UIColor.white
+        let cell = tableView.dequeueReusableCell(withIdentifier: "genealogyCell", for: indexPath)
+        
+        /* Alternate rows */
+        cell.backgroundColor = indexPath.row & 1 == 0 ? #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.9882352941, alpha: 1) : UIColor.white
+        
+        if #available(iOS 9, *) {
+            let famCell = cell as! GenealogyCell
+            
+            famCell.stackView.subviews.forEach {
+                $0.removeFromSuperview()
+            }
+            
+            let studentsForRank = family[indexPath.row]
+            
+            for student in studentsForRank {
+                let nameBox = UILabel()
+                nameBox.text = student.name
+                nameBox.numberOfLines = 0
+                nameBox.textAlignment = .center
+                if let q = query, q == student {
+                    nameBox.font = UIFont.boldSystemFont(ofSize: 12)
+                    var hue: CGFloat = 0.0; var saturation: CGFloat = 0.0; var brightness: CGFloat = 0.0; var alpha: CGFloat = 0.0
+                    if self.tableView.tintColor.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
+                        nameBox.backgroundColor = UIColor(hue: hue,
+                                                          saturation: saturation - 0.15,
+                                                          brightness: brightness + 0.15,
+                                                          alpha: alpha)
+                    } else {
+                        nameBox.backgroundColor = self.tableView.tintColor
+                    }
+                } else {
+                    nameBox.font = UIFont.systemFont(ofSize: 12)
+                    nameBox.backgroundColor = self.tableView.tintColor
+                }
+                nameBox.textColor = UIColor.white
+                nameBox.layer.cornerRadius = 4
+                nameBox.clipsToBounds = true
+                nameBox.adjustsFontSizeToFitWidth = true
+                nameBox.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[view(>=35)]", options: [], metrics: nil, views: ["view": nameBox]))
+                
+                famCell.stackView.addArrangedSubview(nameBox)
+            }
+            
+            if let firstStudent = studentsForRank.first {
+                famCell.infoLabel.text = firstStudent.rank.rawValue + " · " + firstStudent.promotion
+            }
+        }
 
         return cell
     }
