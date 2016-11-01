@@ -30,9 +30,10 @@
     self.title = @"Crédits";
     self.tableView.emptyDataSetSource      = self;
     self.tableView.emptyDataSetDelegate    = self;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                           target:self
-                                                                                           action:@selector(fermer)];;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Fermer"
+                                                                              style:UIBarButtonItemStyleDone
+                                                                             target:self
+                                                                             action:@selector(fermer)];;
     
     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ron"]];
     [img setFrame:CGRectMake(0, -104.5, [UIScreen mainScreen].bounds.size.width, 113)];

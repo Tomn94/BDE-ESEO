@@ -49,7 +49,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Éditions Ingénews" id="nUi-gg-fll">
-                        <barButtonItem key="rightBarButtonItem" title="Fermer" id="C15-Md-H8K">
+                        <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="C15-Md-H8K">
                             <connections>
                                 <action selector="fermer:" destination="1Ce-TH-Def" id="id4-Ip-UWb"/>
                             </connections>

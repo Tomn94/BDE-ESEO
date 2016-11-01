@@ -96,7 +96,7 @@
                                 <action selector="reserver:" destination="3S5-fs-2sm" id="gWS-TS-KsL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Fermer" id="lQg-Wh-ll0">
+                        <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="lQg-Wh-ll0">
                             <connections>
                                 <action selector="fermer:" destination="3S5-fs-2sm" id="ImN-Q7-sL4"/>
                             </connections>
