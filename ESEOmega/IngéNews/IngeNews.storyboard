@@ -161,7 +161,7 @@ Le BDE n'est en aucun cas responsable du contenu proposé.</string>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Éditions Ingénews" id="zD5-Bk-mL6">
-                        <barButtonItem key="rightBarButtonItem" title="Fermer" id="bla-H5-6R7">
+                        <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="bla-H5-6R7">
                             <connections>
                                 <action selector="fermer:" destination="TaD-tl-08N" id="E4o-DL-QBh"/>
                             </connections>
