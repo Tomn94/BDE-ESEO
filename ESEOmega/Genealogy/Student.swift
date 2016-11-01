@@ -21,8 +21,9 @@
 
 import Foundation
 
-/// JSON raw type to identify a student
+/// JSON raw types to identify a student
 typealias StudentID = Int
+typealias StudentRankRaw = Int
 
 /// Describes a student level of studies
 enum StudentRank: String {
@@ -35,7 +36,7 @@ enum StudentRank: String {
     
     /** Convert JSON raw value to enum type
         This function is needed to provide a default value */
-    static func parse(_ value: Int) -> StudentRank {
+    static func parse(_ value: StudentRankRaw) -> StudentRank {
         switch value {
             case 0:  return P1
             case 1:  return P2

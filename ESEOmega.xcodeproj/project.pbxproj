@@ -75,9 +75,9 @@
 		64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */; };
 		64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D21B60230500AD4C25 /* SponsorsCell.m */; };
 		64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D51B61664800AD4C25 /* NewsDetailVC.m */; };
-		64AF21411DC73EA80000F987 /* Genealogy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21401DC73EA80000F987 /* Genealogy.swift */; };
 		64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */; };
 		64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21441DC7409C0000F987 /* GenealogySearch.swift */; };
+		64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21481DC8746B0000F987 /* Genealogy.swift */; };
 		64B7B37A1B86722700A0E296 /* OrderItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B3791B86722700A0E296 /* OrderItemCell.m */; };
 		64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B7B37E1B86980700A0E296 /* OrderIngredTVC.m */; };
 		64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */; };
@@ -321,9 +321,9 @@
 		64AD83D41B61664800AD4C25 /* NewsDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailVC.h; sourceTree = "<group>"; };
 		64AD83D51B61664800AD4C25 /* NewsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailVC.m; sourceTree = "<group>"; };
 		64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESEOmega-Bridging-Header.h"; sourceTree = "<group>"; };
-		64AF21401DC73EA80000F987 /* Genealogy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Genealogy.swift; path = Genealogy/Genealogy.swift; sourceTree = "<group>"; };
 		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = GenealogySearch.storyboard; path = Genealogy/GenealogySearch.storyboard; sourceTree = "<group>"; };
 		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogySearch.swift; path = Genealogy/GenealogySearch.swift; sourceTree = "<group>"; };
+		64AF21481DC8746B0000F987 /* Genealogy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Genealogy.swift; path = Genealogy/Genealogy.swift; sourceTree = "<group>"; };
 		64B7B3781B86722700A0E296 /* OrderItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemCell.h; sourceTree = "<group>"; };
 		64B7B3791B86722700A0E296 /* OrderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemCell.m; sourceTree = "<group>"; };
 		64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderIngredTVC.h; sourceTree = "<group>"; };
@@ -536,7 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
-				64AF21401DC73EA80000F987 /* Genealogy.swift */,
+				64AF21481DC8746B0000F987 /* Genealogy.swift */,
 				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,
 				64AF21441DC7409C0000F987 /* GenealogySearch.swift */,
 				645852991DC722A3008AF43C /* Student.swift */,
@@ -1211,6 +1211,7 @@
 				6418DBC61B81551F000069CB /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				6400262B1C0A3CAE00AEF79B /* SallesTVC.m in Sources */,
 				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
+				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
 				64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */,
 				6418DBC21B81551F000069CB /* MASLayoutConstraint.m in Sources */,
 				6463B6A31B71511C00836C30 /* SDImageCache.m in Sources */,
@@ -1234,7 +1235,6 @@
 				64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */,
 				64E273471B72444300A84E68 /* GameVC.m in Sources */,
 				6463B6A51B71511C00836C30 /* SDWebImageDecoder.m in Sources */,
-				64AF21411DC73EA80000F987 /* Genealogy.swift in Sources */,
 				64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */,
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				6418DBC51B81551F000069CB /* NSArray+MASAdditions.m in Sources */,

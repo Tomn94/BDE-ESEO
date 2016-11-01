@@ -51,12 +51,31 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Généalogie" id="nqy-sb-Abr">
+                        <barButtonItem key="leftBarButtonItem" id="bKE-Io-xLm">
+                            <view key="customView" contentMode="scaleToFill" id="0CE-YV-8QK">
+                                <rect key="frame" x="16" y="5" width="85" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Uqd-6e-cF0">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="33"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Uqd-6e-cF0" firstAttribute="leading" secondItem="0CE-YV-8QK" secondAttribute="leading" id="1Xz-3X-VeZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Uqd-6e-cF0" secondAttribute="bottom" id="AL6-xV-Anw"/>
+                                    <constraint firstItem="Uqd-6e-cF0" firstAttribute="top" secondItem="0CE-YV-8QK" secondAttribute="top" id="vgC-7n-Hgl"/>
+                                </constraints>
+                            </view>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="u0R-6w-ler">
                             <connections>
                                 <action selector="close:" destination="O43-FL-dEv" id="R7v-9Z-rkB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="loadingIndicator" destination="Uqd-6e-cF0" id="UMn-5N-6H5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4l-E7-Zov" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

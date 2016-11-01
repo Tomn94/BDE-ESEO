@@ -9,7 +9,7 @@
 import UIKit
 
 struct GenealogySearchResult {
-    let id: Int
+    let id: StudentID
     let name: String
     let rank: StudentRank
     let promotion: String
@@ -17,6 +17,7 @@ struct GenealogySearchResult {
 
 class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
+    var familyScreen: Genealogy?
     var results = [GenealogySearchResult]()
     var shouldDisplayEmptyDataPane = true
     
@@ -69,9 +70,9 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
                     // Fill with the new data
                     self.results.removeAll()
                     for result in JSON {
-                        if let id = result["id"] as? Int,
-                           let name = result["name"] as? String,
-                           let rank = result["rank"] as? Int,
+                        if let id        = result["id"]    as? StudentID,
+                           let name      = result["name"]  as? String,
+                           let rank      = result["rank"]  as? StudentRankRaw,
                            let promotion = result["promo"] as? String {
                             // Create a new result entry
                             let student = GenealogySearchResult(id: id, name: name, rank: StudentRank.parse(rank), promotion: promotion)
@@ -102,6 +103,11 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
     // Show family tree for this search result
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let familyScreen = familyScreen {
+            let student = results[indexPath.row]
+            familyScreen.setUpFamily(for: student)
+        }
     }
     
     // MARK: - DZNEmptyDataSet
