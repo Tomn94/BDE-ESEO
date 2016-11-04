@@ -161,23 +161,26 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "genealogyCell", for: indexPath)
         
-        /* Alternate rows */
-        cell.backgroundColor = indexPath.row & 1 == 0 ? #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.9882352941, alpha: 1) : UIColor.white
-        
         if #available(iOS 9, *) {
             let famCell = cell as! GenealogyCell
             
+            /* Remove labels from previous search */
             famCell.stackView.subviews.forEach {
                 $0.removeFromSuperview()
             }
             
             let studentsForRank = family[indexPath.row]
             
+            /* Fill with students */
             for student in studentsForRank {
+                /* Setup a label per name */
                 let nameBox = UILabel()
                 nameBox.text = student.name
                 nameBox.numberOfLines = 0
                 nameBox.textAlignment = .center
+                nameBox.textColor = UIColor.white
+                
+                /* Highlight requested student */
                 if let q = query, q == student {
                     nameBox.font = UIFont.boldSystemFont(ofSize: 12)
                     var hue: CGFloat = 0.0; var saturation: CGFloat = 0.0; var brightness: CGFloat = 0.0; var alpha: CGFloat = 0.0
@@ -193,7 +196,8 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
                     nameBox.font = UIFont.systemFont(ofSize: 12)
                     nameBox.backgroundColor = self.tableView.tintColor
                 }
-                nameBox.textColor = UIColor.white
+                
+                /* Fancy stuff and add to the stack view */
                 nameBox.layer.cornerRadius = 4
                 nameBox.clipsToBounds = true
                 nameBox.adjustsFontSizeToFitWidth = true
@@ -202,9 +206,19 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
                 famCell.stackView.addArrangedSubview(nameBox)
             }
             
+            /* Promotion setup */
             if let firstStudent = studentsForRank.first {
                 famCell.infoLabel.text = firstStudent.rank.rawValue + " · " + firstStudent.promotion
             }
+            
+            /* Draw links between rows */
+            let pathsView = GenealogyPathsView(frame: cell.frame)
+            pathsView.family = self.family
+            pathsView.currentRank = indexPath.row
+            
+            /* Alternate rows and setup background */
+            pathsView.backgroundColor = indexPath.row & 1 == 0 ? #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.9882352941, alpha: 1) : .white
+            cell.backgroundView = pathsView
         }
 
         return cell

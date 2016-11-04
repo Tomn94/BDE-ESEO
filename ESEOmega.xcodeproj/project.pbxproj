@@ -28,6 +28,7 @@
 		6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D2731B63FF5E00F5C7F5 /* TabBarController.m */; };
 		643B898E1C28CAD800B3A568 /* IngeNewsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */; };
 		643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */; };
+		643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */; };
 		64582C301BD6A9F50007C104 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C251BD6A9F50007C104 /* JTSAnimatedGIFUtility.m */; };
 		64582C311BD6A9F50007C104 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C271BD6A9F50007C104 /* JTSImageInfo.m */; };
 		64582C321BD6A9F50007C104 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C291BD6A9F50007C104 /* JTSImageViewController.m */; };
@@ -230,6 +231,7 @@
 		643B898C1C28CAD800B3A568 /* IngeNewsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngeNewsTVC.h; sourceTree = "<group>"; };
 		643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngeNewsTVC.m; sourceTree = "<group>"; };
 		643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IngeNews.storyboard; sourceTree = "<group>"; };
+		643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogyPathsView.swift; path = Genealogy/GenealogyPathsView.swift; sourceTree = "<group>"; };
 		64582C241BD6A9F50007C104 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
 		64582C251BD6A9F50007C104 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
 		64582C261BD6A9F50007C104 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 			children = (
 				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
 				64AF21481DC8746B0000F987 /* Genealogy.swift */,
+				643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */,
 				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,
 				64AF21441DC7409C0000F987 /* GenealogySearch.swift */,
 				645852991DC722A3008AF43C /* Student.swift */,
@@ -1259,6 +1262,7 @@
 				6418DBC71B81551F000069CB /* View+MASAdditions.m in Sources */,
 				64ED61081B6D24F000456B01 /* OrderMenuTVC.m in Sources */,
 				6418DBC31B81551F000069CB /* MASViewAttribute.m in Sources */,
+				643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */,
 				6463B6AC1B71511C00836C30 /* UIImage+MultiFormat.m in Sources */,
 				64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */,
 				6463B6AD1B71511C00836C30 /* UIImage+WebP.m in Sources */,
