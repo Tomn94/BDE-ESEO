@@ -88,7 +88,7 @@
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Thomas NAUDET pour ESEOmega\n© Collection Été 2015 - Hiver 2016\nAutomne 2016 pour ESEOasis\nQuestion ? → tomn72@gmail.com";
+    NSString *text = @"© Thomas NAUDET pour ESEOmega\nCollection Été 2015 - Hiver 2016\nAutomne 2016 pour ESEOasis\nUne question, un problème ? ↓";
 
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
@@ -101,7 +101,7 @@
     
     NSDictionary *boldDic = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize] };
     NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-    [mas setAttributes:boldDic range:NSMakeRange(0, 13)];
+    [mas setAttributes:boldDic range:NSMakeRange(2, 13)];
     [mas setAttributes:boldDic range:NSMakeRange(90, 29)];
     
     return mas;
@@ -110,6 +110,30 @@
 - (CGPoint) offsetForEmptyDataSet:(UIScrollView *)scrollView
 {
     return (([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 320) || ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 320)) ? CGPointMake(0, -16) : CGPointZero;
+}
+
+- (NSAttributedString *) buttonTitleForEmptyDataSet:(UIScrollView *)scrollView
+                                           forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0],
+                                 NSForegroundColorAttributeName: self.tableView.tintColor};
+    
+    return [[NSAttributedString alloc] initWithString:@"Contacter"
+                                           attributes:attributes];
+}
+
+- (void) emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [[Data sharedData] mail:@"tomn72@gmail.com" currentVC:self];
+}
+
+#pragma mark - Mail Compose View Controller delegate
+
+- (void) mailComposeController:(MFMailComposeViewController*)controller
+           didFinishWithResult:(MFMailComposeResult)result
+                         error:(NSError*)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -20,9 +20,10 @@
 //
 
 @import UIKit;
+#import "Data.h"
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface CreditsTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface CreditsTVC : UITableViewController <MFMailComposeViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 - (void) fermer;
 
