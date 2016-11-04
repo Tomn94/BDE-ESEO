@@ -31,12 +31,9 @@ class GenealogyPathsView: UIView
                 let x = xFrom(index: index, nbrItems: brothers.count, width: width)
                 let center = CGPoint(x: x, y: height / 2)
                 
-                
-                /* Draw top line if it has parents */
+                /* Draw TOP line if it has parents */
                 let parents = student.parents
                 if !parents.isEmpty {
-                    let path = UIBezierPath()
-                    
                     /* Compute the sum of each X from the student's parents */
                     var xTopBaricenter: CGFloat = 0
                     if rank > 0 {
@@ -52,17 +49,12 @@ class GenealogyPathsView: UIView
                     xTopBaricenter /= CGFloat(student.parents.count)
                     let topBaricenter = CGPoint(x: xTopBaricenter, y: 0)
                     
-                    /* Then draw a straight line */
-                    path.move(to: center)
-                    path.addLine(to: topBaricenter)
-                    
-                    draw(path)
+                    /* And draw on the view */
+                    drawLink(from: center, to: topBaricenter)
                 }
                 
-                /* Draw bottom line if it has children */
+                /* Draw BOTTOM line if it has children */
                 if !student.children.isEmpty {
-                    let path = UIBezierPath()
-                    
                     /* Analyze brothers to see which ones have the same children
                        Then do the sum of each X from brothers found */
                     var xBottomBaricenter: CGFloat = 0
@@ -83,11 +75,8 @@ class GenealogyPathsView: UIView
                     }
                     let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
                     
-                    /* Then draw a straight line */
-                    path.move(to: center)
-                    path.addLine(to: bottomBaricenter)
-                    
-                    draw(path)
+                    /* And draw on the view */
+                    drawLink(from: center, to: bottomBaricenter)
                 }
             }
         }
@@ -97,8 +86,14 @@ class GenealogyPathsView: UIView
      Simply set color and draw the given path
      - Parameter path: Path to draw
     */
-    func draw(_ path: UIBezierPath) {
+    func drawLink(from start: CGPoint, to end: CGPoint) {
+        /* Create the line */
+        let path = UIBezierPath()
+        path.move(to: start)
+        path.addLine(to: end)
         path.close()
+        
+        /* Set characteristics of the line and validate */
         path.lineWidth = pathWidth
         pathColor.setStroke()
         path.stroke()

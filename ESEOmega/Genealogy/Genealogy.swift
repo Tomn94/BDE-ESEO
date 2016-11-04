@@ -43,8 +43,8 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         
         /* Need UIStackView */
         guard #available(iOS 9, *) else {
-            let alert = UIAlertController(title: "Veuillez mettre à jour\nvotre appareil (iOS 8)",
-                                          message: "L'arbre des parrainages n'est disponible qu'à partir d'iOS 9",
+            let alert = UIAlertController(title: "Veuillez mettre à jour\nvotre appareil",
+                                          message: "L'arbre des parrainages n'est disponible qu'à partir d'iOS 9.\nVous disposez d'iOS 8.",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
                 self.dismiss(animated: true, completion: nil)
@@ -154,7 +154,11 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         
         family = tree
         
-        // Reload data and display No Results accordingly
+        /* Reload data, display No Results accordingly and animate */
+        let animation = CATransition()
+        animation.duration = 0.45
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        self.tableView.layer.add(animation, forKey: nil)
         self.tableView.reloadData()
     }
 

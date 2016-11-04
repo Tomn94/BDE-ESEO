@@ -325,7 +325,7 @@ sectionForSectionIndexTitle:(NSString *)title
     sortMode = (sortMode + 1) % 3;
     [[NSUserDefaults standardUserDefaults] setInteger:sortMode forKey:USR_DEFAULTS_KEY];
     
-    /* Animate while the change */
+    /* Animate during the change */
     CATransition *animation = [CATransition animation];
     [animation setDuration:0.45f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
