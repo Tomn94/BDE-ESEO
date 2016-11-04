@@ -148,6 +148,15 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
                     tree[index+1].sort(by: { (student1, student2) -> Bool in
                         return children.contains(student1.id)
                     })
+                    
+                    // Fix for some relations: 2 students on a row have each one, one child
+                    if tree[index+1].count == 2 &&
+                       tree[index+1][0].parents.first != tree[index][0].id &&
+                       tree[index+1][1].parents.first != tree[index][1].id {
+                        tree[index+1].sort(by: { (student1, student2) -> Bool in
+                            return children.contains(student2.id)
+                        })
+                    }
                 }
             }
         }
@@ -253,7 +262,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attrs = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18),
                      NSForegroundColorAttributeName: UIColor.darkGray]
-        return NSAttributedString(string: "Retrouvez ici les familles de parrainage à l'ESEO", attributes: attrs)
+        return NSAttributedString(string: "Retrouvez ici les familles de parrainage à l'ESEO", attributes: attrs)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {

@@ -10,9 +10,11 @@ import UIKit
 
 class GenealogyPathsView: UIView
 {
-    let margins: CGFloat = 5
+    let minLabelHeight: CGFloat = 35
+    let topMargin: CGFloat = 5
     let pathWidth: CGFloat = 3
     let pathColor = UINavigationBar.appearance().barTintColor ?? UIColor.gray
+    
     var family: [[Student]] = []
     var currentRank: Int?
     
@@ -50,7 +52,8 @@ class GenealogyPathsView: UIView
                     let topBaricenter = CGPoint(x: xTopBaricenter, y: 0)
                     
                     /* And draw on the view */
-                    drawLink(from: center, to: topBaricenter)
+                    drawLink(from: CGPoint(x: center.x, y: center.y - (minLabelHeight / 2) + topMargin),
+                             to: topBaricenter)
                 }
                 
                 /* Draw BOTTOM line if it has children */
@@ -76,7 +79,8 @@ class GenealogyPathsView: UIView
                     let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
                     
                     /* And draw on the view */
-                    drawLink(from: center, to: bottomBaricenter)
+                    drawLink(from: CGPoint(x: center.x, y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                             to: bottomBaricenter)
                 }
             }
         }
@@ -87,11 +91,13 @@ class GenealogyPathsView: UIView
      - Parameter path: Path to draw
     */
     func drawLink(from start: CGPoint, to end: CGPoint) {
+        let ctrlPt1 = CGPoint(x: start.x, y: end.y)
+        let ctrlPt2 = CGPoint(x: end.x, y: start.y)
+        
         /* Create the line */
         let path = UIBezierPath()
         path.move(to: start)
-        path.addLine(to: end)
-        path.close()
+        path.addCurve(to: end, controlPoint1: ctrlPt1, controlPoint2: ctrlPt2)
         
         /* Set characteristics of the line and validate */
         path.lineWidth = pathWidth
