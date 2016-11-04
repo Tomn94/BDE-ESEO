@@ -33,6 +33,7 @@
     _idField.delegate = self;
     _mdpField.delegate = self;
     _mdpField.secureTextEntry = YES;
+    _connexionCell.textLabel.textColor = [UINavigationBar appearance].barTintColor;
     _connexionCell.textLabel.enabled = NO;
     _connexionCell.selectionStyle = UITableViewCellSelectionStyleNone;
     _decoBtn = [[UIBarButtonItem alloc] initWithTitle:@"Déconnexion"

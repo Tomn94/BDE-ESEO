@@ -13,7 +13,6 @@ class GenealogyPathsView: UIView
     let minLabelHeight: CGFloat = 35
     let topMargin: CGFloat = 5
     let pathWidth: CGFloat = 3
-    let pathColor = UINavigationBar.appearance().barTintColor ?? UIColor.gray
     
     var family: [[Student]] = []
     var currentRank: Int?
@@ -100,8 +99,17 @@ class GenealogyPathsView: UIView
         path.addCurve(to: end, controlPoint1: ctrlPt1, controlPoint2: ctrlPt2)
         
         /* Set characteristics of the line and validate */
-        path.lineWidth = pathWidth
+        var pathColor = UIColor.gray
+        var hue: CGFloat = 0.0; var saturation: CGFloat = 0.0; var brightness: CGFloat = 0.0; var alpha: CGFloat = 0.0
+        if let color = UINavigationBar.appearance().barTintColor,
+            color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
+            pathColor = UIColor(hue: hue,
+                                saturation: saturation - 0.15,
+                                brightness: brightness + 0.15,
+                                alpha: alpha)
+        }
         pathColor.setStroke()
+        path.lineWidth = pathWidth
         path.stroke()
     }
     

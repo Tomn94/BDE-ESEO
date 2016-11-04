@@ -116,7 +116,7 @@
                                            forState:(UIControlState)state
 {
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0],
-                                 NSForegroundColorAttributeName: self.tableView.tintColor};
+                                 NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor};
     
     return [[NSAttributedString alloc] initWithString:@"Contacter"
                                            attributes:attributes];

@@ -382,17 +382,17 @@ Paquet de chips</string>
             <objects>
                 <tableViewController id="jdp-au-bz4" customClass="UserTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Tmk-Rp-3dD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Me connecter" footerTitle="" id="tSq-a4-7ne">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilIdCell" id="nAr-jP-Q9f">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAr-jP-Q9f" id="rzK-4R-rBz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identifiant" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-UZ-zXo">
@@ -405,21 +405,22 @@ Paquet de chips</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="lannistertyr" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-AO-5QM">
-                                                    <rect key="frame" x="147" y="12" width="230" height="20"/>
+                                                    <rect key="frame" x="147" y="0.0" width="237" height="43.5"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="next"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="LN4-AO-5QM" secondAttribute="trailing" id="5Jq-Q4-v5E"/>
+                                                <constraint firstItem="LN4-AO-5QM" firstAttribute="top" secondItem="rzK-4R-rBz" secondAttribute="top" id="5m8-Ul-x1c"/>
                                                 <constraint firstItem="wSM-UZ-zXo" firstAttribute="leading" secondItem="rzK-4R-rBz" secondAttribute="leadingMargin" id="9Zx-Zl-oWL"/>
-                                                <constraint firstItem="LN4-AO-5QM" firstAttribute="centerY" secondItem="rzK-4R-rBz" secondAttribute="centerY" id="Bvf-DY-trf"/>
                                                 <constraint firstItem="wSM-UZ-zXo" firstAttribute="centerY" secondItem="rzK-4R-rBz" secondAttribute="centerY" id="Hm6-3p-Oq1"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="top" secondItem="rzK-4R-rBz" secondAttribute="topMargin" id="R2Z-a6-6eC"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="leading" secondItem="wSM-UZ-zXo" secondAttribute="trailing" constant="20" id="WM9-ia-nL8"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="centerY" secondItem="rzK-4R-rBz" secondAttribute="centerY" id="Zvh-OB-9yB"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="LN4-AO-5QM" secondAttribute="bottom" id="hJe-CA-xkb"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="LN4-AO-5QM" secondAttribute="trailing" constant="-10" id="qBo-k6-bRm"/>
+                                                <constraint firstAttribute="bottom" secondItem="LN4-AO-5QM" secondAttribute="bottom" id="qR2-kv-Rgp"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -432,10 +433,10 @@ Paquet de chips</string>
                                         <inset key="separatorInset" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilMdpCell" id="3n4-0p-LxX">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3n4-0p-LxX" id="1U0-fk-4yx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de passe" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-z6-eXP">
@@ -448,7 +449,7 @@ Paquet de chips</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfW-ly-SOx">
-                                                    <rect key="frame" x="147" y="11.5" width="230" height="21"/>
+                                                    <rect key="frame" x="147" y="0.0" width="237" height="43.5"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="send"/>
@@ -456,11 +457,12 @@ Paquet de chips</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JGg-z6-eXP" firstAttribute="centerY" secondItem="1U0-fk-4yx" secondAttribute="centerY" id="6rS-kk-AGJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="sfW-ly-SOx" secondAttribute="trailing" id="81b-kd-BtI"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="centerY" secondItem="1U0-fk-4yx" secondAttribute="centerY" id="FAb-Dk-OEP"/>
+                                                <constraint firstAttribute="bottom" secondItem="sfW-ly-SOx" secondAttribute="bottom" id="JSY-6t-9HU"/>
                                                 <constraint firstItem="JGg-z6-eXP" firstAttribute="leading" secondItem="1U0-fk-4yx" secondAttribute="leadingMargin" id="MSx-cX-sdh"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="top" secondItem="1U0-fk-4yx" secondAttribute="topMargin" id="TbM-9l-lqW"/>
-                                                <constraint firstItem="sfW-ly-SOx" firstAttribute="centerY" secondItem="1U0-fk-4yx" secondAttribute="centerY" id="YWK-OA-1vM"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="sfW-ly-SOx" secondAttribute="trailing" constant="-10" id="fLJ-qm-hA2"/>
+                                                <constraint firstItem="sfW-ly-SOx" firstAttribute="top" secondItem="1U0-fk-4yx" secondAttribute="top" id="bs1-H1-wkE"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="sfW-ly-SOx" secondAttribute="bottom" id="p3v-F2-d2G"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="leading" secondItem="JGg-z6-eXP" secondAttribute="trailing" constant="20" id="tXP-Xm-hhd"/>
                                             </constraints>
@@ -482,16 +484,16 @@ Une fois la connexion validée, uniquement vos identifiants, nom et prénom sont
 Bâtiment : F. Rolland</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilCoCell" textLabel="0RU-mS-Rdu" style="IBUITableViewCellStyleDefault" id="NiU-es-bbA">
-                                        <rect key="frame" x="0.0" y="164" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="164" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NiU-es-bbA" id="EV6-nd-VpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Connexion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0RU-mS-Rdu">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="354" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" red="0.078431372550000003" green="0.70588235290000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -528,6 +530,8 @@ Bâtiment : F. Rolland</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <connections>
                         <outlet property="connexionCell" destination="NiU-es-bbA" id="cky-7o-k0a"/>
                         <outlet property="idField" destination="LN4-AO-5QM" id="mjr-DA-lmh"/>
@@ -1054,7 +1058,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <size key="freeformSize" width="384" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
