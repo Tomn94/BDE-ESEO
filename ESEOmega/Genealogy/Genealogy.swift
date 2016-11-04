@@ -97,7 +97,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     }
     
     func arrangeFamily(members: [Student]) {
-        family.removeAll()
+        var tree: [[Student]] = []
         
         /* 1: Split students by rank */
         // Prepare: sort students by rank
@@ -112,7 +112,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             } else {
                 // If changed rank, save previous and start a new one
                 if let previousRankMembers = currentRankMembers {
-                    family.append(previousRankMembers)
+                    tree.append(previousRankMembers)
                 }
                 currentRank = student.rank
                 currentRankMembers = [student]
@@ -120,11 +120,24 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         }
         // Fill last rank
         if let previousRankMembers = currentRankMembers {
-            family.append(previousRankMembers)
+            tree.append(previousRankMembers)
         }
         
-        /* 2: Order ranks by same children */
-        /* 3: Order ranks below by parent position */
+        /* 2: Order ranks by same parent and parent position */
+        for (index, rank) in tree.enumerated() {
+            // We'll order children according to each parent from current rank
+            for student in rank {
+                let children = student.children
+                // Let's order children to be under this parent
+                if !children.isEmpty && index < tree.count - 1 {
+                    tree[index+1].sort(by: { (student1, student2) -> Bool in
+                        return children.contains(student1.id)
+                    })
+                }
+            }
+        }
+        
+        family = tree
         
         // Reload data and display No Results accordingly
         self.tableView.reloadData()
