@@ -336,31 +336,35 @@ didFailLoadWithError:(nullable NSError *)error
                                                        completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
                                           [[Data sharedData] updLoadingActivity:NO];
-                                          NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
-                                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur inconnue"
-                                                                                                         message:@"Impossible de valider votre connexion sur nos serveurs. Si le problème persiste, contactez-nous."
+                                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible de valider votre connexion sur nos serveurs"
+                                                                                                         message:@"Vérifiez que le Campus ESEO est accessible. Si le problème persiste, contactez-nous."
                                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                                          BOOL connecte = [JSON[@"status"] intValue] == 1;
-                                          if (connecte)
+                                          BOOL connecte = NO;
+                                          if (data != nil && error == nil)
                                           {
-                                              NSString *nom   = [JSON[@"data"][@"username"] componentsSeparatedByString:@" "][0];
-                                              NSString *title = [NSString stringWithFormat:@"Bienvenue %@ !", nom];
-                                              if ([JSON[@"data"][@"info"] containsString:@"existe"])
-                                                  title = [NSString stringWithFormat:@"Vous êtes de retour, %@ !", nom];
-                                              
-                                              alert = [UIAlertController alertControllerWithTitle:title
-                                                                                          message:@"Vous êtes connecté, vous bénéficiez désormais de l'accès à la cafétéria.\nPour être notifié lorsque votre repas est prêt, veuillez accepter les notifications !"
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                                              
-                                              [Data connecter:login pass:lePassFinal nom:JSON[@"data"][@"username"]];
-                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"connecte" object:nil];
+                                              NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                   options:kNilOptions
+                                                                                                     error:nil];
+                                              connecte = [JSON[@"status"] intValue] == 1;
+                                              if (connecte)
+                                              {
+                                                  NSString *nom   = [JSON[@"data"][@"username"] componentsSeparatedByString:@" "][0];
+                                                  NSString *title = [NSString stringWithFormat:@"Bienvenue %@ !", nom];
+                                                  if ([JSON[@"data"][@"info"] containsString:@"existe"])
+                                                      title = [NSString stringWithFormat:@"Vous êtes de retour, %@ !", nom];
+                                                  
+                                                  alert = [UIAlertController alertControllerWithTitle:title
+                                                                                              message:@"Vous êtes connecté, vous bénéficiez désormais de l'accès à la cafétéria.\nPour être notifié lorsque votre repas est prêt, veuillez accepter les notifications !"
+                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                                  
+                                                  [Data connecter:login pass:lePassFinal nom:JSON[@"data"][@"username"]];
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"connecte" object:nil];
+                                              }
+                                              else if ([JSON[@"status"] intValue] == -2)
+                                                  alert = [UIAlertController alertControllerWithTitle:@"Oups…"
+                                                                                              message:@"Mauvaise combinaison identifiant/mot de passe.\nVeuillez vérifier vos informations, puis réessayer."
+                                                                                       preferredStyle:UIAlertControllerStyleAlert];
                                           }
-                                          else if ([JSON[@"status"] intValue] == -2)
-                                              alert = [UIAlertController alertControllerWithTitle:@"Oups…"
-                                                                                          message:@"Mauvaise combinaison identifiant/mot de passe.\nVeuillez vérifier vos informations, puis réessayer."
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
                                           
                                           [_spin stopAnimating];
                                           [_connexionCell.textLabel setEnabled:YES];

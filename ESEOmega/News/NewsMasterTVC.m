@@ -79,7 +79,7 @@
     [self.tableView reloadEmptyDataSet];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les articles récents…"
-                                                                            attributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:0.051 green:0.396 blue:1.000 alpha:1.000] }]];
+                                                                            attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
     
     if (_delegate && [news count] > 0 && !iPAD && [UIScreen mainScreen].bounds.size.width >= 736 && UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
         [_delegate selectedNews:news[0]];
@@ -88,10 +88,10 @@
     {
         UIRefreshControl *refreshControl = [UIRefreshControl new];
         //    refreshControl.triggerVerticalOffset = 100.;
-        refreshControl.tintColor = self.tableView.tintColor;
+        refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
         [refreshControl addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventValueChanged];
         [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les anciens articles…"
-                                                                           attributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:0.051 green:0.396 blue:1.000 alpha:1.000] }]];
+                                                                           attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]]; // bleu : [UIColor colorWithRed:0.051 green:0.396 blue:1.000 alpha:1.000]
         self.tableView.bottomRefreshControl = refreshControl;
     }
     [self.refreshControl beginRefreshing];

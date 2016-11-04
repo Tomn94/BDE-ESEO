@@ -135,7 +135,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I70-KJ-zjL">
-                                            <rect key="frame" x="120.5" y="7" width="143" height="30"/>
+                                            <rect key="frame" x="113" y="6" width="158" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                             <state key="normal" title="Valider la commande"/>
                                         </button>
                                     </subviews>
