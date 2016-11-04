@@ -10,8 +10,8 @@ import UIKit
 
 @available(iOS 9.0, *)
 class GenealogyCell: UITableViewCell {
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var stackView: UIStackView!  /// Student names
+    @IBOutlet weak var infoLabel: UILabel!      /// Promotion info
 }
 
 class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
@@ -54,6 +54,17 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         }
     }
     
+    /// Redraw connections when orientation changes
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        self.tableView.reloadData()
+    }
+    
+    /**
+     Get family for student previously searched
+     - Parameter student: The student whose family is requested by its ID number
+     */
     func setUpFamily(for student: GenealogySearchResult) {
         /* Dismiss search */
         search.isActive = false
@@ -96,6 +107,10 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         dataTask.resume()
     }
     
+    /**
+     Sort the array of students received into one family tree
+     - Parameter members: Students to be organized
+     */
     func arrangeFamily(members: [Student]) {
         var tree: [[Student]] = []
         

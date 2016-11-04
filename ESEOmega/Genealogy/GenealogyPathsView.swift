@@ -95,7 +95,7 @@ class GenealogyPathsView: UIView
     
     /**
      Simply set color and draw the given path
-     - parameter path: Path to draw
+     - Parameter path: Path to draw
     */
     func draw(_ path: UIBezierPath) {
         path.close()
