@@ -32,12 +32,10 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     [[EGOCache globalCache] clearCache];*/
     
     /* UI COLORS */
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.000 green:0.647 blue:1 alpha:1]];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.806 green:0.959 blue:1 alpha:1]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:1 green:0.5 blue:0 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.9608 green:0.9205 blue:0.816 alpha:1]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor] }];
-//    if ([[UITabBarItem appearance] respondsToSelector:@selector(setBadgeColor:)])
-//        [[UITabBarItem appearance] setBadgeColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
-    [_window setTintColor:[UIColor colorWithRed:0.078 green:0.707 blue:1 alpha:1]];
+    [_window setTintColor:[UIColor colorWithRed:1 green:0.5 blue:0 alpha:1]];
     
     /* NOTIFICATIONS */
     if ([Data estConnecte])
