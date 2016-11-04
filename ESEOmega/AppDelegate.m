@@ -26,10 +26,13 @@
 - (BOOL)          application:(nonnull UIApplication *)application
 didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
-    /* Clean debug 
-    [[SDImageCache sharedImageCache] clearDisk];
-    [[SDImageCache sharedImageCache] clearMemory];
-    [[EGOCache globalCache] clearCache];*/
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"alreadyLaunchedv4NewAPI"])
+    {
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];
+        [[EGOCache globalCache] clearCache];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"alreadyLaunchedv4NewAPI"];
+    }
     
     /* UI COLORS */
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:1 green:0.5 blue:0 alpha:1]];
