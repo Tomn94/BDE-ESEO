@@ -78,6 +78,8 @@
 #define URL_ACT_SPON @"http://eseoasis.com/sponsors"
 
 #define MAX_ORDER_TIME 582
+#define APP_COLOR [UIColor colorWithRed:1 green:0.5 blue:0 alpha:1]
+#define APP_COLOR_EVENT [UIColor colorWithRed:0.929 green:0.11 blue:0.141 alpha:1]
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 

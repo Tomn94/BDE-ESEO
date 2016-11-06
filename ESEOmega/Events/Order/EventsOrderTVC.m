@@ -27,8 +27,8 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.929 green:0.11 blue:0.141 alpha:1];
-    self.navigationController.navigationBar.tintColor    = [UIColor colorWithRed:0.9964 green:0.8461 blue:0.8497 alpha:1];
+    self.navigationController.navigationBar.barTintColor  = APP_COLOR_EVENT;
+    self.navigationController.navigationBar.tintColor     = [UIColor colorWithRed:0.9964 green:0.8461 blue:0.8497 alpha:1];
     
     messageQuitterVu = NO;
     self.tableView.emptyDataSetSource = self;
@@ -93,6 +93,20 @@
     [ctr addObserver:self selector:@selector(fermerForcerLydia:) name:@"cmdValideLydia" object:nil];
     [ctr addObserver:self selector:@selector(timeout) name:@"retourAppCafetFin" object:nil];
     [ctr addObserver:self selector:@selector(validerAchatN:) name:@"commandeNavetteOK" object:nil];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [UIApplication sharedApplication].keyWindow.tintColor = APP_COLOR_EVENT;
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [UIApplication sharedApplication].keyWindow.tintColor = APP_COLOR;
 }
 
 - (void) timeout
