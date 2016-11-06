@@ -225,7 +225,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Réserver une place" id="nPq-ve-K5r">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="cancel" id="f4Z-J8-4xJ">
+                        <barButtonItem key="rightBarButtonItem" title="Annuler" style="done" id="f4Z-J8-4xJ">
                             <connections>
                                 <action selector="fermer:" destination="l8t-rq-xus" id="MHc-88-zXV"/>
                             </connections>
