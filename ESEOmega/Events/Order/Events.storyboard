@@ -21,10 +21,10 @@
                         <color key="tintColor" red="0.92941176470588238" green="0.10980392156862745" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventsHistoryCell" id="fgY-Py-CAO" customClass="EventsHistoryCell">
-                                <rect key="frame" x="0.0" y="56" width="384" height="61"/>
+                                <rect key="frame" x="0.0" y="55.5" width="384" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fgY-Py-CAO" id="dO5-D9-MiX">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="60.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="21 janvier 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZK0-xo-hgz">
@@ -225,7 +225,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Réserver une place" id="nPq-ve-K5r">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="f4Z-J8-4xJ">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="cancel" id="f4Z-J8-4xJ">
                             <connections>
                                 <action selector="fermer:" destination="l8t-rq-xus" id="MHc-88-zXV"/>
                             </connections>
