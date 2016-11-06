@@ -268,6 +268,12 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [statut.layer addAnimation:animation forKey:NULL];
     
     timerMessage = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(masquerMessage) userInfo:nil repeats:NO];
+    
+    if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10")) {
+        UINotificationFeedbackGenerator *generator = [UINotificationFeedbackGenerator new];
+        [generator prepare];
+        [generator notificationOccurred:UINotificationFeedbackTypeSuccess];
+    }
 }
 
 - (void) afficherMessageNotif:(NSNotification *)notif
