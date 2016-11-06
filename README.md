@@ -74,9 +74,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## TODO
-- Arbre parrainages
-<br>
-- Généraliser les achats de place (« navette ») et vérifier la couleur rouge toolbar et AlertController
+- Généraliser les achats de place (« navette »)
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
 - iOS 9/10 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
@@ -84,19 +82,28 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## Versions
-###v4.0 · 2016
-Non ce n'est pas un mirage…
-l'app a changé de logo !
-- API ESEOasis
-- Inscription événements
-- Arbre parrainages
-- Mise à jour des liens Handoff/Siri vers le nouveau site BDE
-- Nouveau son pour les notifications
-- Améliorations Snapchat
-- Liens clubs (bureau, news, events, …)
-- Tri des salles : alphabétique → bâtiment → étage
-- AlertBox infos événement scrollables ! 🎉
-- Changement du raccourci 3D Touch « Events cette semaine » en « Trouver une salle »
+###v4.0 · 11/2016
+> Non ce n'est pas un mirage…<br>
+> l'app a changé de logo !
+> 
+> Nouveau avec ESEOasis :
+> - Interface aux couleurs du club du désert
+> - Arbre des parrainages à l'ESEO : recherchez votre nom et trouvez votre famille !
+> - Possibilité de s'inscrire à un événement
+> - Aperçu des news et événements liés à chaque club
+> - Récupération des données désormais depuis le serveur ESEOasis et mise à jour des liens
+> 
+> Également dans cette version :
+> - Nouveau son pour les notifications
+> - Retour haptique sur iPhone 7/7+ validant un ajout au panier
+> - Trouvez une salle en quelques secondes par un appui 3D Touch sur l'icône de l'app. Nouveaux tris par bâtiment et par étage.
+> - Ajout facilité d'un club/BDE en ami Snapchat
+> - Les événements les plus récents apparaissent maintenant en haut
+> - Améliorations de l'affichage des sponsors et infos événements
+> - Perfection de multiples détails d'interface
+> 
+> Partagez l'app et n'oubliez pas de la noter sur l'App Store !<br>
+> Une question ? Un problème ? Contactez Thomas Naudet sur Facebook
 
 ###v3.2 · 02/10/2016
 <img src="/Captures App Store/iMessage/iPhone.png?raw=true" height="300" />
