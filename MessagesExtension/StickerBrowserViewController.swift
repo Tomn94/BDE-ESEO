@@ -12,7 +12,7 @@ import Messages
 
 class StickerBrowserViewController: MSStickerBrowserViewController {
     
-    let stickerListURL = "https://web59.secure-secure.co.uk/francoisle.fr/lacommande/api/stickers/stickers.json"
+    let stickerListURL = "https://web59.secure-secure.co.uk/francoisle.fr/api/stickers"
     var stickers = [MSSticker]()
     
     // MARK: Delegates
