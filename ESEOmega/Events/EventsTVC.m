@@ -372,9 +372,11 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     else
     {
         UIImageView *imgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"signup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        [imgView setUserInteractionEnabled:YES];
         [imgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(quickSignUp:)]];
         [cell setAccessoryView:imgView];
+        BOOL active = [dateFin compare:[NSDate date]] != NSOrderedAscending;
+        [imgView setUserInteractionEnabled:active];
+        [imgView setTintColor:(active) ? self.tableView.tintColor : [UIColor lightGrayColor]];
     }
     
     return cell;
@@ -413,6 +415,29 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (void) signUp:(int)eventID
 {
+    for (NSArray *months in events)
+    {
+        for (NSDictionary *event in months)
+        {
+            if ([event[@"id"] intValue] == eventID)
+            {
+                NSDateFormatter *df = [NSDateFormatter new];
+                [df setDateFormat:JSON_DATE_FORMAT];
+                NSDate *dateFin = [df dateFromString:event[@"fullenddate"]];
+                if ([dateFin compare:[NSDate date]] == NSOrderedAscending)
+                {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible de s'inscrire"
+                                                                                   message:@"L'événement est terminé"
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    return;
+                }
+                break;
+            }
+        }
+    }
+    
     if (![Data estConnecte])
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous devez vous connecter pour vous inscrire à un événement"
@@ -675,6 +700,8 @@ shouldChangeCharactersInRange:(NSRange)range
     NSString *detail = [event[@"text"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
     detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // no-breaking space
+    if (detail == nil)
+        nil;
     detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; line-height: 90%%;}</style>",
                view.detail.font.fontName, view.detail.font.pointSize]
               stringByAppendingString:detail];
