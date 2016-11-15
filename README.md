@@ -82,7 +82,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## Versions
-###v4.0 · 11/2016
+###v4.0 · 15/11/2016
 > Non ce n'est pas un mirage…<br>
 > l'app a changé de logo !
 > 
