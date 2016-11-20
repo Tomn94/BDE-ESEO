@@ -32,6 +32,7 @@
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
     [self ajouterTap];
     
+    [Data checkAvailability];
     [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
     [[Data sharedData] updateJSON:@"clubs"];

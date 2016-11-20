@@ -648,6 +648,59 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"news" object:nil];
 }
 
++ (void) checkAvailability
+{
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:[NSURL URLWithString:URL_APP_STAT]
+                                                   completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
+                                      {
+                                          [[Data sharedData] updLoadingActivity:NO];
+                                          if (error == nil && data != nil) {
+                                              NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                   options:kNilOptions
+                                                                                                     error:nil];
+                                              if (JSON[@"data"] != nil && [JSON[@"data"] isKindOfClass:[NSDictionary class]]) {
+                                                  NSDictionary *d = JSON[@"data"];
+                                                  if (d[@"title"] != nil  && ![d[@"title"] isEqualToString:@""] &&
+                                                      d[@"message"] != nil  && ![d[@"message"] isEqualToString:@""]) {
+                                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:d[@"title"]
+                                                                                                                     message:d[@"message"]
+                                                                                                              preferredStyle:UIAlertControllerStyleAlert];
+                                                      
+                                                      NSArray *buttons = d[@"buttons"];
+                                                      if (buttons != nil && [buttons isKindOfClass:[NSArray class]])
+                                                      {
+                                                          for (NSDictionary *button in buttons) {
+                                                              UIAlertActionStyle style = UIAlertActionStyleDefault;
+                                                              if ([button[@"type"] intValue] == 0)
+                                                                  style = UIAlertActionStyleCancel;
+                                                              else if ([button[@"type"] intValue] == -1)
+                                                                  style = UIAlertActionStyleDestructive;
+                                                              [alert addAction:[UIAlertAction actionWithTitle:button[@"title"]
+                                                                                                        style:style handler:nil]];
+                                                          }
+                                                      }
+                                                      
+                                                      UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
+                                                      if (vc.presentedViewController != nil)
+                                                          [vc.presentedViewController presentViewController:alert animated:YES completion:nil];
+                                                      else
+                                                          [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
+                                                                                                                                             animated:YES completion:nil];
+                                                  }
+                                              }
+                                          }
+                                      }];
+    [[Data sharedData] updLoadingActivity:YES];
+    [dataTask resume];
+
+}
+
 #pragma mark - Cafet
 
 - (void) cafetPanierAjouter:(NSDictionary *)elem

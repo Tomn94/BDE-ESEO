@@ -70,6 +70,7 @@
 #define URL_UNPUSH   @"https://web59.secure-secure.co.uk/francoisle.fr/api/push/unregister"
 #define URL_GP       @"https://web59.secure-secure.co.uk/francoisle.fr/api/gantier/scores"
 #define URL_GP_STATE @"https://web59.secure-secure.co.uk/francoisle.fr/api/gantier/state"
+#define URL_APP_STAT @"https://web59.secure-secure.co.uk/francoisle.fr/api/info/status"
 
 #define URL_ACTIVITY @"http://eseoasis.com"
 #define URL_ACT_NEWS @"http://eseoasis.com/news"
@@ -122,6 +123,7 @@
 + (void) delPushToken;
 + (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage to:(CGSize)targetSize retina:(BOOL)retina;
 + (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage to:(CGSize)targetSize retina:(BOOL)retina fit:(BOOL)fit;
++ (void) checkAvailability;
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname;
 - (void) updateJSON:(NSString *)JSONname;
