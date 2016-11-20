@@ -342,7 +342,7 @@
         cell.detailTextLabel.text = nil;
     
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
-    if (article[@"img"] != nil && ![article[@"img"] isEqualToString:@""])
+    if (article[@"img"] != nil && article[@"img"] != [NSNull null] && ![article[@"img"] isEqualToString:@""])
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:article[@"img"]]
                           placeholderImage:[UIImage imageNamed:@"placeholder"]
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -353,7 +353,7 @@
                                      }
                                  }];
     else
-        [cell.imageView setImage:nil];
+        [cell.imageView setImage:[UIImage imageNamed:@"placeholder"]];
     
     return cell;
 }
