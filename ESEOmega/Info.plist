@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0</string>
+	<string>4.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4.0</string>
+	<string>4.0.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>twitter</string>
@@ -52,9 +52,9 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>L&apos;accès à vos calendriers vous permet d&apos;y ajouter des événements.</string>
+	<string>L'accès à vos calendriers vous permet d'y ajouter des événements.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>L&apos;accès aux photos vous permet de choisir une photo de profil.</string>
+	<string>L'accès aux photos vous permet de choisir une photo de profil.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>com.eseomega.ESEOmega.news</string>
@@ -86,7 +86,7 @@
 			<key>UIApplicationShortcutItemIconFile</key>
 			<string>salles-homescreen</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>À l&apos;ESEO Angers</string>
+			<string>À l'ESEO Angers</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Trouver une salle</string>
 			<key>UIApplicationShortcutItemType</key>
