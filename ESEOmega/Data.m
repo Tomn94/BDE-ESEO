@@ -432,7 +432,8 @@
         CGFloat l = sz.height;
         if (sz.width > sz.height)
             l = sz.width;
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_NEWS, (int)MIN(20, l / 44), (int)options, randCache]];
+        int nbrNews = (int)MIN(20, l / 44);
+        url = [NSURL URLWithString:[NSString stringWithFormat:URL_NEWS, nbrNews, (int)options * nbrNews, randCache]];
     }
     else if ([JSONname isEqualToString:@"cmds"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_CMDS, randCache]];
