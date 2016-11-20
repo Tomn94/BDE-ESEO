@@ -557,6 +557,10 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         }
     }
     
+    if ([[tableView cellForRowAtIndexPath:indexPath].textLabel.text compare:@"Alexandre Julien" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.youtube.com/watch?v=ZEADdzcNdGs"]];
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
