@@ -229,13 +229,12 @@
     NSUInteger pos = [eventsMonths indexOfObject:header];
     if (pos == NSNotFound)
     {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[events[eventsMonths.count - 1] count] - 1
-                                                                  inSection:eventsMonths.count - 1]
-                              atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top)
+                                animated:YES];
         return;
     }
     
-    NSUInteger posR = 0;
+    NSInteger posR = 0;
     NSUInteger c = [events[pos] count];
     for ( ; posR < c ; ++posR)
     {
@@ -243,13 +242,15 @@
         NSDateComponents *dcEvent = [[NSCalendar currentCalendar] components:(NSCalendarUnitWeekday | NSCalendarUnitDay |
                                                                               NSCalendarUnitHour | NSCalendarUnitMinute)
                                                                     fromDate:[df dateFromString:event[@"fullenddate"]]];
-        if (dcEvent.day >= dc.day)
+        if (dcEvent.day < dc.day)
             break;
     }
     if ([UIScreen mainScreen].bounds.size.width > 320)
-        posR += 2;
+        posR -= 2;
     if (posR >= c)
         posR = c - 1;
+    if (posR < 0)
+        posR = 0;
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:posR inSection:pos]
                           atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
