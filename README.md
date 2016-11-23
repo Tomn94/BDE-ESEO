@@ -82,7 +82,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## Versions
-###v4.0.1 · 11/2016
+###v4.0.1 · 21/11/2016
 > - Correctifs pour les news et autres… […]
 
 ###v4.0 · 15/11/2016
