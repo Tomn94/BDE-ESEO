@@ -118,7 +118,11 @@
     clubDescription.frame = frame;
     clubDescription.font = [UIFont systemFontOfSize:15];
     clubDescription.textAlignment = NSTextAlignmentCenter;
-    clubDescription.text = [_infos[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    clubDescription.text = [[[[_infos[@"description"] stringByReplacingOccurrencesOfString:@"\\n"
+                                                                              withString:@"\n"] stringByReplacingOccurrencesOfString:@"<br/>"
+                              withString:@"\n"] stringByReplacingOccurrencesOfString:@"<br>"
+                             withString:@"\n"] stringByReplacingOccurrencesOfString:@"<br />"
+                            withString:@"\n"];
     clubDescription.textColor = [UIColor whiteColor];
     clubDescription.numberOfLines = 0;
     clubDescription.autoresizingMask = UIViewAutoresizingFlexibleWidth;

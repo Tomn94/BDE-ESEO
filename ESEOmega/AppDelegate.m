@@ -134,6 +134,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
             [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
         }
     }
+    
+    completionHandler(YES);
 }
 
 #pragma mark - Notifications
