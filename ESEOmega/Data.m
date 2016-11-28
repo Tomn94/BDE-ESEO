@@ -690,8 +690,7 @@
                                                       if (vc.presentedViewController != nil)
                                                           [vc.presentedViewController presentViewController:alert animated:YES completion:nil];
                                                       else
-                                                          [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                                                                             animated:YES completion:nil];
+                                                          [vc presentViewController:alert animated:YES completion:nil];
                                                   }
                                               }
                                           }
