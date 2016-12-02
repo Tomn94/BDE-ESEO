@@ -1,6 +1,6 @@
 # Bureau des Étudiants du Groupe ESEO
 
-[![Version](https://img.shields.io/badge/version-4.0-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-4.0.2-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
