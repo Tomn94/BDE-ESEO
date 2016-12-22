@@ -27,7 +27,6 @@
 
 @interface CommandesDetailVC : UIViewController <CAAnimationDelegate>
 {
-    CGFloat brightness;
     NSTimer *upd;
     BOOL loaded;
 }

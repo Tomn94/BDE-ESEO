@@ -25,12 +25,10 @@
 
 - (void) viewDidLoad
 {
-    brightness = [UIScreen mainScreen].brightness;
     loaded = NO;
     
     [self showCmd];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillDisappear:) name:@"stopBrightness" object:nil];
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)])
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(majTimerRecup)
                                                      name:NSProcessInfoPowerStateDidChangeNotification object:nil];
@@ -40,17 +38,11 @@
 {
     [self loadCmd];
     [self majTimerRecup];
-    if ([UIScreen mainScreen].brightness < 0.9 &&
-        (([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
-        ![[NSProcessInfo processInfo] isLowPowerModeEnabled]) ||
-         ![[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)]))
-        [[UIScreen mainScreen] setBrightness:0.9];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [upd invalidate];
-    [[UIScreen mainScreen] setBrightness:brightness];
 }
 
 - (void) dealloc
