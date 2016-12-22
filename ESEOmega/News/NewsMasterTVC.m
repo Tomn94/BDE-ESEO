@@ -419,9 +419,9 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [[Data sharedData] updateJSON:@"news" options:ptr];
     
     if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10")) {
-        UINotificationFeedbackGenerator *generator = [UINotificationFeedbackGenerator new];
+        UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
         [generator prepare];
-        [generator notificationOccurred:UINotificationFeedbackTypeSuccess];
+        [generator impactOccurred];
     }
 }
 
