@@ -127,22 +127,6 @@
     return cell;
 }
 
-- (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView
-            viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionReusableView *reusableview = nil;
-    
-    if (kind == UICollectionElementKindSectionFooter)
-    {
-        UICollectionReusableView *footerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                                  withReuseIdentifier:@"fichierFooter"
-                                                                                         forIndexPath:indexPath];
-        reusableview = footerview;
-    }
-    
-    return reusableview;
-}
-
 - (void)  collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,8 +145,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
             NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
             if ([d integerForKey:@"messageImpressionLu"] != 2 && !messageLu)
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous cherchez à imprimer ?"
-                                                                               message:@"Pour imprimer ou rechercher dans le document sur iOS 9, tapez d'abord sur l'icône Ouvrir dans Safari en bas à droite, puis sur l'icône de partage en bas au centre.\n\nPour tout autre partage, vous pouvez utiliser le bouton partage ci-dessous.\n\nBonne lecture !"
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous désirez partager le document, l'imprimer ou effectuer une recherche ?"
+                                                                               message:@"Pour rechercher dans le document ou le transférer vers n'importe quelle app, tapez sur l'icône de partage en bas.\n\nPour l'imprimer, tapez d'abord sur l'icône Ouvrir dans Safari en bas à droite, puis sur l'icône de partage.\n\nBonne lecture !"
                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 messageLu = YES;
                 [alert addAction:[UIAlertAction actionWithTitle:@"Merci" style:UIAlertActionStyleCancel
