@@ -91,6 +91,21 @@
     return [fichiers count];
 }
 
+- (CGSize) collectionView:(UICollectionView *)collectionView
+                   layout:(UICollectionViewLayout *)collectionViewLayout
+   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat w = collectionView.frame.size.width;
+    if (!iPAD)
+    {
+        if (w > 410)         // iPhone 5.5”
+            return CGSizeMake(192, 192);
+        else if (w > 370)    // iPhone 4.7”
+            return CGSizeMake(172, 172);
+    }
+    return CGSizeMake(140, 140);
+}
+
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView
                    cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
