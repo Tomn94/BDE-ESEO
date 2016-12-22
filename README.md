@@ -1,6 +1,6 @@
 # Bureau des Étudiants du Groupe ESEO
 
-[![Version](https://img.shields.io/badge/version-4.0.2-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-4.0.3-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -82,7 +82,10 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## Versions
-###v4.0.2 · 11/2016
+###v4.0.3 · ?
+> - Correctifs pour iPhone 7/7+, Ingénews et la cafet […]
+
+###v4.0.2 · 29/11/2016
 > - Correctifs pour les news, events et autres… […]
 
 ###v4.0.1 · 21/11/2016
