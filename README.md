@@ -82,7 +82,7 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 
 
 ## Versions
-###v4.0.3 · ?
+###v4.0.3 · 03/01/2017
 > - Correctifs pour iPhone 7/7+, Ingénews et la cafet […]
 
 ###v4.0.2 · 29/11/2016
