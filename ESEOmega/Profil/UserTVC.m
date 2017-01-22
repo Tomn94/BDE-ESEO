@@ -316,8 +316,11 @@ didFailLoadWithError:(nullable NSError *)error
     NSMutableString *passFinal = [NSMutableString string];
     for (NSInteger i = 0 ; i < pass2.length ; i++)
         [passFinal appendFormat:@"%c%c", [pass1 characterAtIndex:i], [pass2 characterAtIndex:i]];
-    NSString *finPass = ([passFinal length] > 2) ? [passFinal substringFromIndex:[passFinal length] - 2] : @"";
-    if (![finPass isEqualToString:@"=="])
+    
+    /* Strip any == duplicate */
+    if ([passFinal containsString:@"===="])
+        passFinal = [passFinal substringToIndex:passFinal.length - 2].mutableCopy;
+    else
         [passFinal appendString:@"=="];
     
     NSString *lePassFinal = [Data hashed_string:[@"Oups, erreur de connexion" stringByAppendingString:password]];
