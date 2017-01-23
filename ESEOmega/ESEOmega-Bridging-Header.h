@@ -11,5 +11,6 @@
 
 #import "Data.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "JAQBlurryTableViewController.h"
 
 #endif /* ESEOmega_Bridging_Header_h */

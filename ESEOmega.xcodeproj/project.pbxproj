@@ -37,6 +37,7 @@
 		64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */; };
 		645852981DC3D21C008AF43C /* Genealogy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645852971DC3D21C008AF43C /* Genealogy.storyboard */; };
 		6458529A1DC722A3008AF43C /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645852991DC722A3008AF43C /* Student.swift */; };
+		6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459F9AB1E36861500C6812D /* UserTVC.swift */; };
 		6463B6A11B71511B00836C30 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */; };
 		6463B6A21B71511C00836C30 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6831B71511B00836C30 /* NSData+ImageContentType.m */; };
 		6463B6A31B71511C00836C30 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6463B6851B71511B00836C30 /* SDImageCache.m */; };
@@ -246,6 +247,7 @@
 		64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Genealogy.storyboard; path = Genealogy/Genealogy.storyboard; sourceTree = "<group>"; };
 		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Student.swift; path = Genealogy/Student.swift; sourceTree = "<group>"; };
+		6459F9AB1E36861500C6812D /* UserTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTVC.swift; sourceTree = "<group>"; };
 		6463B6801B71511B00836C30 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6463B6811B71511B00836C30 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6463B6821B71511B00836C30 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 			children = (
 				648F1E4C1B62ED7F008AC8D5 /* UserTVC.h */,
 				648F1E4D1B62ED7F008AC8D5 /* UserTVC.m */,
+				6459F9AB1E36861500C6812D /* UserTVC.swift */,
 			);
 			path = Profil;
 			sourceTree = "<group>";
@@ -1222,6 +1225,7 @@
 				6463B6A41B71511C00836C30 /* SDWebImageCompat.m in Sources */,
 				640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */,
 				6463B6AE1B71511C00836C30 /* UIImageView+HighlightedWebCache.m in Sources */,
+				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				6418DBBF1B81551F000069CB /* MASCompositeConstraint.m in Sources */,
 				64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */,
 				6463B6A91B71511C00836C30 /* SDWebImagePrefetcher.m in Sources */,
