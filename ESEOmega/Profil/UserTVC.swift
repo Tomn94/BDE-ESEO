@@ -33,14 +33,28 @@ class ImagePickerController: UIImagePickerController {
 /// <#Description#>
 class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
+    // MARK: - Constants
+    
     /// <#Description#>
     let maxAttempts = 5
     
     /// <#Description#>
     let imgSize = UIScreen.main.bounds.size.height < 500 ? 120 : 170
     
-    var mailField: UITextField!
-    var passField: UITextField!
+    
+    // MARK: - UI
+    
+    @IBOutlet weak var mailField: UITextField!
+    
+    @IBOutlet weak var passField: UITextField!
+    
+    @IBOutlet weak var sendCell: UITableViewCell!
+    
+    @IBOutlet var spin: UIActivityIndicatorView!
+    
+    @IBOutlet var spinBtn: UIBarButtonItem!
+    
+    var logoutBtn: UIBarButtonItem!
     
     
     // MARK: - View
@@ -48,7 +62,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
+        configureSendCell()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +76,19 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
     }
     
+    func configureSendCell() {
+        
+        var tappable = true
+        
+        sendCell.textLabel?.isEnabled = tappable
+        sendCell.selectionStyle = tappable ? .default : .none
+    }
+    
     func refreshEmptyDataSet() {
         
     }
     
-    func close() {
+    @IBAction func close(_ sender: Any) {
         
     }
     
@@ -148,7 +171,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         /* Only react to Send form button */
         if indexPath.section == 1 && indexPath.row == 0 {
-            connection()
+            connect()
         }
     }
     
@@ -166,7 +189,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             passField.becomeFirstResponder()
         } else {
             /* End of the form after the password field, thus validate */
-            connection()
+            connect()
         }
         
         /* Don't add return character */
