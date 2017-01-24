@@ -29,32 +29,56 @@ class ImagePickerController: UIImagePickerController {
     
 }
 
+// MARK: - UserTVC actions
+fileprivate extension Selector {
+    static let disconnect  = #selector(UserTVC.disconnect)  // Logoff button
+    static let changePhoto = #selector(UserTVC.changePhoto) // Tap on user pic
+    static let forgetTel   = #selector(UserTVC.forgetTel)   // Tap on telephone number
+}
 
-/// <#Description#>
+
+/// User profile view.
+/// If connected, displays user's avatar, name, phone number…
+/// If not, features a connection form.
 class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     // MARK: - Constants
     
-    /// <#Description#>
+    /// Maximum number of attempts for an user to connect at once
     let maxAttempts = 5
     
-    /// <#Description#>
-    let imgSize = UIScreen.main.bounds.size.height < 500 ? 120 : 170
+    /// Current number of connection attempts
+    var attemptsNbr = 0
+    
+    /// Time interval of last connection attempt. Init with a random past value
+    var lastAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())?.timeIntervalSinceReferenceDate
+    
+    /// User picture diameter size
+    let avatarImgSize: CGFloat = UIScreen.main.bounds.size.height < 500 ? 120 : 170
+    
+    /// Some indications on how to fill the mail field. "@reseau.eseo.fr" is automatically added
+    let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson"]
     
     
     // MARK: - UI
     
+    /// When not connected, represents the field for the user to enter their mail address
     @IBOutlet weak var mailField: UITextField!
     
+    /// When not connected, represents the field for the user to enter their password
     @IBOutlet weak var passField: UITextField!
     
+    /// When not connected, represents the field for the user to enter their mail address
     @IBOutlet weak var sendCell: UITableViewCell!
     
+    /// When connecting, the displayed loading icon
     @IBOutlet var spin: UIActivityIndicatorView!
     
+    /// When connecting, container of the spin icon in the navigation bar
     @IBOutlet var spinBtn: UIBarButtonItem!
     
-    var logoutBtn: UIBarButtonItem!
+    /// When connected, logout button in the navigation bar
+    let logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: .disconnect)
     
     
     // MARK: - View
@@ -62,34 +86,97 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /* Get an eventual last try back, so the user cannot close and reopen this view to bypass it */
+        if let lastSavedAttempt = Data.shared().tooManyConnect {
+            lastAttempt = lastSavedAttempt.timeIntervalSinceReferenceDate
+        }
+        
+        /* Make the UILabel look like a UIButton */
         sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
-        configureSendCell()
+        /* No current text entry, so disable the Connect button */
+        configureSendCell(mail: mailField.text, password: passField.text)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
-        
+        loadUI()
+        self.configureBanner(with: #imageLiteral(resourceName: "batiment"),
+                             blurRadius: 0, blurTintColor: UIColor.clear, saturationFactor: 1,
+                             maxHeight: 157)
+        refreshEmptyDataSet()
     }
     
+    /// Configure navigation bar and mail placeholder depending on the current connection state
     func loadUI() {
         
+        /* Use logout button if connected */
+        var currentBarButton = logoutBtn
+        
+        /* If disconnected */
+        if !Data.estConnecte() {
+            /* Set spin button used while connecting instead */
+            currentBarButton = spinBtn
+            
+            /* Choose a random placeholder */
+            let index = Int(arc4random_uniform(UInt32(mailPlaceholders.count)))
+            mailField.placeholder = mailPlaceholders[index] + "@reseau.eseo.fr"
+        }
+        
+        /* Validate navigation bar changes */
+        self.navigationItem.setLeftBarButton(currentBarButton, animated: true)
     }
     
-    func configureSendCell() {
+    /// Visually enable or disable the Send button if the text inputs are empty
+    ///
+    /// - Parameters:
+    ///   - mail: The text from the mail field
+    ///   - password: The text from the password field
+    func configureSendCell(mail: String?, password: String?) {
         
-        var tappable = true
+        /* Connect button not enabled by default */
+        var tappable = false
         
+        /* If available, get the text from the cell */
+        if let mail = mail,
+           let password = password {
+            /* Trim whitespaces and enable the cell if the result of each is not empty */
+            tappable =     mail.trimmingCharacters(in: .whitespaces) != "" &&
+                       password.trimmingCharacters(in: .whitespaces) != ""
+        }
+        
+        /* Apply changes */
         sendCell.textLabel?.isEnabled = tappable
         sendCell.selectionStyle = tappable ? .default : .none
     }
     
+    /// Set avatar shape and tap reactions on the empty data set elements
     func refreshEmptyDataSet() {
+        /* Reinit the view */
+        self.tableView.reloadEmptyDataSet()
         
+        /* Set avatar round aspect */
+        self.tableView.emptyDataSetView.imageView.layer.cornerRadius = avatarImgSize / 2
+        self.tableView.emptyDataSetView.imageView.clipsToBounds = true
+        self.tableView.emptyDataSetView.imageView.layer.borderWidth = 4
+        self.tableView.emptyDataSetView.imageView.layer.borderColor = UIColor.white.cgColor
+        
+        /* The picture reacts to tap interactions */
+        let picTapRecognizer = UITapGestureRecognizer(target: self, action: .changePhoto)
+        self.tableView.emptyDataSetView.imageView.isUserInteractionEnabled = true
+        self.tableView.emptyDataSetView.imageView.addGestureRecognizer(picTapRecognizer)
+        
+        /* The detail text (phone number) also reacts to tap */
+        let telTapRecognizer = UITapGestureRecognizer(target:self, action: .forgetTel)
+        self.tableView.emptyDataSetView.detailLabel.isUserInteractionEnabled = true
+        self.tableView.emptyDataSetView.detailLabel.addGestureRecognizer(telTapRecognizer)
     }
     
+    /// Closes this whole profile view
+    ///
+    /// - Parameter sender: Unused
     @IBAction func close(_ sender: Any) {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -103,15 +190,15 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
     }
     
-    func choosePhoto() {
+    func changePhoto() {
+        
+    }
+    
+    func selectPhoto() {
         
     }
     
     func removePhoto() {
-        
-    }
-    
-    func showPhotos() {
         
     }
     
