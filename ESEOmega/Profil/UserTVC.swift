@@ -22,12 +22,11 @@
 import UIKit
 
 
-/// <#Description#>
-class ImagePickerController: UIImagePickerController {
-    
-    
-    
+// MARK: - Global notifications within the app
+extension Notification.Name {
+    static let connectionStateChanged = Notification.Name("connecte")   // User login/out
 }
+
 
 // MARK: - UserTVC actions
 fileprivate extension Selector {
@@ -152,6 +151,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     /// Set avatar shape and tap reactions on the empty data set elements
     func refreshEmptyDataSet() {
+        
         /* Reinit the view */
         self.tableView.reloadEmptyDataSet()
         
@@ -186,8 +186,35 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
     }
     
+    /// Asks the user whether they are sure to logout, and eventually do it
     func disconnect() {
         
+        /* Display an alert to confirm the choice */
+        let alert = UIAlertController(title: "Voulez-vous vraiment vous déconnecter ?",
+                                      message: "Vos éventuelles commandes en cours à la cafétéria restent dues.",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Se déconnecter", style: .default, handler: { _ in
+            
+            /* Delete any avatar from disk */
+            if self.getPhoto() != nil {
+                self.removePhoto()
+            }
+            
+            /* Delete all profile data */
+            Data.deconnecter()
+            
+            /* Display connection form and appropriate navigation bar buttons */
+            self.loadUI()
+            self.tableView.reloadData()
+            
+            /* Alert other views */
+            NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     /// Finds the path to the user's avatar on disk
@@ -304,7 +331,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         self.refreshEmptyDataSet()
     }
     
-    /// Asks the user to confirm the deletion of their stored phone number
+    /// Asks the user to confirm the deletion of their stored phone number, and eventually do it
     func forgetTel() {
         
         /* Display action sheet to confirm deletion.
