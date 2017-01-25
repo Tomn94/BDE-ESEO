@@ -190,6 +190,28 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
     }
     
+    /// <#Description#>
+    ///
+    /// - Returns: <#return value description#>
+    func getPhoto() -> Foundation.Data? {
+        
+        /* Get documents directory */
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        if paths.count > 0 {
+            let documentsDirectory = paths[0]
+            
+            /* Get the URL of the image file */
+            if let avatarURL = NSURL(fileURLWithPath: documentsDirectory).appendingPathComponent("imageProfil.png") {
+                do {
+                    /* Read data and return */
+                    return try Foundation.Data(contentsOf: avatarURL)
+                } catch {}
+            }
+        }
+        
+        return nil
+    }
+    
     func changePhoto() {
         
     }
@@ -290,7 +312,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     ///   - range: <#range description#>
     ///   - string: <#string description#>
     /// - Returns: <#return value description#>
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
         
         
         return true
@@ -311,7 +335,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     // MARK: - Image Picker delegate
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
         
     }
     
@@ -322,26 +347,108 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     // MARK: - Navigation Controller delegate
     
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController,
+                              willShow viewController: UIViewController, animated: Bool) {
         
     }
     
     
     // MARK: - Empty Data Set delegate
     
+    /// When the user is connected, displays the user's avatar or a default picture
+    ///
+    /// - Parameter scrollView: UserTVC table view
+    /// - Returns: <#return value description#>
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         
-        return nil
+        let screenSize = UIScreen.main.bounds.size
+        
+        /* Hide picture if landscape */
+        if !Data.isiPad() &&
+           (UIDeviceOrientationIsLandscape(UIDevice.current.orientation) ||
+            screenSize.width > screenSize.height) {
+            return nil
+        }
+        
+        /* Get the user avatar if available */
+        if let picData = getPhoto() {
+            return UIImage(data: picData)
+        }
+        
+        /* Return default image with smaller size on iPhone 4 */
+        if screenSize.height < 500 {
+            return Data.scaleAndCropImage(#imageLiteral(resourceName: "defaultUser"), to: CGSize(width: avatarImgSize, height: avatarImgSize), retina: false)
+        }
+        
+        /* Default image */
+        return #imageLiteral(resourceName: "defaultUser")
     }
     
+    /// When the user is connected, sets up the text description and its style
+    ///
+    /// - Parameter scrollView: UserTVC table view
+    /// - Returns: Returns the stylized text header of the empty data set
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
+        /* Say hello to the user if we have their name */
+        if let username = JNKeychain.loadValue(forKey: "uname") as? String {
+            
+            let welcomeString = "Bonjour\n" + username
+            
+            /* Return the string with some style */
+            return NSAttributedString(string: welcomeString,
+                                      attributes: [NSForegroundColorAttributeName : UIColor.darkGray,
+                                                   NSFontAttributeName : UIFont.preferredFont(forTextStyle: .headline)])
+        }
+        
         return nil
     }
     
+    /// When the user is connected, sets up the text description and its style
+    ///
+    /// - Parameter scrollView: UserTVC table view
+    /// - Returns: Returns the stylized text body of the empty data set
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
-        return nil
+        /* Default text */
+        var tip = "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
+        
+        /* Set text style */
+        let descriptionFont = UIFont.preferredFont(forTextStyle: .caption1)
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .center
+        
+        let descriptionAttr: [String : Any] = [NSFontAttributeName : descriptionFont,
+                                               NSForegroundColorAttributeName : UIColor.lightGray,
+                                               NSParagraphStyleAttributeName : paragraph,
+                                               NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone]
+        
+        /* If the user has already set a phone number */
+        if let phone = JNKeychain.loadValue(forKey: "phone") as? String {
+            
+            /* Display this phone number */
+            tip += "\n\nTéléphone associé aux commandes Lydia :\n" + phone + " "
+            
+            /* Create the first part as before */
+            let attrStringAndDeleteBtn = NSMutableAttributedString()
+            attrStringAndDeleteBtn.append(NSAttributedString(string: tip, attributes: descriptionAttr))
+            
+            /* Add a bold & underlined Delete label at the end */
+            let boldDescriptor = descriptionFont.fontDescriptor.withSymbolicTraits(.traitBold)
+            let phoneAttributes: [String : Any] = [NSFontAttributeName : UIFont(descriptor: boldDescriptor!, size: 0),
+                                   NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle,
+                                   NSBackgroundColorAttributeName : UIColor.clear]
+            attrStringAndDeleteBtn.append(NSAttributedString(string: "Supprimer", attributes: phoneAttributes))
+            
+            /* And that's it */
+            return attrStringAndDeleteBtn
+        }
+        
+        /* If no phone number, simply say it and return the default style */
+        tip += "\n\nAucun téléphone associé aux commandes Lydia."
+        return NSAttributedString(string: tip, attributes: descriptionAttr)
     }
     
 }
