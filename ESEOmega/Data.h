@@ -66,6 +66,7 @@
 #define URL_EVENT_ML @"https://web59.secure-secure.co.uk/francoisle.fr/api/event/mail"
 #define URL_INGENEWS @"https://web59.secure-secure.co.uk/francoisle.fr/api/ingenews?%d"
 #define URL_CONNECT  @"https://web59.secure-secure.co.uk/francoisle.fr/api/client/connect"
+#define URL_LOGIN    @"https://web59.secure-secure.co.uk/francoisle.fr/api/client/login"
 #define URL_PUSH     @"https://web59.secure-secure.co.uk/francoisle.fr/api/push/register"
 #define URL_UNPUSH   @"https://web59.secure-secure.co.uk/francoisle.fr/api/push/unregister"
 #define URL_GP       @"https://web59.secure-secure.co.uk/francoisle.fr/api/gantier/scores"

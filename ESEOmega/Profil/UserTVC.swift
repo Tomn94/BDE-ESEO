@@ -46,11 +46,14 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     /// Maximum number of attempts for an user to connect at once
     let maxAttempts = 5
     
+    /// Number of seconds before another set of attempts is given
+    let maxAttemptsWaitingTime: Double = 300
+    
     /// Current number of connection attempts
     var attemptsNbr = 0
     
-    /// Time interval of last connection attempt. Init with a random past value
-    var lastAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())?.timeIntervalSinceReferenceDate
+    /// Time interval of connection attempt that hit the maximum. Init with a random past value
+    var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
     
     /// User picture diameter size
     let avatarImgSize: CGFloat = UIScreen.main.bounds.size.height < 500 ? 120 : 170
@@ -87,7 +90,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         /* Get an eventual last try back, so the user cannot close and reopen this view to bypass it */
         if let lastSavedAttempt = Data.shared().tooManyConnect {
-            lastAttempt = lastSavedAttempt.timeIntervalSinceReferenceDate
+            lastMaxAttempt = lastSavedAttempt.timeIntervalSinceReferenceDate
         }
         
         /* Make the UILabel look like a UIButton */
@@ -139,13 +142,13 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         /* If available, get the text from the cell */
         if let mail = mail,
            let password = password {
-            /* Trim whitespaces and enable the cell if the result of each is not empty */
-            tappable =     mail.trimmingCharacters(in: .whitespaces) != "" &&
-                       password.trimmingCharacters(in: .whitespaces) != ""
+            /* Trim whitespaces from mail, and enable the cell if the result of each is not empty */
+            tappable = mail.trimmingCharacters(in: .whitespaces) != "" && password != ""
         }
         
         /* Apply changes */
         sendCell.textLabel?.isEnabled = tappable
+        sendCell.isUserInteractionEnabled = tappable
         sendCell.selectionStyle = tappable ? .default : .none
     }
     
@@ -175,16 +178,257 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     /// Closes this whole profile view
     ///
     /// - Parameter sender: Unused
-    @IBAction func close(_ sender: Any) {
+    @IBAction func close(_ sender: Any? = nil) {
         self.dismiss(animated: true, completion: nil)
     }
     
     
     // MARK: - Actions
     
-    func connect()  {
+    // MARK: Login
+    
+    /// Sends data to connection API and reacts accordingly
+    func connect() {
         
+        /* Hide keyboard */
+        mailField.resignFirstResponder()
+        passField.resignFirstResponder()
+        
+        guard checkConnect() else { return }
+        
+        /* Disable send button */
+        configureSendCell(mail: "", password: "")
+        
+        /* Encode password to POST */
+        let password = self.passField.text ?? ""
+        let postPass = Data.encoderPourURL(encode(password: password)) ?? ""
+        
+        /* CONNECT TO API */
+        
+        /* Set POST attributes */
+        let mail = Data.encoderPourURL(mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()) ?? ""
+        let hash = Data.encoderPourURL(Data.hashed_string(mail + postPass + "selfRetain_$_0x128D4_objc"))
+        let body = "mail=\(mail)&pass=\(postPass)&hash=\(hash)"
+        
+        /* Set URL Session */
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
+        var urlRequest = URLRequest(url: URL(string: URL_LOGIN)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = body.data(using: .utf8)
+        
+        /* Set data callback */
+        let dataTask = urlSession.dataTask(with: urlRequest) { (data, urlResponse, error) in
+            
+            /* Stop loading indicators */
+            Data.shared().updLoadingActivity(false)
+            self.spin.stopAnimating()
+            
+            /* Allow Send button to be tapped again */
+            self.configureSendCell(mail: self.mailField.text, password: password)
+            
+            /* If we get some data back */
+            if let d = data, error == nil {
+                do {
+                    /* Parse the JSON response */
+                    if let json = try JSONSerialization.jsonObject(with: d) as? [String : Any],
+                       let status = json["status"] as? Int {
+                        
+                        /* If connected */
+                        if status == 1,
+                           let jsonData = json["data"] as? [String: Any] {
+                            
+                            /* Set up the app has connected */
+                            let saltedPass = Data.hashed_string("Oups, erreur de connexion" + password)
+                            let username = jsonData["username"] as? String
+                            
+                            Data.connecter(mail, pass: saltedPass, nom: username)
+                            
+                            /* Present greeting message */
+                            self.connectionSucceeded(username: username,
+                                                     info: jsonData["info"] as? String)
+                            return
+                            
+                        } else if let cause = json["cause"] as? String {
+                            /* Present custom error message otherwise */
+                            self.connectionFailed(error: cause, code: status)
+                            return
+                        }
+                    }
+                } catch { }
+            }
+            
+            /* If any previous case didn't success, present unknown error */
+            self.connectionFailed()
+        }
+        
+        /* Fire connection */
+        Data.shared().updLoadingActivity(true)
+        spin.startAnimating()
+        dataTask.resume()
     }
+    
+    /// Checks connection parameters (mail, password) and blocks if too many attempts
+    ///
+    /// - Returns: True if no error, the connection can be established
+    func checkConnect() -> Bool {
+        
+        /* Get mail (clean an lowercased) and password values */
+        guard let mail = mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
+              let pass = passField.text,
+              mail != "",
+              pass != "" else { return false }
+        
+        /* Give a try at the current date */
+        attemptsNbr += 1
+        let currentTimeInterval = Date.timeIntervalSinceReferenceDate
+        
+        /* In case the limit has been hit */
+        let onTooManyAttempts = {
+            
+            /* Display an integer of the remaning minutes to wait */
+            let minToWait = Int(ceil((currentTimeInterval - self.lastMaxAttempt) / 60))
+            let unit = "minute" + (minToWait > 1 ? "s" : "")
+            
+            /* Present error message */
+            let alert = UIAlertController(title: "Doucement",
+                                          message: "Veuillez attendre \(minToWait) \(unit), vous avez réalisé trop de tentatives à la suite.",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Mince !", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        /* If the user has hit the maximum */
+        if attemptsNbr == maxAttempts + 1 {
+            
+            /* Start the countdown */
+            lastMaxAttempt = currentTimeInterval
+            Data.shared().tooManyConnect = Date()
+            
+            /* Display error message and cancel */
+            onTooManyAttempts()
+            return false
+        }
+        else if attemptsNbr > maxAttempts + 1 {
+
+            /* If enough time has passed, set a normal number of attempts */
+            if currentTimeInterval - lastMaxAttempt > maxAttemptsWaitingTime {
+                attemptsNbr = 1
+            } else {
+                /* If the user still has to wait, display an error message and cancel */
+                onTooManyAttempts()
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /// Encode the password to transit data
+    ///
+    /// - Returns: An encoded password
+    func encode(password: String) -> String {
+        
+        /* This function will not be commented… */
+        let passB64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
+        
+        var passInc = ""
+        for character in password.characters {
+            let scalars = String(character).unicodeScalars
+            let value   = scalars[scalars.startIndex].value
+            passInc    += String(Character(UnicodeScalar(value + 1)!))
+        }
+        let passIncB64 = passInc.data(using: .utf8)?.base64EncodedString() ?? ""
+        
+        var passFinal = ""
+        for (index, character) in passIncB64.characters.enumerated() {
+            let charIndex = passB64.index(passB64.startIndex, offsetBy: index)
+            passFinal += String(passB64[charIndex])
+            passFinal += String(character)
+        }
+        
+        if passFinal.contains("====") {
+            passFinal  = String(passFinal.characters.dropLast(2))
+        } else {
+            passFinal += "=="
+        }
+        
+        return passFinal
+    }
+    
+    /// Displays an alert confirming login was a success, and inits push
+    ///
+    /// - Parameters:
+    ///   - username: Customize welcome message with the name of the user
+    ///   - info: Provides some information about the database. If this string contains "existe", the welcome message will be adapted to welcome back
+    func connectionSucceeded(username: String?, info: String?) {
+        
+        /* Set default values */
+        let userIsBack = info?.contains("existe") ?? false
+        var title = userIsBack ? "Vous êtes de retour" : "Bienvenue"
+        
+        /* Customize with name if available */
+        if let name = username,
+           let firstName = name.components(separatedBy: " ").first {
+            title += ", \(firstName)"
+        }
+        
+        title += " !"
+        
+        /* Present alert box */
+        let alert = UIAlertController(title: title,
+                                      message: "Vous êtes connecté, vous bénéficiez désormais de la commande à la cafétéria/événements.\n\nPour être notifié lorsque votre repas est prêt, veuillez accepter les notifications !",
+                                      preferredStyle: .alert)
+        
+        /* Custom message whether the user has already push notifications */
+        let hasPushEnabled = Data.shared().pushToken != nil
+        alert.addAction(UIAlertAction(title: hasPushEnabled ? "Parfait" : "Parfait, j'y penserai !",
+                                      style: .cancel,
+                                      handler: { _ in
+                                        /* Register for push notifications */
+                                        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                                            Data.registeriOSPush(delegate)
+                                        }
+                                        
+                                        /* Sync the device push token with the server to allow future push
+                                        if hasPushEnabled &&
+                                           JNKeychain.loadValue(forKey: "login") != nil {
+                                            Data.sendPushToken()
+                                        } */
+                                        
+                                        /* Close the whole profile panel */
+                                        self.close()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /// Displays an alert explaining why login has failed
+    ///
+    /// - Parameters:
+    ///   - error: Description of the cause of the error, default alert texts if empty
+    ///   - code: Error code
+    func connectionFailed(error: String = "", code: Int = 0) {
+        
+        /* Set default error messages */
+        var title = "Impossible de valider votre connexion sur nos serveurs"
+        var message = "Impossible de valider votre connexion sur nos serveurs. Si le problème persiste, contactez-nous."
+        
+        /* Use a description of the error instead if provided */
+        if error != "" {
+            title   = code == -2 ? "Oups…" : "Erreur (\(code))"  // customize if wrong password
+            message = error
+        }
+        
+        /* Show alert with message */
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Logout
     
     /// Asks the user whether they are sure to logout, and eventually do it
     func disconnect() {
@@ -216,6 +460,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    // MARK: Avatar
     
     /// Finds the path to the user's avatar on disk
     ///
@@ -330,6 +577,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         /* Commit any change to the view */
         self.refreshEmptyDataSet()
     }
+    
+    
+    // MARK: Telephone
     
     /// Asks the user to confirm the deletion of their stored phone number, and eventually do it
     func forgetTel() {

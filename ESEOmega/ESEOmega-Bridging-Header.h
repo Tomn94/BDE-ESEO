@@ -9,6 +9,7 @@
 #ifndef ESEOmega_Bridging_Header_h
 #define ESEOmega_Bridging_Header_h
 
+#import "AppDelegate.h"
 #import "Data.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "JAQBlurryTableViewController.h"
