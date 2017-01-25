@@ -345,10 +345,10 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
     cell.detailTextLabel.font = proportionalFont;
     
     CGSize imgSize = CGSizeMake(60, 44);
-    UIImage *placeholder = [Data imageByScalingAndCroppingForSize:[UIImage imageNamed:@"doc"]
-                                                               to:imgSize
-                                                           retina:YES
-                                                              fit:YES];
+    UIImage *placeholder = [Data scaleAndCropImage:[UIImage imageNamed:@"doc"]
+                                            toSize:imgSize
+                                            retina:YES
+                                               fit:YES];
     if ([fichier[@"img"] isEqualToString:@""])
         cell.imageView.image = placeholder;
     else
@@ -356,10 +356,10 @@ didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
                           placeholderImage:placeholder
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                      if (error == nil) {
-                                         cell.imageView.image = [Data imageByScalingAndCroppingForSize:image
-                                                                                                    to:imgSize
-                                                                                                retina:YES
-                                                                                                   fit:YES];
+                                         cell.imageView.image = [Data scaleAndCropImage:image
+                                                                                 toSize:imgSize
+                                                                                 retina:YES
+                                                                                    fit:YES];
                                      }
                                  }];
     

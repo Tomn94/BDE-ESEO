@@ -369,9 +369,9 @@
                           placeholderImage:[UIImage imageNamed:@"placeholder"]
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                      if (error == nil) {
-                                         cell.imageView.image = [Data imageByScalingAndCroppingForSize:image
-                                                                                                    to:CGSizeMake(90, 44)
-                                                                                                retina:YES];
+                                         cell.imageView.image = [Data scaleAndCropImage:image
+                                                                                 toSize:CGSizeMake(90, 44)
+                                                                                 retina:YES];
                                      }
                                  }];
     else
