@@ -317,21 +317,21 @@
     [dataTask resume];
 }
 
-+ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage
-                                            to:(CGSize)targetSize
-                                        retina:(BOOL)retina
++ (UIImage *) scaleAndCropImage:(UIImage *)sourceImage
+                         toSize:(CGSize)targetSize
+                         retina:(BOOL)retina
 {
     
-    return [Data imageByScalingAndCroppingForSize:(UIImage *)sourceImage
-                                               to:(CGSize)targetSize
-                                           retina:(BOOL)retina
-                                              fit:NO];
+    return [Data scaleAndCropImage:(UIImage *)sourceImage
+                            toSize:(CGSize)targetSize
+                            retina:(BOOL)retina
+                               fit:NO];
 }
 
-+ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage
-                                            to:(CGSize)targetSize
-                                        retina:(BOOL)retina
-                                           fit:(BOOL)fit
++ (UIImage *) scaleAndCropImage:(UIImage *)sourceImage
+                         toSize:(CGSize)targetSize
+                         retina:(BOOL)retina
+                            fit:(BOOL)fit
 {
     UIImage *newImage = nil;
     CGSize imageSize = sourceImage.size;
@@ -404,6 +404,10 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
++ (BOOL) isiPad {
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
 }
 
 #pragma mark - Update Data

@@ -121,8 +121,9 @@
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void) sendPushToken;
 + (void) delPushToken;
-+ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage to:(CGSize)targetSize retina:(BOOL)retina;
-+ (UIImage *) imageByScalingAndCroppingForSize:(UIImage *)sourceImage to:(CGSize)targetSize retina:(BOOL)retina fit:(BOOL)fit;
++ (UIImage *) scaleAndCropImage:(UIImage *)sourceImage toSize:(CGSize)targetSize retina:(BOOL)retina;
++ (UIImage *) scaleAndCropImage:(UIImage *)sourceImage toSize:(CGSize)targetSize retina:(BOOL)retina fit:(BOOL)fit;
++ (BOOL) isiPad;
 + (void) checkAvailability;
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname;

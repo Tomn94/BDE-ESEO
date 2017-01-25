@@ -525,9 +525,9 @@ didFailLoadWithError:(nullable NSError *)error
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"imageProfil.png"];
-    image = [Data imageByScalingAndCroppingForSize:image
-                                                to:CGSizeMake(IMG_SIZE, IMG_SIZE)
-                                            retina:NO];
+    image = [Data scaleAndCropImage:image
+                             toSize:CGSizeMake(IMG_SIZE, IMG_SIZE)
+                             retina:NO];
     NSData *imageData = UIImagePNGRepresentation(image);
     [imageData writeToFile:savedImagePath atomically:NO];
     
@@ -585,9 +585,9 @@ didFailLoadWithError:(nullable NSError *)error
         return [UIImage imageWithData:myData];
     
     if ([UIScreen mainScreen].bounds.size.height < 500)
-        return [Data imageByScalingAndCroppingForSize:[UIImage imageNamed:@"defaultUser"]
-                                                   to:CGSizeMake(IMG_SIZE, IMG_SIZE)
-                                               retina:NO];
+        return [Data scaleAndCropImage:[UIImage imageNamed:@"defaultUser"]
+                                toSize:CGSizeMake(IMG_SIZE, IMG_SIZE)
+                                retina:NO];
     return [UIImage imageNamed:@"defaultUser"];
 }
 
