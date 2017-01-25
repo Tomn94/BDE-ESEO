@@ -190,42 +190,138 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
     }
     
-    /// <#Description#>
+    /// Finds the path to the user's avatar on disk
     ///
-    /// - Returns: <#return value description#>
-    func getPhoto() -> Foundation.Data? {
+    /// - Returns: The URL of the image, if available
+    func getPhotoURL() -> URL? {
         
         /* Get documents directory */
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         if paths.count > 0 {
             let documentsDirectory = paths[0]
             
-            /* Get the URL of the image file */
-            if let avatarURL = NSURL(fileURLWithPath: documentsDirectory).appendingPathComponent("imageProfil.png") {
-                do {
-                    /* Read data and return */
-                    return try Foundation.Data(contentsOf: avatarURL)
-                } catch {}
-            }
+            /* The image file is stored right inside this documents directory */
+            return NSURL(fileURLWithPath: documentsDirectory).appendingPathComponent("imageProfil.png")
         }
         
         return nil
     }
     
-    func changePhoto() {
+    /// Load the user's avatar from disk
+    ///
+    /// - Returns: The data of the image, if available
+    func getPhoto() -> Foundation.Data? {
         
+        /* Get the URL of the image file */
+        if let avatarURL = getPhotoURL() {
+            do {
+                /* Read data and return */
+                return try Foundation.Data(contentsOf: avatarURL)
+            } catch {}
+        }
+        
+        return nil
     }
     
+    /// Asks the user whether they want to change or delete their avatar
+    func changePhoto() {
+        /* Make sure there's already a picture */
+        guard getPhoto() != nil else { return }
+        
+        /* Ask what action to do */
+        let sheet = UIAlertController(title: "Changer l'image de profil",
+                                      message: "",
+                                      preferredStyle: .actionSheet)
+        
+        /* Configure actions */
+        sheet.addAction(UIAlertAction(title: "Supprimer la photo", style: .destructive, handler: { _ in
+            self.removePhoto()
+        }))
+        sheet.addAction(UIAlertAction(title: "Choisir une photo", style: .default, handler: { _ in
+            //OperationQueue.main.addOperation {
+            self.selectPhoto()
+            //}
+        }))
+        sheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
+    /// Displays a standard photo picker to select a new avatar
     func selectPhoto() {
         
+        /* The user will select a photo from the photos they have already taken */
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+        
+            /* Create an instance of an iOS image picker */
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            /* Show the picker in a pop-over on iPad, fullscreen if not */
+            if Data.isiPad(),
+               let avatarView = self.tableView.emptyDataSetView.imageView,
+               let popPresentCtrl = imagePicker.popoverPresentationController {
+                
+                /* Configure the picker as a pop-over */
+                imagePicker.modalPresentationStyle = .popover
+                
+                /* Place the pop-over on the screen */
+                popPresentCtrl.sourceRect = avatarView.convert(avatarView.bounds, to: UIApplication.shared.windows[0])
+                popPresentCtrl.sourceView = imagePicker.view
+                popPresentCtrl.permittedArrowDirections = .any
+                
+                self.present(imagePicker, animated: true, completion: nil)
+                
+            } else {
+                self.present(imagePicker, animated: true, completion: {
+                    /* Apply light status bar style to the image picker */
+                    UIApplication.shared.statusBarStyle = .lightContent
+                })
+            }
+        }
     }
     
+    /// Deletes the current user picture from disk without confirmation
     func removePhoto() {
         
+        /* If the user has currently an avatar */
+        if let avatarURL = getPhotoURL() {
+            do {
+                /* Delete it from disk */
+                try FileManager.default.removeItem(at: avatarURL)
+            } catch let error {
+                /* Display an error message if any issue arises */
+                let alert = UIAlertController(title: "Impossible de supprimer l'image",
+                                              message: error.localizedDescription,
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        /* Commit any change to the view */
+        self.refreshEmptyDataSet()
     }
     
+    /// Asks the user to confirm the deletion of their stored phone number
     func forgetTel() {
         
+        /* Display action sheet to confirm deletion.
+           Action sheets are more appropriate than alerts for deletion on iOS */
+        let alert = UIAlertController(title: "Voulez-vous oublier le numéro de téléphone ?",
+                                      message: "Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé au prochain achat cafet/event via Lydia.\n\nCependant lorsque vous vous inscrivez à un événement (sans utiliser Lydia), ce numéro est communiqué au BDE.", preferredStyle: .actionSheet)
+        
+        /* Destructive type button to confirm */
+        alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
+            /* Delete stored value, and remove the phone number from the view */
+            JNKeychain.deleteValue(forKey: "phone")
+            self.refreshEmptyDataSet()
+        }))
+        
+        /* Add also a Cancel button, and present inside this view controller */
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
