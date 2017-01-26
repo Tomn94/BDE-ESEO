@@ -580,20 +580,22 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
+            imagePicker.allowsEditing = true
             
             /* Show the picker in a pop-over on iPad, fullscreen if not */
             if Data.isiPad(),
-               let avatarView = self.tableView.emptyDataSetView.imageView,
-               let popPresentCtrl = imagePicker.popoverPresentationController {
+               let avatarView = self.tableView.emptyDataSetView.imageView {
                 
                 /* Configure the picker as a pop-over */
-                imagePicker.modalPresentationStyle = .popover
+                imagePicker.modalPresentationStyle = .popover   // needs to be set 1st
                 
                 /* Place the pop-over on the screen */
-                popPresentCtrl.sourceRect = avatarView.convert(avatarView.bounds, to: UIApplication.shared.windows[0])
-                popPresentCtrl.sourceView = imagePicker.view
-                popPresentCtrl.permittedArrowDirections = .any
+                let popPresentCtrl = imagePicker.popoverPresentationController
+                popPresentCtrl?.sourceRect = avatarView.convert(avatarView.bounds, to: UIApplication.shared.windows[0])
+                popPresentCtrl?.sourceView = imagePicker.view
+                popPresentCtrl?.permittedArrowDirections = .any
                 
+                /* Present pop-over */
                 self.present(imagePicker, animated: true, completion: nil)
                 
             } else {
@@ -819,7 +821,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
         /* Get the chosen image */
-        guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
         /* Save it to disk */
         savePhoto(chosenImage)
