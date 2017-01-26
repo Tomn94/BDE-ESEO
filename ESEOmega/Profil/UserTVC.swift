@@ -274,11 +274,14 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
                         if status == 1,
                            let jsonData = json["data"] as? [String: Any] {
                             
-                            /* Set up the app has connected */
+                            /* Set up the app as connected */
                             let saltedPass = Data.hashed_string("Oups, erreur de connexion" + password)
                             let username = jsonData["username"] as? String
                             
                             Data.connecter(mail, pass: saltedPass, nom: username)
+                            
+                            /* Alert other views */
+                            NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
                             
                             /* Present greeting message */
                             self.connectionSucceeded(username: username,
@@ -429,11 +432,11 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
                                             Data.registeriOSPush(delegate)
                                         }
                                         
-                                        /* Sync the device push token with the server to allow future push
+                                        /* Sync the device push token with the server to allow future push */
                                         if hasPushEnabled &&
                                            JNKeychain.loadValue(forKey: "login") != nil {
                                             Data.sendPushToken()
-                                        } */
+                                        }
                                         
                                         /* Close the whole profile panel */
                                         self.close()
@@ -494,6 +497,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             Data.deconnecter()
             
             /* Display connection form and appropriate navigation bar buttons */
+            self.animateChange()
             self.loadUI()
             self.tableView.reloadData()
             
