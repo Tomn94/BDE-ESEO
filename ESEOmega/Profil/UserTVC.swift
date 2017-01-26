@@ -43,6 +43,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     // MARK: - Constants
     
+    /// Default domain name for mail addresses (used in autocomplete and placeholders)
+    let mailDomain = "reseau.eseo.fr"
+    
     /// Maximum number of attempts for an user to connect at once
     let maxAttempts = 5
     
@@ -121,12 +124,18 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             currentBarButton = spinBtn
             
             /* Choose a random placeholder */
-            let index = Int(arc4random_uniform(UInt32(mailPlaceholders.count)))
-            mailField.placeholder = mailPlaceholders[index] + "@reseau.eseo.fr"
+            changeMailPlaceholder()
         }
         
         /* Validate navigation bar changes */
         self.navigationItem.setLeftBarButton(currentBarButton, animated: true)
+    }
+    
+    /// Randomizes a new placeholder for the mail field
+    func changeMailPlaceholder() {
+        /* Choose one random among predefined ones */
+        let index = Int(arc4random_uniform(UInt32(mailPlaceholders.count)))
+        mailField.placeholder = mailPlaceholders[index] + "@" + mailDomain
     }
     
     /// Visually enable or disable the Send button if the text inputs are empty
@@ -179,6 +188,11 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     ///
     /// - Parameter sender: Unused
     @IBAction func close(_ sender: Any? = nil) {
+
+        /* Animate keyboard while closing */
+        mailField.resignFirstResponder()
+        passField.resignFirstResponder()
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -201,14 +215,16 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         /* Encode password to POST */
         let password = self.passField.text ?? ""
-        let postPass = Data.encoderPourURL(encode(password: password)) ?? ""
+        let postPass = encode(password: password)
         
         /* CONNECT TO API */
         
-        /* Set POST attributes */
-        let mail = Data.encoderPourURL(mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()) ?? ""
-        let hash = Data.encoderPourURL(Data.hashed_string(mail + postPass + "selfRetain_$_0x128D4_objc"))
-        let body = "mail=\(mail)&pass=\(postPass)&hash=\(hash)"
+        /* Create URL encoded POST attributes */
+        let mail = mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+        let mailEnc = Data.encoderPourURL(mail) ?? ""
+        let passEnc = Data.encoderPourURL(postPass) ?? ""
+        let hash = Data.encoderPourURL(Data.hashed_string(mail + postPass + "selfRetain_$_0x128D4_objc")) ?? ""
+        let body = "mail=\(mailEnc)&pass=\(passEnc)&hash=\(hash)"
         
         /* Set URL Session */
         let urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -361,7 +377,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     ///
     /// - Parameters:
     ///   - username: Customize welcome message with the name of the user
-    ///   - info: Provides some information about the database. If this string contains "existe", the welcome message will be adapted to welcome back
+    ///   - info: Provides some information about the database.
+    ///           If this string contains "existe", the welcome message will be adapted to welcome back
     func connectionSucceeded(username: String?, info: String?) {
         
         /* Set default values */
@@ -417,8 +434,11 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         /* Use a description of the error instead if provided */
         if error != "" {
-            title   = code == -2 ? "Oups…" : "Erreur (\(code))"  // customize if wrong password
+            title   = code == -2 ? "Oups…" : "Erreur"  // customize if wrong password
             message = error
+        }
+        if code != -2 {
+            message += " (Code : \(code))"
         }
         
         /* Show alert with message */
@@ -499,6 +519,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     /// Asks the user whether they want to change or delete their avatar
     func changePhoto() {
+        
         /* Make sure there's already a picture */
         guard getPhoto() != nil else { return }
         
@@ -512,9 +533,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             self.removePhoto()
         }))
         sheet.addAction(UIAlertAction(title: "Choisir une photo", style: .default, handler: { _ in
-            //OperationQueue.main.addOperation {
             self.selectPhoto()
-            //}
         }))
         sheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         
@@ -556,11 +575,27 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
     }
     
+    func savePhoto(_ picture: UIImage) {
+        
+        /* */
+        if let saveURL = getPhotoURL(),
+           let scaledDownPic = Data.scaleAndCropImage(picture,
+                                                      to: CGSize(width: avatarImgSize, height: avatarImgSize),
+                                                      retina: false) {
+            
+            let imgData = UIImagePNGRepresentation(scaledDownPic)
+            do {
+                try imgData?.write(to: saveURL)
+            } catch {}
+        }
+    }
+    
     /// Deletes the current user picture from disk without confirmation
     func removePhoto() {
         
         /* If the user has currently an avatar */
-        if let avatarURL = getPhotoURL() {
+        if getPhoto() != nil,
+           let avatarURL = getPhotoURL() {
             do {
                 /* Delete it from disk */
                 try FileManager.default.removeItem(at: avatarURL)
@@ -660,7 +695,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     // MARK: - Text Field delegate
     
-    /// Behavior of the text field when the Return key is pressed
+    /// Behavior of the text field when the Return key is pressed.
+    /// Helps going from one field to another, then return
     ///
     /// - Parameter textField: Text field where the event is occurring
     /// - Returns: No, the text field doesn't support multiline text
@@ -678,51 +714,110 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         return false
     }
     
-    /// <#Description#>
+    /// Updates the availability of the Send button when the text changes.
+    /// Also autocompletes the mail address with the domain when the user types '@'
     ///
     /// - Parameters:
-    ///   - textField: <#textField description#>
-    ///   - range: <#range description#>
-    ///   - string: <#string description#>
-    /// - Returns: <#return value description#>
+    ///   - textField: Text field being edited
+    ///   - range: Part of the text to be replaced
+    ///   - string: The part of the text that has just been typed/pasted or "" if erased
+    /// - Returns: Whether the previous text should be replaced after this method
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         
+        /* Return value to override if text set manually */
+        var shouldAutoUpdateField = true
         
-        return true
-    }
-    
-    
-    // MARK: - Pop Over delegate
-    
-    /// <#Description#>
-    ///
-    /// - Parameter controller: <#controller description#>
-    /// - Returns: <#return value description#>
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        /* */
-        return .none
+        /* Get previous text values */
+        var mailTxt = mailField.text ?? ""
+        var passTxt = passField.text ?? ""
+        
+        /* Get the new text value being considered */
+        let proposedStr = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+        
+        /* Operations on the mail field (which tag is 0) */
+        if textField.tag == 0 {
+            
+            /* Add "reseau.eseo.fr" right after the user types '@' */
+            if string == "@" &&                 // a @ has just been typed
+               !mailTxt.contains("@") &&        // autocomplete just once
+               proposedStr.hasSuffix("@") {     // the @ is at the end
+                /* Update the text field */
+                mailField.text = proposedStr + mailDomain
+                shouldAutoUpdateField = false
+            }
+            
+            /* Find another placeholder if the user clears the field */
+            if proposedStr == "" {
+                changeMailPlaceholder()
+            }
+            
+            /* Assign the new value to the mail field */
+            mailTxt = proposedStr
+            
+        } else {
+            /* Otherwise assign the new value to the pass field (tag 1) */
+            passTxt = proposedStr
+        }
+        
+        configureSendCell(mail: mailTxt, password: passTxt)
+        
+        return shouldAutoUpdateField
     }
     
     
     // MARK: - Image Picker delegate
     
+    /// Called when the user chose a picture from their library thanks to the image picker
+    ///
+    /// - Parameters:
+    ///   - picker: The controller of the image picker
+    ///   - info: Used to get the selected picture back
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
+        /* Get the chosen image */
+        guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        
+        /* Save it to disk */
+        savePhoto(chosenImage)
+        
+        /* Update the avatar */
+        self.refreshEmptyDataSet()
+        
+        /* Dismiss the picker */
+        self.dismiss(animated: true) {
+            UIApplication.shared.statusBarStyle = .lightContent     // Apply app style back
+        }
     }
     
+    /// Called when the user cancelled the operation of changing avatar
+    ///
+    /// - Parameter picker: The controller of the image picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
+        /* Dismiss the picker */
+        self.dismiss(animated: true) {
+            UIApplication.shared.statusBarStyle = .lightContent     // Apply app style back
+        }
     }
     
     
     // MARK: - Navigation Controller delegate
     
+    /// Called when the user chooses an album from their library
+    ///
+    /// - Parameters:
+    ///   - navigationController: The picker navigation controller
+    ///   - viewController: The new controller being presented
+    ///   - animated: Whether the presentation is animated
     func navigationController(_ navigationController: UINavigationController,
-                              willShow viewController: UIViewController, animated: Bool) {
+                              willShow viewController: UIViewController,
+                              animated: Bool) {
         
+        /* Apply app style to the picker */
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     
@@ -731,7 +826,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     /// When the user is connected, displays the user's avatar or a default picture
     ///
     /// - Parameter scrollView: UserTVC table view
-    /// - Returns: <#return value description#>
+    /// - Returns: The user's picture
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         
         let screenSize = UIScreen.main.bounds.size
