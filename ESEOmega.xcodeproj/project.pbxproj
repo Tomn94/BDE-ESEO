@@ -63,7 +63,6 @@
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
-		648F1E4E1B62ED7F008AC8D5 /* UserTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 648F1E4D1B62ED7F008AC8D5 /* UserTVC.m */; };
 		64934AFD1B750FC00040E6C5 /* NewsLinksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */; };
 		649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D411C44423A00FDF2A8 /* EventsOrderTVC.m */; };
 		649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D471C44534C00FDF2A8 /* EventsOrderNavTVC.m */; };
@@ -297,8 +296,6 @@
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
 		6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PerfectDOSVGA437.ttf; sourceTree = "<group>"; };
-		648F1E4C1B62ED7F008AC8D5 /* UserTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTVC.h; sourceTree = "<group>"; };
-		648F1E4D1B62ED7F008AC8D5 /* UserTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTVC.m; sourceTree = "<group>"; };
 		64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLinksVC.h; sourceTree = "<group>"; };
 		64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLinksVC.m; sourceTree = "<group>"; };
 		649D9D401C44423A00FDF2A8 /* EventsOrderTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsOrderTVC.h; sourceTree = "<group>"; };
@@ -634,8 +631,6 @@
 		648F1E4F1B62ED8C008AC8D5 /* Profil */ = {
 			isa = PBXGroup;
 			children = (
-				648F1E4C1B62ED7F008AC8D5 /* UserTVC.h */,
-				648F1E4D1B62ED7F008AC8D5 /* UserTVC.m */,
 				6459F9AB1E36861500C6812D /* UserTVC.swift */,
 			);
 			path = Profil;
@@ -1204,7 +1199,6 @@
 				64E93CF91C439F60005FC9CF /* EventsHistoryCell.m in Sources */,
 				64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */,
 				64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */,
-				648F1E4E1B62ED7F008AC8D5 /* UserTVC.m in Sources */,
 				64E63A6F1BC1F7F0005C350F /* JNKeychain.m in Sources */,
 				64582C301BD6A9F50007C104 /* JTSAnimatedGIFUtility.m in Sources */,
 				64B7B37A1B86722700A0E296 /* OrderItemCell.m in Sources */,
