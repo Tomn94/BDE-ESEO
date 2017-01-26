@@ -83,7 +83,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     @IBOutlet var spinBtn: UIBarButtonItem!
     
     /// When connected, logout button in the navigation bar
-    let logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: .disconnect)
+    var logoutBtn: UIBarButtonItem!
     
     
     // MARK: - View
@@ -94,7 +94,15 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         /* Get an eventual last try back, so the user cannot close and reopen this view to bypass it */
         if let lastSavedAttempt = Data.shared().tooManyConnect {
             lastMaxAttempt = lastSavedAttempt.timeIntervalSinceReferenceDate
+            
+            /* Already disable login if recently blocked */
+            if Date.timeIntervalSinceReferenceDate - lastMaxAttempt <= maxAttemptsWaitingTime {
+                attemptsNbr = maxAttempts
+            }
         }
+        
+        /* Configure Logout button action */
+        logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: .disconnect)
         
         /* Make the UILabel look like a UIButton */
         sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
@@ -102,13 +110,10 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         configureSendCell(mail: mailField.text, password: passField.text)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         loadUI()
-        self.configureBanner(with: #imageLiteral(resourceName: "batiment"),
-                             blurRadius: 0, blurTintColor: UIColor.clear, saturationFactor: 1,
-                             maxHeight: 157)
         refreshEmptyDataSet()
     }
     
@@ -125,6 +130,11 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             
             /* Choose a random placeholder */
             changeMailPlaceholder()
+            
+            /* Display ESEO building as a banner above login form */
+            self.configureBanner(with: #imageLiteral(resourceName: "batiment"),
+                                 blurRadius: 0, blurTintColor: UIColor.clear, saturationFactor: 1,
+                                 maxHeight: 157)
         }
         
         /* Validate navigation bar changes */
@@ -133,6 +143,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     /// Randomizes a new placeholder for the mail field
     func changeMailPlaceholder() {
+        
         /* Choose one random among predefined ones */
         let index = Int(arc4random_uniform(UInt32(mailPlaceholders.count)))
         mailField.placeholder = mailPlaceholders[index] + "@" + mailDomain
@@ -194,6 +205,16 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         passField.resignFirstResponder()
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    /// Fade any change of the empty data set
+    func animateChange() {
+        
+        /* Make a simple transition */
+        let animation = CATransition()
+        animation.duration = 0.42
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        self.tableView.layer.add(animation, forKey: nil)
     }
     
     
@@ -302,7 +323,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         let onTooManyAttempts = {
             
             /* Display an integer of the remaning minutes to wait */
-            let minToWait = Int(ceil((currentTimeInterval - self.lastMaxAttempt) / 60))
+            let minToWait = Int(ceil((self.maxAttemptsWaitingTime - currentTimeInterval + self.lastMaxAttempt) / 60))
             let unit = "minute" + (minToWait > 1 ? "s" : "")
             
             /* Present error message */
@@ -437,7 +458,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             title   = code == -2 ? "Oups…" : "Erreur"  // customize if wrong password
             message = error
         }
-        if code != -2 {
+        
+        /* Don't display error code for obvious messages (wrong password, wrong mail domain) */
+        if code != -2 && code != -4 {
             message += " (Code : \(code))"
         }
         
@@ -460,7 +483,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Se déconnecter", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Se déconnecter", style: .destructive, handler: { _ in
             
             /* Delete any avatar from disk */
             if self.getPhoto() != nil {
@@ -520,12 +543,15 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     /// Asks the user whether they want to change or delete their avatar
     func changePhoto() {
         
-        /* Make sure there's already a picture */
-        guard getPhoto() != nil else { return }
+        /* Directly choose photo if there's already a picture */
+        if getPhoto() == nil {
+            selectPhoto()
+            return
+        }
         
         /* Ask what action to do */
-        let sheet = UIAlertController(title: "Changer l'image de profil",
-                                      message: "",
+        let sheet = UIAlertController(title: "",
+                                      message: "Changer l'image de profil",
                                       preferredStyle: .actionSheet)
         
         /* Configure actions */
@@ -567,6 +593,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
                 self.present(imagePicker, animated: true, completion: nil)
                 
             } else {
+                /* Present fullscreen on iPhone */
                 self.present(imagePicker, animated: true, completion: {
                     /* Apply light status bar style to the image picker */
                     UIApplication.shared.statusBarStyle = .lightContent
@@ -575,16 +602,21 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
     }
     
+    /// Save a given picture to disk
+    ///
+    /// - Parameter picture: Picture to be saved as PNG
     func savePhoto(_ picture: UIImage) {
         
-        /* */
+        /* Get destination path and scale down picture */
         if let saveURL = getPhotoURL(),
            let scaledDownPic = Data.scaleAndCropImage(picture,
                                                       to: CGSize(width: avatarImgSize, height: avatarImgSize),
                                                       retina: false) {
             
+            /* Create data representation */
             let imgData = UIImagePNGRepresentation(scaledDownPic)
             do {
+                /* Try to write data to destination */
                 try imgData?.write(to: saveURL)
             } catch {}
         }
@@ -610,14 +642,18 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
         
         /* Commit any change to the view */
+        animateChange()
         self.refreshEmptyDataSet()
     }
     
     
-    // MARK: Telephone
+    // MARK: Phone number
     
     /// Asks the user to confirm the deletion of their stored phone number, and eventually do it
     func forgetTel() {
+        
+        /* Only display if there's a phone registered */
+        guard JNKeychain.loadValue(forKey: "phone") != nil else { return }
         
         /* Display action sheet to confirm deletion.
            Action sheets are more appropriate than alerts for deletion on iOS */
@@ -628,6 +664,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
             /* Delete stored value, and remove the phone number from the view */
             JNKeychain.deleteValue(forKey: "phone")
+            self.animateChange()
             self.refreshEmptyDataSet()
         }))
         
@@ -784,6 +821,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         savePhoto(chosenImage)
         
         /* Update the avatar */
+        animateChange()
         self.refreshEmptyDataSet()
         
         /* Dismiss the picker */
@@ -829,23 +867,9 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     /// - Returns: The user's picture
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         
-        let screenSize = UIScreen.main.bounds.size
-        
-        /* Hide picture if landscape */
-        if !Data.isiPad() &&
-           (UIDeviceOrientationIsLandscape(UIDevice.current.orientation) ||
-            screenSize.width > screenSize.height) {
-            return nil
-        }
-        
         /* Get the user avatar if available */
         if let picData = getPhoto() {
             return UIImage(data: picData)
-        }
-        
-        /* Return default image with smaller size on iPhone 4 */
-        if screenSize.height < 500 {
-            return Data.scaleAndCropImage(#imageLiteral(resourceName: "defaultUser"), to: CGSize(width: avatarImgSize, height: avatarImgSize), retina: false)
         }
         
         /* Default image */
@@ -865,11 +889,10 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             
             /* Return the string with some style */
             return NSAttributedString(string: welcomeString,
-                                      attributes: [NSForegroundColorAttributeName : UIColor.darkGray,
-                                                   NSFontAttributeName : UIFont.preferredFont(forTextStyle: .headline)])
+                                      attributes: [NSForegroundColorAttributeName : UIColor.darkGray])
         }
         
-        return nil
+        return NSAttributedString(string: "", attributes: [:])
     }
     
     /// When the user is connected, sets up the text description and its style
@@ -882,16 +905,11 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         var tip = "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
         
         /* Set text style */
-        let descriptionFont = UIFont.preferredFont(forTextStyle: .caption1)
-        
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .byWordWrapping
-        paragraph.alignment = .center
+        let descriptionFont = UIFont.preferredFont(forTextStyle: .subheadline)
         
         let descriptionAttr: [String : Any] = [NSFontAttributeName : descriptionFont,
                                                NSForegroundColorAttributeName : UIColor.lightGray,
-                                               NSParagraphStyleAttributeName : paragraph,
-                                               NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone]
+                                               NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue] // no style to allow further changes
         
         /* If the user has already set a phone number */
         if let phone = JNKeychain.loadValue(forKey: "phone") as? String {
@@ -906,8 +924,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
             /* Add a bold & underlined Delete label at the end */
             let boldDescriptor = descriptionFont.fontDescriptor.withSymbolicTraits(.traitBold)
             let phoneAttributes: [String : Any] = [NSFontAttributeName : UIFont(descriptor: boldDescriptor!, size: 0),
-                                   NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle,
-                                   NSBackgroundColorAttributeName : UIColor.clear]
+                                                   NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue,
+                                                   NSBackgroundColorAttributeName : UIColor.clear]  // clear background needed
             attrStringAndDeleteBtn.append(NSAttributedString(string: "Supprimer", attributes: phoneAttributes))
             
             /* And that's it */
@@ -915,7 +933,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
         
         /* If no phone number, simply say it and return the default style */
-        tip += "\n\nAucun téléphone associé aux commandes Lydia."
+        tip += "\n\nAucun téléphone associé aux commandes Lydia.\n" // final \n to avoid text jump when deleting phone number
+        
         return NSAttributedString(string: tip, attributes: descriptionAttr)
     }
     
