@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -380,7 +380,7 @@ Paquet de chips</string>
         <!--Empty Data Set Delegate-->
         <scene sceneID="PXp-Jw-w15">
             <objects>
-                <tableViewController id="jdp-au-bz4" customClass="UserTVC" sceneMemberID="viewController">
+                <tableViewController id="jdp-au-bz4" customClass="UserTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Tmk-Rp-3dD">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -396,16 +396,16 @@ Paquet de chips</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-UZ-zXo">
-                                                    <rect key="frame" x="8" y="12" width="119" height="20"/>
+                                                    <rect key="frame" x="14" y="12" width="100" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="119" id="aS7-Yt-V4G"/>
+                                                        <constraint firstAttribute="width" constant="100" id="aS7-Yt-V4G"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="sam.sepiol@reseau.eseo.fr" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-AO-5QM">
-                                                    <rect key="frame" x="147" y="0.0" width="237" height="44"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="sam.sepiol@reseau.eseo.fr" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-AO-5QM">
+                                                    <rect key="frame" x="134" y="0.0" width="250" height="43"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="next"/>
@@ -417,7 +417,7 @@ Paquet de chips</string>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="LN4-AO-5QM" secondAttribute="trailing" id="5Jq-Q4-v5E"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="top" secondItem="rzK-4R-rBz" secondAttribute="top" id="5m8-Ul-x1c"/>
-                                                <constraint firstItem="wSM-UZ-zXo" firstAttribute="leading" secondItem="rzK-4R-rBz" secondAttribute="leadingMargin" id="9Zx-Zl-oWL"/>
+                                                <constraint firstItem="wSM-UZ-zXo" firstAttribute="leading" secondItem="rzK-4R-rBz" secondAttribute="leadingMargin" constant="6" id="9Zx-Zl-oWL"/>
                                                 <constraint firstItem="wSM-UZ-zXo" firstAttribute="centerY" secondItem="rzK-4R-rBz" secondAttribute="centerY" id="Hm6-3p-Oq1"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="top" secondItem="rzK-4R-rBz" secondAttribute="topMargin" id="R2Z-a6-6eC"/>
                                                 <constraint firstItem="LN4-AO-5QM" firstAttribute="leading" secondItem="wSM-UZ-zXo" secondAttribute="trailing" constant="20" id="WM9-ia-nL8"/>
@@ -433,7 +433,6 @@ Paquet de chips</string>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilMdpCell" id="3n4-0p-LxX">
                                         <rect key="frame" x="0.0" y="100" width="384" height="44"/>
@@ -443,16 +442,16 @@ Paquet de chips</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de passe" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-z6-eXP">
-                                                    <rect key="frame" x="8" y="12" width="119" height="20"/>
+                                                    <rect key="frame" x="14" y="12" width="100" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="119" id="Y5s-ph-f8h"/>
+                                                        <constraint firstAttribute="width" constant="100" id="Y5s-ph-f8h"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfW-ly-SOx">
-                                                    <rect key="frame" x="147" y="0.0" width="237" height="44"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sfW-ly-SOx">
+                                                    <rect key="frame" x="134" y="0.0" width="250" height="43"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="send" secureTextEntry="YES"/>
@@ -466,7 +465,7 @@ Paquet de chips</string>
                                                 <constraint firstAttribute="trailing" secondItem="sfW-ly-SOx" secondAttribute="trailing" id="81b-kd-BtI"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="centerY" secondItem="1U0-fk-4yx" secondAttribute="centerY" id="FAb-Dk-OEP"/>
                                                 <constraint firstAttribute="bottom" secondItem="sfW-ly-SOx" secondAttribute="bottom" id="JSY-6t-9HU"/>
-                                                <constraint firstItem="JGg-z6-eXP" firstAttribute="leading" secondItem="1U0-fk-4yx" secondAttribute="leadingMargin" id="MSx-cX-sdh"/>
+                                                <constraint firstItem="JGg-z6-eXP" firstAttribute="leading" secondItem="1U0-fk-4yx" secondAttribute="leadingMargin" constant="6" id="MSx-cX-sdh"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="top" secondItem="1U0-fk-4yx" secondAttribute="topMargin" id="TbM-9l-lqW"/>
                                                 <constraint firstItem="sfW-ly-SOx" firstAttribute="top" secondItem="1U0-fk-4yx" secondAttribute="top" id="bs1-H1-wkE"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="sfW-ly-SOx" secondAttribute="bottom" id="p3v-F2-d2G"/>
