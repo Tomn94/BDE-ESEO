@@ -70,15 +70,16 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 ## Informations techniques
 
-Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
+Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO) pour fonctionner.
 
+#### Clarifications connexion
+> Un utilisateur peut se connecter grâce à son compte ESEO pour débloquer plusieurs fonctionnalités dont la commande à la cafet, l'achat de places et la réception de notifications.<br>
+> Celui-ci se connecte grâce à son mail et son mot de passe, transmis temporairement à l'API Serveur BDE pour établir une connexion.
+> Ce serveur vérifie uniquement que le compte existe et que le mot de passe est correct via le SMTP de Microsoft Exchange.
+> Votre e-mail est conservé pour identifier vos achats et le mot de passe est hashé.
 
-## TODO
-- Généraliser les achats de place (« navette »)
-- Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
-- Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
-- iOS 9/10 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
-- Continuer à simplifier le code (réécriture en Swift) et commenter
+#### Une question ?
+> Conformément à la loi relative à l'informatique, aux fichiers et aux libertés du 6 janvier 1978, vous disposez à tout moment d'un droit individuel d'opposition, d'accès, de modification, de rectification et de suppression des données qui vous concernent en nous contactant (par exemple en utilisant le bouton Contact dans l’application).
 
 
 ## Versions
