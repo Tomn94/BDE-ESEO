@@ -78,10 +78,14 @@ Nécessite une API Serveur SheepDevs et/ou ESEOasis pour fonctionner.
 - Lors d'une commande, barre Carte/Panier de mauvaise taille en Split View iPad ou lors d'un appel/hotspot
 - Fausse déconnexion lors de l’ajout d’une photo après une réinstallation
 - iOS 9/10 SFSafariViewController animation étrange si pop-up, barre étrange lors d'un appel/hotspot
-- Simplifier le code (Swift…) et commenter
+- Continuer à simplifier le code (réécriture en Swift) et commenter
 
 
 ## Versions
+###v4.1 · ?/02/2017
+> - Nouvelle connexion au compte ESEO avec l'adresse mail
+> - Interface de connexion améliorée et possibilité de rogner un avatar
+
 ###v4.0.3 · 03/01/2017
 > - Correctifs pour iPhone 7/7+, Ingénews et la cafet […]
 
