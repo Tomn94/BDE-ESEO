@@ -59,7 +59,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
     
     /// User picture diameter size
-    let avatarImgSize: CGFloat = UIScreen.main.bounds.size.height < 500 ? 120 : 170
+    let avatarImgSize: CGFloat = 170
     
     /// Some indications on how to fill the mail field. "@reseau.eseo.fr" is automatically added
     let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson"]
