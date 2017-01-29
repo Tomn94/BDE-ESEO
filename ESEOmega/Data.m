@@ -144,10 +144,12 @@
 + (void) connecter:(NSString *)user
               pass:(NSString *)mdp
                nom:(NSString *)nom
+              mail:(NSString *)mail
 {
     [JNKeychain saveValue:user forKey:@"login"];
     [JNKeychain saveValue:mdp  forKey:@"passw"];
     [JNKeychain saveValue:nom  forKey:@"uname"];
+    [JNKeychain saveValue:mail  forKey:@"mail"];
     
     [[Data sharedData] updateJSON:@"cmds"];
 }
@@ -160,6 +162,7 @@
     [JNKeychain deleteValueForKey:@"passw"];
     [JNKeychain deleteValueForKey:@"uname"];
     [JNKeychain deleteValueForKey:@"phone"];
+    [JNKeychain deleteValueForKey:@"mail"];
     
     [[Data sharedData] updateJSON:@"cmds"];
 }

@@ -266,17 +266,20 @@ class UserTVC: JAQBlurryTableViewController {
                             
                             /* Set up the app as connected */
                             let saltedPass = Data.hashed_string("Oups, erreur de connexion" + password)
-                            let username = jsonData["username"] as? String
                             
-                            Data.connecter(mail, pass: saltedPass, nom: username)
+                            if let username = jsonData["username"] as? String,
+                               let login    = jsonData["login"]    as? String {
                             
-                            /* Alert other views */
-                            NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
-                            
-                            /* Present greeting message */
-                            self.connectionSucceeded(username: username,
-                                                     info: jsonData["info"] as? String)
-                            return
+                                Data.connecter(login, pass: saltedPass, nom: username, mail: mail)
+                                
+                                /* Alert other views */
+                                NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
+                                
+                                /* Present greeting message */
+                                self.connectionSucceeded(username: username,
+                                                         info: jsonData["info"] as? String)
+                                return
+                            }
                             
                         } else if let cause = json["cause"] as? String {
                             /* Present custom error message otherwise */

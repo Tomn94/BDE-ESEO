@@ -115,7 +115,8 @@
 + (BOOL) estConnecte;
 + (void) connecter:(NSString *)user
               pass:(NSString *)mdp
-               nom:(NSString *)nom;
+               nom:(NSString *)nom
+              mail:(NSString *)mail;
 + (void) deconnecter;
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void) sendPushToken;
