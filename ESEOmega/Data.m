@@ -89,7 +89,6 @@
         instance.cafetToken      = @"";
         instance.cafetDebut      = 0;
         instance.cafetCmdEnCours = NO;
-        instance.tooManyConnect  = nil;
         instance.tempPhone       = nil;
         instance.alertRedir      = nil;
         [instance cafetPanierVider];

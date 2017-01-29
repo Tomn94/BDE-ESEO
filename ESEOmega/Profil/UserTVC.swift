@@ -44,25 +44,25 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     // MARK: - Constants
     
     /// Default domain name for mail addresses (used in autocomplete and placeholders)
-    let mailDomain = "reseau.eseo.fr"
-    
-    /// Maximum number of attempts for an user to connect at once
-    let maxAttempts = 5
-    
-    /// Number of seconds before another set of attempts is given
-    let maxAttemptsWaitingTime: Double = 300
-    
-    /// Current number of connection attempts
-    var attemptsNbr = 0
-    
-    /// Time interval of connection attempt that hit the maximum. Init with a random past value
-    var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
-    
-    /// User picture diameter size
-    let avatarImgSize: CGFloat = 170
+    static let mailDomain = "reseau.eseo.fr"
     
     /// Some indications on how to fill the mail field. "@reseau.eseo.fr" is automatically added
-    let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson"]
+    static let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson"]
+    
+    /// User picture diameter size
+    static let avatarImgSize: CGFloat = 170
+    
+    /// Maximum number of attempts for an user to connect at once
+    static let maxAttempts = 5
+    
+    /// Number of seconds before another set of attempts is given
+    static let maxAttemptsWaitingTime: Double = 300
+    
+    /// Current number of connection attempts
+    static var attemptsNbr = 0
+    
+    /// Time interval of connection attempt that hit the maximum. Init with a random past value
+    static var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
     
     
     // MARK: - UI
@@ -90,16 +90,6 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /* Get an eventual last try back, so the user cannot close and reopen this view to bypass it */
-        if let lastSavedAttempt = Data.shared().tooManyConnect {
-            lastMaxAttempt = lastSavedAttempt.timeIntervalSinceReferenceDate
-            
-            /* Already disable login if recently blocked */
-            if Date.timeIntervalSinceReferenceDate - lastMaxAttempt <= maxAttemptsWaitingTime {
-                attemptsNbr = maxAttempts
-            }
-        }
         
         /* Configure Logout button action */
         logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: .disconnect)
@@ -145,8 +135,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     func changeMailPlaceholder() {
         
         /* Choose one random among predefined ones */
-        let index = Int(arc4random_uniform(UInt32(mailPlaceholders.count)))
-        mailField.placeholder = mailPlaceholders[index] + "@" + mailDomain
+        let index = Int(arc4random_uniform(UInt32(UserTVC.mailPlaceholders.count)))
+        mailField.placeholder = UserTVC.mailPlaceholders[index] + "@" + UserTVC.mailDomain
     }
     
     /// Visually enable or disable the Send button if the text inputs are empty
@@ -179,7 +169,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         self.tableView.reloadEmptyDataSet()
         
         /* Set avatar round aspect */
-        self.tableView.emptyDataSetView.imageView.layer.cornerRadius = avatarImgSize / 2
+        self.tableView.emptyDataSetView.imageView.layer.cornerRadius = UserTVC.avatarImgSize / 2
         self.tableView.emptyDataSetView.imageView.clipsToBounds = true
         self.tableView.emptyDataSetView.imageView.layer.borderWidth = 4
         self.tableView.emptyDataSetView.imageView.layer.borderColor = UIColor.white.cgColor
@@ -319,14 +309,14 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
               pass != "" else { return false }
         
         /* Give a try at the current date */
-        attemptsNbr += 1
+        UserTVC.attemptsNbr += 1
         let currentTimeInterval = Date.timeIntervalSinceReferenceDate
         
         /* In case the limit has been hit */
         let onTooManyAttempts = {
             
             /* Display an integer of the remaning minutes to wait */
-            let minToWait = Int(ceil((self.maxAttemptsWaitingTime - currentTimeInterval + self.lastMaxAttempt) / 60))
+            let minToWait = Int(ceil((UserTVC.maxAttemptsWaitingTime - currentTimeInterval + UserTVC.lastMaxAttempt) / 60))
             let unit = "minute" + (minToWait > 1 ? "s" : "")
             
             /* Present error message */
@@ -340,21 +330,20 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
         
         /* If the user has hit the maximum */
-        if attemptsNbr == maxAttempts + 1 {
+        if UserTVC.attemptsNbr == UserTVC.maxAttempts + 1 {
             
             /* Start the countdown */
-            lastMaxAttempt = currentTimeInterval
-            Data.shared().tooManyConnect = Date()
+            UserTVC.lastMaxAttempt = currentTimeInterval
             
             /* Display error message and cancel */
             onTooManyAttempts()
             return false
         }
-        else if attemptsNbr > maxAttempts + 1 {
+        else if UserTVC.attemptsNbr > UserTVC.maxAttempts + 1 {
 
             /* If enough time has passed, set a normal number of attempts */
-            if currentTimeInterval - lastMaxAttempt > maxAttemptsWaitingTime {
-                attemptsNbr = 1
+            if currentTimeInterval - UserTVC.lastMaxAttempt > UserTVC.maxAttemptsWaitingTime {
+                UserTVC.attemptsNbr = 1
             } else {
                 /* If the user still has to wait, display an error message and cancel */
                 onTooManyAttempts()
@@ -616,7 +605,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         /* Get destination path and scale down picture */
         if let saveURL = getPhotoURL(),
            let scaledDownPic = Data.scaleAndCropImage(picture,
-                                                      to: CGSize(width: avatarImgSize, height: avatarImgSize),
+                                                      to: CGSize(width: UserTVC.avatarImgSize, height: UserTVC.avatarImgSize),
                                                       retina: false) {
             
             /* Create data representation */
@@ -787,7 +776,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
                !mailTxt.contains("@") &&        // autocomplete just once
                proposedStr.hasSuffix("@") {     // the @ is at the end
                 /* Update the text field */
-                mailField.text = proposedStr + mailDomain
+                mailField.text = proposedStr + UserTVC.mailDomain
                 shouldAutoUpdateField = false
             }
             

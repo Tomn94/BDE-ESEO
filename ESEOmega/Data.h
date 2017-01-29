@@ -106,7 +106,6 @@
 @property (strong, nonatomic) NSString *cafetToken;
 @property (assign, nonatomic) NSTimeInterval cafetDebut;
 @property (assign, nonatomic) BOOL cafetCmdEnCours;
-@property (strong, nonatomic) NSDate *tooManyConnect;
 @property (strong, nonatomic) NSData *pushToken;
 @property (strong, nonatomic) UIViewController<MFMailComposeViewControllerDelegate> *t_currentTopVC;
 @property (strong, nonatomic) NSString *tempPhone;
