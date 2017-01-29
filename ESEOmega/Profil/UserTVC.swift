@@ -39,7 +39,7 @@ fileprivate extension Selector {
 /// User profile view.
 /// If connected, displays user's avatar, name, phone number…
 /// If not, features a connection form.
-class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class UserTVC: JAQBlurryTableViewController {
     
     // MARK: - Constants
     
@@ -65,7 +65,7 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
     static var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
     
     
-    // MARK: - UI
+    // MARK: UI
     
     /// When not connected, represents the field for the user to enter their mail address
     @IBOutlet weak var mailField: UITextField!
@@ -668,8 +668,14 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         self.present(alert, animated: true, completion: nil)
     }
     
+}
+
+
+// MARK: - Table View Controller data source & delegate
+
+extension UserTVC {
     
-    // MARK: - Table View Controller delegate
+    // MARK: TVC data source
     
     /// Set every section to be displayed, zero if Empty Data Set
     ///
@@ -708,6 +714,8 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         return 1
     }
     
+    // MARK: TVC delegate
+    
     /// Reacts depending on the row tapped
     ///
     /// - Parameters:
@@ -724,8 +732,12 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
     }
     
-    
-    // MARK: - Text Field delegate
+}
+
+
+// MARK: - Text Field delegate
+
+extension UserTVC: UITextFieldDelegate {
     
     /// Behavior of the text field when the Return key is pressed.
     /// Helps going from one field to another, then return
@@ -798,8 +810,12 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         return shouldAutoUpdateField
     }
     
-    
-    // MARK: - Image Picker delegate
+}
+
+
+// MARK: - Image Picker delegate
+
+extension UserTVC: UIImagePickerControllerDelegate {
     
     /// Called when the user chose a picture from their library thanks to the image picker
     ///
@@ -836,8 +852,12 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         }
     }
     
-    
-    // MARK: - Navigation Controller delegate
+}
+
+
+// MARK: - Navigation Controller delegate
+
+extension UserTVC: UINavigationControllerDelegate {
     
     /// Called when the user chooses an album from their library
     ///
@@ -853,8 +873,12 @@ class UserTVC: JAQBlurryTableViewController, UITextFieldDelegate, UIPopoverPrese
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    
-    // MARK: - Empty Data Set delegate
+}
+
+
+// MARK: - Empty Data Set delegate
+
+extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     /// When the user is connected, displays the user's avatar or a default picture
     ///
