@@ -682,8 +682,7 @@ extension UserTVC {
     
     /// Set every section to be displayed, zero if Empty Data Set
     ///
-    /// - Parameters:
-    ///   - tableView: The table view containing the sections
+    /// - Parameter tableView: The table view containing the sections
     /// - Returns: Total number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
         
