@@ -20,6 +20,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation AppDelegate
 
@@ -35,10 +36,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     }
     
     /* UI COLORS */
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:1 green:0.5 blue:0 alpha:1]];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.9608 green:0.9205 blue:0.816 alpha:1]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor] }];
-    [_window setTintColor:APP_COLOR];
+    [ThemeManager updateTheme];
     
     /* NOTIFICATIONS */
     if ([Data estConnecte])

@@ -23,10 +23,10 @@ import UIKit
 
 /// Application theme handler.
 /// Allows the user to choose a theme and to apply it to the whole app
-class ThemeManager {
+@objc class ThemeManager: NSObject {
     
     /// Disables instantiations
-    private init() {}
+    private override init() {}
     
     
     // MARK: - Themes
@@ -98,11 +98,19 @@ class ThemeManager {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         /* Apply tint color to every view controller */
-        if let delegate = UIApplication.shared.delegate as? AppDelegate,
-           let window = delegate.window {
-            window.tintColor = currentTheme.themeValue.window
-        }
+        UIApplication.shared.keyWindow?.tintColor = currentTheme.themeValue.window
         
+    }
+    
+    /// Overrides current theme with a special red theme during event ordering
+    ///
+    /// - Parameter navigationController: Applies theme on its Navigation Bar
+    static func useEventTheme(on navigationController: UINavigationController) {
+        
+        let appColorEvent = #colorLiteral(red: 0.929, green: 0.11, blue: 0.141, alpha: 1)
+        navigationController.navigationBar.barTintColor  = appColorEvent;
+        navigationController.navigationBar.tintColor     = #colorLiteral(red: 0.9964, green: 0.8461, blue: 0.8497, alpha: 1);
+        UIApplication.shared.keyWindow?.tintColor        = appColorEvent;
     }
     
 }

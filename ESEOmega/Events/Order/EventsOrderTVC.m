@@ -20,15 +20,13 @@
 //
 
 #import "EventsOrderTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation EventsOrderTVC
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.barTintColor  = APP_COLOR_EVENT;
-    self.navigationController.navigationBar.tintColor     = [UIColor colorWithRed:0.9964 green:0.8461 blue:0.8497 alpha:1];
     
     messageQuitterVu = NO;
     self.tableView.emptyDataSetSource = self;
@@ -99,14 +97,14 @@
 {
     [super viewWillAppear:animated];
     
-    [UIApplication sharedApplication].keyWindow.tintColor = APP_COLOR_EVENT;
+    [ThemeManager useEventThemeOn:self.navigationController];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [UIApplication sharedApplication].keyWindow.tintColor = APP_COLOR;
+    [ThemeManager updateTheme];
 }
 
 - (void) timeout
