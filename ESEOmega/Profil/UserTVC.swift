@@ -22,12 +22,6 @@
 import UIKit
 
 
-// MARK: - Global notifications within the app
-extension Notification.Name {
-    static let connectionStateChanged = Notification.Name("connecte")   // User login/out
-}
-
-
 // MARK: - UserTVC actions
 fileprivate extension Selector {
     static let disconnect  = #selector(UserTVC.disconnect)  // Logoff button
@@ -426,7 +420,7 @@ class UserTVC: JAQBlurryTableViewController {
                                         
                                         /* Sync the device push token with the server to allow future push */
                                         if hasPushEnabled &&
-                                           JNKeychain.loadValue(forKey: "login") != nil {
+                                           JNKeychain.loadValue(forKey: KeychainKey.login) != nil {
                                             Data.sendPushToken()
                                         }
                                         
@@ -651,17 +645,18 @@ class UserTVC: JAQBlurryTableViewController {
     func forgetTel() {
         
         /* Only display if there's a phone registered */
-        guard JNKeychain.loadValue(forKey: "phone") != nil else { return }
+        guard JNKeychain.loadValue(forKey: KeychainKey.phone) != nil else { return }
         
         /* Display action sheet to confirm deletion.
            Action sheets are more appropriate than alerts for deletion on iOS */
         let alert = UIAlertController(title: "Voulez-vous oublier le numéro de téléphone ?",
-                                      message: "Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé au prochain achat cafet/event via Lydia.\n\nCependant lorsque vous vous inscrivez à un événement (sans utiliser Lydia), ce numéro est communiqué au BDE.", preferredStyle: .actionSheet)
+                                      message: "Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé au prochain achat cafet/event via Lydia.\n\nCependant lorsque vous vous inscrivez à un événement (sans utiliser Lydia), ce numéro est communiqué au BDE.",
+                                      preferredStyle: .actionSheet)
         
         /* Destructive type button to confirm */
         alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
             /* Delete stored value, and remove the phone number from the view */
-            JNKeychain.deleteValue(forKey: "phone")
+            JNKeychain.deleteValue(forKey: KeychainKey.phone)
             self.animateChange()
             self.refreshEmptyDataSet()
         }))
@@ -904,7 +899,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
         /* Say hello to the user if we have their name */
-        if let username = JNKeychain.loadValue(forKey: "uname") as? String {
+        if let username = JNKeychain.loadValue(forKey: KeychainKey.name) as? String {
             
             let welcomeString = "Bonjour\n" + username
             
@@ -933,7 +928,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
                                                NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue] // no style to allow further changes
         
         /* If the user has already set a phone number */
-        if let phone = JNKeychain.loadValue(forKey: "phone") as? String {
+        if let phone = JNKeychain.loadValue(forKey: KeychainKey.phone) as? String {
             
             /* Display this phone number */
             tip += "\n\nTéléphone associé aux commandes Lydia :\n" + phone + " "
