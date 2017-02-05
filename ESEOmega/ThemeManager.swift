@@ -25,44 +25,35 @@ import UIKit
 /// Allows the user to choose a theme and to apply it to the whole app
 class ThemeManager {
     
-    // MARK: - Singleton
-    
-    /// Singleton instance
-    static let shared = ThemeManager()
-    /// Disable instantiations
+    /// Disables instantiations
     private init() {}
     
     
     // MARK: - Themes
     
     /// Describes themes for the app
-    enum Theme: RawRepresentable {
-        
-        // MARK: Predefined themes
+    enum Theme: Int {
         
         /// A common theme for all Students’ Union
-        case common
+        case common     = 0
         
         /// Un thème qui claque sa dorade
-        case bdeldorado
+        case bdeldorado = 1
         
         /// Un thème divin
-        case eseomega
+        case eseomega   = 2
         
         /// Un thème exotique
-        case eseoasis
+        case eseoasis   = 3
         
-        /// Any other theme with custom colors
-        case other(RawValue)
+       
+        // MARK: Themes associated attributes
         
+        /// Defines which attribute types a theme has
+        typealias ThemeValue = (bars: UIColor, barButtons: UIColor, window: UIColor)
         
-        // MARK: Themes attributes and colors
-        
-        /// Defines which attributes a theme has
-        typealias RawValue = (bars: UIColor, barButtons: UIColor, window: UIColor)
-        
-        /// Describes each attribute for every theme
-        var rawValue: RawValue {
+        /// Describes each attribute value for every theme
+        var themeValue: ThemeValue {
             switch self {
                 case .common:
                     return (bars: #colorLiteral(red: 0, green: 0.6470588235, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.8039215686, green: 0.9607843137, blue: 1, alpha: 1), window: #colorLiteral(red: 0, green: 0.6470588235, blue: 1, alpha: 1))
@@ -75,38 +66,41 @@ class ThemeManager {
                 
                 case .eseoasis:
                     return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
-                
-                case .other(let colors):
-                    return colors
             }
-        }
-        
-        /// Create a new theme from a color set
-        init?(rawValue: RawValue) {
-            self = .other(rawValue)
         }
     }
     
     
     // MARK: - Apply theme
     
-    /// Stores the currently selected theme
-    var currentTheme = Theme.common
+    /// Stores the currently selected theme.
+    /// Load value from user preferences, or return the default theme
+    static var currentTheme = Theme(rawValue: UserDefaults.standard.integer(forKey: UserDefaultsKey.appTheme)) ?? Theme.common {
+        didSet {
+            /* Update the app appearance when the theme changes */
+            if currentTheme != oldValue {
+                ThemeManager.updateTheme()
+            }
+            
+            /* Save preference */
+            UserDefaults.standard.set(currentTheme.rawValue, forKey: UserDefaultsKey.appTheme)
+        }
+    }
     
-    /// Apply the choosen theme to the whole app
-    class func updateTheme() {
+    /// Applies the choosen theme to the whole app
+    static func updateTheme() {
         
-        let currentTheme = ThemeManager.shared.currentTheme
+        let currentTheme = ThemeManager.currentTheme
         
         /* Customize Navigation Bars */
-        UINavigationBar.appearance().barTintColor = currentTheme.rawValue.bars
-        UINavigationBar.appearance().tintColor    = currentTheme.rawValue.barButtons
+        UINavigationBar.appearance().barTintColor = currentTheme.themeValue.bars
+        UINavigationBar.appearance().tintColor    = currentTheme.themeValue.barButtons
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         /* Apply tint color to every view controller */
         if let delegate = UIApplication.shared.delegate as? AppDelegate,
            let window = delegate.window {
-            window.tintColor = currentTheme.rawValue.window
+            window.tintColor = currentTheme.themeValue.window
         }
         
     }
