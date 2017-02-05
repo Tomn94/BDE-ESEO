@@ -47,7 +47,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     // OPENED APP FROM NOTIFICATION
     if (!SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0"))
     {
-        NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+        NSDictionary *userInfo = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (userInfo[@"aps"])
         {
             double vers = [userInfo[@"version"] doubleValue];
