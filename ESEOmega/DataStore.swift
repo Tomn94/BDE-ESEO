@@ -30,7 +30,7 @@ enum UserDefaultsKey {
     /// Tip How To Print a Document (0 = not seen | 1 = already seen once | 2 = don't show again)
     static let printWarning   = "messageImpressionLu"
     
-    /// Whether the user has seen some new events so a tab badge should be hidden (yes = hide badge | no = display badge)
+    /// Whether the user has seen some new events so a tab badge should be hidden (true = hide badge | false = display badge)
     static let seenEventBadge = "nouveauBoutonEventVu"
     
     /// Whether GP is enabled or not

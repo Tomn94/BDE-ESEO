@@ -88,7 +88,10 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
                            let rank      = result["rank"]  as? StudentRankRaw,
                            let promotion = result["promo"] as? String {
                             /* Create a new result entry */
-                            let student = GenealogySearchResult(id: id, name: name, rank: StudentRank.parse(rank), promotion: promotion)
+                            let student = GenealogySearchResult(id: id,
+                                                                name: name,
+                                                                rank: StudentRank(rawValue: rank) ?? .alumni,
+                                                                promotion: promotion)
                             self.results.append(student)
                         }
                     }
@@ -112,7 +115,7 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
 
         let student = results[indexPath.row]
         cell.textLabel?.text = student.name
-        cell.detailTextLabel?.text = student.rank.rawValue + " · Promotion " + student.promotion
+        cell.detailTextLabel?.text = student.rank.name + " · Promotion " + student.promotion
 
         return cell
     }

@@ -21,60 +21,86 @@
 
 import Foundation
 
-/// JSON raw types to identify a student
-typealias StudentID = Int
+
+// MARK: - Student rank
+
+/// JSON raw type to identify a student rank
 typealias StudentRankRaw = Int
 
-/// Describes a student level of studies
-enum StudentRank: String {
-    case P1 = "P1"
-    case P2 = "P2"
-    case I1 = "I1"
-    case I2 = "I2"
-    case I3 = "I3"
-    case Alumni = "Alumni"
+/// Describes a student level of studies, and their associated JSON raw value
+enum StudentRank: StudentRankRaw {
     
-    /** Convert JSON raw value to enum type
-        This function is needed to provide a default value */
-    static func parse(_ value: StudentRankRaw) -> StudentRank {
-        switch value {
-            case 0:  return P1
-            case 1:  return P2
-            case 2:  return I1
-            case 3:  return I2
-            case 4:  return I3
-            default: return Alumni
-        }
-    }
+    /// First year, prep cycle
+    case p1 = 0
+    /// Second year, prep cycle
+    case p2 = 1
+    /// First year, engineer cycle
+    case i1 = 2
+    /// Second year, engineer cycle
+    case i2 = 3
+    /// Last year, engineer cycle
+    case i3 = 4
+    /// Graduated student
+    case alumni = 5
     
-    /** Convert enum type to JSON raw value
-        This function is needed to sort students by rank */
-    var dataValue: StudentRankRaw {
+    /// Returns the student rank title
+    var name: String {
         switch self {
-            case .P1: return 0
-            case .P2: return 1
-            case .I1: return 2
-            case .I2: return 3
-            case .I3: return 4
-            default:  return 5
+            case .p1: return "P1"
+            case .p2: return "P2"
+            case .i1: return "I1"
+            case .i2: return "I2"
+            case .i3: return "I3"
+            default:  return "Alumni"
         }
     }
 }
 
-func >(left: StudentRank, right: StudentRank) -> Bool {
-    return left.dataValue > right.dataValue
+/// Compares 2 student ranks
+///
+/// - Parameters:
+///   - left: First rank
+///   - right: Second rank
+/// - Returns: True if the first rank is higher than the second
+func > (left: StudentRank, right: StudentRank) -> Bool {
+    return left.rawValue > right.rawValue
 }
+
+
+// MARK: - Student
+
+/// JSON raw type to identify a student
+typealias StudentID = Int
 
 /// Describes a student and their characteristics
 struct Student {
+    
+    /// API Student ID
     let id: StudentID
+    
+    /// Name of the student (e.g. `Thomas NAUDET`)
     let name: String
+    
+    /// Name of the class (e.g. `De Gennes`)
     let promotion: String
+    
+    /// Year of studies (e.g. `I3`)
     let rank: StudentRank
+    
+    /// List of the IDs of the student's parents in the tree view
     let parents: [StudentID]
+    
+    /// List of the IDs of the student's children in the tree view
     let children: [StudentID]
+    
 }
 
-func ==(left: Student, right: Student) -> Bool {
+/// Finds equality between 2 students
+///
+/// - Parameters:
+///   - left: First student
+///   - right: Second student
+/// - Returns: True if they both represent the same student
+func == (left: Student, right: Student) -> Bool {
     return left.id == right.id
 }

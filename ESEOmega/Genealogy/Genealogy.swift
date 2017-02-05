@@ -103,8 +103,8 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
                            let promotion = result["promo"]    as? String {
                             // Add this student to the family
                             let member = Student(id: id, name: name,
-                                                  promotion: promotion, rank: StudentRank.parse(rank),
-                                                  parents: parents, children: children)
+                                                 promotion: promotion, rank: StudentRank(rawValue: rank) ?? .alumni,
+                                                 parents: parents, children: children)
                             familyMembers.append(member)
                             if member.id == student.id {
                                 self.query = member
@@ -130,7 +130,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         /* 1: Split students by rank */
         // Prepare: sort students by rank
         let students = members.sorted { $0.rank > $1.rank }
-        var currentRank = StudentRank.Alumni
+        var currentRank = StudentRank.alumni
         var currentRankMembers: [Student]?
         // Allocate each rank
         for student in students {
@@ -249,7 +249,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             
             /* Promotion setup */
             if let firstStudent = studentsForRank.first {
-                famCell.infoLabel.text = firstStudent.rank.rawValue + " · " + firstStudent.promotion
+                famCell.infoLabel.text = firstStudent.rank.name + " · " + firstStudent.promotion
             }
             
             /* Draw links between rows */

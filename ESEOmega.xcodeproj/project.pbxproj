@@ -541,11 +541,11 @@
 			isa = PBXGroup;
 			children = (
 				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
+				645852991DC722A3008AF43C /* Student.swift */,
 				64AF21481DC8746B0000F987 /* Genealogy.swift */,
 				643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */,
 				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,
 				64AF21441DC7409C0000F987 /* GenealogySearch.swift */,
-				645852991DC722A3008AF43C /* Student.swift */,
 			);
 			name = Genealogy;
 			sourceTree = "<group>";
