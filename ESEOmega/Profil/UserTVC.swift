@@ -26,7 +26,6 @@ import UIKit
 fileprivate extension Selector {
     static let disconnect  = #selector(UserTVC.disconnect)  // Logoff button
     static let changePhoto = #selector(UserTVC.changePhoto) // Tap on user pic
-    static let forgetTel   = #selector(UserTVC.forgetTel)   // Tap on telephone number
 }
 
 
@@ -148,6 +147,7 @@ class UserTVC: JAQBlurryTableViewController {
         optionsTable.delegate   = optionsTableDelegate
         optionsTable.dataSource = optionsTableDataSource
         optionsTable.isScrollEnabled = false
+        optionsTableDelegate.userTVC = self
         
         /* Validate navigation bar changes */
         self.navigationItem.setLeftBarButton(currentBarButton, animated: true)
@@ -668,34 +668,6 @@ class UserTVC: JAQBlurryTableViewController {
         /* Commit any change to the view */
         animateChange()
         self.refreshEmptyDataSet()
-    }
-    
-    
-    // MARK: Phone number
-    
-    /// Asks the user to confirm the deletion of their stored phone number, and eventually do it
-    func forgetTel() {
-        
-        /* Only display if there's a phone registered */
-        guard JNKeychain.loadValue(forKey: KeychainKey.phone) != nil else { return }
-        
-        /* Display action sheet to confirm deletion.
-           Action sheets are more appropriate than alerts for deletion on iOS */
-        let alert = UIAlertController(title: "Voulez-vous oublier le numéro de téléphone ?",
-                                      message: "Votre numéro de téléphone portable est utilisé par Lydia afin de lier vos commandes à votre compte. Il n'est pas stocké sur nos serveurs.\nUn nouveau numéro vous sera demandé au prochain achat cafet/event via Lydia.\n\nCependant lorsque vous vous inscrivez à un événement (sans utiliser Lydia), ce numéro est communiqué au BDE.",
-                                      preferredStyle: .actionSheet)
-        
-        /* Destructive type button to confirm */
-        alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
-            /* Delete stored value, and remove the phone number from the view */
-            JNKeychain.deleteValue(forKey: KeychainKey.phone)
-            self.animateChange()
-            self.refreshEmptyDataSet()
-        }))
-        
-        /* Add also a Cancel button, and present inside this view controller */
-        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
 }
