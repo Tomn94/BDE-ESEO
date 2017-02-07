@@ -73,6 +73,14 @@ import UIKit
         }
     }
     
+    /// Returns the list of all the themes available
+    static var themes: [Theme] {
+        return [.common,
+                .bdeldorado,
+                .eseomega,
+                .eseoasis]
+    }
+    
     
     // MARK: - Apply theme
     
@@ -101,8 +109,10 @@ import UIKit
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         /* Apply tint color to every view controller */
-        UIApplication.shared.keyWindow?.tintColor = currentTheme.themeValue.window
-        
+        if let delegate = UIApplication.shared.delegate as? AppDelegate,
+           let window = delegate.window {
+            window.tintColor = currentTheme.themeValue.window
+        }
     }
     
     /// Overrides current theme with a special red theme during event ordering
