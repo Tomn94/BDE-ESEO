@@ -88,7 +88,7 @@
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"© Thomas NAUDET pour ESEOmega\nCollection Été 2015 - Hiver 2016\nAutomne 2016 pour ESEOasis\nUne question, un problème ? ↓";
+    NSString *text = @"© Thomas NAUDET pour ESEOmega\nCollection Été 2015 - Hiver 2016\nHiver 2016 - 2017 pour ESEOasis\nUne question, un problème ? ↓";
 
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
@@ -102,7 +102,7 @@
     NSDictionary *boldDic = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize] };
     NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
     [mas setAttributes:boldDic range:NSMakeRange(2, 13)];
-    [mas setAttributes:boldDic range:NSMakeRange(90, 29)];
+    [mas setAttributes:boldDic range:NSMakeRange(95, 29)];
     
     return mas;
 }
