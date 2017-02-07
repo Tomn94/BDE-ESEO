@@ -71,6 +71,7 @@
 		649F503E1B65271B00F56263 /* ClubsMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F503D1B65271B00F56263 /* ClubsMasterCell.m */; };
 		64A271F31B645A350001063A /* CommandesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A271F21B645A350001063A /* CommandesCell.m */; };
 		64A85B291D9CCF7800020D18 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AC81491E490E6C00C1AB8E /* UserTV.swift */; };
 		64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */; };
 		64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C31B60133900AD4C25 /* ClubsMasterTVC.m */; };
 		64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */; };
@@ -311,6 +312,7 @@
 		649F503D1B65271B00F56263 /* ClubsMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubsMasterCell.m; sourceTree = "<group>"; };
 		64A271F11B645A350001063A /* CommandesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesCell.h; sourceTree = "<group>"; };
 		64A271F21B645A350001063A /* CommandesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesCell.m; sourceTree = "<group>"; };
+		64AC81491E490E6C00C1AB8E /* UserTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTV.swift; sourceTree = "<group>"; };
 		64AD83BF1B6012BD00AD4C25 /* ClubsSplitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubsSplitVC.h; sourceTree = "<group>"; };
 		64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubsSplitVC.m; sourceTree = "<group>"; };
 		64AD83C21B60133900AD4C25 /* ClubsMasterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubsMasterTVC.h; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				6459F9AB1E36861500C6812D /* UserTVC.swift */,
+				64AC81491E490E6C00C1AB8E /* UserTV.swift */,
 			);
 			path = Profil;
 			sourceTree = "<group>";
@@ -1239,6 +1242,7 @@
 				649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */,
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,
+				64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */,
 				649F503E1B65271B00F56263 /* ClubsMasterCell.m in Sources */,
 				64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */,
 				64E273471B72444300A84E68 /* GameVC.m in Sources */,

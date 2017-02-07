@@ -58,6 +58,15 @@ class UserTVC: JAQBlurryTableViewController {
     /// Time interval of connection attempt that hit the maximum. Init with a random past value
     static var lastMaxAttempt = Calendar.current.date(byAdding: .day, value: -1, to: Date())!.timeIntervalSinceReferenceDate
     
+    /// Number of rows (options) in the table view dedicated to settings when logged
+    static let optionsNbr = 2
+    
+    /// Top space between the settings table view and the empty data set text when logged
+    static let optionsTableTopMargin: CGFloat = 35
+    
+    /// Vertical position of the settings table view when logged
+    static let optionsTableYPos: CGFloat = 300 + UserTVC.optionsTableTopMargin
+    
     
     // MARK: UI
     
@@ -78,6 +87,15 @@ class UserTVC: JAQBlurryTableViewController {
     
     /// When connected, logout button in the navigation bar
     var logoutBtn: UIBarButtonItem!
+    
+    /// When connected, display a list of options
+    var optionsTable: UITableView!
+    
+    /// optionsTable data source retained delegate
+    let optionsTableDelegate = UserTVDelegate()
+    
+    /// optionsTable data source retained data source
+    let optionsTableDataSource = UserTVDataSource()
     
     
     // MARK: - View
@@ -121,6 +139,16 @@ class UserTVC: JAQBlurryTableViewController {
                                  maxHeight: 157)
         }
         
+        /* Create options table (displayed when logged) */
+        optionsTable = UITableView(frame: CGRect(x: 0, y: UserTVC.optionsTableYPos,
+                                                     width: self.tableView.frame.size.width,
+                                                     height: CGFloat(UserTVC.optionsNbr * 44) - 1),
+                                       style: .plain)
+        optionsTable.autoresizingMask = .flexibleWidth
+        optionsTable.delegate   = optionsTableDelegate
+        optionsTable.dataSource = optionsTableDataSource
+        optionsTable.isScrollEnabled = false
+        
         /* Validate navigation bar changes */
         self.navigationItem.setLeftBarButton(currentBarButton, animated: true)
     }
@@ -160,6 +188,7 @@ class UserTVC: JAQBlurryTableViewController {
     func refreshEmptyDataSet() {
         
         /* Reinit the view */
+        self.tableView.contentInset.bottom = 0  // avoid offset calculation interferences
         self.tableView.reloadEmptyDataSet()
         
         /* Set avatar round aspect */
@@ -173,10 +202,13 @@ class UserTVC: JAQBlurryTableViewController {
         self.tableView.emptyDataSetView.imageView.isUserInteractionEnabled = true
         self.tableView.emptyDataSetView.imageView.addGestureRecognizer(picTapRecognizer)
         
-        /* The detail text (phone number) also reacts to tap */
-        let telTapRecognizer = UITapGestureRecognizer(target:self, action: .forgetTel)
-        self.tableView.emptyDataSetView.detailLabel.isUserInteractionEnabled = true
-        self.tableView.emptyDataSetView.detailLabel.addGestureRecognizer(telTapRecognizer)
+        /* Add options view */
+        self.tableView.emptyDataSetView.contentView.addSubview(optionsTable)
+        /* Allow inner selection and ensure the view is always visible (scrollable to) */
+        self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableTopMargin + optionsTable.frame.height
+        self.tableView.emptyDataSetView.tapGesture.cancelsTouchesInView = false
+        self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44 + 7)
+        optionsTable.reloadData()
     }
     
     /// Closes this whole profile view
@@ -952,6 +984,23 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         tip += "\n\nAucun téléphone associé aux commandes Lydia.\n" // final \n to avoid text jump when deleting phone number
         
         return NSAttributedString(string: tip, attributes: descriptionAttr)
+    }
+    
+    /// Center the empty data set vertically because of the table view inside
+    ///
+    /// - Parameter scrollView: Main table view of this view controller
+    /// - Returns: X and Y offset
+    func offset(forEmptyDataSet scrollView: UIScrollView!) -> CGPoint {
+        
+        /* No offset on iPhone in landscape mode */
+        let screenSize = UIScreen.main.bounds.size
+        if !Data.isiPad() &&
+           (UIDevice.current.orientation.isLandscape || screenSize.width > screenSize.height) {
+            return .zero
+        }
+        
+        /* Otherwise let the view be a bit higher */
+        return CGPoint(x: 0, y: UserTVC.optionsNbr * -44 / 2)
     }
     
 }
