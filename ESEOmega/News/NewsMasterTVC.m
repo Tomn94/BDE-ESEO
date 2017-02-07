@@ -36,7 +36,6 @@
     }
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
     [self setUpToolbar];
     
@@ -78,24 +77,25 @@
     
     [self.tableView reloadEmptyDataSet];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les articles récents…"
                                                                             attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
     
+    
+    [self configureBottomRefresh];
+    
     if (_delegate && [news count] > 0 && !iPAD && [UIScreen mainScreen].bounds.size.width >= 736 && UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
         [_delegate selectedNews:news[0]];
-    
-    if (self.tableView.bottomRefreshControl == nil)
-    {
-        UIRefreshControl *refreshControl = [UIRefreshControl new];
-        //    refreshControl.triggerVerticalOffset = 100.;
-        refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
-        [refreshControl addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventValueChanged];
-        [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les anciens articles…"
-                                                                           attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]]; // bleu : [UIColor colorWithRed:0.051 green:0.396 blue:1.000 alpha:1.000]
-        self.tableView.bottomRefreshControl = refreshControl;
-    }
     [self.refreshControl beginRefreshing];
     [self debugRefresh];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    /* Fix when swiping back to this split view master */
+    [self configureBottomRefresh];
 }
 
 - (void) dealloc
@@ -429,6 +429,16 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     ptr++;
     [self.tableView.bottomRefreshControl endRefreshing];
+}
+
+- (void) configureBottomRefresh
+{
+    UIRefreshControl *refreshControl = [UIRefreshControl new];
+    [refreshControl addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventValueChanged];
+    refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
+    [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les anciens articles…"
+                                                                       attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
+    self.tableView.bottomRefreshControl = refreshControl;
 }
 
 - (void) debugRefresh
