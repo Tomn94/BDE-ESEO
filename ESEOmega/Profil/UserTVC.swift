@@ -61,10 +61,10 @@ class UserTVC: JAQBlurryTableViewController {
     static let optionsNbr = 2
     
     /// Top space between the settings table view and the empty data set text when logged
-    static let optionsTableTopMargin: CGFloat = 35
+    static let optionsTableMargin: CGFloat = 26
     
     /// Vertical position of the settings table view when logged
-    static let optionsTableYPos: CGFloat = 300 + UserTVC.optionsTableTopMargin
+    static let optionsTableYPos: CGFloat = 243 + UserTVC.optionsTableMargin
     
     
     // MARK: UI
@@ -205,10 +205,10 @@ class UserTVC: JAQBlurryTableViewController {
         /* Add options view */
         self.tableView.emptyDataSetView.contentView.addSubview(optionsTable)
         /* Allow inner selection and ensure the view is always visible (scrollable to) */
-        self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableTopMargin + optionsTable.frame.height
+        self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableMargin + optionsTable.frame.height
         self.tableView.emptyDataSetView.tapGesture.cancelsTouchesInView = false
         if Data.estConnecte() {
-            self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44 + 7)
+            self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44) + 80
         }
         optionsTable.reloadData()
     }
@@ -923,27 +923,16 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     /// - Returns: Returns the stylized text body of the empty data set
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
-        let tip = "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
+        /* Let the table view be above */
+        var tip = ""
+        for _ in 0..<UserTVC.optionsNbr {
+            tip += "\n\n\n"
+        }
+        
+        tip += "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
         
         return NSAttributedString(string: tip, attributes: [NSFontAttributeName : UIFont.preferredFont(forTextStyle: .subheadline),
                                                             NSForegroundColorAttributeName : UIColor.lightGray])
-    }
-    
-    /// Center the empty data set vertically because of the table view inside
-    ///
-    /// - Parameter scrollView: Main table view of this view controller
-    /// - Returns: X and Y offset
-    func offset(forEmptyDataSet scrollView: UIScrollView!) -> CGPoint {
-        
-        /* No offset on iPhone in landscape mode */
-        let screenSize = UIScreen.main.bounds.size
-        if !Data.isiPad() &&
-           (UIDevice.current.orientation.isLandscape || screenSize.width > screenSize.height) {
-            return .zero
-        }
-        
-        /* Otherwise let the view be a bit higher */
-        return CGPoint(x: 0, y: UserTVC.optionsNbr * -44 / 2)
     }
     
 }
