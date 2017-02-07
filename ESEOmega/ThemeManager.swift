@@ -113,6 +113,46 @@ import UIKit
            let window = delegate.window {
             window.tintColor = currentTheme.themeValue.window
         }
+        
+        /* Update every navigation bar in the app */
+        if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? TabBarController,
+           let tabs = tabBarController.viewControllers {
+            
+            tabs.forEach { tab in
+                
+                /* If its main view is directly a navigation controller, update its bar */
+                if let navigationController = tab as? UINavigationController {
+                    ThemeManager.updateTheme(of: navigationController)
+                }
+                /* Otherwise if it's a split view controller */
+                else if let splitViewController = tab as? UISplitViewController {
+                    /* Update each navigation controller inside */
+                    splitViewController.viewControllers.forEach {
+                        if let navigationController = $0 as? UINavigationController {
+                            ThemeManager.updateTheme(of: navigationController)
+                        }
+                    }
+                }
+            }
+            
+            /* Refresh the color of any empty data set button in Cafeteria tab */
+            if let cafetTab = tabs[3] as? UINavigationController,
+               let cafetTVC = cafetTab.topViewController as? CommandesTVC {
+                cafetTVC.tableView.reloadEmptyDataSet()
+            }
+        }
+    }
+    
+    /// Updates the theme of some navigation controller refusing to refresh
+    ///
+    /// - Parameter navigationController: Navigation Controller to repaint
+    static func updateTheme(of navigationController: UINavigationController) {
+        
+        UIView.animate(withDuration: 0.3) {
+            navigationController.navigationBar.barTintColor = UINavigationBar.appearance().barTintColor
+            navigationController.navigationBar.tintColor    = UINavigationBar.appearance().tintColor
+            navigationController.navigationBar.layoutIfNeeded()     // allows animation
+        }
     }
     
     /// Overrides current theme with a special red theme during event ordering

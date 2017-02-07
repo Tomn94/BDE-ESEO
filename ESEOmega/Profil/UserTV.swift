@@ -28,6 +28,10 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
     /// View controller of the user's profile page
     weak var userTVC: UserTVC?
     
+    /// Check mark displayed in front of the selected theme
+    private static let tickPrefix = "✓ "
+    
+    
     /// Reaction when the user touches a cell
     ///
     /// - Parameters:
@@ -67,10 +71,27 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
     }
     
     
-    // MARK: - Phone number
+    // MARK: - Actions
     
-    /// Asks the user to confirm the deletion of their stored phone number, and eventually do it
-    func forgetTel() {
+    /// Reload table view and animate changes
+    private func reloadDataAnimated() {
+        
+        userTVC?.optionsTable.reloadData()
+        
+        /* Make a simple transition
+           Nicer animation than reloadSections:withRowAnimation: */
+        let animation = CATransition()
+        animation.duration = 0.3
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        userTVC?.optionsTable.layer.add(animation, forKey: nil)
+    }
+    
+    
+    // MARK: Phone number
+    
+    /// Asks the user to confirm the deletion of their stored phone number, and eventually do it.
+    /// If there's no phone number, inform the user
+    private func forgetTel() {
         
         guard self.userTVC != nil else { return }
         
@@ -92,10 +113,10 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         
         /* Destructive type button to confirm */
         alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
+            
             /* Delete stored value, and remove the phone number from the view */
             JNKeychain.deleteValue(forKey: KeychainKey.phone)
-            self.userTVC?.animateChange()
-            self.userTVC?.refreshEmptyDataSet()
+            self.reloadDataAnimated()
         }))
         
         /* Add also a Cancel button, and present inside this view controller */
@@ -104,10 +125,57 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
     }
     
     
-    // MARK: - App theme
+    // MARK: App theme
     
-    func selectTheme() {
+    /// Present a theme picker to the user
+    private func selectTheme() {
         
+        /* Get app themes including the current one */
+        let themes = ThemeManager.themes
+        let currentTheme = ThemeManager.currentTheme
+        
+        /* Define what happens when a theme button is selected */
+        let actionHandler = { (action: UIAlertAction) in
+            
+            /* Link the selected text to its theme.
+               The current theme has a tick in the action.title, if selected again, it won't be found, nothing will happen, it's fine */
+            if let index = themes.index(where: { $0.name == action.title }) {
+                
+                /* Apply the theme to the whole app */
+                ThemeManager.currentTheme = themes[index]
+                ThemeManager.updateTheme()
+                
+                /* Update the profile view controller behind */
+                if let userTVC = self.userTVC,
+                   let userNavController = userTVC.navigationController {
+                    
+                    /* Repaint the navigation bar */
+                    ThemeManager.updateTheme(of: userNavController)
+                    
+                    /* Display the new theme in the Settings table */
+                    self.reloadDataAnimated()
+                }
+            }
+        }
+        
+        /* Now configure the picker */
+        let alert = UIAlertController(title: "Choisissez un thème pour l'application", message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        /* Add a button to the alert for each theme */
+        for theme in themes {
+            /* If we're dealing with the current theme, add a tick in front of its title */
+            var actionTitle = theme.name
+            if theme == currentTheme {
+                actionTitle = UserTVDelegate.tickPrefix + actionTitle
+            }
+            
+            alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: actionHandler))
+        }
+        
+        /* Add also a Cancel button, and present inside the profile view controller */
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        self.userTVC?.present(alert, animated: true, completion: nil)
     }
     
 }
