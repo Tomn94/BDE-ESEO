@@ -61,7 +61,7 @@ collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewControl
 {
     if (displayMode == UISplitViewControllerDisplayModeAllVisible &&
         self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact)
-        [_master.navigationItem setRightBarButtonItem:creditsItem animated:YES];    // iPad landscape
+        [_master.navigationItem setRightBarButtonItems:@[creditsItem] animated:YES];    // iPad/iPhone 6+ landscape
     else
     {
         NSMutableArray *buttons = barButtons.mutableCopy;
