@@ -921,41 +921,10 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     /// - Returns: Returns the stylized text body of the empty data set
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
-        /* Default text */
-        var tip = "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
+        let tip = "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
         
-        /* Set text style */
-        let descriptionFont = UIFont.preferredFont(forTextStyle: .subheadline)
-        
-        let descriptionAttr: [String : Any] = [NSFontAttributeName : descriptionFont,
-                                               NSForegroundColorAttributeName : UIColor.lightGray,
-                                               NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue] // no style to allow further changes
-        
-        /* If the user has already set a phone number */
-        if let phone = JNKeychain.loadValue(forKey: KeychainKey.phone) as? String {
-            
-            /* Display this phone number */
-            tip += "\n\nTéléphone associé aux commandes Lydia :\n" + phone + " "
-            
-            /* Create the first part as before */
-            let attrStringAndDeleteBtn = NSMutableAttributedString()
-            attrStringAndDeleteBtn.append(NSAttributedString(string: tip, attributes: descriptionAttr))
-            
-            /* Add a bold & underlined Delete label at the end */
-            let boldDescriptor = descriptionFont.fontDescriptor.withSymbolicTraits(.traitBold)
-            let phoneAttributes: [String : Any] = [NSFontAttributeName : UIFont(descriptor: boldDescriptor!, size: 0),
-                                                   NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue,
-                                                   NSBackgroundColorAttributeName : UIColor.clear]  // clear background needed
-            attrStringAndDeleteBtn.append(NSAttributedString(string: "Supprimer", attributes: phoneAttributes))
-            
-            /* And that's it */
-            return attrStringAndDeleteBtn
-        }
-        
-        /* If no phone number, simply say it and return the default style */
-        tip += "\n\nAucun téléphone associé aux commandes Lydia.\n" // final \n to avoid text jump when deleting phone number
-        
-        return NSAttributedString(string: tip, attributes: descriptionAttr)
+        return NSAttributedString(string: tip, attributes: [NSFontAttributeName : UIFont.preferredFont(forTextStyle: .subheadline),
+                                                            NSForegroundColorAttributeName : UIColor.lightGray])
     }
     
     /// Center the empty data set vertically because of the table view inside
