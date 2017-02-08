@@ -141,6 +141,9 @@ import UIKit
                 cafetTVC.tableView.reloadEmptyDataSet()
             }
         }
+        
+        /* Notify theme change for any other single views */
+        NotificationCenter.default.post(name: NSNotification.Name("themeUpdated"), object: nil)
     }
     
     /// Updates the theme of some navigation controller refusing to refresh

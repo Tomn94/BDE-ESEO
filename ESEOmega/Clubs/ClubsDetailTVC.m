@@ -44,6 +44,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotatePic)
                                                  name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme)
+                                                 name:@"themeUpdated" object:nil];
 
 }
 
@@ -148,7 +150,7 @@
     }
     [buttons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                      target:nil action:nil]];
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height - 44, self.contentView.frame.size.width, 44)];
+    toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height - 44, self.contentView.frame.size.width, 44)];
     toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [toolbar setDelegate:self];
     [toolbar setItems:buttons];
@@ -156,6 +158,7 @@
     [toolbar setTranslucent:YES];
     [toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     toolbar.layer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.42].CGColor;
+    [self updateForTheme];
     [self.contentView addSubview:toolbar];
     
     /* Handoff */
@@ -223,6 +226,11 @@
     
     [self configureBannerWithImage:precImage];
     [self loadClub];
+}
+
+- (void) updateForTheme
+{
+    toolbar.tintColor = [UINavigationBar appearance].tintColor;
 }
 
 - (void) tapHeaderClub

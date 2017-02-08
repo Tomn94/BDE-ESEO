@@ -40,6 +40,7 @@
 {
     NSArray *contactModes;  // Available contact methods
     UILabel *clubDescription;
+    UIToolbar *toolbar;
 }
 
 @property (strong, nonatomic) NSDictionary *infos;
