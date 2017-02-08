@@ -55,7 +55,7 @@ import UIKit
         /// Describes each attribute value for every theme
         var themeValue: ThemeValue {
             switch self {
-            case .common:     return (bars: #colorLiteral(red: 0, green: 0.6470588235, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.8039215686, green: 0.9607843137, blue: 1, alpha: 1), window: #colorLiteral(red: 0, green: 0.6470588235, blue: 1, alpha: 1))
+            case .common:     return (bars: #colorLiteral(red: 0, green: 0.5333333333, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.68, green: 0.8986666667, blue: 1, alpha: 1), window: #colorLiteral(red: 0, green: 0.5333333333, blue: 1, alpha: 1))
             case .bdeldorado: return (bars: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9921568627, green: 0.7960784314, blue: 0.1775602698, alpha: 1), window: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1))
             case .eseomega:   return (bars: #colorLiteral(red: 0, green: 0.647, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.806, green: 0.959, blue: 1, alpha: 1), window: #colorLiteral(red: 0.078, green: 0.707, blue: 1, alpha: 1))
             case .eseoasis:   return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
