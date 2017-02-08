@@ -37,14 +37,20 @@ import UIKit
         /// A common theme for all Students’ Union
         case common     = 0
         
+        /// Un thème qui a combattu
+        case bdelirium = 1
+        
+        /// Un thème hot
+        case eseonfire = 2
+        
         /// Un thème qui claque sa dorade
-        case bdeldorado = 1
+        case bdeldorado = 3
         
         /// Un thème divin
-        case eseomega   = 2
+        case eseomega   = 4
         
         /// Un thème exotique
-        case eseoasis   = 3
+        case eseoasis   = 5
         
        
         // MARK: Themes associated attributes
@@ -56,6 +62,8 @@ import UIKit
         var themeValue: ThemeValue {
             switch self {
             case .common:     return (bars: #colorLiteral(red: 0, green: 0.5333333333, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.68, green: 0.8986666667, blue: 1, alpha: 1), window: #colorLiteral(red: 0, green: 0.5333333333, blue: 1, alpha: 1))
+            case .bdelirium:  return (bars: #colorLiteral(red: 0.3403527123, green: 0, blue: 0.6107313368, alpha: 1), barButtons: #colorLiteral(red: 0.9921568627, green: 0.8899822682, blue: 0.5676783721, alpha: 1), window: #colorLiteral(red: 0.3403527123, green: 0, blue: 0.6107313368, alpha: 1))
+            case .eseonfire:  return (bars: #colorLiteral(red: 0, green: 0.454615162, blue: 0.8524034288, alpha: 1), barButtons: #colorLiteral(red: 1, green: 0.8986666667, blue: 0.84, alpha: 1), window: #colorLiteral(red: 0, green: 0.454615162, blue: 0.8524034288, alpha: 1))
             case .bdeldorado: return (bars: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9921568627, green: 0.7960784314, blue: 0.1775602698, alpha: 1), window: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1))
             case .eseomega:   return (bars: #colorLiteral(red: 0, green: 0.647, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.806, green: 0.959, blue: 1, alpha: 1), window: #colorLiteral(red: 0.078, green: 0.707, blue: 1, alpha: 1))
             case .eseoasis:   return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
@@ -66,6 +74,8 @@ import UIKit
         var name: String {
             switch self {
             case .common:     return "Par défaut"
+            case .bdelirium:  return "BDElirium"
+            case .eseonfire:  return "ESE'On Fire"
             case .bdeldorado: return "BDEl'dorado"
             case .eseomega:   return "ESEOmega"
             case .eseoasis:   return "ESEOasis"
@@ -76,6 +86,8 @@ import UIKit
     /// Returns the list of all the themes available
     static var themes: [Theme] {
         return [.common,
+                .bdelirium,
+                .eseonfire,
                 .bdeldorado,
                 .eseomega,
                 .eseoasis]
