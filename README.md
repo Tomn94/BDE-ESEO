@@ -1,6 +1,6 @@
 # Bureau des Étudiants du Groupe ESEO
 
-[![Version](https://img.shields.io/badge/version-4.0.3-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-4.1-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -52,7 +52,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 ## Licence
 
-    Copyright © 2015-2016 Thomas NAUDET
+    Copyright © 2015-2017 Thomas NAUDET
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -83,9 +83,14 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 
 ## Versions
-###v4.1 · ?/02/2017
-> - Nouvelle connexion au compte ESEO avec l'adresse mail
-> - Interface de connexion améliorée et possibilité de rogner un avatar
+###v4.1 · 2017
+> - La connexion au profil est rétablie !<br>
+> Vous pouvez à nouveau commander à la cafet si vous étiez déconnecté(e), pour cela, utilisez votre adresse mail ESEO ainsi que votre mot de passe habituel.
+> 
+> - Changez le thème de l'app !<br>
+> Mettez-vous aux couleurs de votre BDE en choisissant un thème dans votre profil.
+> 
+> - Améliorations de l'interface du profil et correction de quelques détails.
 
 ###v4.0.3 · 03/01/2017
 > - Correctifs pour iPhone 7/7+, Ingénews et la cafet […]
