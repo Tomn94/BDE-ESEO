@@ -1000,6 +1000,14 @@ shouldChangeCharactersInRange:(NSRange)range
         return;
     }
     
+    NSString *mailAddress = [JNKeychain loadValueForKey:@"mail"];
+    
+    /* We already have the mail address with v4.1 new connection service */
+    if (mailAddress != nil)
+    {
+        [self send:mailAddress with:data in:vc];
+    }
+    /* Otherwise, we ask the mail address as before */
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Entrez votre mail pour recevoir votre place"
                                                                    message:@"Entrez une adresse valide ci-dessous.\nEn cas de soucis, vous pouvez toujours vous renvoyer un mail en tapant sur la place dans votre historique d'achats (onglet Événements › bouton ticket)."
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -1013,54 +1021,63 @@ shouldChangeCharactersInRange:(NSRange)range
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * _Nonnull action)
                       {
-                          NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-                          NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
-                                                                                                         delegate:nil
-                                                                                                    delegateQueue:[NSOperationQueue mainQueue]];
-                          NSURL    *url      = [NSURL URLWithString:URL_EVENT_ML];
-                          NSString *login    = [JNKeychain loadValueForKey:@"login"];
-                          NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
-                          NSString *mail     = [[self.tempPhone dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-                          NSString *body     = [NSString stringWithFormat:@"client=%@&password=%@&idcmd=%@&email=%@&hash=%@",
-                                                [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:data[@"id"]],
-                                                [Data encoderPourURL:mail],
-                                                [Data encoderPourURL:[Data hashed_string:[[[[@"Email invalide" stringByAppendingString:login] stringByAppendingString:pass] stringByAppendingString:data[@"id"]] stringByAppendingString:mail]]]];
-                          
-                          NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-                          [request setHTTPMethod:@"POST"];
-                          [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-                          NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
-                                                                             completionHandler:^(NSData *data2, NSURLResponse *r, NSError *error)
-                                                            {
-                                                                NSString *message = @"Erreur inconnue… ¯\\_(ツ)_/¯\nParlez-en à un membre du BDE";
-                                                                if (error == nil && data2 != nil)
-                                                                {
-                                                                    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data2
-                                                                                                                         options:kNilOptions
-                                                                                                                           error:nil];
-                                                                    if ([JSON[@"status"] intValue] == 1)
-                                                                        message = [NSString stringWithFormat:@"Votre place vous a été envoyée au mail indiqué (%@) !", self.tempPhone];
-                                                                    else if (JSON[@"cause"] != nil)
-                                                                        message = [@"Erreur ¯\\_(ツ)_/¯\nCause :\n" stringByAppendingString:JSON[@"cause"]];
-                                                                    else
-                                                                        message = @"Erreur inconnue : impossible de vérifier le mail.\nParlez-en à un membre du BDE";
-                                                                }
-                                                                else
-                                                                    message = @"Erreur : impossible d'envoyer le mail, vous n'êtes pas connecté à Internet.\nParlez-en à un membre du BDE";
-                                                                
-                                                                self.tempPhone = nil;
-                                                                UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Envoi de la place par mail" message:message preferredStyle:UIAlertControllerStyleAlert];
-                                                                [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                                           style:UIAlertActionStyleCancel
-                                                                                                         handler:nil]];
-                                                                [vc presentViewController:alert2 animated:YES completion:Nil];
-                                                            }];
-                          [dataTask resume];
+                          NSString *mailAddress = self.tempPhone;
+                          [self send:mailAddress with:data in:vc];
                       }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
                                              style:UIAlertActionStyleCancel
                                            handler:nil]];
     [vc presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) send:(NSString *)email
+         with:(NSDictionary *)data
+           in:(UIViewController *)vc
+{
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                                   delegate:nil
+                                                                              delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL    *url      = [NSURL URLWithString:URL_EVENT_ML];
+    NSString *login    = [JNKeychain loadValueForKey:@"login"];
+    NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
+    NSString *mail     = [[email dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+    NSString *body     = [NSString stringWithFormat:@"client=%@&password=%@&idcmd=%@&email=%@&hash=%@",
+                          [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:data[@"id"]],
+                          [Data encoderPourURL:mail],
+                          [Data encoderPourURL:[Data hashed_string:[[[[@"Email invalide" stringByAppendingString:login] stringByAppendingString:pass] stringByAppendingString:data[@"id"]] stringByAppendingString:mail]]]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data2, NSURLResponse *r, NSError *error)
+                                      {
+                                          NSString *message = @"Erreur inconnue… ¯\\_(ツ)_/¯\nParlez-en à un membre du BDE";
+                                          if (error == nil && data2 != nil)
+                                          {
+                                              NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data2
+                                                                                                   options:kNilOptions
+                                                                                                     error:nil];
+                                              if ([JSON[@"status"] intValue] == 1)
+                                                  message = [NSString stringWithFormat:@"Votre place vous a été envoyée à %@ !\n\nEn cas de soucis, vous pouvez toujours vous renvoyer un mail en tapant sur la place dans votre historique d'achats (onglet Événements › bouton ticket).\nVérifiez éventuellement votre dossier spams.", email];
+                                              else if (JSON[@"cause"] != nil)
+                                                  message = [@"Erreur ¯\\_(ツ)_/¯\nCause :\n" stringByAppendingString:JSON[@"cause"]];
+                                              else
+                                                  message = @"Erreur inconnue : impossible de vérifier le mail.\nParlez-en à un membre du BDE";
+                                          }
+                                          else
+                                              message = @"Erreur : impossible d'envoyer le mail, vous n'êtes pas connecté à Internet.\nParlez-en à un membre du BDE";
+                                          
+                                          self.tempPhone = nil;
+                                          
+                                          UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Envoi de la place par mail" message:message preferredStyle:UIAlertControllerStyleAlert];
+                                          [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                                     style:UIAlertActionStyleCancel
+                                                                                   handler:nil]];
+                                          [vc presentViewController:alert2 animated:YES completion:Nil];
+                                      }];
+    [dataTask resume];
 }
 
 #pragma mark - Link actions
