@@ -29,32 +29,39 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     func getStickersFromCache() {
         if let cache = UserDefaults.standard.object(forKey: "stickerList") as? [[String]] {
             let fileManager = FileManager.default
-            let tmpSubFolderName = ProcessInfo.processInfo.globallyUniqueString
-            let tmpSubFolderURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(tmpSubFolderName, isDirectory: true)
-            
-            for cachedSticker in cache where cachedSticker.count > 1 {
-                if let imageURL = URL(string: cachedSticker[0]),
-                   let imageName = imageURL.pathComponents.last,
-                   let fileURL = tmpSubFolderURL?.appendingPathComponent(imageName),
-                    fileManager.fileExists(atPath: fileURL.absoluteString) {
-                    let sticker: MSSticker
-                    do {
-                        try sticker = MSSticker(contentsOfFileURL: fileURL, localizedDescription: cachedSticker[1])
-                        stickers.append(sticker)
-                    } catch { }
+            do {
+                let cacheURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask,
+                                                   appropriateFor: nil, create: true).appendingPathComponent("stickers", isDirectory: true)
+                
+                try fileManager.createDirectory(at: cacheURL,
+                                                withIntermediateDirectories: true, attributes: nil)
+                
+                for cachedSticker in cache where cachedSticker.count > 1 {
+                    if let imageURL = URL(string: cachedSticker[0]),
+                       let imageName = imageURL.pathComponents.last {
+                        
+                        let fileURL = cacheURL.appendingPathComponent(imageName)
+                        if fileManager.fileExists(atPath: fileURL.path) {
+                            let sticker: MSSticker
+                            try sticker = MSSticker(contentsOfFileURL: fileURL, localizedDescription: cachedSticker[1])
+                            stickers.append(sticker)
+                        }
+                    }
                 }
-            }
+            } catch {}
         }
         
-        NotificationCenter.default.post(name: .stickersReloaded, object: nil)
-        self.stickerBrowserView.reloadData()
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .stickersReloaded, object: nil)
+            self.stickerBrowserView.reloadData()
+        }
     }
     
     /// Fetch all stickers from the web
     func getStickersFromServer() {
         let queue = DispatchQueue(label: "downloadStickers")
         queue.async {
-            let request = URLRequest(url: URL(string: self.stickerListURL)!)
+            let request = URLRequest(url: URL(string: self.stickerListURL)!, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
             let defaultSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .current)
             // Get JSON
             let dataTask = defaultSession.dataTask(with: request) { (data, resp, error) in
@@ -73,6 +80,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
                             DispatchQueue.main.async {
                                 NotificationCenter.default.post(name: .stickersReloaded, object: nil)
                                 self.stickerBrowserView.reloadData()
+                                self.cleanFolder()
                             }
                         }
                     }
@@ -99,16 +107,36 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     /// Save sticker on disk
     func save(imageNamed imageName: String, data: NSData) -> URL? {
         let fileManager = FileManager.default
-        let tmpSubFolderName = ProcessInfo.processInfo.globallyUniqueString
-        let tmpSubFolderURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(tmpSubFolderName, isDirectory: true)
-        
         do {
-            try fileManager.createDirectory(at: tmpSubFolderURL!, withIntermediateDirectories: true, attributes: nil)
-            let fileURL = tmpSubFolderURL?.appendingPathComponent(imageName)
-            try data.write(to: fileURL!, options: [.atomicWrite])
-            return fileURL!
-        } catch { }
+            let cacheURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            let fileURL = cacheURL.appendingPathComponent("stickers", isDirectory: true).appendingPathComponent(imageName)
+            
+            try data.write(to: fileURL, options: [.atomicWrite])
+            
+            return fileURL
+        } catch {}
         
         return nil
+    }
+    
+    /// Clear images not used anymore
+    func cleanFolder() {
+        guard let cache = UserDefaults.standard.object(forKey: "stickerList") as? [[String]] else { return }
+        
+        let fileManager = FileManager.default
+        do {
+            let cacheURL = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            let files = try fileManager.contentsOfDirectory(atPath: cacheURL.appendingPathComponent("stickers", isDirectory: true).path)
+            
+            let cachedFileNames = cache.flatMap({ URL(string: $0[0])?.pathComponents.last })
+            let filesSet = Set(files)
+            let cachedSet = Set(cachedFileNames)
+            
+            let remainingFiles = filesSet.subtracting(cachedSet)
+            
+            for file in remainingFiles {
+                try fileManager.removeItem(atPath: cacheURL.appendingPathComponent(file).path)
+            }
+        } catch {}
     }
 }
