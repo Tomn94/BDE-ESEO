@@ -90,6 +90,9 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 > - Changez le thème de l'app !<br>
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème dans votre profil.
 > 
+> - Nouveaux stickers !<br>
+> Utilisez-les dans vos iMessage sur iOS 10, leur chargement est désormais instantané.
+> 
 > - Améliorations de l'interface du profil et correction de quelques détails.
 
 ###v4.0.3 · 03/01/2017
