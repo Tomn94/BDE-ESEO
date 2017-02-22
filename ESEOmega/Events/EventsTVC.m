@@ -526,32 +526,36 @@ shouldChangeCharactersInRange:(NSRange)range
                                                                                    delegate:nil
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSString *prenom = @"";
-    NSString *nom = @"";
-    
-    /* Lowercased and without accented letters */
-    NSMutableString *username = [[[JNKeychain loadValueForKey:@"uname"] lowercaseString] mutableCopy];
-    CFStringTransform((__bridge CFMutableStringRef)username, NULL, kCFStringTransformStripCombiningMarks, NO);
-    
-    /* Separate first & last names */
-    NSUInteger space = [username rangeOfString:@" " options:NSBackwardsSearch].location;
-    if (space == NSNotFound || space + 2 > username.length) {
-        prenom = username;
-    } else {
-        prenom = [username substringToIndex:space];
-        nom    = [username substringFromIndex:space + 1];
-    }
-    
-    /* No composed names, ahhh Frenchies */
-    prenom = [prenom stringByReplacingOccurrencesOfString:@" " withString:@""];
-    prenom = [prenom stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    prenom = [prenom stringByReplacingOccurrencesOfString:@"'" withString:@""];
-    nom    = [nom    stringByReplacingOccurrencesOfString:@" " withString:@""];
-    nom    = [nom    stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    nom    = [nom    stringByReplacingOccurrencesOfString:@"'" withString:@""];
-    
     /* Prepare GET & POST */
-    NSString *mail = [NSString stringWithFormat:@"%@.%@@reseau.eseo.fr", prenom, nom];
+    NSString *mail = [JNKeychain loadValueForKey:@"mail"];
+    if (mail == nil)
+    {
+        NSString *prenom = @"";
+        NSString *nom = @"";
+        
+        /* Lowercased and without accented letters */
+        NSMutableString *username = [[[JNKeychain loadValueForKey:@"uname"] lowercaseString] mutableCopy];
+        CFStringTransform((__bridge CFMutableStringRef)username, NULL, kCFStringTransformStripCombiningMarks, NO);
+        
+        /* Separate first & last names */
+        NSUInteger space = [username rangeOfString:@" " options:NSBackwardsSearch].location;
+        if (space == NSNotFound || space + 2 > username.length) {
+            prenom = username;
+        } else {
+            prenom = [username substringToIndex:space];
+            nom    = [username substringFromIndex:space + 1];
+        }
+        
+        /* No composed names, ahhh Frenchies */
+        prenom = [prenom stringByReplacingOccurrencesOfString:@" " withString:@""];
+        prenom = [prenom stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        prenom = [prenom stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        nom    = [nom    stringByReplacingOccurrencesOfString:@" " withString:@""];
+        nom    = [nom    stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        nom    = [nom    stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        
+        mail = [NSString stringWithFormat:@"%@.%@@reseau.eseo.fr", prenom, nom];
+    }
     NSURL    *url  = [NSURL URLWithString:[NSString stringWithFormat:URL_EVN_SIGN, eventID]];
     NSString *body = [NSString stringWithFormat:@"name=%@&email=%@&tel=%@",
                       [Data encoderPourURL:[JNKeychain loadValueForKey:@"uname"]],
