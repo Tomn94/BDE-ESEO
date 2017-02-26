@@ -155,7 +155,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     NSDictionary *commande = cmd[indexPath.section][indexPath.row];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Réservation validée"
-                                                                   message:@"Les informations nécessaires ont été envoyées à l'adresse mail fournie lors de la réservation.\nAu moindre problème, contactez-nous."
+                                                                   message:@"Les informations nécessaires ont été envoyées à votre adresse mail.\nAu moindre problème, contactez-nous."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Renvoyer la place par mail"
                                              style:UIAlertActionStyleDefault
@@ -266,7 +266,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *pass   = [Data encoderPourURL:[JNKeychain loadValueForKey:@"passw"]];
     NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&os=%@&hash=%@",
                       client, pass, @"IOS",
-                      [Data encoderPourURL:[Data hashed_string:[[[@"(c) Team Sheep Dev" stringByAppendingString:client] stringByAppendingString:pass]stringByAppendingString:@"IOS"]]]];
+                      [Data encoderPourURL:[Data hashed_string:[[[@"(c) Team Sheep Dev" stringByAppendingString:client] stringByAppendingString:pass] stringByAppendingString:@"IOS"]]]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
@@ -276,7 +276,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                       {
                                           [[Data sharedData] updLoadingActivity:NO];
                                           UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                          message:@"Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
+                                                                                                          message:@"Impossible de se connecter au serveur.\nSi le problème persiste, contactez-nous."
                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
                                           
                                           if (error == nil && data != nil)
@@ -328,7 +328,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                       
                                                   case -10:
                                                       alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Impossible de détecter si vous êtes bien sur iOS…\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
+                                                                                                  message:@"Impossible de détecter si vous êtes bien sur iOS…\nSi le problème persiste, contactez-nous."
                                                                                            preferredStyle:UIAlertControllerStyleAlert];
                                                       break;
                                               }
@@ -506,7 +506,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSAttributedString *) titleForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Vous n'avez pas acheté de places";
+    NSString *text = @"Vous n'avez aucune réservation";
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -516,7 +516,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Tapez sur le bouton ＋ pour réserver,\nvos places s'afficheront ici.";
+    NSString *text = @"Tapez sur le bouton ＋ pour réserver,\nvos achats s'afficheront ici.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

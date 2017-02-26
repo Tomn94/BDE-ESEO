@@ -195,7 +195,7 @@
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmez-vous votre achat ?"
-                                                                   message:[resume stringByAppendingString:@"\n\n⚠️ Les places sont nominatives.\nUne pièce d'identité peut vous être demandée à l'entrée.\nLes CGV s'appliquent."]
+                                                                   message:[resume stringByAppendingString:@"\n\n⚠️ Les réservations sont nominatives.\nS'il s'agit d'une place pour événement, une pièce d'identité peut vous être demandée à l'entrée.\nLes CGV s'appliquent."]
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Valider et payer ma place" style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * _Nonnull action) {
@@ -236,7 +236,7 @@
     if (error != nil)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                       message:@"Impossible d'analyser votre commande, merci de nous contacter.\nVous pouvez toujours venir commander au comptoir."
+                                                                       message:@"Impossible d'analyser votre commande, merci de nous contacter."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
@@ -298,7 +298,7 @@
                                                       
                                                   case -3:
                                                       alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Votre identifiant de commande est invalide.\nMerci de venir nous voir au comptoir."
+                                                                                                  message:@"Votre identifiant de commande est invalide.\nMerci de nous contacter."
                                                                                            preferredStyle:UIAlertControllerStyleAlert];
                                                       break;
                                                       
@@ -323,7 +323,7 @@
                                           }
                                           else
                                               alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                          message:@"Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
+                                                                                          message:@"Impossible de se connecter au serveur.\nSi le problème persiste, contactez-nous."
                                                                                    preferredStyle:UIAlertControllerStyleAlert];
                                           if (alert != nil)
                                           {
@@ -393,7 +393,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     NSArray      *donneesTickets = dataEventsTickets[indexPath.row];
     
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:donnees[@"titre"]
-                                                                    message:@"Choisissez un type de place :"
+                                                                    message:@"Choisissez votre achat :"
                                                              preferredStyle:UIAlertControllerStyleAlert];
     for (NSDictionary *ticket in donneesTickets)
     {
