@@ -368,17 +368,34 @@ heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                                                                                           : UITableViewCellSelectionStyleDefault];
     
     /* Register for */
-    if (event[@"signup"] == nil || ![event[@"signup"] boolValue])
-        [cell setAccessoryView:nil];
-    else
+    if ((event[@"signup"]  != nil && [event[@"signup"] boolValue]) ||
+        (event[@"tickets"] != nil && [event[@"tickets"] count] > 0))
     {
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"signup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        [imgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(quickSignUp:)]];
-        [cell setAccessoryView:imgView];
-        BOOL active = [dateFin compare:[NSDate date]] != NSOrderedAscending;
-        [imgView setUserInteractionEnabled:active];
-        [imgView setTintColor:(active) ? self.tableView.tintColor : [UIColor lightGrayColor]];
+        NSString *imageName = nil;
+        UITapGestureRecognizer *tap = nil;
+        if (event[@"signup"] != nil && [event[@"signup"] boolValue])
+        {
+            imageName = @"signup";
+            tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(quickSignUp:)];
+        }
+        else if (event[@"tickets"] != nil && [event[@"tickets"] count] > 0)
+        {
+            imageName = @"ticket";
+            tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commanderEvent:)];
+        }
+        
+        if (imageName != nil && tap != nil)
+        {
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            [imgView addGestureRecognizer:tap];
+            [cell setAccessoryView:imgView];
+            BOOL active = [dateFin compare:[NSDate date]] != NSOrderedAscending;
+            [imgView setUserInteractionEnabled:active];
+            [imgView setTintColor:(active) ? self.tableView.tintColor : [UIColor lightGrayColor]];
+        }
     }
+    else
+        [cell setAccessoryView:nil];
     
     return cell;
 }
