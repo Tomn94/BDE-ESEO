@@ -136,7 +136,11 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         for student in students {
             if currentRank == student.rank {
                 // If still the same rank
-                currentRankMembers?.append(student)
+                if currentRankMembers == nil {
+                    currentRankMembers = [student]
+                } else {
+                    currentRankMembers?.append(student)
+                }
             } else {
                 // If changed rank, save previous and start a new one
                 if let previousRankMembers = currentRankMembers {
