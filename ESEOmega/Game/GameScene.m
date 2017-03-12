@@ -130,8 +130,10 @@
         }
     }
     
-    if (_isTouching && [NSDate timeIntervalSinceReferenceDate] - _timeOfLastTouch > MISSILES_DELAY)
+    if (_isTouching && currentTime - _timeOfLastTouch > MISSILES_DELAY) {
         [self lancerMissile];
+        _timeOfLastTouch = currentTime;
+    }
 }
 
 - (void) touchesBegan:(nonnull NSSet *)touches
@@ -157,8 +159,6 @@
 
 - (void) lancerMissile
 {
-    _timeOfLastTouch = [NSDate timeIntervalSinceReferenceDate];
-    
     SKSpriteNode *missile = [SKSpriteNode spriteNodeWithImageNamed:@"missile"];
     missile.name = @"missile";
     missile.scale = 0.1;
