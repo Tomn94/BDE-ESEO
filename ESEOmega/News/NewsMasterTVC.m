@@ -20,6 +20,7 @@
 //
 
 #import "NewsMasterTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation NewsMasterTVC
 
@@ -44,6 +45,7 @@
     [ctr addObserver:self selector:@selector(debugRefresh) name:@"debugRefresh" object:nil];
     [ctr addObserver:self.tableView.bottomRefreshControl selector:@selector(endRefreshing) name:@"moreNewsSent" object:nil];
     [ctr addObserver:self selector:@selector(hasLoadedMore) name:@"moreNewsOK" object:nil];
+    [ctr addObserver:self selector:@selector(updateToolbarIcon) name:@"themeUpdated" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"newsSent" object:nil];
     
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
@@ -189,6 +191,7 @@
     eseomegaBarItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"eseomega"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(eseomega)];
     [boutons addObject:eseomegaBarItem];
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    [self updateToolbarIcon];
     /*
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
         (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
@@ -209,6 +212,35 @@
     [toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [header addSubview:toolbar];
     self.tableView.tableHeaderView = header;
+}
+
+/**
+ Updates the image of Students’ Union button according to the theme.
+ Gets the theme icon and applies a rounded rect mask.
+ */
+- (void) updateToolbarIcon
+{
+    if (eseomegaBarItem == nil)
+        return;
+    
+    /* Get image and its mask on disk */
+    int themeNumber = (int)[ThemeManager objc_currentTheme];
+    UIImage *image       = [UIImage imageNamed:[NSString stringWithFormat:@"App Icons/%d/App-Icon-%d",
+                                                                            themeNumber, themeNumber]];
+    UIImage *maskImage   = [UIImage imageNamed:@"eseo"];
+    
+    /* Create mask */
+    CGImageRef maskRef = maskImage.CGImage;
+    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+    CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+    
+    /* Set masked image to the button */
+    eseomegaBarItem.image = [UIImage imageWithCGImage:masked];
 }
 
 - (void) portail
