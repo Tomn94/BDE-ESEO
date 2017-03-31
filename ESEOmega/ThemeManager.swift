@@ -29,10 +29,12 @@ import UIKit
     private override init() {}
     
     
+    typealias ThemeRawValue = Int
+    
     // MARK: - Themes
     
     /// Describes themes for the app
-    enum Theme: Int {
+    enum Theme: ThemeRawValue {
         
         /// A common theme for all Students’ Union
         case common     = 0
@@ -164,7 +166,7 @@ import UIKit
         }
         
         /* Notify theme change for any other single views */
-        NotificationCenter.default.post(name: NSNotification.Name("themeUpdated"), object: nil)
+        NotificationCenter.default.post(name: .themeChanged, object: nil)
     }
     
     /// Updates the theme of some navigation controller refusing to refresh
@@ -188,6 +190,14 @@ import UIKit
         navigationController.navigationBar.barTintColor  = appColorEvent;
         navigationController.navigationBar.tintColor     = #colorLiteral(red: 0.9964, green: 0.8461, blue: 0.8497, alpha: 1);
         UIApplication.shared.keyWindow?.tintColor        = appColorEvent;
+    }
+    
+    
+    /// Returns the current theme raw value for Objective-C compability
+    ///
+    /// - Returns: Theme raw value
+    static func objc_currentTheme() -> ThemeRawValue {
+        return currentTheme.rawValue
     }
     
 }

@@ -15,6 +15,9 @@ extension Notification.Name {
     /// User has just been logged in/out
     static let connectionStateChanged = Notification.Name("connecte")
     
+    /// App theme has been changed
+    static let themeChanged           = NSNotification.Name("themeUpdated")
+    
 }
 
 
