@@ -384,7 +384,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 #pragma mark - URL Scheme Lydia
 
 - (BOOL) application:(UIApplication *)application
-      handleOpenURL:(NSURL *)url
+       handleOpenURL:(NSURL *)url
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
     
