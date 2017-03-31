@@ -83,12 +83,13 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 
 ## Versions
-### v4.2 · 2017
+### v4.2 · ?/04/2017
 > - Changez le thème de l'app !\
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème dans votre profil.
 >
-> - Nouvelle icône BDE featuring Célestin !\
-> Changez également l'icône de l'app en choisissant un thème (nécessite iOS 10.3).
+> - Choisissez l'icône de l'app !\
+> Célestin est désormais sur vos écrans.\
+> Vous pouvez également sélectionner un thème pour changer l'icône (nécessite iOS 10.3).
 > 
 > - Nouveaux stickers !\
 > Utilisez-les dans vos iMessages sur iOS 10, leur chargement est désormais instantané.
