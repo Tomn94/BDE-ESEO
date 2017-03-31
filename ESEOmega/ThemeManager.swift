@@ -38,10 +38,10 @@ import UIKit
         case common     = 0
         
         /// Un thème qui a combattu
-        case bdelirium = 1
+        case bdelirium  = 1
         
         /// Un thème hot
-        case eseonfire = 2
+        case eseonfire  = 2
         
         /// Un thème qui claque sa dorade
         case bdeldorado = 3
@@ -151,6 +151,15 @@ import UIKit
             if let cafetTab = tabs[3] as? UINavigationController,
                let cafetTVC = cafetTab.topViewController as? CommandesTVC {
                 cafetTVC.tableView.reloadEmptyDataSet()
+            }
+        }
+        
+        /* Change app icon reflecting theme */
+        if #available(iOS 10.3, *) {
+            if UIApplication.shared.supportsAlternateIcons {
+                
+                let iconName = currentTheme != .common ? currentTheme.name : nil
+                UIApplication.shared.setAlternateIconName(iconName)
             }
         }
         
