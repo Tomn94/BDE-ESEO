@@ -143,7 +143,6 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
                 
                 /* Apply the theme to the whole app */
                 ThemeManager.currentTheme = themes[index]
-                ThemeManager.updateTheme()
                 
                 /* Update the profile view controller behind */
                 if let userTVC = self.userTVC,
