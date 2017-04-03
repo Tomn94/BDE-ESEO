@@ -87,9 +87,9 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 > - Changez le thème de l'app !\
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème dans votre profil.
 >
-> - Choisissez l'icône de l'app !\
-> Célestin est désormais sur vos écrans.\
-> Vous pouvez également sélectionner un thème pour changer l'icône (nécessite iOS 10.3).
+> - Personnalisez l'icône de l'app !\
+> Célestin est désormais sur vos écrans,\
+> ou sélectionnez un thème pour changer l'icône de l'app sur votre écran d'accueil (nécessite iOS 10.3).
 > 
 > - Nouveaux stickers !\
 > Utilisez-les dans vos iMessages sur iOS 10, leur chargement est désormais instantané.
