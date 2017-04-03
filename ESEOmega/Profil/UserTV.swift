@@ -158,7 +158,13 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         }
         
         /* Now configure the picker */
-        let alert = UIAlertController(title: "Choisissez un thème pour l'application", message: nil,
+        var title   = "Choisissez un thème pour l'application"
+        var message: String? = "Mettez à jour iOS pour en plus changer l'icône de l'app !"
+        if #available(iOS 10.3, *) {
+            title   = "Choisissez le thème et l'icône de l'application"
+            message = nil
+        }
+        let alert = UIAlertController(title: title, message: message,
                                       preferredStyle: .actionSheet)
         
         /* Add a button to the alert for each theme */
@@ -230,7 +236,7 @@ class UserTVDataSource: NSObject, UITableViewDataSource {
         case 1:
             /* App color theme */
             let theme: ThemeManager.Theme = ThemeManager.Theme(rawValue: UserDefaults.standard.integer(forKey: UserDefaultsKey.appTheme)) ?? .common
-            cell?.textLabel?.text = "Thème de l'app"
+            cell?.textLabel?.text = "Thème et icône"
             cell?.detailTextLabel?.text = theme.name
             
         default:
