@@ -36,7 +36,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     }
     
     /* UI COLORS */
-    [ThemeManager updateTheme];
+    [ThemeManager updateThemeWithAppIcon:false];
     
     /* NOTIFICATIONS */
     if ([Data estConnecte])

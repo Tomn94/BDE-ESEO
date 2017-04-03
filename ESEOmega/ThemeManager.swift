@@ -113,7 +113,7 @@ import UIKit
     }
     
     /// Applies the choosen theme to the whole app
-    static func updateTheme() {
+    static func updateTheme(appIcon updateAppIcon: Bool = true) {
         
         let currentTheme = ThemeManager.currentTheme
         
@@ -158,7 +158,7 @@ import UIKit
         
         /* Change app icon reflecting theme */
         if #available(iOS 10.3, *) {
-            if UIApplication.shared.supportsAlternateIcons {
+            if updateAppIcon && UIApplication.shared.supportsAlternateIcons {
                 
                 let iconName = currentTheme != .common ? currentTheme.name : nil
                 UIApplication.shared.setAlternateIconName(iconName)

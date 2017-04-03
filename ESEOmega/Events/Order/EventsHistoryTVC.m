@@ -64,7 +64,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [ThemeManager updateTheme];
+    [ThemeManager updateThemeWithAppIcon:false];
     
     [upd invalidate];
 }
