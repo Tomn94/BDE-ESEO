@@ -387,7 +387,7 @@
     }
     
     if (retina)
-        UIGraphicsBeginImageContextWithOptions(targetSize, YES, 0.0);
+        UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
     else
         UIGraphicsBeginImageContext(targetSize); // crop
     

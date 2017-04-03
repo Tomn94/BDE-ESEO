@@ -223,24 +223,37 @@
     if (eseomegaBarItem == nil)
         return;
     
-    /* Get image and its mask on disk */
-    int themeNumber = (int)[ThemeManager objc_currentTheme];
-    UIImage *image       = [UIImage imageNamed:[NSString stringWithFormat:@"App Icons/%d/App-Icon-%d",
-                                                                            themeNumber, themeNumber]];
-    UIImage *maskImage   = [UIImage imageNamed:@"eseo"];
+    /* Image size constants */
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGSize targetSize = CGSizeMake(40, 40);
     
-    /* Create mask */
-    CGImageRef maskRef = maskImage.CGImage;
-    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
-                                        CGImageGetHeight(maskRef),
-                                        CGImageGetBitsPerComponent(maskRef),
-                                        CGImageGetBitsPerPixel(maskRef),
-                                        CGImageGetBytesPerRow(maskRef),
-                                        CGImageGetDataProvider(maskRef), NULL, false);
-    CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+    /* Create context */
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef mainViewContentContext = CGBitmapContextCreate(NULL, targetSize.width * scale, targetSize.height * scale, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGColorSpaceRelease(colorSpace);
+    
+    if (mainViewContentContext == NULL)
+        return;
+    
+    /* Get image and its mask on disk */
+    int themeNumber    = (int)[ThemeManager objc_currentTheme];
+    UIImage *image     = [UIImage imageNamed:[NSString stringWithFormat:@"App-Icon-%d", themeNumber]];
+    UIImage *maskImage = [UIImage imageNamed:@"eseo"];
+    
+    /* Draw image and mask */
+    CGRect targetRect = CGRectMake(0, 0, targetSize.width * scale, targetSize.height * scale);
+    CGContextClipToMask(mainViewContentContext, targetRect, maskImage.CGImage);
+    CGContextDrawImage (mainViewContentContext, targetRect, image.CGImage);
+
+    /* Get result back */
+    CGImageRef newImage = CGBitmapContextCreateImage(mainViewContentContext);
+    CGContextRelease(mainViewContentContext);
     
     /* Set masked image to the button */
-    eseomegaBarItem.image = [UIImage imageWithCGImage:masked];
+    UIImage *finalImage = [Data scaleAndCropImage:[UIImage imageWithCGImage:newImage] toSize:targetSize retina:YES];
+    eseomegaBarItem.image = [finalImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    CGImageRelease(newImage);
 }
 
 - (void) portail
