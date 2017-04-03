@@ -8,15 +8,15 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
 	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>AppIcon</string>
-			</array>
-		</dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>BDEl'dorado</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-3</string>
+				</array>
+			</dict>
 			<key>BDElirium</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -31,11 +31,11 @@
 					<string>App-Icon-2</string>
 				</array>
 			</dict>
-			<key>BDEl'dorado</key>
+			<key>ESEOasis</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App-Icon-3</string>
+					<string>App-Icon-5</string>
 				</array>
 			</dict>
 			<key>ESEOmega</key>
@@ -45,26 +45,26 @@
 					<string>App-Icon-4</string>
 				</array>
 			</dict>
-			<key>ESEOasis</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>App-Icon-5</string>
-				</array>
-			</dict>
 		</dict>
-	</dict>
-	<key>CFBundleIcons~ipad</key>
-	<dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>AppIcon~ipad</string>
+				<string>AppIcon</string>
 			</array>
 		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>BDEl'dorado</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-3~ipad</string>
+				</array>
+			</dict>
 			<key>BDElirium</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -79,11 +79,11 @@
 					<string>App-Icon-2~ipad</string>
 				</array>
 			</dict>
-			<key>BDEl'dorado</key>
+			<key>ESEOasis</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App-Icon-3~ipad</string>
+					<string>App-Icon-5~ipad</string>
 				</array>
 			</dict>
 			<key>ESEOmega</key>
@@ -93,13 +93,13 @@
 					<string>App-Icon-4~ipad</string>
 				</array>
 			</dict>
-			<key>ESEOasis</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>App-Icon-5~ipad</string>
-				</array>
-			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon~ipad</string>
+			</array>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
