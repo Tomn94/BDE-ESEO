@@ -18,21 +18,37 @@ class MessagesViewController: MSMessagesAppViewController {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
         
-        label.text = "Chargement…"
-        label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        label.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
-        self.view.addSubview(label)
-        
         stickerBrowserViewController = StickerBrowserViewController(stickerSize: .small)
-        stickerBrowserViewController.getStickersFromCache()
-        stickerBrowserViewController.getStickersFromServer()
         
         NotificationCenter.default.addObserver(self, selector: #selector(showStickers), name: .stickersReloaded, object: nil)
     }
     
-    func showStickers() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        stickerBrowserViewController.getStickersFromCache()
+        stickerBrowserViewController.getStickersFromServer()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
         label.removeFromSuperview()
+        if stickerBrowserViewController.stickers.count == 0 {
+            label.frame = view.bounds
+            label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            label.text = "Récupération des stickers…"
+            label.textAlignment = .center
+            label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            label.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
+            self.view.addSubview(label)
+        }
+    }
+    
+    func showStickers() {
+        if stickerBrowserViewController.stickers.count > 0 {
+            label.removeFromSuperview()
+        }
         
         stickerBrowserViewController.view.frame = self.view.frame
         stickerBrowserViewController.stickerBrowserView.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
