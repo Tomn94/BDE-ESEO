@@ -83,7 +83,7 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 
 ## Versions
-### v4.2 · ?/04/2017
+### v4.2 · 05/04/2017
 > - Changez le thème de l'app !\
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème dans votre profil.
 >
