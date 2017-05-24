@@ -463,7 +463,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     [[Data sharedData] updateJSON:@"news" options:ptr];
     
-    if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10")) {
+    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10")) {
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
         [generator prepare];
         [generator impactOccurred];
