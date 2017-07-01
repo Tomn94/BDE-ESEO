@@ -141,14 +141,14 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18),
-                     NSForegroundColorAttributeName: UIColor.darkGray]
+        let attrs = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18),
+                     NSAttributedStringKey.foregroundColor: UIColor.darkGray]
         return NSAttributedString(string: "Aucun résultat\nvérifiez l'orthographe du nom", attributes: attrs)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 14),
-                     NSForegroundColorAttributeName: UIColor.lightGray]
+        let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+                     NSAttributedStringKey.foregroundColor: UIColor.lightGray]
         return NSAttributedString(string: "Venez vous présenter au module RCII du BDE si vous n'êtes pas dans la liste !", attributes: attrs)
     }
     

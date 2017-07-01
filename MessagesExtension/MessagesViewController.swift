@@ -45,7 +45,7 @@ class MessagesViewController: MSMessagesAppViewController {
         }
     }
     
-    func showStickers() {
+    @objc func showStickers() {
         if stickerBrowserViewController.stickers.count > 0 {
             label.removeFromSuperview()
         }

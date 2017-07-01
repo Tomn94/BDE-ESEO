@@ -208,7 +208,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 // iOS 10: Action response
 - (void) userNotificationCenter:(UNUserNotificationCenter *)center
  didReceiveNotificationResponse:(UNNotificationResponse *)response
-          withCompletionHandler:(void (^)())completionHandler
+          withCompletionHandler:(void (^)(void))completionHandler
 {
     if (![response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
         [self openNotif:response.notification.request.content.userInfo];

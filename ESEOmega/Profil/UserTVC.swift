@@ -497,7 +497,7 @@ class UserTVC: JAQBlurryTableViewController {
     // MARK: Logout
     
     /// Asks the user whether they are sure to logout, and eventually do it
-    func disconnect() {
+    @objc func disconnect() {
         
         /* Display an alert to confirm the choice */
         let alert = UIAlertController(title: "Voulez-vous vraiment vous déconnecter ?",
@@ -565,7 +565,7 @@ class UserTVC: JAQBlurryTableViewController {
     }
     
     /// Asks the user whether they want to change or delete their avatar
-    func changePhoto() {
+    @objc func changePhoto() {
         
         /* Directly choose photo if there's already a picture */
         if getPhoto() == nil {
@@ -911,7 +911,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             
             /* Return the string with some style */
             return NSAttributedString(string: welcomeString,
-                                      attributes: [NSForegroundColorAttributeName : UIColor.darkGray])
+                                      attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
         }
         
         return NSAttributedString(string: "", attributes: [:])
@@ -931,8 +931,8 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         
         tip += "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
         
-        return NSAttributedString(string: tip, attributes: [NSFontAttributeName : UIFont.preferredFont(forTextStyle: .subheadline),
-                                                            NSForegroundColorAttributeName : UIColor.lightGray])
+        return NSAttributedString(string: tip, attributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: .subheadline),
+                                                            NSAttributedStringKey.foregroundColor : UIColor.lightGray])
     }
     
 }

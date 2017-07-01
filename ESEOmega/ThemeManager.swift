@@ -113,14 +113,14 @@ import UIKit
     }
     
     /// Applies the choosen theme to the whole app
-    static func updateTheme(appIcon updateAppIcon: Bool = true) {
+    @objc static func updateTheme(appIcon updateAppIcon: Bool = true) {
         
         let currentTheme = ThemeManager.currentTheme
         
         /* Customize Navigation Bars */
         UINavigationBar.appearance().barTintColor = currentTheme.themeValue.bars
         UINavigationBar.appearance().tintColor    = currentTheme.themeValue.barButtons
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
         
         /* Apply tint color to every view controller */
         if let delegate = UIApplication.shared.delegate as? AppDelegate,
@@ -184,7 +184,7 @@ import UIKit
     /// Overrides current theme with a special red theme during event ordering
     ///
     /// - Parameter navigationController: Applies theme on its Navigation Bar
-    static func useEventTheme(on navigationController: UINavigationController) {
+    @objc static func useEventTheme(on navigationController: UINavigationController) {
         
         let appColorEvent = #colorLiteral(red: 0.929, green: 0.11, blue: 0.141, alpha: 1)
         navigationController.navigationBar.barTintColor  = appColorEvent;
@@ -196,7 +196,7 @@ import UIKit
     /// Returns the current theme raw value for Objective-C compability
     ///
     /// - Returns: Theme raw value
-    static func objc_currentTheme() -> ThemeRawValue {
+    @objc static func objc_currentTheme() -> ThemeRawValue {
         return currentTheme.rawValue
     }
     

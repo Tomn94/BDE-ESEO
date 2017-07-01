@@ -200,7 +200,7 @@ const CGFloat kMinRefershTime = 0.5;
         self.brc_context.refreshed = NO;
 }
 
-- (void)brc_checkRefreshingTimeAndPerformBlock:(void (^)())block {
+- (void)brc_checkRefreshingTimeAndPerformBlock:(void (^)(void))block {
 
     NSDate *date = self.brc_context.beginRefreshingDate;
     
