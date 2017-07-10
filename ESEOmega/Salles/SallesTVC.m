@@ -265,7 +265,7 @@ sectionForSectionIndexTitle:(NSString *)title
             roomID = [room[sortKey] substringToIndex:1];
         
         // Let's fill the current section if it belongs to it
-        if ([roomID caseInsensitiveCompare:currentSectionID] == NSOrderedSame)
+        if (currentSectionID != nil && [roomID caseInsensitiveCompare:currentSectionID] == NSOrderedSame)
             [[sortedRooms lastObject] addObject:room];
         else   // or create a new section
             [sortedRooms addObject:[NSMutableArray arrayWithObject:room]];

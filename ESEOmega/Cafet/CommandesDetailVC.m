@@ -25,6 +25,8 @@
 
 - (void) viewDidLoad
 {
+    [super viewDidLoad];
+    
     loaded = NO;
     
     [self showCmd];
@@ -36,12 +38,16 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     [self loadCmd];
     [self majTimerRecup];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [upd invalidate];
 }
 

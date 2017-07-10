@@ -25,6 +25,8 @@
 
 - (void) viewDidLoad
 {
+    [super viewDidLoad];
+    
     [[Data sharedData] setLaunchTime:[NSDate timeIntervalSinceReferenceDate]];
     self.delegate = self;
     retapCmd = NO;
