@@ -29,6 +29,7 @@
 @interface SponsorsTVC : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate, UITableViewDataSourcePrefetching>
 {
     NSArray *sponsors;
+    NSArray *sponsorsDescAttributed;
 }
 
 - (void) recupSponsors:(BOOL)forcer;

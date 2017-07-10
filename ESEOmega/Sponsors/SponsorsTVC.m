@@ -91,7 +91,55 @@
 {
     sponsors = [[Data sharedData] sponsors][@"sponsors"];
     
-    if ([sponsors count])
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSMutableArray *t_sponsorsDescAttributed = [NSMutableArray arrayWithCapacity:sponsors.count];
+        
+        for (NSDictionary *sponsor in sponsors)
+        {
+            /* Description label, allow HTML */
+            NSString *detail = [sponsor[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+            detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
+            detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // nbsp
+            detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%dpx;}</style>",
+                       [UIFont systemFontOfSize:15].fontName, 15]
+                      stringByAppendingString:detail];
+            // Remove trailing HTML useless tags
+            while ([detail hasSuffix:@"<br>"] || [detail hasSuffix:@"<br/>"] || [detail hasSuffix:@"<br />"]) {
+                detail = [detail substringToIndex:[detail rangeOfString:@"<br" options:NSBackwardsSearch].location];
+            }
+            NSAttributedString *as = [[NSAttributedString alloc] initWithData:[detail dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                      options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                           documentAttributes:nil error:nil];
+            [t_sponsorsDescAttributed addObject:as];
+        }
+        
+        sponsorsDescAttributed = t_sponsorsDescAttributed;
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            
+            CATransition *animation = [CATransition animation];
+            [animation setDuration:0.2f];
+            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+            [animation setType:kCATransitionFade];
+            [self.tableView.layer addAnimation:animation forKey:NULL];
+            
+            [self.tableView reloadData];
+            
+            if ([sponsorsDescAttributed count])
+            {
+                [self.tableView setBackgroundColor:[UIColor whiteColor]];
+                self.tableView.tableFooterView = nil;
+            }
+            else
+            {
+                [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+                self.tableView.tableFooterView = [UIView new];
+            }
+        });
+    });
+    
+    if ([sponsorsDescAttributed count])
     {
         [self.tableView setBackgroundColor:[UIColor whiteColor]];
         self.tableView.tableFooterView = nil;
@@ -101,7 +149,6 @@
         [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
         self.tableView.tableFooterView = [UIView new];
     }
-    [self.tableView reloadData];
 }
 
 - (IBAction) refresh:(UIRefreshControl *)sender
@@ -119,7 +166,7 @@
 - (NSInteger) tableView:(nonnull UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
-    return [sponsors count];
+    return [sponsorsDescAttributed count];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
@@ -131,21 +178,7 @@
     NSDictionary *sponsor = sponsors[indexPath.row];
     cell.nomLabel.text = sponsor[@"name"];
     
-    /* Description label, allow HTML */
-    NSString *detail = [sponsor[@"description"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-    detail = [detail stringByReplacingOccurrencesOfString:@" €" withString:@" €"];  // no-breaking space
-    detail = [detail stringByReplacingOccurrencesOfString:@" %" withString:@" %"];  // nbsp
-    detail = [[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}</style>",
-               cell.descLabel.font.fontName, cell.descLabel.font.pointSize]
-              stringByAppendingString:detail];
-    // Remove trailing HTML useless tags
-    while ([detail hasSuffix:@"<br>"] || [detail hasSuffix:@"<br/>"] || [detail hasSuffix:@"<br />"]) {
-        detail = [detail substringToIndex:[detail rangeOfString:@"<br" options:NSBackwardsSearch].location];
-    }
-    NSAttributedString *as = [[NSAttributedString alloc] initWithData:[detail dataUsingEncoding:NSUnicodeStringEncoding]
-                                                              options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                   documentAttributes:nil error:nil];
-    cell.descLabel.attributedText = as;
+    cell.descLabel.attributedText = sponsorsDescAttributed[indexPath.row];
     
     /* Build URL/address contact string */
     NSString *contact = @"";
