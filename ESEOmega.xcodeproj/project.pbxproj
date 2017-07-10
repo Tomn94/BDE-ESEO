@@ -24,9 +24,10 @@
 		6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */; };
 		6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425D8361BACB2BE00F15BDD /* EventAlertView.xib */; };
 		6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8391BACB7F700F15BDD /* EventAlertView.m */; };
+		642BEC951F13A8670043701B /* IngeNewsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC941F13A8670043701B /* IngeNewsCVC.swift */; };
+		642BEC971F13B0480043701B /* IngeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC961F13B0480043701B /* IngeNews.swift */; };
 		6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */; };
 		6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D2731B63FF5E00F5C7F5 /* TabBarController.m */; };
-		643B898E1C28CAD800B3A568 /* IngeNewsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */; };
 		643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */; };
 		643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */; };
 		64493F181E465811009C995B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64493F171E465811009C995B /* DataStore.swift */; };
@@ -244,13 +245,13 @@
 		6425D8361BACB2BE00F15BDD /* EventAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventAlertView.xib; sourceTree = "<group>"; };
 		6425D8381BACB7F700F15BDD /* EventAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventAlertView.h; sourceTree = "<group>"; };
 		6425D8391BACB7F700F15BDD /* EventAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventAlertView.m; sourceTree = "<group>"; };
+		642BEC941F13A8670043701B /* IngeNewsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNewsCVC.swift; sourceTree = "<group>"; };
+		642BEC961F13B0480043701B /* IngeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNews.swift; sourceTree = "<group>"; };
 		642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		6430D26E1B63DC8C00F5C7F5 /* EventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTVC.h; sourceTree = "<group>"; };
 		6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTVC.m; sourceTree = "<group>"; };
 		6430D2721B63FF5E00F5C7F5 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		6430D2731B63FF5E00F5C7F5 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		643B898C1C28CAD800B3A568 /* IngeNewsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngeNewsTVC.h; sourceTree = "<group>"; };
-		643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngeNewsTVC.m; sourceTree = "<group>"; };
 		643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IngeNews.storyboard; sourceTree = "<group>"; };
 		643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogyPathsView.swift; path = Genealogy/GenealogyPathsView.swift; sourceTree = "<group>"; };
 		64493F171E465811009C995B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -548,9 +549,9 @@
 		643B898B1C28CAB800B3A568 /* IngéNews */ = {
 			isa = PBXGroup;
 			children = (
+				642BEC961F13B0480043701B /* IngeNews.swift */,
 				643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */,
-				643B898C1C28CAD800B3A568 /* IngeNewsTVC.h */,
-				643B898D1C28CAD800B3A568 /* IngeNewsTVC.m */,
+				642BEC941F13A8670043701B /* IngeNewsCVC.swift */,
 			);
 			name = "IngéNews";
 			path = "IngéNews";
@@ -1328,11 +1329,11 @@
 				64E273471B72444300A84E68 /* GameVC.m in Sources */,
 				6463B6A51B71511C00836C30 /* SDWebImageDecoder.m in Sources */,
 				64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */,
+				642BEC971F13B0480043701B /* IngeNews.swift in Sources */,
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				6418DBC51B81551F000069CB /* NSArray+MASAdditions.m in Sources */,
 				64C9C3E71B6850AF009F05DC /* CreditsTVC.m in Sources */,
 				6463B6AF1B71511C00836C30 /* UIImageView+WebCache.m in Sources */,
-				643B898E1C28CAD800B3A568 /* IngeNewsTVC.m in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				6463B6A81B71511C00836C30 /* SDWebImageManager.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
@@ -1364,6 +1365,7 @@
 				6463B6AA1B71511C00836C30 /* UIButton+WebCache.m in Sources */,
 				64C4B21F1B657F5600F43FB9 /* UIImage+ImageEffects.m in Sources */,
 				64C4B21E1B657F5600F43FB9 /* UIImage+Fit.m in Sources */,
+				642BEC951F13A8670043701B /* IngeNewsCVC.swift in Sources */,
 				64582C311BD6A9F50007C104 /* JTSImageInfo.m in Sources */,
 				64ED61141B710BA400456B01 /* EGOCache.m in Sources */,
 				64D768371B87B43300C09215 /* OrderElemTVC.m in Sources */,

@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Éditions Ingénews-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="n9z-Ff-qsV">
             <objects>
-                <collectionViewController id="TaD-tl-08N" customClass="IngeNewsCVC" sceneMemberID="viewController">
+                <collectionViewController id="TaD-tl-08N" customClass="IngeNewsCVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" id="gOb-o1-t96">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,7 +24,7 @@
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fichierCollCell" id="w6M-gt-K7Q" customClass="IngeNewsCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ingenewsFilesCell" id="w6M-gt-K7Q" customClass="IngeNewsCell" customModule="BDE_ESEO" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="140" height="140"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -68,13 +68,13 @@
                                     <constraint firstItem="DNo-6P-cuK" firstAttribute="leading" secondItem="w6M-gt-K7Q" secondAttribute="leading" constant="5" id="mqb-or-I8V"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="iconeView" destination="DNo-6P-cuK" id="KlF-Oe-llc"/>
-                                    <outlet property="sousLabel" destination="fCZ-e4-5z7" id="cuA-Kk-wPh"/>
-                                    <outlet property="titreLabel" destination="inE-BR-E8E" id="mtY-Gy-Qu0"/>
+                                    <outlet property="iconView" destination="DNo-6P-cuK" id="dn4-Xp-kAu"/>
+                                    <outlet property="subtitleLabel" destination="fCZ-e4-5z7" id="30b-Ot-3fj"/>
+                                    <outlet property="titleLabel" destination="inE-BR-E8E" id="fZa-p6-L1k"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fichierFooter" id="VLW-py-B2M">
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ingenewsFilesFooter" id="VLW-py-B2M">
                             <rect key="frame" x="0.0" y="160" width="384" height="60"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
@@ -95,14 +95,16 @@ Le BDE n'est en aucun cas responsable du contenu proposé.</string>
                             </constraints>
                         </collectionReusableView>
                         <connections>
-                            <outlet property="dataSource" destination="TaD-tl-08N" id="XfP-nw-0qj"/>
-                            <outlet property="delegate" destination="TaD-tl-08N" id="znb-of-43l"/>
+                            <outlet property="dataSource" destination="TaD-tl-08N" id="HAv-O0-VIP"/>
+                            <outlet property="delegate" destination="TaD-tl-08N" id="fp5-8g-mGK"/>
+                            <outlet property="emptyDataSetDelegate" destination="TaD-tl-08N" id="iow-H3-BJ7"/>
+                            <outlet property="emptyDataSetSource" destination="TaD-tl-08N" id="tZa-Ld-7Jv"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Éditions Ingénews" id="zD5-Bk-mL6">
                         <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="bla-H5-6R7">
                             <connections>
-                                <action selector="fermer:" destination="TaD-tl-08N" id="E4o-DL-QBh"/>
+                                <action selector="close:" destination="TaD-tl-08N" id="7rb-La-yXg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

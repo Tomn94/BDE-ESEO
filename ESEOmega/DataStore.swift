@@ -18,6 +18,12 @@ extension Notification.Name {
     /// App theme has been changed
     static let themeChanged           = NSNotification.Name("themeUpdated")
     
+    /// IngeNews data received
+    static let newDataIngeNews        = NSNotification.Name(IngeNews.apiPath)
+    
+    /// Debug refresh control stuck when quitting and reopening the app
+    static let debugRefresh           = NSNotification.Name("debugRefresh")
+    
 }
 
 
@@ -30,7 +36,7 @@ enum UserDefaultsKey {
     /// Sort rooms list mode (0 = by name | 1 = by building | 2 = by floor)
     static let roomsSortMode  = "roomsSortMode"
     
-    /// Tip How To Print a Document (0 = not seen | 1 = already seen once | 2 = don't show again)
+    /// Tip How To Print a Document (see values in PrintWarningStatus)
     static let printWarning   = "messageImpressionLu"
     
     /// Whether the user has seen some new events so a tab badge should be hidden (true = hide badge | false = display badge)
