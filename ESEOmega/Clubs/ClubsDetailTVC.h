@@ -28,6 +28,7 @@
 #import "JAQBlurryTableViewController.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
 #import "../SDWebImage/SDWebImageDownloader.h"
+#import "SDWebImagePrefetcher.h"
 #import "NewsDetailVC.h"
 #import "EventsTVC.h"
 #import "CustomIOSAlertView.h"
@@ -36,7 +37,7 @@
 #define JSON_DATE_FORMAT2 @"dd-MM-yyyy"
 #define PREVIEW_ACTION_BLOCK ^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController)
 
-@interface ClubsDetailTVC : JAQBlurryTableViewController <ClubsSelectionDelegate, UIToolbarDelegate, MFMailComposeViewControllerDelegate, CustomIOSAlertViewDelegate>
+@interface ClubsDetailTVC : JAQBlurryTableViewController <ClubsSelectionDelegate, UIToolbarDelegate, UITableViewDataSourcePrefetching, MFMailComposeViewControllerDelegate, CustomIOSAlertViewDelegate>
 {
     NSArray *contactModes;  // Available contact methods
     UILabel *clubDescription;

@@ -38,6 +38,10 @@
                        @[@"mail",      @"Mail…",     PREVIEW_ACTION_BLOCK { [self mail]; },      @"mail"],
                        @[@"tel",       @"Appeler…",  PREVIEW_ACTION_BLOCK { [self tel]; },       @"tel"] ];
     
+    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+        self.tableView.prefetchDataSource = self;
+    }
+    
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
     self.navigationItem.leftItemsSupplementBackButton = true;
     self.tableView.backgroundColor = [UIColor colorWithRed:248/255. green:248/255. blue:248/255. alpha:1];
@@ -67,6 +71,8 @@
     [self loadPic];
     [self getDetailData];
 }
+
+#pragma mark - 3D Touch
 
 - (NSArray<id<UIPreviewActionItem>> *) previewActionItems
 {
@@ -333,7 +339,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Table controller delegate
+#pragma mark - Table view controller data source
 
 - (NSInteger) numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
@@ -476,6 +482,38 @@
     
     return cell;
 }
+
+#pragma mark - Table view data source prefetching
+
+/**
+ Prepare data (member picture) at specified index paths
+ 
+ @param tableView This table view
+ @param indexPath Position of the cells to preload
+ */
+- (void)       tableView:(UITableView *)tableView
+prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    /* Get every image URL to fetch */
+    NSMutableArray *thumbnails = [NSMutableArray arrayWithCapacity:indexPaths.count];
+    for (NSIndexPath *indexPath in indexPaths)
+    {
+        /* Whether ESEOmega ("modules") or ESEOasis ("bureau") API is used */
+        if (_infos[@"modules"] != nil || (indexPath.section == 0 && [_infos[@"bureau"] count] != 0))
+        {
+            NSDictionary *membre = (_infos[@"modules"] != nil) ? _infos[@"modules"][indexPath.section][@"membres"][indexPath.row]
+                                                               : _infos[@"bureau"][indexPath.row];
+            
+            NSString *imgURL = membre[@"img"];
+            if (imgURL != nil && ![imgURL isEqualToString:@""])
+                [thumbnails addObject:[NSURL URLWithString:imgURL]];
+        }
+    }
+    
+    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:thumbnails];
+}
+
+#pragma mark - Table view controller delegate
 
 - (void)      tableView:(nonnull UITableView *)tableView
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath

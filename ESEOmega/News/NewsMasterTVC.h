@@ -28,7 +28,7 @@
 #import "../SDWebImage/UIImageView+WebCache.h"
 #import "UIScrollView+BottomRefreshControl.h"
 
-@interface NewsMasterTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIToolbarDelegate, UIPopoverPresentationControllerDelegate, UIViewControllerPreviewingDelegate, MFMailComposeViewControllerDelegate>
+@interface NewsMasterTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIToolbarDelegate, UIPopoverPresentationControllerDelegate, UIViewControllerPreviewingDelegate, UITableViewDataSourcePrefetching, MFMailComposeViewControllerDelegate>
 {
     UINavigationController *detailNVC;
     NSArray *news;

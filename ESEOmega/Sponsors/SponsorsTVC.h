@@ -24,8 +24,9 @@
 #import "SponsorsCell.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
+#import "SDWebImagePrefetcher.h"
 
-@interface SponsorsTVC : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate>
+@interface SponsorsTVC : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate, UITableViewDataSourcePrefetching>
 {
     NSArray *sponsors;
 }

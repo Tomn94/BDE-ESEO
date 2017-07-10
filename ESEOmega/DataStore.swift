@@ -66,31 +66,6 @@ enum KeychainKey {
 }
 
 
-/// Common JSON names to identify API services
-enum JSONid {
-    /// News list
-    static let news        = "news"
-    /// Events list
-    static let events      = "events"
-    /// Bought events list
-    static let eventOrders = "eventsCmds"
-    /// Clubs list
-    static let clubs       = "clubs"
-    /// Orders list
-    static let orders      = "cmds"
-    /// Kitchen status
-    static let orderStatus = "service"
-    /// Menu items available
-    static let orderMenus  = "menus"
-    /// Sponsors list
-    static let sponsors    = "sponsors"
-    /// Rooms list
-    static let rooms       = "rooms"
-    /// Ingenews documents lsit
-    static let ingenews    = "ingenews"
-}
-
-
 /// Replaces deprecated Data class
 class DataStore {
 }

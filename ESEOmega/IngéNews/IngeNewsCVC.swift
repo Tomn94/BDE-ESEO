@@ -121,6 +121,11 @@ class IngeNewsCVC: UICollectionViewController {
             self.registerForPreviewing(with: self,
                                        sourceView: collection)
         }
+        
+        /* Allow faster content prefetching */
+        if #available(iOS 10.0, *) {
+            self.collectionView?.prefetchDataSource = self
+        }
     }
     
     
@@ -215,6 +220,32 @@ extension IngeNewsCVC {
         cell.contentView.clipsToBounds = true
     
         return cell
+    }
+    
+}
+
+
+// MARK: - Collection View Data Source Prefetching
+extension IngeNewsCVC: UICollectionViewDataSourcePrefetching {
+    
+    /// Prepare data (file thumbnail) at specified index paths
+    ///
+    /// - Parameters:
+    ///   - collectionView: This collection view
+    ///   - indexPaths: Position of the cells to preload
+    @available(iOS 10.0, *)
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
+        
+        /* Get every image URL to fetch */
+        var thumbnails = [URL]()
+        for indexPath in indexPaths {
+            if let thumbnailURL = files[indexPath.item].img {
+                thumbnails.append(thumbnailURL)
+            }
+        }
+        
+        SDWebImagePrefetcher.shared()?.prefetchURLs(thumbnails)
     }
     
 }

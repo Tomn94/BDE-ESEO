@@ -22,12 +22,13 @@
 @import UIKit;
 #import "UIScrollView+EmptyDataSet.h"
 #import "../../SDWebImage/UIImageView+WebCache.h"
+#import "SDWebImagePrefetcher.h"
 #import "Data.h"
 #import "ClubsSelectionDelegate.h"
 #import "ClubsMasterCell.h"
 #import "ClubsDetailTVC.h"
 
-@interface ClubsMasterTVC : UITableViewController <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate, MFMailComposeViewControllerDelegate>
+@interface ClubsMasterTVC : UITableViewController <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIViewControllerPreviewingDelegate, UITableViewDataSourcePrefetching, MFMailComposeViewControllerDelegate>
 {
     UINavigationController *detailNVC;
     NSArray *clubs;

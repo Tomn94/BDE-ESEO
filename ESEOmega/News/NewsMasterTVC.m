@@ -37,6 +37,9 @@
     }
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+        self.tableView.prefetchDataSource = self;
+    }
     
     [self setUpToolbar];
     
@@ -424,6 +427,31 @@
     
     return cell;
 }
+
+#pragma mark - Table view data source prefetching
+
+/**
+ Prepare data (news image) at specified index paths
+ 
+ @param tableView This table view
+ @param indexPath Position of the cells to preload
+ */
+- (void)       tableView:(UITableView *)tableView
+prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    /* Get every image URL to fetch */
+    NSMutableArray *thumbnails = [NSMutableArray arrayWithCapacity:indexPaths.count];
+    for (NSIndexPath *indexPath in indexPaths)
+    {
+        NSString *imgURL = news[indexPath.row][@"img"];
+        if (imgURL != nil && ![imgURL isEqualToString:@""])
+            [thumbnails addObject:[NSURL URLWithString:imgURL]];
+    }
+    
+    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:thumbnails];
+}
+
+#pragma mark - Table view delegate
 
 - (void)      tableView:(nonnull UITableView *)tableView
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath

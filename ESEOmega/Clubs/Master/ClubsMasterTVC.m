@@ -36,6 +36,9 @@
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+        self.tableView.prefetchDataSource = self;
+    }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
@@ -74,6 +77,11 @@
 }
 
 #pragma mark - Actions
+
+- (IBAction) refresh:(UIRefreshControl *)sender
+{
+    [self recupClubs:NO];
+}
 
 - (void) recupClubs:(BOOL)forcer
 {
@@ -149,6 +157,31 @@
     return cell;
 }
 
+#pragma mark - Table view data source prefetching
+
+/**
+ Prepare data (club image) at specified index paths
+ 
+ @param tableView This table view
+ @param indexPath Position of the cells to preload
+ */
+- (void)       tableView:(UITableView *)tableView
+prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    /* Get every image URL to fetch */
+    NSMutableArray *thumbnails = [NSMutableArray arrayWithCapacity:indexPaths.count];
+    for (NSIndexPath *indexPath in indexPaths)
+    {
+        NSString *imgURL = clubs[indexPath.row][@"img"];
+        if (imgURL != nil && ![imgURL isEqualToString:@""])
+            [thumbnails addObject:[NSURL URLWithString:imgURL]];
+    }
+    
+    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:thumbnails];
+}
+
+#pragma mark - Table view delegate
+
 - (void)      tableView:(nonnull UITableView *)tableView
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -158,6 +191,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         [self.splitViewController showDetailViewController:detailNVC sender:nil];
     }
 }
+
+#pragma mark - Scroll view delegate
 
 - (void) scrollViewDidScroll:(nullable UIScrollView *)scrollView
 {
@@ -171,11 +206,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         [cell cellOnTableView:self.tableView didScrollOnView:self.view.superview];
 }
 
-- (IBAction) refresh:(UIRefreshControl *)sender
-{
-    [self recupClubs:NO];
-}
-
+#pragma mark - 3D Touch
 
 - (UIViewController *) previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                viewControllerForLocation:(CGPoint)location
