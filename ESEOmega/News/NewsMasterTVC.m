@@ -74,23 +74,22 @@
     }
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
+    
+    [self.tableView reloadEmptyDataSet];
+    self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les articles récents…"
+                                                                            attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.tableView reloadEmptyDataSet];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-    self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
-    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les articles récents…"
-                                                                            attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
-    
-    
-    [self configureBottomRefresh];
     
     if (_delegate && [news count] > 0 && !iPAD && [UIScreen mainScreen].bounds.size.width >= 736 && UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
         [_delegate selectedNews:news[0]];
+    
     [self.refreshControl beginRefreshing];
     [self debugRefresh];
 }
