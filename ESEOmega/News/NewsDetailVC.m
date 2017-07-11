@@ -106,6 +106,7 @@
     if ([UIScreen mainScreen].bounds.size.width < 350)
         date = [date stringByReplacingOccurrencesOfString:@"/20" withString:@"/"];
     self.title = date;
+    NSString *html = [NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0' /><style>body { font-family: -apple-system, 'Helvetica Neue', sans-serif; margin: 0; padding: 0; color: #757575; text-align: left; } a { color: #FFA200; }  img { max-width: 98%%; } .header { background: url('%@'); background-size: cover; background-position: center center; height: 142px; width: 100%%; position: relative; } .titre { color: white; font-size: 20px; text-shadow: 0px 0px 5px black; position: absolute; bottom: -11px; padding: 0px 8px; } .content { padding: 0; margin: 0; padding-top: 8px; width: 100%%; }</style></head><body><div class='header'><p class='titre'>%@<br/><span style='font-size: 12px;'>%@</span></p></div><div class='content'><div style='padding: 0 10px 10px 10px; overflow: scroll;'>%@</div></div></body></html>",
                       _infos[@"img"], _infos[@"title"], _infos[@"author"], _infos[@"content"]];
     [_webView loadHTMLString:html baseURL:nil];
     
@@ -194,7 +195,39 @@ decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
     }
 }
 
+#pragma mark - Web View UI Delegate
+/* Commit 3D-Touch Pop gesture in-app instead of opening Safari */
+
+- (BOOL)     webView:(WKWebView *)webView
+shouldPreviewElement:(WKPreviewElementInfo *)elementInfo
+{
     return YES;
+}
+
+- (UIViewController *)     webView:(WKWebView *)webView
+previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo
+                    defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions
+{
+    if (![SFSafariViewController class])
+    {
+        return nil;  // iOS 8 - Peek = default view controller, Pop = back to Safari
+    }
+    
+    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:elementInfo.linkURL
+                                                         entersReaderIfAvailable:NO];
+    if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+    {
+        safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+        safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+    }
+    return safari;
+}
+
+- (void)               webView:(WKWebView *)webView
+commitPreviewingViewController:(UIViewController *)previewingViewController
+{
+    [self presentViewController:previewingViewController
+                       animated:YES completion:nil];
 }
 
 @end
