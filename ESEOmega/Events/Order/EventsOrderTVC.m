@@ -104,7 +104,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [ThemeManager updateThemeWithAppIcon:false];
+    [ThemeManager updateThemeWithAppIcon:NO];
 }
 
 - (void) timeout

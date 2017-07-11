@@ -43,7 +43,7 @@
     }
     
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
-    self.navigationItem.leftItemsSupplementBackButton = true;
+    self.navigationItem.leftItemsSupplementBackButton = YES;
     self.tableView.backgroundColor = [UIColor colorWithRed:248/255. green:248/255. blue:248/255. alpha:1];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotatePic)

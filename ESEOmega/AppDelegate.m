@@ -116,12 +116,12 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.campus"])
         [[Data sharedData] openURL:URL_CAMPUS currentVC:tab];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.salles"]) {
-        BOOL dontReopen = false;
+        BOOL dontReopen = NO;
         UIViewController *vc = self.window.rootViewController.presentedViewController;
         if ([vc isKindOfClass:[UINavigationController class]]) {
             UINavigationController *nvc = (UINavigationController *)self.window.rootViewController.presentedViewController;
             if ([nvc isKindOfClass:[SallesTVC class]]) {
-                dontReopen = true;
+                dontReopen = YES;
             }
         }
         if (!dontReopen) {
