@@ -21,6 +21,7 @@
 //
 
 import UIKit
+import WebKit
 
 
 fileprivate extension Selector {
@@ -310,8 +311,8 @@ extension IngeNewsCVC {
             let webViewController = UIViewController()
             webViewController.title = selectedFile.name
             
-            let webView = UIWebView()
-            webView.loadRequest(URLRequest(url: fileURL))
+            let webView = WKWebView()
+            webView.load(URLRequest(url: fileURL))
             webViewController.view = webView
             
             self.navigationController?.pushViewController(webViewController, animated: true)

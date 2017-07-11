@@ -20,17 +20,18 @@
 //
 
 @import UIKit;
+@import WebKit;
 #import "Data.h"
 #import "TUSafariActivity.h"
 #import "NewsSelectionDelegate.h"
 
-@interface NewsDetailVC : UIViewController <NewsSelectionDelegate, UIWebViewDelegate>
+@interface NewsDetailVC : UIViewController <NewsSelectionDelegate, WKNavigationDelegate, WKUIDelegate>
 {
     NSInteger previousID;
 }
 
 @property (strong, nonatomic) NSDictionary *infos;
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *userButton;
 
 - (void) loadArticle;

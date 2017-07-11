@@ -28,16 +28,20 @@
     [super viewDidLoad];
     previousID = -1;
     
-    self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
-    self.navigationItem.leftItemsSupplementBackButton = true;
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.allowsInlineMediaPlayback = YES;
     
-    self.webView.delegate = self;
-    self.webView.allowsInlineMediaPlayback = YES;
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.frame
+                                      configuration:config];
+    self.webView.UIDelegate = self;
+    self.webView.navigationDelegate = self;
+    self.webView.allowsBackForwardNavigationGestures = YES;
     if ([SFSafariViewController class])
-    {
         self.webView.allowsLinkPreview = YES;
-        self.webView.allowsPictureInPictureMediaPlayback = YES;
-    }
+    self.view = self.webView;
+    
+    self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 - (void) selectedNews:(nonnull NSDictionary *)infos
@@ -102,7 +106,6 @@
     if ([UIScreen mainScreen].bounds.size.width < 350)
         date = [date stringByReplacingOccurrencesOfString:@"/20" withString:@"/"];
     self.title = date;
-    NSString *html = [NSString stringWithFormat:@"<html><head><style>body { -webkit-text-size-adjust: 100%%; font-family: -apple-system, 'Helvetica Neue', sans-serif; margin: 0; padding: 0; color: #757575; text-align: justify; } a { color: #FFA200; }  img { max-width: 98%%; } .header { background: url('%@'); background-size: cover; background-position: center center; height: 142px; width: 100%%; position: relative; } .titre { color: white; font-size: 20px; text-shadow: 0px 0px 5px black; position: absolute; bottom: -11px; padding: 0px 8px; } .content { padding: 0; margin: 0; margin-top: 8px; width: 100%%; }</style></head><body><div class='header'><p class='titre'>%@<br/><span style='font-size: 12px;'>%@</span></p></div><div class='content'><div style='padding: 0 10px 10px 10px; overflow: scroll;'>%@</div></div></body></html>",
                       _infos[@"img"], _infos[@"title"], _infos[@"author"], _infos[@"content"]];
     [_webView loadHTMLString:html baseURL:nil];
     
@@ -159,28 +162,38 @@
     [super updateUserActivityState:activity];
 }
 
-#pragma mark - Web View Delegate
+#pragma mark - Web View Navigation Delegate
 
-- (void)     webView:(nonnull UIWebView *)webView
-didFailLoadWithError:(nonnull NSError *)error
+- (void)  webView:(WKWebView *)webView
+didFailNavigation:(WKNavigation *)navigation
+        withError:(NSError *)error
 {
     if (error.code == -999)
         return;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur" message:@"Impossible de charger l'article" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
+                                                                   message:@"Impossible de charger l'article"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (BOOL)           webView:(nonnull UIWebView *)webView
-shouldStartLoadWithRequest:(nonnull NSURLRequest *)request
-            navigationType:(UIWebViewNavigationType)navigationType
+- (void)                webView:(WKWebView *)webView
+decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked)
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated)
     {
-        [[Data sharedData] openURL:request.URL.absoluteString currentVC:self];
-        return NO;
+        [[Data sharedData] openURL:navigationAction.request.URL.absoluteString
+                         currentVC:self];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
+}
+
     return YES;
 }
 

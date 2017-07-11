@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,26 +21,26 @@
             <objects>
                 <tableViewController title="Événements" id="Ao2-1f-ckB" customClass="EventsTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="JJq-WS-mjK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" textLabel="Wc0-Ky-eT3" detailTextLabel="0Wh-SM-9B9" style="IBUITableViewCellStyleSubtitle" id="VJD-mW-V5r">
-                                <rect key="frame" x="0.0" y="22" width="320" height="65"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VJD-mW-V5r" id="Hff-qB-flU">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wc0-Ky-eT3">
-                                            <rect key="frame" x="15" y="16" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="13" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Wh-SM-9B9">
-                                            <rect key="frame" x="15" y="35.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="16" y="35.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,23 +77,23 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3U9-fl-c2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623.75" y="-832.5"/>
+            <point key="canvasLocation" x="1624" y="-858"/>
         </scene>
         <!--Bons plans-->
         <scene sceneID="RZ5-Lf-eAF">
             <objects>
                 <tableViewController id="BNE-Uv-ud8" customClass="SponsorsTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="207" sectionHeaderHeight="22" sectionFooterHeight="22" id="5w8-u2-lpL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="123" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sponsorsCell" rowHeight="207" id="Vzf-zu-EHZ" customClass="SponsorsCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="207"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vzf-zu-EHZ" id="y02-m3-xku">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="206.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="206.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batiment" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-Ci-3lm">
@@ -110,19 +110,19 @@
                                             </variation>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du sponsor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnV-vU-Lzo">
-                                            <rect key="frame" x="122" y="8" width="188" height="24"/>
+                                            <rect key="frame" x="122" y="8" width="243" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description du sponsor" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aih-dR-07g">
-                                            <rect key="frame" x="122" y="37" width="188" height="18"/>
+                                            <rect key="frame" x="122" y="37" width="243" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cis-YV-jro">
-                                            <rect key="frame" x="122" y="166" width="188" height="32"/>
+                                            <rect key="frame" x="122" y="166" width="243" height="32"/>
                                             <string key="text">http://………
 4 rue des pruniers</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -130,7 +130,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSO-fd-Fjw">
-                                            <rect key="frame" x="118" y="58" width="192" height="111"/>
+                                            <rect key="frame" x="118" y="58" width="247" height="111"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -195,32 +195,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHD-BW-COj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="2040"/>
+            <point key="canvasLocation" x="1623" y="2256"/>
         </scene>
         <!--Clubs DetailTVC-->
         <scene sceneID="KQW-x0-tZi">
             <objects>
                 <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubsDetailTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ln4-AE-9it">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsDetailCell" textLabel="jOh-1N-lBN" detailTextLabel="hgl-pA-9i2" style="IBUITableViewCellStyleSubtitle" id="J64-Bb-giS">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J64-Bb-giS" id="3Jh-gM-LTL">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOh-1N-lBN">
-                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hgl-pA-9i2">
-                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -245,7 +245,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCQ-hW-ESw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="543"/>
+            <point key="canvasLocation" x="2452" y="663"/>
         </scene>
         <!--Commandes DetailVC-->
         <scene sceneID="Ds5-fh-Dpv">
@@ -375,7 +375,7 @@ Paquet de chips</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpS-m8-duf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="1248"/>
+            <point key="canvasLocation" x="2452" y="1466"/>
         </scene>
         <!--Empty Data Set Delegate-->
         <scene sceneID="PXp-Jw-w15">
@@ -398,7 +398,7 @@ Paquet de chips</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-UZ-zXo">
                                                     <rect key="frame" x="14" y="12" width="100" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="aS7-Yt-V4G"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="aS7-Yt-V4G"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -444,7 +444,7 @@ Paquet de chips</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de passe" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-z6-eXP">
                                                     <rect key="frame" x="14" y="12" width="100" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="Y5s-ph-f8h"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Y5s-ph-f8h"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -496,7 +496,7 @@ Bâtiment : F. Rolland</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Connexion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0RU-mS-Rdu">
-                                                    <rect key="frame" x="15" y="0.0" width="354" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="353" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" red="0.078431372550000003" green="0.70588235290000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -518,7 +518,7 @@ Bâtiment : F. Rolland</string>
                     <navigationItem key="navigationItem" title="Mon profil" id="Tfn-or-51y">
                         <barButtonItem key="leftBarButtonItem" id="IM3-rw-UNJ">
                             <view key="customView" contentMode="scaleToFill" id="9Ht-68-0nJ">
-                                <rect key="frame" x="16" y="5" width="30" height="33"/>
+                                <rect key="frame" x="16" y="5.5" width="30" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WLZ-wH-p2O">
@@ -556,29 +556,29 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsMasterTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsMasterCell" rowHeight="142" id="zZB-eN-ivf" customClass="ClubsMasterCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="142"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZB-eN-ivf" id="4FT-8Z-gmo">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="141.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="141.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2un-D0-LF5">
-                                            <rect key="frame" x="-12" y="-7" width="344" height="155"/>
+                                            <rect key="frame" x="-12" y="-7" width="399" height="155"/>
                                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sono ESEO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRq-vo-pm7">
-                                            <rect key="frame" x="18" y="81" width="284" height="24"/>
+                                            <rect key="frame" x="18" y="81" width="339" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrs-5J-DR1">
-                                            <rect key="frame" x="18" y="107" width="284" height="16"/>
+                                            <rect key="frame" x="18" y="107" width="339" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -628,14 +628,12 @@ Bâtiment : F. Rolland</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2P-EN-TGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-116"/>
+            <point key="canvasLocation" x="2452" y="-80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cHp-kP-2Cs">
             <objects>
                 <navigationController id="PJx-tp-jgP" sceneMemberID="viewController">
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PZF-Gb-Wdq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -646,7 +644,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uqk-UJ-fsM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1624" y="-116"/>
+            <point key="canvasLocation" x="1624" y="-81"/>
         </scene>
         <!--Clubs-->
         <scene sceneID="ehT-z5-H8a">
@@ -660,22 +658,22 @@ Bâtiment : F. Rolland</string>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zg7-Rh-flX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="216"/>
+            <point key="canvasLocation" x="812" y="327"/>
         </scene>
         <!--Mes commandes-->
         <scene sceneID="Cld-QZ-gcH">
             <objects>
                 <tableViewController id="1LM-i4-dgy" customClass="CommandesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="61" sectionHeaderHeight="5" sectionFooterHeight="10" id="Sfh-xm-zKm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="P5i-SG-uh5" customClass="CustomHeaderView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPL-B7-ICT">
-                                    <rect key="frame" x="5" y="10" width="310" height="34"/>
+                                    <rect key="frame" x="5" y="10" width="365" height="34"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -694,10 +692,10 @@ Bâtiment : F. Rolland</string>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commandeCell" id="UvV-Fm-Ak6" customClass="CommandesCell">
-                                <rect key="frame" x="0.0" y="99.5" width="320" height="61"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UvV-Fm-Ak6" id="OPa-8T-lSc">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="60.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="60.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="21 janvier 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-oQ-fbt">
@@ -707,13 +705,13 @@ Bâtiment : F. Rolland</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="3,99 €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oa2-Oc-56c">
-                                            <rect key="frame" x="160" y="13" width="121" height="20"/>
+                                            <rect key="frame" x="160" y="13" width="176" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="GUY042" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB4-Na-c2j">
-                                            <rect key="frame" x="168" y="34" width="113" height="14"/>
+                                            <rect key="frame" x="168" y="34" width="168" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -789,7 +787,7 @@ Bâtiment : F. Rolland</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGN-p9-NhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1624" y="1248"/>
+            <point key="canvasLocation" x="1623" y="1466"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -818,12 +816,6 @@ Bâtiment : F. Rolland</string>
         <scene sceneID="zCN-Kc-qMe">
             <objects>
                 <viewController storyboardIdentifier="newsDetailVC" id="iYf-NG-Y3x" customClass="NewsDetailVC" sceneMemberID="viewController">
-                    <webView key="view" contentMode="scaleToFill" id="gjs-cz-J68">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                    </webView>
                     <navigationItem key="navigationItem" id="wwW-iT-iSC">
                         <barButtonItem key="rightBarButtonItem" image="user" id="e4n-BJ-bUD">
                             <connections>
@@ -833,31 +825,30 @@ Bâtiment : F. Rolland</string>
                     </navigationItem>
                     <connections>
                         <outlet property="userButton" destination="e4n-BJ-bUD" id="JOf-x7-QsM"/>
-                        <outlet property="webView" destination="gjs-cz-J68" id="q1W-3f-GTp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEV-7S-FO4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-1548"/>
+            <point key="canvasLocation" x="2452" y="-1627"/>
         </scene>
         <!--News-->
         <scene sceneID="Du2-MZ-eG2">
             <objects>
                 <tableViewController title="News" clearsSelectionOnViewWillAppear="NO" id="rVk-wj-hnv" customClass="NewsMasterTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qqx-bA-yg8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterCell" textLabel="TCT-IX-hrN" detailTextLabel="nXJ-mV-K1B" style="IBUITableViewCellStyleSubtitle" id="CRf-kt-mgJ">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CRf-kt-mgJ" id="k0p-CZ-xYZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TCT-IX-hrN">
-                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -867,7 +858,7 @@ Bâtiment : F. Rolland</string>
                                             </variation>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nXJ-mV-K1B">
-                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.62745098039215685" green="0.62745098039215685" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -921,14 +912,12 @@ Bâtiment : F. Rolland</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B91-F3-PcO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-2207"/>
+            <point key="canvasLocation" x="2451" y="-2412"/>
         </scene>
         <!--News-->
         <scene sceneID="iPN-jR-m5a">
             <objects>
                 <navigationController title="News" id="2RX-2W-agy" sceneMemberID="viewController">
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GFq-lL-hgk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -939,7 +928,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIb-xT-WSQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1624" y="-2207"/>
+            <point key="canvasLocation" x="1623" y="-2412"/>
         </scene>
         <!--News-->
         <scene sceneID="C7b-VM-bVY">
@@ -953,7 +942,7 @@ Bâtiment : F. Rolland</string>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbr-iJ-i1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="-1875"/>
+            <point key="canvasLocation" x="812" y="-2038"/>
         </scene>
         <!--Bons plans-->
         <scene sceneID="CiY-kA-nsY">
@@ -961,8 +950,6 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qr5-8U-DHh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" selectedImage="sponsorsSel" id="sSY-rw-nz9"/>
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="krn-aS-nQJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -974,7 +961,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1X1-DF-26C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="2040"/>
+            <point key="canvasLocation" x="812" y="2256"/>
         </scene>
         <!--Cafétéria-->
         <scene sceneID="r0S-ep-qWr">
@@ -982,8 +969,6 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MJI-Qx-EYb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Cafétéria" image="cafet" selectedImage="cafetSel" id="pfX-fs-rpx"/>
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UmN-d8-iIC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -995,7 +980,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="si6-Fq-SUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="1248"/>
+            <point key="canvasLocation" x="812" y="1466"/>
         </scene>
         <!--Événements-->
         <scene sceneID="wcl-RU-Akc">
@@ -1004,8 +989,6 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Événements" image="events" selectedImage="eventsSel" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kmd-T4-Thd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1017,15 +1000,13 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MAw-Tw-f9M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="-832"/>
+            <point key="canvasLocation" x="812" y="-857"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AeE-mm-U38">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Njh-RV-AH8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bIi-bw-Kn2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1037,15 +1018,13 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="01O-5h-1uB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623.75" y="-1547.25"/>
+            <point key="canvasLocation" x="1624" y="-1627"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WoG-RI-DxR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZa-VF-6Df" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fCe-Zp-Ibl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1057,15 +1036,13 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JYi-a3-QII" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623.75" y="543.75"/>
+            <point key="canvasLocation" x="1623" y="663"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ASy-Qf-UMM">
             <objects>
                 <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1100,8 +1077,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fQb-79-xAc"/>
-        <segue reference="LLY-gO-oS9"/>
         <segue reference="joa-CE-gag"/>
+        <segue reference="LLY-gO-oS9"/>
+        <segue reference="Lkv-Aq-dDA"/>
     </inferredMetricsTieBreakers>
 </document>
