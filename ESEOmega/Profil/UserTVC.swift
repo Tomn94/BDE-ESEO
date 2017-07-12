@@ -24,6 +24,7 @@ import UIKit
 
 // MARK: - UserTVC actions
 fileprivate extension Selector {
+    static let textEdited  = #selector(UserTVC.textFieldEdited)
     static let disconnect  = #selector(UserTVC.disconnect)  // Logoff button
     static let changePhoto = #selector(UserTVC.changePhoto) // Tap on user pic
 }
@@ -109,6 +110,9 @@ class UserTVC: JAQBlurryTableViewController {
         sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
         /* No current text entry, so disable the Connect button */
         configureSendCell(mail: mailField.text, password: passField.text)
+        
+        mailField.addTarget(self, action: .textEdited, for: .editingChanged)
+        passField.addTarget(self, action: .textEdited, for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +163,14 @@ class UserTVC: JAQBlurryTableViewController {
         /* Choose one random among predefined ones */
         let index = Int(arc4random_uniform(UInt32(UserTVC.mailPlaceholders.count)))
         mailField.placeholder = UserTVC.mailPlaceholders[index] + "@" + UserTVC.mailDomain
+    }
+    
+    /// Called when text in fields is edited.
+    /// Includes text deletion.
+    @objc func textFieldEdited() {
+        
+        configureSendCell(mail:     mailField.text,
+                          password: passField.text)
     }
     
     /// Visually enable or disable the Send button if the text inputs are empty

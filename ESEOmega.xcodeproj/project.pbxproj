@@ -1146,6 +1146,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 					64F93EBC1B5EA97900EE5C72 = {
