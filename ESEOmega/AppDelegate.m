@@ -431,8 +431,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
             
             for (NSString *pair in pairs) {
                 NSArray *elements = [pair componentsSeparatedByString:@"="];
-                NSString *key = [elements[0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                NSString *val = [elements[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *key = [elements[0] stringByRemovingPercentEncoding];
+                NSString *val = [elements[1] stringByRemovingPercentEncoding];
                 [dict setObject:val forKey:key];
             }
             

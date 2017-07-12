@@ -184,16 +184,16 @@ class UserTVC: JAQBlurryTableViewController {
         var tappable = false
         
         /* If available, get the text from the cell */
-        if let mail = mail,
+        if let mail     = mail,
            let password = password {
             /* Trim whitespaces from mail, and enable the cell if the result of each is not empty */
-            tappable = mail.trimmingCharacters(in: .whitespaces) != "" && password != ""
+            tappable = !mail.trimmingCharacters(in: .whitespaces).isEmpty && !password.isEmpty
         }
         
         /* Apply changes */
-        sendCell.textLabel?.isEnabled = tappable
+        sendCell.textLabel?.isEnabled     = tappable
         sendCell.isUserInteractionEnabled = tappable
-        sendCell.selectionStyle = tappable ? .default : .none
+        sendCell.selectionStyle           = tappable ? .default : .none
     }
     
     /// Set avatar shape and tap reactions on the empty data set elements
@@ -302,7 +302,7 @@ class UserTVC: JAQBlurryTableViewController {
                         
                         /* If connected */
                         if status == 1,
-                           let jsonData = json["data"] as? [String: Any] {
+                           let jsonData = json["data"] as? [String : Any] {
                             
                             /* Set up the app as connected */
                             let saltedPass = Data.hashed_string("Oups, erreur de connexion" + password)
@@ -459,19 +459,19 @@ class UserTVC: JAQBlurryTableViewController {
         alert.addAction(UIAlertAction(title: hasPushEnabled ? "Parfait" : "Parfait, j'y penserai !",
                                       style: .cancel,
                                       handler: { _ in
-                                        /* Register for push notifications */
-                                        if let delegate = UIApplication.shared.delegate as? AppDelegate {
-                                            Data.registeriOSPush(delegate)
-                                        }
-                                        
-                                        /* Sync the device push token with the server to allow future push */
-                                        if hasPushEnabled &&
-                                           JNKeychain.loadValue(forKey: KeychainKey.login) != nil {
-                                            Data.sendPushToken()
-                                        }
-                                        
-                                        /* Close the whole profile panel */
-                                        self.close()
+            /* Register for push notifications */
+            if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                Data.registeriOSPush(delegate)
+            }
+            
+            /* Sync the device push token with the server to allow future push */
+            if hasPushEnabled &&
+               JNKeychain.loadValue(forKey: KeychainKey.login) != nil {
+                Data.sendPushToken()
+            }
+            
+            /* Close the whole profile panel */
+            self.close()
         }))
         
         self.present(alert, animated: true)
@@ -485,7 +485,7 @@ class UserTVC: JAQBlurryTableViewController {
     func connectionFailed(error: String = "", code: Int = 0) {
         
         /* Set default error messages */
-        var title = "Impossible de valider votre connexion sur nos serveurs"
+        var title   = "Impossible de valider votre connexion sur nos serveurs"
         var message = "Impossible de valider votre connexion sur nos serveurs. Si le problème persiste, contactez-nous."
         
         /* Use a description of the error instead if provided */
@@ -554,7 +554,8 @@ class UserTVC: JAQBlurryTableViewController {
     func getPhotoURL() -> URL? {
         
         /* Get documents directory */
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                        .userDomainMask, true)
         if paths.count > 0 {
             let documentsDirectory = paths[0]
             
@@ -618,8 +619,8 @@ class UserTVC: JAQBlurryTableViewController {
         
             /* Create an instance of an iOS image picker */
             let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
+            imagePicker.sourceType    = .photoLibrary
+            imagePicker.delegate      = self
             imagePicker.allowsEditing = true
             
             /* Show the picker in a pop-over on iPad, fullscreen if not */
@@ -631,7 +632,8 @@ class UserTVC: JAQBlurryTableViewController {
                 
                 /* Place the pop-over on the screen */
                 let popPresentCtrl = imagePicker.popoverPresentationController
-                popPresentCtrl?.sourceRect = avatarView.convert(avatarView.bounds, to: UIApplication.shared.windows[0])
+                popPresentCtrl?.sourceRect = avatarView.convert(avatarView.bounds,
+                                                                to: UIApplication.shared.windows[0])
                 popPresentCtrl?.sourceView = imagePicker.view
                 popPresentCtrl?.permittedArrowDirections = .any
                 
@@ -802,7 +804,8 @@ extension UserTVC: UITextFieldDelegate {
         var passTxt = passField.text ?? ""
         
         /* Get the new text value being considered */
-        let proposedStr = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+        let proposedStr = ((textField.text ?? "") as NSString).replacingCharacters(in: range,
+                                                                                   with: string)
         
         /* Operations on the mail field (which tag is 0) */
         if textField.tag == 0 {
@@ -850,7 +853,8 @@ extension UserTVC: UIImagePickerControllerDelegate {
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
         /* Get the chosen image */
-        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage
+            else { return }
         
         /* Save it to disk */
         savePhoto(chosenImage)
@@ -932,7 +936,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             
             /* Return the string with some style */
             return NSAttributedString(string: welcomeString,
-                                      attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
+                                      attributes: [.foregroundColor : UIColor.darkGray])
         }
         
         return NSAttributedString(string: "", attributes: [:])
@@ -946,14 +950,15 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         
         /* Let the table view be above */
         var tip = ""
-        for _ in 0..<UserTVC.optionsNbr {
+        for _ in 0 ..< UserTVC.optionsNbr {
             tip += "\n\n\n"
         }
         
         tip += "Vous avez accès à toutes les fonctionnalités, dont la commande à la cafétéria/événements et les notifications."
         
-        return NSAttributedString(string: tip, attributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: .subheadline),
-                                                            NSAttributedStringKey.foregroundColor : UIColor.lightGray])
+        return NSAttributedString(string: tip,
+                                  attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline),
+                                               .foregroundColor : UIColor.lightGray])
     }
     
 }

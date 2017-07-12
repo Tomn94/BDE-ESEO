@@ -1174,8 +1174,8 @@ shouldChangeCharactersInRange:(NSRange)range
         [[controller navigationBar] setTintColor:[UINavigationBar appearance].tintColor];
         [controller setToRecipients:@[dest]];
         [controller setMailComposeDelegate:vc];
-        [vc presentViewController:controller animated:YES completion:^(void){
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [vc presentViewController:controller animated:YES completion:^{
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         }];
     }
     else

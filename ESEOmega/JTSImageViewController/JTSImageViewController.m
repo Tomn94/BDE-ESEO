@@ -683,7 +683,7 @@ typedef struct {
                      if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
                          [weakSelf setNeedsStatusBarAppearanceUpdate];
                      } else {
-                         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+                         //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                      }
                      
                      CGFloat scaling;
@@ -810,7 +810,7 @@ typedef struct {
                  if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
                      [weakSelf setNeedsStatusBarAppearanceUpdate];
                  } else {
-                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                  }
                  
                  CGFloat targetScaling;
@@ -918,7 +918,7 @@ typedef struct {
                  if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
                      [weakSelf setNeedsStatusBarAppearanceUpdate];
                  } else {
-                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//                     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                  }
                  
                  CGFloat targetScaling;
@@ -1092,16 +1092,16 @@ typedef struct {
                     if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
                         [weakSelf setNeedsStatusBarAppearanceUpdate];
                     } else {
-                        [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
-                                                                withAnimation:UIStatusBarAnimationFade];
+//                        [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
+//                                                                withAnimation:UIStatusBarAnimationFade];
                     }
                 }
             } completion:^(BOOL finished) {
                 
                 // Needed if dismissing from a different orientation then the one we started with
                 if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance == NO) {
-                    [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
-                                                            withAnimation:UIStatusBarAnimationNone];
+//                    [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
+//                                                            withAnimation:UIStatusBarAnimationNone];
                 }
                 
                 [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:^{
@@ -1145,8 +1145,8 @@ typedef struct {
         if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
             [weakSelf setNeedsStatusBarAppearanceUpdate];
         } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
-                                                    withAnimation:UIStatusBarAnimationFade];
+//            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
+//                                                    withAnimation:UIStatusBarAnimationFade];
         }
     } completion:^(BOOL finished) {
         [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:^{
@@ -1190,8 +1190,8 @@ typedef struct {
         if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
             [weakSelf setNeedsStatusBarAppearanceUpdate];
         } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
-                                                    withAnimation:UIStatusBarAnimationFade];
+//            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
+//                                                    withAnimation:UIStatusBarAnimationFade];
         }
     } completion:^(BOOL finished) {
         [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:^{
@@ -1244,8 +1244,8 @@ typedef struct {
         if ([UIApplication sharedApplication].jts_usesViewControllerBasedStatusBarAppearance) {
             [weakSelf setNeedsStatusBarAppearanceUpdate];
         } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
-                                                    withAnimation:UIStatusBarAnimationFade];
+//            [[UIApplication sharedApplication] setStatusBarHidden:_startingInfo.statusBarHiddenPriorToPresentation
+//                                                    withAnimation:UIStatusBarAnimationFade];
         }
     } completion:^(BOOL finished) {
         [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:^{
