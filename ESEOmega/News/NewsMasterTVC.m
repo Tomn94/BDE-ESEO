@@ -58,20 +58,16 @@
     if (_delegate && [news count] > 0 && iPAD)
         [_delegate selectedNews:news[0]];
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     // Handoff
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.news"];
     activity.title = @"News BDE ESEO";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_NEWS];
-    if ([SFSafariViewController class])
-    {
-        activity.eligibleForSearch = YES;
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForPublicIndexing = YES;
-    }
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
     
@@ -195,8 +191,7 @@
     [boutons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     [self updateToolbarIcon];
     /*
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
     {
         [self registerForPreviewingWithDelegate:self sourceView:[((UIBarButtonItem *)boutons[1]) valueForKey:@"view"]];
         [self registerForPreviewingWithDelegate:self sourceView:[((UIBarButtonItem *)boutons[3]) valueForKey:@"view"]];
@@ -334,8 +329,7 @@
     pop.popoverPresentationController.barButtonItem = eseomegaBarItem;
     pop.popoverPresentationController.delegate = self;
     
-    /*if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    /*if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
     {
         [self registerForPreviewingWithDelegate:pop sourceView:pop.tableView];
         [[Data sharedData] setT_currentTopVC:self];

@@ -1098,19 +1098,14 @@ shouldChangeCharactersInRange:(NSRange)range
     }
     
     NSURL *cleanURL = [NSURL URLWithString:[url stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    if ([SFSafariViewController class])
+    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:cleanURL
+                                                         entersReaderIfAvailable:NO];
+    if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
     {
-        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:cleanURL
-                                                             entersReaderIfAvailable:NO];
-        if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
-        {
-            safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
-            safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
-        }
-        [vc presentViewController:safari animated:YES completion:nil];
+        safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
+        safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
     }
-    else
-        [[UIApplication sharedApplication] openURL:cleanURL];
+    [vc presentViewController:safari animated:YES completion:nil];
 }
 
 - (void) twitter:(NSString *)username

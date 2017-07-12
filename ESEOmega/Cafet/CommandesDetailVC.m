@@ -31,9 +31,8 @@
     
     [self showCmd];
     
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)])
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(majTimerRecup)
-                                                     name:NSProcessInfoPowerStateDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(majTimerRecup)
+                                                 name:NSProcessInfoPowerStateDidChangeNotification object:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -62,8 +61,7 @@
 {
     [upd invalidate];
     
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
-        [[NSProcessInfo processInfo] isLowPowerModeEnabled])
+    if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
     
     upd = [NSTimer scheduledTimerWithTimeInterval:21

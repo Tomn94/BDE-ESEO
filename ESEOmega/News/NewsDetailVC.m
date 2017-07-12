@@ -36,8 +36,7 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     self.webView.allowsBackForwardNavigationGestures = YES;
-    if ([SFSafariViewController class])
-        self.webView.allowsLinkPreview = YES;
+    self.webView.allowsLinkPreview = YES;
     self.view = self.webView;
     
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
@@ -116,12 +115,9 @@
     activity.userInfo = _infos;
     if (shareURL != nil)
         activity.webpageURL = [NSURL URLWithString:_infos[@"link"]];
-    if ([SFSafariViewController class])
-    {
-        activity.eligibleForSearch = YES;
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForPublicIndexing = YES;
-    }
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
     
@@ -146,8 +142,7 @@
         TUSafariActivity *safari = [[TUSafariActivity alloc] init];
         UIActivityViewController *menuPartage = [[UIActivityViewController alloc] initWithActivityItems:@[url]
                                                                                   applicationActivities:@[safari]];
-        if ([menuPartage respondsToSelector:@selector(popoverPresentationController)])
-            menuPartage.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[1];
+        menuPartage.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[1];
         if ([[Data sharedData] t_currentTopVC] != nil)
             [[[Data sharedData] t_currentTopVC] presentViewController:menuPartage animated:YES completion:nil];
         else
@@ -208,11 +203,6 @@ shouldPreviewElement:(WKPreviewElementInfo *)elementInfo
 previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo
                     defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions
 {
-    if (![SFSafariViewController class])
-    {
-        return nil;  // iOS 8 - Peek = default view controller, Pop = back to Safari
-    }
-    
     SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:elementInfo.linkURL
                                                          entersReaderIfAvailable:NO];
     if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])

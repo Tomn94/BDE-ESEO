@@ -171,12 +171,9 @@
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.clubs"];
     activity.title = @"Clubs & BDE ESEO";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_CLUB];
-    if ([SFSafariViewController class])
-    {
-        activity.eligibleForSearch = YES;
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForPublicIndexing = YES;
-    }
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
 }

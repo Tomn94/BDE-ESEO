@@ -32,20 +32,24 @@
     self.tableView.emptyDataSetDelegate = self;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-    [ctr addObserver:self selector:@selector(loadCmds) name:@"cmds" object:nil];
-    [ctr addObserver:self selector:@selector(loadService) name:@"service" object:nil];
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)])
-        [ctr addObserver:self selector:@selector(majTimerRecup)
-                    name:NSProcessInfoPowerStateDidChangeNotification object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"cmdsSent" object:nil];
-    [ctr addObserver:self selector:@selector(upd) name:@"connecte" object:nil];
-    [ctr addObserver:self selector:@selector(commander:) name:@"btnCommanderCafet" object:nil];
+    [ctr addObserver:self selector:@selector(loadCmds)
+                name:@"cmds" object:nil];
+    [ctr addObserver:self selector:@selector(loadService)
+                name:@"service" object:nil];
+    [ctr addObserver:self selector:@selector(majTimerRecup)
+                name:NSProcessInfoPowerStateDidChangeNotification object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                name:@"debugRefresh" object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                name:@"cmdsSent" object:nil];
+    [ctr addObserver:self selector:@selector(upd)
+                name:@"connecte" object:nil];
+    [ctr addObserver:self selector:@selector(commander:)
+                name:@"btnCommanderCafet" object:nil];
     
     [self loadCmds];
 }
@@ -60,12 +64,9 @@
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.cafet"];
     activity.title = @"Cafet BDE ESEO";
     activity.webpageURL = [NSURL URLWithString:URL_ACTIVITY];
-    if ([SFSafariViewController class])
-    {
-        activity.eligibleForSearch = YES;
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForPublicIndexing = YES;
-    }
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
     
@@ -122,8 +123,7 @@
     
     if (![Data estConnecte])
         return;
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
-        [[NSProcessInfo processInfo] isLowPowerModeEnabled])
+    if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
     
     upd = [NSTimer scheduledTimerWithTimeInterval:10

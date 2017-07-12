@@ -31,8 +31,7 @@
     self.tableView.emptyDataSetDelegate = self;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
@@ -56,12 +55,9 @@
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.events"];
     activity.title = @"Événements BDE ESEO";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_EVNT];
-    if ([SFSafariViewController class])
-    {
-        activity.eligibleForSearch = YES;
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForPublicIndexing = YES;
-    }
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
 }

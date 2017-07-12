@@ -34,18 +34,20 @@
     self.refreshControl.tintColor = self.navigationController.navigationBar.barTintColor;
     
     /*
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];*/
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-    [ctr addObserver:self selector:@selector(loadEventsCmds) name:@"eventsCmds" object:nil];
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)])
-        [ctr addObserver:self selector:@selector(majTimerRecup)
-                    name:NSProcessInfoPowerStateDidChangeNotification object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"eventsCmdsSent" object:nil];
-    [ctr addObserver:self selector:@selector(commandeValidee:) name:@"finEventCmdGoLydia" object:nil];
+    [ctr addObserver:self selector:@selector(loadEventsCmds)
+                name:@"eventsCmds" object:nil];
+    [ctr addObserver:self selector:@selector(majTimerRecup)
+                name:NSProcessInfoPowerStateDidChangeNotification object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                name:@"debugRefresh" object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                name:@"eventsCmdsSent" object:nil];
+    [ctr addObserver:self selector:@selector(commandeValidee:)
+                name:@"finEventCmdGoLydia" object:nil];
     
     [self loadEventsCmds];
 }
@@ -422,8 +424,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     if (![Data estConnecte])
         return;
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
-        [[NSProcessInfo processInfo] isLowPowerModeEnabled])
+    if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
     
     upd = [NSTimer scheduledTimerWithTimeInterval:42

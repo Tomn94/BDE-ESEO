@@ -47,8 +47,7 @@
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"clubsSent" object:nil];
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
-        (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable))
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
@@ -196,8 +195,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (void) scrollViewDidScroll:(nullable UIScrollView *)scrollView
 {
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isLowPowerModeEnabled)] &&
-        [[NSProcessInfo processInfo] isLowPowerModeEnabled])
+    if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
     
     NSArray *visibleCells = [self.tableView visibleCells];
