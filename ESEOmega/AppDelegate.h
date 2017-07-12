@@ -25,7 +25,7 @@
 #import "Data.h"
 #import "TabBarController.h"
 #import "SallesTVC.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "UIImageView+WebCache.h"
 
 #define VERSION_NOTIFS_iOS 1.2
 #define NV_VERSION_TITRE @"Une nouvelle version de l'app est disponible"

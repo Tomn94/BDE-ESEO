@@ -246,7 +246,7 @@ extension IngeNewsCVC: UICollectionViewDataSourcePrefetching {
             }
         }
         
-        SDWebImagePrefetcher.shared()?.prefetchURLs(thumbnails)
+        SDWebImagePrefetcher.shared().prefetchURLs(thumbnails)
     }
     
 }

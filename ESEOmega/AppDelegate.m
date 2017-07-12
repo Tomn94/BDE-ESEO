@@ -29,7 +29,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"alreadyLaunchedv4NewAPI"])
     {
-        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
         [[SDImageCache sharedImageCache] clearMemory];
         [[EGOCache globalCache] clearCache];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"alreadyLaunchedv4NewAPI"];
