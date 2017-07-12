@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tEs-hZ-PDK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tEs-hZ-PDK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +22,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="5Ed-dU-RuT"/>
+                    <navigationItem key="navigationItem" id="5Ed-dU-RuT">
+                        <barButtonItem key="rightBarButtonItem" image="user" id="Mh8-ZN-7Q1">
+                            <color key="tintColor" red="0.67843137254901964" green="0.89803921568627454" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="384" height="667"/>
                 </viewController>
@@ -30,19 +34,17 @@
             </objects>
             <point key="canvasLocation" x="1677" y="375"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--News-->
         <scene sceneID="ajc-D7-b1M">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t4s-MH-WsA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="5Oo-Z8-saA"/>
+                    <tabBarItem key="tabBarItem" title="News" image="news" id="5Oo-Z8-saA"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KBW-dc-5Am">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.53333333333333321" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -53,13 +55,87 @@
             </objects>
             <point key="canvasLocation" x="865" y="375"/>
         </scene>
+        <!--Événements-->
+        <scene sceneID="GQQ-u1-qsO">
+            <objects>
+                <viewController id="tOd-9R-Dgo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qSp-3B-efQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="IS1-uW-Ybp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="OUz-oS-005">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Événements" image="events" id="5MP-KS-j2C"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rTv-vd-bah" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="1093"/>
+        </scene>
+        <!--Clubs-->
+        <scene sceneID="h8s-ML-Hxp">
+            <objects>
+                <viewController id="WFq-Z3-X5h" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="37y-VO-Qlw"/>
+                        <viewControllerLayoutGuide type="bottom" id="W5R-Pi-oQv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="9Xp-Ip-Nzc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Clubs" image="clubs" id="2pH-kB-eAu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xtr-HP-6Hr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="1093"/>
+        </scene>
+        <!--Cafétéria-->
+        <scene sceneID="7GL-eg-nbl">
+            <objects>
+                <viewController id="2KW-K4-tUr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F63-fB-4hV"/>
+                        <viewControllerLayoutGuide type="bottom" id="mv3-51-vr4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="xWK-5A-rYp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Cafétéria" image="cafet" id="jL7-EM-uSC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ndV-LI-dgb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1670" y="1093"/>
+        </scene>
+        <!--Bons plans-->
+        <scene sceneID="xSN-ix-c0v">
+            <objects>
+                <viewController id="S8Y-U0-gVO" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z7e-Cn-I74"/>
+                        <viewControllerLayoutGuide type="bottom" id="uCD-Nr-p2P"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="EjY-4U-c5l">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" id="z6v-Xw-bK1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aWb-bD-qbp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2463" y="1093"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hBc-Wf-o9e">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="tEs-hZ-PDK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="384" height="667"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1oS-XH-Kem">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -67,6 +143,10 @@
                     </tabBar>
                     <connections>
                         <segue destination="t4s-MH-WsA" kind="relationship" relationship="viewControllers" id="zAI-dl-yDQ"/>
+                        <segue destination="tOd-9R-Dgo" kind="relationship" relationship="viewControllers" id="KUV-E8-eAW"/>
+                        <segue destination="WFq-Z3-X5h" kind="relationship" relationship="viewControllers" id="QXG-4J-Lom"/>
+                        <segue destination="2KW-K4-tUr" kind="relationship" relationship="viewControllers" id="vmx-J2-gzJ"/>
+                        <segue destination="S8Y-U0-gVO" kind="relationship" relationship="viewControllers" id="YdH-Az-0Mv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltX-OI-r7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -74,4 +154,13 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cafet" width="24" height="24"/>
+        <image name="clubs" width="30" height="30"/>
+        <image name="events" width="24" height="24"/>
+        <image name="news" width="24" height="21"/>
+        <image name="sponsors" width="24" height="24"/>
+        <image name="user" width="24" height="24"/>
+    </resources>
+    <color key="tintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
