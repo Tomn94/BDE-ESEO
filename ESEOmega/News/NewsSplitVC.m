@@ -40,6 +40,11 @@
     [self splitViewController:self willChangeToDisplayMode:self.displayMode];
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Split View Controller delegate
 
 - (BOOL)    splitViewController:(nonnull UISplitViewController *)splitViewController

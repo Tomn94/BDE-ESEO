@@ -43,3 +43,7 @@
 - (void) retirerTap;
 
 @end
+
+/** Used by Events, Cafet, Sponsors tabs to display a light status bar */
+@interface LightStatusBarNVC : UINavigationController
+@end

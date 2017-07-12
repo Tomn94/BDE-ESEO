@@ -37,6 +37,11 @@
 //    [(ClubsDetailTVC *)[(UINavigationController *)self.viewControllers[1] viewControllers][0] selectedClub:@{@"titre": @42}];    // 1er article à charger sur iPad/iPhone 6+ en paysage
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (BOOL)    splitViewController:(nonnull UISplitViewController *)splitViewController
 collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewController
       ontoPrimaryViewController:(nonnull UIViewController *)primaryViewController

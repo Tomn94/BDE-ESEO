@@ -94,9 +94,7 @@
 //        return;
     
     GameVC *gameVC = [GameVC new];
-    [self presentViewController:gameVC animated:YES completion:^{
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    }];
+    [self presentViewController:gameVC animated:YES completion:nil];
 }
 
 - (void) ajouterTap
@@ -231,6 +229,16 @@ shouldSelectViewController:(UIViewController *)viewController
                          error:(NSError*)error
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
+
+
+@implementation LightStatusBarNVC
+
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 @end

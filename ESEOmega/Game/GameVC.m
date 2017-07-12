@@ -74,7 +74,6 @@
 
 - (void) fermer
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -87,6 +86,11 @@
 //- (NSUInteger) supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL) prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end

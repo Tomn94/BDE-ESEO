@@ -108,6 +108,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Actions
 
 - (void) upd

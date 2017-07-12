@@ -947,7 +947,7 @@ Bâtiment : F. Rolland</string>
         <!--Bons plans-->
         <scene sceneID="CiY-kA-nsY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qr5-8U-DHh" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qr5-8U-DHh" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" selectedImage="sponsorsSel" id="sSY-rw-nz9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="krn-aS-nQJ">
@@ -966,7 +966,7 @@ Bâtiment : F. Rolland</string>
         <!--Cafétéria-->
         <scene sceneID="r0S-ep-qWr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MJI-Qx-EYb" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MJI-Qx-EYb" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Cafétéria" image="cafet" selectedImage="cafetSel" id="pfX-fs-rpx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UmN-d8-iIC">
@@ -985,7 +985,7 @@ Bâtiment : F. Rolland</string>
         <!--Événements-->
         <scene sceneID="wcl-RU-Akc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hyy-J3-VJz" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hyy-J3-VJz" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Événements" image="events" selectedImage="eventsSel" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -1077,8 +1077,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="joa-CE-gag"/>
         <segue reference="LLY-gO-oS9"/>
-        <segue reference="Lkv-Aq-dDA"/>
+        <segue reference="joa-CE-gag"/>
+        <segue reference="luS-Gd-MmJ"/>
     </inferredMetricsTieBreakers>
 </document>
