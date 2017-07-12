@@ -24,7 +24,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5Ed-dU-RuT">
                         <barButtonItem key="rightBarButtonItem" image="user" id="Mh8-ZN-7Q1">
-                            <color key="tintColor" red="0.67843137254901964" green="0.89803921568627454" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.68" green="0.8986666667" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -44,7 +44,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KBW-dc-5Am">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0" green="0.5333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -162,5 +162,5 @@
         <image name="sponsors" width="24" height="24"/>
         <image name="user" width="24" height="24"/>
     </resources>
-    <color key="tintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
