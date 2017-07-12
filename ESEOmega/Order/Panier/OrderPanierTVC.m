@@ -194,60 +194,66 @@
          textField.autocorrectionType     = UITextAutocorrectionTypeYes;
          textField.delegate               = self;
      }];
-    [alert2 addAction:[UIAlertAction actionWithTitle:@"Finaliser la commande"
-                                               style:UIAlertActionStyleDefault
-                                             handler:^(UIAlertAction * _Nonnull action)
-                       {
-                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Valider la commande ?"
-                                                                                          message:@"En validant, vous vous engagez à payer et récupérer votre repas au comptoir de la cafet aujourd'hui aux horaires d'ouverture.\n☝🏼\nSi ce n'est pas le cas, il vous sera impossible de passer une nouvelle commande dès demain."
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                           [alert addAction:[UIAlertAction actionWithTitle:@"Je confirme, j'ai faim !"
-                                                                     style:UIAlertActionStyleDestructive
-                                                                   handler:^(UIAlertAction *action) {
-                                                                       [[Data sharedData] setCafetCmdEnCours:YES];
-                                                                       [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
-                                                                       LAContext *context = [LAContext new];
-                                                                       context.localizedFallbackTitle = @"";
-                                                                       NSError *error = nil;
-                                                                       if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-                                                                           [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                                                                                   localizedReason:@"Valide l'envoi de votre commande"
-                                                                                             reply:^(BOOL success, NSError *error)
-                                                                            {
-                                                                                /*UIAlertController *alert = nil;
-                                                                                 if (error)NSLog(@"erreur %@", error.localizedDescription);
-                                                                                 alert = [UIAlertController alertControllerWithTitle:@"La commande n'a pas été validée"
-                                                                                 message:@"Une erreur est survenue lors de la validation de votre identité."
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                                                                                 else */if (success)
-                                                                                     [self sendPanier];
-                                                                                 else
-                                                                                 {
-                                                                                     [[Data sharedData] setCafetCmdEnCours:NO];
-                                                                                     [self.tableView reloadData];
-                                                                                     //                                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
-                                                                                 }
-                                                                                /*else NSLog(@"!success %@", error.localizedDescription);
-                                                                                 alert = [UIAlertController alertControllerWithTitle:@"La commande n'a pas été validée"
-                                                                                 message:@"Est-ce vraiment vous ? Impossible de vous reconnaître…"
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                                                                                 
-                                                                                 if (alert != nil)
-                                                                                 {
-                                                                                 [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                                                                 [self.navigationController presentViewController:alert animated:YES completion:nil];
-                                                                                 }*/
-                                                                            }];
-                                                                       }
-                                                                       else
-                                                                           [self sendPanier];
-                                                                   }]];
-                           [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
-                           [self presentViewController:alert animated:YES completion:nil];
-                       }]];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Finaliser la commande"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Valider la commande ?"
+                                                                       message:@"En validant, vous vous engagez à payer et récupérer votre repas au comptoir de la cafet aujourd'hui aux horaires d'ouverture.\n☝🏼\nSi ce n'est pas le cas, il vous sera impossible de passer une nouvelle commande dès demain."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Je confirme, j'ai faim !"
+                                                  style:UIAlertActionStyleDestructive
+                                                handler:^(UIAlertAction *action)
+            {
+                [[Data sharedData] setCafetCmdEnCours:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
+                LAContext *context = [LAContext new];
+                context.localizedFallbackTitle = @"";
+                NSError *error = nil;
+                if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+                    [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                            localizedReason:@"Valide l'envoi de votre commande"
+                                      reply:^(BOOL success, NSError *error)
+                     {
+                         /*UIAlertController *alert = nil;
+                         if (error)NSLog(@"erreur %@", error.localizedDescription);
+                         alert = [UIAlertController alertControllerWithTitle:@"La commande n'a pas été validée"
+                                                                     message:@"Une erreur est survenue lors de la validation de votre identité."
+                                                              preferredStyle:UIAlertControllerStyleAlert];
+                         else */if (success)
+                             [self sendPanier];
+                         else
+                         {
+                             [[Data sharedData] setCafetCmdEnCours:NO];
+                             [self.tableView reloadData];
+//                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
+                         }
+                         /*else NSLog(@"!success %@", error.localizedDescription);
+                         alert = [UIAlertController alertControllerWithTitle:@"La commande n'a pas été validée"
+                                                                     message:@"Est-ce vraiment vous ? Impossible de vous reconnaître…"
+                                                              preferredStyle:UIAlertControllerStyleAlert];
+                         
+                         if (alert != nil)
+                         {
+                             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                             [self.navigationController presentViewController:alert animated:YES completion:nil];
+                         }*/
+                     }];
+                }
+                else
+                    [self sendPanier];
+            }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }];
+    
+    [alert2 addAction:confirmAction];
     [alert2 addAction:[UIAlertAction actionWithTitle:@"Annuler"
                                                style:UIAlertActionStyleCancel
                                              handler:nil]];
+    [alert2 setPreferredAction:confirmAction];
     [self presentViewController:alert2 animated:YES completion:nil];
 }
 
@@ -262,7 +268,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Hm… 🌚"
                                                                        message:@"Impossible de valider un panier vide. Ajoutez quelques éléments de la carte d'abord."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [self.tableView reloadData];
         return;
@@ -286,7 +293,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
                                                                        message:@"Impossible d'analyser votre panier, merci de nous contacter.\nVous pouvez toujours venir commander au comptoir."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [self.tableView reloadData];
         return;
@@ -323,14 +331,15 @@
                                                       alert = [UIAlertController alertControllerWithTitle:(cbOK) ? @"Commande validée !\nComment voulez-vous la payer ?" : @"Commande validée !"
                                                                                                   message:@"Celle-ci est en cours de préparation et sera disponible après avoir payé.\nVous serez averti d'une notification (si activées) quand elle vous attendra au comptoir.\nBon appétit ! 👌🏼"
                                                                                            preferredStyle:UIAlertControllerStyleAlert];
-                                                      if (cbOK)
-                                                          [alert addAction:[UIAlertAction actionWithTitle:@"Payer immédiatement (Lydia 💳)"
-                                                                                                    style:UIAlertActionStyleDefault
-                                                                                                  handler:^(UIAlertAction * action) {
-                                                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdValideLydia"
-                                                                                                                                                          object:nil userInfo:@{ @"idcmd": @([JSON[@"data"][@"idcmd"] integerValue]), @"catOrder" : @"CAFET" }];
-                                                                                                      [[Data sharedData] updateJSON:@"cmds"];
-                                                                                                  }]];
+                                                      if (cbOK) {
+                                                          UIAlertAction *payNowAction = [UIAlertAction actionWithTitle:@"Payer immédiatement (Lydia 💳)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdValideLydia"
+                                                                                                                  object:nil userInfo:@{ @"idcmd": @([JSON[@"data"][@"idcmd"] integerValue]), @"catOrder" : @"CAFET" }];
+                                                              [[Data sharedData] updateJSON:@"cmds"];
+                                                          }];
+                                                          [alert addAction:payNowAction];
+                                                          [alert setPreferredAction:payNowAction];
+                                                      }
                                                       
                                                       [alert addAction:[UIAlertAction actionWithTitle:(cbOK) ? @"Payer plus tard au comptoir 💰" : @"Merci !"
                                                                                                 style:(cbOK) ? UIAlertActionStyleDefault : UIAlertActionStyleCancel

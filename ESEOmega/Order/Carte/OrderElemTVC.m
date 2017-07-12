@@ -164,7 +164,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'avez pas sélectionné tous vos éléments principaux"
                                                                        message:[NSString stringWithFormat:@"Vous devez choisir %d élément%@ parmi ceux présentés pour ce menu.", [_data[@"nbMainElem"] intValue], ([_data[@"nbMainElem"] intValue] > 1) ? @"s" : @""]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([selectionElements count] < [_data[@"nbSecoElem"] intValue])
@@ -172,7 +173,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'avez pas sélectionné tous vos éléments secondaires"
                                                                        message:[NSString stringWithFormat:@"Vous devez choisir %d élément%@ parmi ceux présentés pour ce menu.", [_data[@"nbSecoElem"] intValue], ([_data[@"nbSecoElem"] intValue] > 1) ? @"s" : @""]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else
@@ -332,7 +334,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         
         if ([dialog.actions count] < 2)
             [dialog setMessage:@""];
-        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:dialog animated:YES completion:nil];
     }
     else if (indexPath.section == [_data[@"nbMainElem"] intValue])
@@ -347,7 +350,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous avez sélectionné trop d'éléments pour ce menu"
                                                                                message:[NSString stringWithFormat:@"Vous ne pouvez sélectionner que %d élément%@ maximum, désélectionnez-%@ ou choisissez un autre menu.", [_data[@"nbSecoElem"] intValue], ([_data[@"nbSecoElem"] intValue] > 1) ? @"s" : @"", ([_data[@"nbSecoElem"] intValue] > 1) ? @"en" : @"le"]
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                          style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
             }
             else

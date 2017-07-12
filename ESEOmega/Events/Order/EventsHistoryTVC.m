@@ -158,15 +158,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                    message:@"Les informations nécessaires ont été envoyées à votre adresse mail.\nAu moindre problème, contactez-nous."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Renvoyer la place par mail"
-                                             style:UIAlertActionStyleDefault
+                                              style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * _Nonnull action) {
                                                 [[Data sharedData] sendMail:@{ @"id": [commande[@"idlydia"] stringValue],
                                                                                @"cat": @"EVENT" }
                                                                        inVC:self];
                                            }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                             style:UIAlertActionStyleCancel
-                                           handler:nil]];
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -224,10 +224,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                           {
                                               [self.navigationItem setLeftBarButtonItem:_ajoutBtn animated:YES];
                                               
-                                              if (nvApp)
-                                                  [alert addAction:[UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                              if (nvApp) {
+                                                  UIAlertAction *updateAction = [UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-                                                  }]];
+                                                  }];
+                                                  [alert addAction:updateAction];
+                                                  [alert setPreferredAction:updateAction];
+                                              }
                                               [alert addAction:[UIAlertAction actionWithTitle:(nvApp) ? @"Annuler" : @"OK" style:UIAlertActionStyleCancel handler:nil]];
                                               [self presentViewController:alert animated:YES completion:nil];
                                           }
@@ -249,7 +252,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         alert = [UIAlertController alertControllerWithTitle:@"Erreur 🌍"
                                                     message:@"L'accès à la réservation ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !"
                                              preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"D'accord" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"D'accord"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [self.navigationItem setLeftBarButtonItem:_ajoutBtn animated:YES];
         [[Data sharedData] updLoadingActivity:NO];
@@ -337,10 +341,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                           if (alert != nil)
                                           {
                                               [self.navigationItem setLeftBarButtonItem:_ajoutBtn animated:YES];
-                                              if ([alert.title isEqualToString:NEW_UPD_TI])
-                                                  [alert addAction:[UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                              if ([alert.title isEqualToString:NEW_UPD_TI]) {
+                                                  UIAlertAction *updateAction = [UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-                                                  }]];
+                                                  }];
+                                                  [alert addAction:updateAction];
+                                                  [alert setPreferredAction:updateAction];
+                                              }
                                               [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                                               [self presentViewController:alert animated:YES completion:nil];
                                           }
@@ -351,7 +358,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     if (alert != nil)
     {
         [self.navigationItem setLeftBarButtonItem:_ajoutBtn animated:YES];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }

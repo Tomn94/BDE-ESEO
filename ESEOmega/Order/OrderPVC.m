@@ -77,7 +77,9 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Votre panier a expiré"
                                                                    message:@"Pour des raisons de sécurité, il n'est possible de passer commande que pendant 10 minutes sans valider.\nMerci de bien vouloir recommencer. 😇"
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction *action) {
         [self fermerForcer];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
@@ -95,10 +97,14 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous avez des éléments dans votre panier"
                                                                        message:@"Si vous annulez, vous perdrez votre commande en cours."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Supprimer ma commande" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Supprimer ma commande"
+                                                  style:UIAlertActionStyleDestructive
+                                                handler:^(UIAlertAction *action) {
             [self fermerForcer];
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Continuer à commander" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Continuer à commander"
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else

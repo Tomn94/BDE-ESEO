@@ -100,8 +100,8 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
             let alert = UIAlertController(title: "Aucun numéro de téléphone renseigné",
                                           message: "Un numéro de téléphone portable est demandé par Lydia afin de lier les commandes cafet/event à votre compte, également lorsque vous vous inscrivez à un événement gratuit hors Lydia.\nIl n'est pas stocké sur nos serveurs sauf dans 2e cas.",
                                           preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.userTVC?.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self.userTVC?.present(alert, animated: true)
             return
         }
         
@@ -120,8 +120,8 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         }))
         
         /* Add also a Cancel button, and present inside this view controller */
-        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        self.userTVC?.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel))
+        self.userTVC?.present(alert, animated: true)
     }
     
     
@@ -179,8 +179,8 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         }
         
         /* Add also a Cancel button, and present inside the profile view controller */
-        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        self.userTVC?.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel))
+        self.userTVC?.present(alert, animated: true)
     }
     
 }

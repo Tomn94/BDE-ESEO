@@ -236,7 +236,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connectez-vous !"
                                                                        message:@"Connectez-vous grâce au bouton en haut à droite pour commander à la cafet !"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -284,10 +285,13 @@
                                           {
                                               [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
                                               
-                                              if (nvApp)
-                                                  [alert addAction:[UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                              if (nvApp) {
+                                                  UIAlertAction *updateAction = [UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-                                                  }]];
+                                                  }];
+                                                  [alert addAction:updateAction];
+                                                  [alert setPreferredAction:updateAction];
+                                              }
                                               [alert addAction:[UIAlertAction actionWithTitle:(nvApp) ? @"Annuler" : @"OK" style:UIAlertActionStyleCancel handler:nil]];
                                               [self presentViewController:alert animated:YES completion:nil];
                                           }
@@ -309,7 +313,8 @@
         alert = [UIAlertController alertControllerWithTitle:@"Erreur 🌍"
                                                     message:@"L'accès à la cafet ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !"
                                              preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"D'accord" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"D'accord"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
         [[Data sharedData] updLoadingActivity:NO];
@@ -373,10 +378,13 @@
                                                   UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                                                                  message:message
                                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                  if (result == -8)
-                                                      [alert addAction:[UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                  if (result == -8) {
+                                                      UIAlertAction *updateAction = [UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-                                                      }]];
+                                                      }];
+                                                      [alert addAction:updateAction];
+                                                      [alert setPreferredAction:updateAction];
+                                                  }
                                                   [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                                                   [self presentViewController:alert animated:YES completion:nil];
                                               }
@@ -392,7 +400,8 @@
     if (alert != nil)
     {
         [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }

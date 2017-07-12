@@ -748,16 +748,18 @@
              textField.delegate     = self;
              textField.text         = self.tempPhone;
          }];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Payer maintenant"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * _Nonnull action)
-                          {
-                              [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
-                                      forType:catOrder];
-                          }]];
+        UIAlertAction *payAction = [UIAlertAction actionWithTitle:@"Payer maintenant"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action)
+                                    {
+                                        [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
+                                                forType:catOrder];
+                                    }];
+        [alert addAction:payAction];
         [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
+        [alert setPreferredAction:payAction];
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
                                                                                            animated:YES completion:nil];
     }
@@ -1019,16 +1021,18 @@ shouldChangeCharactersInRange:(NSRange)range
          textField.keyboardType = UIKeyboardTypeEmailAddress;
          textField.delegate     = self;
      }];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Valider"
-                                              style:UIAlertActionStyleDefault
-                                            handler:^(UIAlertAction * _Nonnull action)
-                      {
-                          NSString *mailAddress = self.tempPhone;
-                          [self send:mailAddress with:data in:vc];
-                      }]];
+    UIAlertAction *validateAction = [UIAlertAction actionWithTitle:@"Valider"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action)
+                                     {
+                                         NSString *mailAddress = self.tempPhone;
+                                         [self send:mailAddress with:data in:vc];
+                                     }];
+    [alert addAction:validateAction];
     [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
                                              style:UIAlertActionStyleCancel
                                            handler:nil]];
+    [alert setPreferredAction:validateAction];
     [vc presentViewController:alert animated:YES completion:nil];
 }
 
@@ -1142,13 +1146,17 @@ shouldChangeCharactersInRange:(NSRange)range
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     
     NSURL *snap = [NSURL URLWithString:[@"snapchat://add/" stringByAppendingString:username]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Ajouter sur Snapchat" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-                      {
-                          if ([[UIApplication sharedApplication] canOpenURL:snap])
-                              [[UIApplication sharedApplication] openURL:snap];
-                          else
-                              [self openURL:[NSString stringWithFormat:@"https://www.snapchat.com/add/%@", username] currentVC:vc];
-                      }]];
+    UIAlertAction *snapAction = [UIAlertAction actionWithTitle:@"Ajouter sur Snapchat"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action)
+                                 {
+                                     if ([[UIApplication sharedApplication] canOpenURL:snap])
+                                         [[UIApplication sharedApplication] openURL:snap];
+                                     else
+                                         [self openURL:[NSString stringWithFormat:@"https://www.snapchat.com/add/%@", username] currentVC:vc];
+                                 }];
+    [alert addAction:snapAction];
+    [alert setPreferredAction:snapAction];
     [vc presentViewController:alert animated:YES completion:nil];
 }
 
@@ -1195,13 +1203,19 @@ shouldChangeCharactersInRange:(NSRange)range
     NSURL *tel = [NSURL URLWithString:[@"tel://" stringByAppendingString:num]];
     if ([[UIApplication sharedApplication] canOpenURL:tel])
     {
-        [alert addAction:[UIAlertAction actionWithTitle:@"Appeler" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *callAction = [UIAlertAction actionWithTitle:@"Appeler"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
             [[UIApplication sharedApplication] openURL:tel];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        }];
+        [alert addAction:callAction];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [alert setPreferredAction:callAction];
     }
     else
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
     [vc presentViewController:alert animated:YES completion:nil];
 }
 

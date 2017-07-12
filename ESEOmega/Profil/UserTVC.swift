@@ -222,7 +222,7 @@ class UserTVC: JAQBlurryTableViewController {
         mailField.resignFirstResponder()
         passField.resignFirstResponder()
         
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
     
     /// Fade any change of the empty data set
@@ -355,9 +355,9 @@ class UserTVC: JAQBlurryTableViewController {
                                           message: "Veuillez attendre \(minToWait) \(unit), vous avez réalisé trop de tentatives à la suite.",
                                           preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Mince !", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Mince !", style: .cancel))
             
-            self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true)
         }
         
         /* If the user has hit the maximum */
@@ -462,7 +462,7 @@ class UserTVC: JAQBlurryTableViewController {
                                         self.close()
         }))
         
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true)
     }
     
     /// Displays an alert explaining why login has failed
@@ -488,9 +488,11 @@ class UserTVC: JAQBlurryTableViewController {
         }
         
         /* Show alert with message */
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: title, message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .cancel))
+        self.present(alert, animated: true)
     }
     
     
@@ -504,9 +506,12 @@ class UserTVC: JAQBlurryTableViewController {
                                       message: "Vos éventuelles commandes en cours à la cafétéria restent dues.",
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Annuler",
+                                      style: .cancel))
         
-        alert.addAction(UIAlertAction(title: "Se déconnecter", style: .destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Se déconnecter",
+                                      style: .destructive,
+                                      handler: { _ in
             
             /* Delete any avatar from disk */
             if self.getPhoto() != nil {
@@ -525,7 +530,7 @@ class UserTVC: JAQBlurryTableViewController {
             NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
         }))
         
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true)
     }
     
     
@@ -579,15 +584,18 @@ class UserTVC: JAQBlurryTableViewController {
                                       preferredStyle: .actionSheet)
         
         /* Configure actions */
-        sheet.addAction(UIAlertAction(title: "Supprimer la photo", style: .destructive, handler: { _ in
+        sheet.addAction(UIAlertAction(title: "Supprimer la photo",
+                                      style: .destructive, handler: { _ in
             self.removePhoto()
         }))
-        sheet.addAction(UIAlertAction(title: "Choisir une photo", style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: "Choisir une photo",
+                                      style: .default, handler: { _ in
             self.selectPhoto()
         }))
-        sheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: "Annuler",
+                                      style: .cancel))
         
-        self.present(sheet, animated: true, completion: nil)
+        self.present(sheet, animated: true)
     }
     
     /// Displays a standard photo picker to select a new avatar
@@ -616,7 +624,7 @@ class UserTVC: JAQBlurryTableViewController {
                 popPresentCtrl?.permittedArrowDirections = .any
                 
                 /* Present pop-over */
-                self.present(imagePicker, animated: true, completion: nil)
+                self.present(imagePicker, animated: true)
                 
             } else {
                 /* Present fullscreen on iPhone */
@@ -662,8 +670,9 @@ class UserTVC: JAQBlurryTableViewController {
                 let alert = UIAlertController(title: "Impossible de supprimer l'image",
                                               message: error.localizedDescription,
                                               preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "OK",
+                                              style: .cancel))
+                self.present(alert, animated: true)
             }
         }
         

@@ -191,10 +191,16 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NV_VERSION_TITRE
                                                                        message:NV_VERSION_MESSG
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Mettre à jour"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+        {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+        }];
+        [alert addAction:updateAction];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [alert setPreferredAction:updateAction];
         [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
         
         completionHandler(UNNotificationPresentationOptionNone);
@@ -228,10 +234,16 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NV_VERSION_TITRE
                                                                        message:NV_VERSION_MESSG
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Mettre à jour"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+        {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+        }];
+        [alert addAction:updateAction];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [alert setPreferredAction:updateAction];
         [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -267,14 +279,18 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         }
         else */if (val > 0)
         {
-            [alert addAction:[UIAlertAction actionWithTitle:@"Voir" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                              {
-                                  [self openNotif:userInfo];
-                              }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Voir" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                            {
+                                                [self openNotif:userInfo];
+                                            }];
+            [alert addAction:defaultAction];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer"
+                                                      style:UIAlertActionStyleCancel handler:nil]];
+            [alert setPreferredAction:defaultAction];
         }
         else
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleCancel handler:nil]];
         [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
     }
     else if (val >= 0)
@@ -369,13 +385,21 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
                                                                    message:infos[@"message"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    if (infos[@"upd"] != nil && infos[@"upd"]) {
-        [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    if (infos[@"upd"] != nil && infos[@"upd"])
+    {
+        UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Mettre à jour"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+        {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
+        }];
+        [alert addAction:updateAction];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [alert setPreferredAction:updateAction];
     } else {
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
     }
     
     [self.window.rootViewController presentViewController:alert animated:YES completion:nil];

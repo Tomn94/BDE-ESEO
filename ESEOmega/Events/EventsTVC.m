@@ -83,7 +83,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Nouveau !"
                                                                        message:@"Commandez votre place à la Blue Moon depuis votre iPhone/iPad, grâce au nouveau bouton de commande en haut de l'écran !"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
@@ -423,11 +424,16 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous vous inscrire pour cet événement ?"
                                                                    message:[event[@"title"] stringByAppendingString:@"\n\nVotre nom, mail et № de téléphone seront communiqués au BDE"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Confirmer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirmer"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
         [Data sharedData].tempPhone = nil;
         [self signUp:[event[@"id"] intValue]];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+    }];
+    [alert addAction:confirmAction];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                              style:UIAlertActionStyleCancel handler:nil]];
+    [alert setPreferredAction:confirmAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -447,7 +453,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible de s'inscrire"
                                                                                    message:@"L'événement est terminé"
                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                              style:UIAlertActionStyleCancel handler:nil]];
                     [self presentViewController:alert animated:YES completion:nil];
                     return;
                 }
@@ -461,7 +468,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous devez vous connecter pour vous inscrire à un événement"
                                                                        message:@"Utilisez votre profil ESEO pour vous connecter dans l'application."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -482,15 +490,17 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
              textField.delegate     = self;
              textField.text         = [Data sharedData].tempPhone;
          }];
-        [alert addAction:[UIAlertAction actionWithTitle:@"S'inscrire"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * _Nonnull action)
-                          {
-                              [self sendSignUp:eventID];
-                          }]];
+        UIAlertAction *subscribeAction = [UIAlertAction actionWithTitle:@"S'inscrire"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action)
+                                          {
+                                              [self sendSignUp:eventID];
+                                          }];
+        [alert addAction:subscribeAction];
         [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
+        [alert setPreferredAction:subscribeAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else
@@ -906,12 +916,17 @@ shouldChangeCharactersInRange:(NSRange)range
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous vous inscrire pour cet événement ?"
                                                                        message:[((EventAlertView *)alertView.containerView).title.text stringByAppendingString:@"\n\nVotre nom, mail et № de téléphone seront communiqués au BDE"]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Confirmer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *validateAction = [UIAlertAction actionWithTitle:@"Confirmer"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * _Nonnull action) {
             [Data sharedData].tempPhone = nil;
             int eventID = ((EventAlertView *)alertView.containerView).identifier;
             [self signUp:eventID];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        }];
+        [alert addAction:validateAction];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [alert setPreferredAction:validateAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else if (![[alertView buttonTitles][buttonIndex] isEqualToString:DEFAULT_BTN])

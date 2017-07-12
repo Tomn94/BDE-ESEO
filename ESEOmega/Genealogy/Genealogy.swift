@@ -59,10 +59,11 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             let alert = UIAlertController(title: "Veuillez mettre à jour\nvotre appareil",
                                           message: "L'arbre des parrainages n'est disponible qu'à partir d'iOS 9.\nVous disposez d'iOS 8.",
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
-                self.dismiss(animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .cancel, handler: { _ in
+                self.dismiss(animated: true)
             }))
-            present(alert, animated: true, completion: nil)
+            present(alert, animated: true)
             return
         }
     }
@@ -189,7 +190,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     }
 
     @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
     

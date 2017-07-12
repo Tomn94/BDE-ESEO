@@ -145,7 +145,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Votre panier est plein"
                                                                        message:[NSString stringWithFormat:@"Vous ne pouvez avoir que %d items maximum dans votre panier.\nAllez dans Panier puis appuyez sur Modifier pour en retirer.", NBR_MAX_PANIER]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -161,7 +162,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous avez encore faim ?"
                                                                            message:[NSString stringWithFormat:@"Vous ne pouvez avoir que %d menus maximum dans votre panier. Allez dans Panier puis appuyez sur Modifier pour en retirer.\nCependant, vous pouvez toujours ajouter d'autres éléments.", NBR_MAX_MENUS]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
             return;
         }
@@ -194,7 +196,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                                                      }]];
         }
         
-        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:dialog animated:YES completion:nil];
     }
     else
@@ -222,7 +225,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         
         if ([dialog.actions count] < 2)
             [dialog setMessage:@""];
-        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+        [dialog addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:dialog animated:YES completion:nil];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

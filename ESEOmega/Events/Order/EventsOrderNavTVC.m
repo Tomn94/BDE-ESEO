@@ -73,7 +73,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'avez pas choisi de navette"
                                                                        message:@"Tapez sur une de la liste pour la sélectionner."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }

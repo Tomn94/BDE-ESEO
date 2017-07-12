@@ -123,12 +123,12 @@
                                                   alert = [UIAlertController alertControllerWithTitle:@"Détails de la commande indisponibles"
                                                                                               message:@"Impossible de vous connecter avec ce nom d'utilisateur/mot de passe.\n\nSi vous avez changé de mot de passe récemment, merci de bien vouloir vous déconnecter puis reconnecter."
                                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                                                  [alert addAction:[UIAlertAction actionWithTitle:@"Voir profil"
-                                                                                            style:UIAlertActionStyleDefault
-                                                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                                                              TabBarController *tab = (TabBarController *)([UIApplication sharedApplication].delegate.window.rootViewController);
-                                                                                              [tab ecranConnex];
-                                                                                          }]];
+                                                  UIAlertAction *profileAction = [UIAlertAction actionWithTitle:@"Voir profil" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                      TabBarController *tab = (TabBarController *)([UIApplication sharedApplication].delegate.window.rootViewController);
+                                                      [tab ecranConnex];
+                                                  }];
+                                                  [alert addAction:profileAction];
+                                                  [alert setPreferredAction:profileAction];
                                               }
                                           }
                                           else
@@ -287,29 +287,33 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Voulez-vous payer votre commande dès maintenant avec Lydia ?"
                                                                        message:@"Plus besoin de se déplacer pour payer !"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Payer immédiatement 💳"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    if ([Data estConnecte])
-                                                        [[Data sharedData] startLydia:[_infos[@"idcmd"] integerValue]
-                                                                              forType:@"CAFET"];
-                                                    else
-                                                    {
-                                                        [alert dismissViewControllerAnimated:YES completion:^{
-                                                            UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Vous devez être connecté pour payer"
-                                                                                                                            message:@"Connectez-vous grâce à votre compte Campus ESEO."
-                                                                                                                     preferredStyle:UIAlertControllerStyleAlert];
-                                                            [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                                       style:UIAlertActionStyleCancel
-                                                                                                     handler:nil]];
-                                                            [self presentViewController:alert2 animated:YES completion:nil];
-                                                        }];
-                                                    }
-                                                }]];
         
+        UIAlertAction *payNowAction = [UIAlertAction actionWithTitle:@"Payer immédiatement 💳"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+        {
+            if ([Data estConnecte])
+                [[Data sharedData] startLydia:[_infos[@"idcmd"] integerValue]
+                                      forType:@"CAFET"];
+            else
+            {
+                [alert dismissViewControllerAnimated:YES completion:^{
+                    UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Vous devez être connecté pour payer"
+                                                                                    message:@"Connectez-vous grâce à votre compte Campus ESEO."
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil]];
+                    [self presentViewController:alert2 animated:YES completion:nil];
+                }];
+            }
+        }];
+        
+        [alert addAction:payNowAction];
         [alert addAction:[UIAlertAction actionWithTitle:@"Payer plus tard au comptoir 💰"
                                                   style:UIAlertActionStyleDefault
                                                 handler:nil]];
+        [alert setPreferredAction:payNowAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }

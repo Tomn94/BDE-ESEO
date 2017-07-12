@@ -115,7 +115,9 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Votre commande a expiré"
                                                                    message:@"Pour des raisons de sécurité, il n'est possible de passer commande que pendant 10 minutes sans valider.\nMerci de bien vouloir recommencer. 😇"
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction *action) {
         [self fermerForcer];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
@@ -163,7 +165,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Impossible d'acheter ce produit"
                                                                        message:@"Un paiement Lydia ne peut être effectué qu'entre 0.5 et 250 €."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -197,7 +200,8 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmez-vous votre achat ?"
                                                                    message:[resume stringByAppendingString:@"\n\n⚠️ Les réservations sont nominatives.\nS'il s'agit d'une place pour événement, une pièce d'identité peut vous être demandée à l'entrée.\nLes CGV s'appliquent."]
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Valider et payer ma place" style:UIAlertActionStyleDestructive
+    [alert addAction:[UIAlertAction actionWithTitle:@"Valider et payer ma place"
+                                              style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * _Nonnull action) {
                                                 LAContext *context = [LAContext new];
                                                 context.localizedFallbackTitle = @"";
@@ -214,7 +218,8 @@
                                                 else
                                                     [self sendAchat:achat];
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
+                                              style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -238,7 +243,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
                                                                        message:@"Impossible d'analyser votre commande, merci de nous contacter."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [self.tableView reloadData];
         return;
