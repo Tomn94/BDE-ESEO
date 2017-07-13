@@ -584,7 +584,7 @@ Bâtiment : F. Rolland</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="Rrs-5J-DR1" firstAttribute="leading" secondItem="4FT-8Z-gmo" secondAttribute="leadingMargin" constant="10" id="131-ST-Vjx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Rrs-5J-DR1" secondAttribute="bottom" constant="10" id="4IH-Um-DFV"/>
@@ -1077,8 +1077,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JkH-fa-vWF"/>
+        <segue reference="mMl-75-8h7"/>
         <segue reference="LLY-gO-oS9"/>
-        <segue reference="joa-CE-gag"/>
-        <segue reference="luS-Gd-MmJ"/>
     </inferredMetricsTieBreakers>
 </document>
