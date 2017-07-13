@@ -90,7 +90,7 @@ collapseSecondaryViewController:(nonnull UIViewController *)secondaryViewControl
 - (void) credits
 {
     CreditsTVC *credits = [[CreditsTVC alloc] initWithStyle:UITableViewStyleGrouped];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:credits];
+    LightStatusBarNVC *nc = [[LightStatusBarNVC alloc] initWithRootViewController:credits];
     [nc setModalPresentationStyle:UIModalPresentationFormSheet];
     [self presentViewController:nc animated:YES completion:nil];
 }

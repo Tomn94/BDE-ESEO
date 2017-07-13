@@ -1066,10 +1066,10 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="1623" y="663"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Light Status BarNVC-->
         <scene sceneID="ASy-Qf-UMM">
             <objects>
-                <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

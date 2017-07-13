@@ -119,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="333" y="363"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Light Status BarNVC-->
         <scene sceneID="BaN-qy-0ml">
             <objects>
-                <navigationController storyboardIdentifier="Events" id="DoF-wh-uQb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Events" id="DoF-wh-uQb" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b0x-5T-UGM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -136,10 +136,10 @@
             </objects>
             <point key="canvasLocation" x="-487" y="363"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Light Status BarNVC-->
         <scene sceneID="qGc-q0-9aE">
             <objects>
-                <navigationController storyboardIdentifier="EventsOrder" id="vhd-6u-E5F" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="EventsOrder" id="vhd-6u-E5F" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RA3-tT-E5f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

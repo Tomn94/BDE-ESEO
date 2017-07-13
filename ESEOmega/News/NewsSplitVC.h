@@ -20,6 +20,7 @@
 //
 
 @import UIKit;
+#import "TabBarController.h"
 #import "NewsMasterTVC.h"
 #import "NewsDetailVC.h"
 #import "CreditsTVC.h"

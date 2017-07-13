@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jht-Pv-LVD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jht-Pv-LVD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -114,10 +114,10 @@ Le BDE n'est en aucun cas responsable du contenu proposé.</string>
             </objects>
             <point key="canvasLocation" x="885" y="665"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Light Status BarNVC-->
         <scene sceneID="f3K-ZW-u8x">
             <objects>
-                <navigationController storyboardIdentifier="IngeNews" id="Jht-Pv-LVD" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="IngeNews" id="Jht-Pv-LVD" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tKd-pR-Gik">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
