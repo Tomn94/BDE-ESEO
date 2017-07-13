@@ -26,7 +26,6 @@
 #import "NewsSelectionDelegate.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "../SDWebImage/UIImageView+WebCache.h"
-#import "UIScrollView+BottomRefreshControl.h"
 
 @interface NewsMasterTVC : UITableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIToolbarDelegate, UIPopoverPresentationControllerDelegate, UIViewControllerPreviewingDelegate, UITableViewDataSourcePrefetching, MFMailComposeViewControllerDelegate>
 {
@@ -36,6 +35,7 @@
     BOOL popoverVisible;
     NSInteger ptr;
     UIToolbar *toolbar;
+    BOOL isLoadingMoreContent;
 }
 
 @property (nonatomic, weak) UIViewController<NewsSelectionDelegate> *__nullable delegate;
@@ -59,5 +59,14 @@
 - (IBAction) salles:(nullable id)sender;
 - (IBAction) genealogy:(nullable id)sender;
 - (IBAction) ingenews:(nullable id)sender;
+
+@end
+
+
+/** Cell-button to load more article (replaces a previous bottom refresh control) */
+@interface NewsMasterMoreCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *__nullable label;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *__nullable refresh;
 
 @end

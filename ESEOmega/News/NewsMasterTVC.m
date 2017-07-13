@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     ptr = 1;
+    isLoadingMoreContent = NO;
     
     NSArray *viewControllers = self.splitViewController.viewControllers;
     if ([viewControllers count] > 1)
@@ -46,7 +47,7 @@
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(loadNews) name:@"news" object:nil];
     [ctr addObserver:self selector:@selector(debugRefresh) name:@"debugRefresh" object:nil];
-    [ctr addObserver:self.tableView.bottomRefreshControl selector:@selector(endRefreshing) name:@"moreNewsSent" object:nil];
+    [ctr addObserver:self selector:@selector(endBottomRefresh) name:@"moreNewsSent" object:nil];
     [ctr addObserver:self selector:@selector(hasLoadedMore) name:@"moreNewsOK" object:nil];
     [ctr addObserver:self selector:@selector(updateToolbarIcon) name:@"themeUpdated" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"newsSent" object:nil];
@@ -88,14 +89,6 @@
     
     [self.refreshControl beginRefreshing];
     [self debugRefresh];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    /* Fix when swiping back to this split view master */
-    [self configureBottomRefresh];
 }
 
 - (void) dealloc
@@ -350,13 +343,23 @@
 - (NSInteger) tableView:(nonnull UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
-    return [news count];
+    return [news count] + 1;
 }
 
 
 - (nonnull UITableViewCell *) tableView:(nonnull UITableView *)tableView
                   cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    if (indexPath.row == news.count) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsMasterMoreCell"];
+        if (isLoadingMoreContent)
+            [((NewsMasterMoreCell *)cell).refresh startAnimating];
+        else
+            [((NewsMasterMoreCell *)cell).refresh stopAnimating];
+        return cell;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsMasterCell" forIndexPath:indexPath];
     
     NSDictionary *article = news[indexPath.row];
@@ -436,9 +439,12 @@ prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
     NSMutableArray *thumbnails = [NSMutableArray arrayWithCapacity:indexPaths.count];
     for (NSIndexPath *indexPath in indexPaths)
     {
-        NSString *imgURL = news[indexPath.row][@"img"];
-        if (imgURL != nil && ![imgURL isEqualToString:@""])
-            [thumbnails addObject:[NSURL URLWithString:imgURL]];
+        if (indexPath.row != news.count)
+        {
+            NSString *imgURL = news[indexPath.row][@"img"];
+            if (imgURL != nil && ![imgURL isEqualToString:@""])
+                [thumbnails addObject:[NSURL URLWithString:imgURL]];
+        }
     }
     
     [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:thumbnails];
@@ -449,6 +455,14 @@ prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 - (void)      tableView:(nonnull UITableView *)tableView
 didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    if (indexPath.row == news.count)
+    {
+        [self startBottomRefresh];
+        [self loadMore];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
     [self openWithInfos:news[indexPath.row]];
 }
 
@@ -465,7 +479,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (IBAction) refresh:(UIRefreshControl *)sender
 {
-    if (self.tableView.bottomRefreshControl.isRefreshing)
+    if ([self isBottomRefreshing])
     {
         [sender endRefreshing];
         return;
@@ -478,7 +492,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if (self.refreshControl.isRefreshing)
     {
-        [self.tableView.bottomRefreshControl endRefreshing];
+        [self endBottomRefresh];
         return;
     }
     
@@ -494,24 +508,45 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (void) hasLoadedMore
 {
     ptr++;
-    [self.tableView.bottomRefreshControl endRefreshing];
+    [self endBottomRefresh];
 }
 
-- (void) configureBottomRefresh
+- (BOOL) isBottomRefreshing
 {
-    UIRefreshControl *refreshControl = [UIRefreshControl new];
-    [refreshControl addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventValueChanged];
-    refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
-    [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les anciens articles…"
-                                                                       attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
-    self.tableView.bottomRefreshControl = refreshControl;
+    NewsMasterMoreCell *cell = (NewsMasterMoreCell *)[self tableView:self.tableView
+                                               cellForRowAtIndexPath:[NSIndexPath indexPathForRow:news.count
+                                                                                        inSection:0]];
+    return cell.refresh.isAnimating;
+}
+
+- (void) startBottomRefresh
+{
+    NSIndexPath   *indexPath = [NSIndexPath indexPathForRow:news.count inSection:0];
+    NewsMasterMoreCell *cell = (NewsMasterMoreCell *)[self tableView:self.tableView
+                                               cellForRowAtIndexPath:indexPath];
+    isLoadingMoreContent = YES;
+    [cell.refresh startAnimating];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void) endBottomRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        
+        NSIndexPath   *indexPath = [NSIndexPath indexPathForRow:news.count inSection:0];
+        NewsMasterMoreCell *cell = (NewsMasterMoreCell *)[self tableView:self.tableView
+                                                   cellForRowAtIndexPath:indexPath];
+        isLoadingMoreContent = NO;
+        [cell.refresh stopAnimating];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
 }
 
 - (void) debugRefresh
 {
     [self.refreshControl endRefreshing];
-    [self.tableView.bottomRefreshControl beginRefreshing];
-    [self.tableView.bottomRefreshControl endRefreshing];
 }
 
 - (IBAction) salles:(nullable id)sender
@@ -588,7 +623,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     return nil;*/
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if (indexPath != nil)
+    if (indexPath != nil && indexPath.row != news.count)
     {
         
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -684,4 +719,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     return UIBarPositionTop;
 }
 
+@end
+
+
+@implementation NewsMasterMoreCell
 @end

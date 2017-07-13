@@ -840,8 +840,39 @@ Bâtiment : F. Rolland</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterCell" textLabel="TCT-IX-hrN" detailTextLabel="nXJ-mV-K1B" style="IBUITableViewCellStyleSubtitle" id="CRf-kt-mgJ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterMoreCell" id="glO-Ej-odd" customClass="NewsMasterMoreCell">
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glO-Ej-odd" id="Mmh-UE-zbS">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charger les anciens articles…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17q-cl-Lv2">
+                                            <rect key="frame" x="15" y="11" width="310" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.53333333329999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bWf-hw-kPb">
+                                            <rect key="frame" x="340" y="12" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="tintColor" red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="bWf-hw-kPb" firstAttribute="centerY" secondItem="Mmh-UE-zbS" secondAttribute="centerY" id="JAO-gu-Aky"/>
+                                        <constraint firstAttribute="trailing" secondItem="bWf-hw-kPb" secondAttribute="trailing" constant="15" id="N3o-Ho-vGM"/>
+                                        <constraint firstItem="bWf-hw-kPb" firstAttribute="leading" secondItem="17q-cl-Lv2" secondAttribute="trailing" constant="15" id="VDV-oW-JLC"/>
+                                        <constraint firstItem="17q-cl-Lv2" firstAttribute="centerY" secondItem="Mmh-UE-zbS" secondAttribute="centerY" id="igB-Gk-r2F"/>
+                                        <constraint firstItem="17q-cl-Lv2" firstAttribute="leading" secondItem="Mmh-UE-zbS" secondAttribute="leading" constant="15" id="js9-a9-EbG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label" destination="17q-cl-Lv2" id="hTj-M7-y7R"/>
+                                    <outlet property="refresh" destination="bWf-hw-kPb" id="6Bt-gw-aO4"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterCell" textLabel="TCT-IX-hrN" detailTextLabel="nXJ-mV-K1B" style="IBUITableViewCellStyleSubtitle" id="CRf-kt-mgJ">
+                                <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CRf-kt-mgJ" id="k0p-CZ-xYZ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -853,9 +884,6 @@ Bâtiment : F. Rolland</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=regular">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nXJ-mV-K1B">
                                             <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
@@ -1077,8 +1105,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JkH-fa-vWF"/>
         <segue reference="mMl-75-8h7"/>
-        <segue reference="LLY-gO-oS9"/>
+        <segue reference="atF-cd-EdF"/>
+        <segue reference="hZX-Yt-D3E"/>
     </inferredMetricsTieBreakers>
 </document>
