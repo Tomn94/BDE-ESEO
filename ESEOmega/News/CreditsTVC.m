@@ -36,7 +36,7 @@
                                                                              action:@selector(fermer)];;
     
     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ron"]];
-    [img setFrame:CGRectMake(0, -104.5, [UIScreen mainScreen].bounds.size.width, 113)];
+    [img setFrame:CGRectMake(0, -100, [UIScreen mainScreen].bounds.size.width, 113)];
     [img setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [img setContentMode:UIViewContentModeScaleAspectFit];
     [self.tableView addSubview:img];
@@ -124,7 +124,8 @@
 
 - (void) emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
-    [[Data sharedData] mail:@"tomn72@gmail.com" currentVC:self];
+    [[Data sharedData] mail:[[@"tom" stringByAppendingString:@"n72@gm"] stringByAppendingString:@"ail.com"]
+                  currentVC:self];
 }
 
 #pragma mark - Mail Compose View Controller delegate
