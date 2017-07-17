@@ -38,7 +38,7 @@
     }
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
         self.tableView.prefetchDataSource = self;
     }
     
@@ -498,7 +498,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     [[Data sharedData] updateJSON:@"news" options:ptr];
     
-    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10")) {
+    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
         [generator prepare];
         [generator impactOccurred];

@@ -80,8 +80,6 @@
 
 #define MAX_ORDER_TIME 582
 
-#define SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
 @interface Data : NSObject <UITextFieldDelegate, UNUserNotificationCenterDelegate>
 
 + (Data *) sharedData;

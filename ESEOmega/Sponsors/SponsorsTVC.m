@@ -29,7 +29,7 @@
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
         self.tableView.prefetchDataSource = self;
     }
     self.tableView.rowHeight = UITableViewAutomaticDimension;

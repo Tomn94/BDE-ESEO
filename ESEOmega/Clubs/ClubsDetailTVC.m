@@ -38,7 +38,7 @@
                        @[@"mail",      @"Mail…",     PREVIEW_ACTION_BLOCK { [self mail]; },      @"mail"],
                        @[@"tel",       @"Appeler…",  PREVIEW_ACTION_BLOCK { [self tel]; },       @"tel"] ];
     
-    if (SYSTEM_VERSION_GREATERTHAN_OR_EQUALTO(@"10.0")) {
+    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
         self.tableView.prefetchDataSource = self;
     }
     
