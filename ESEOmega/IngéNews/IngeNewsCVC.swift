@@ -116,8 +116,7 @@ class IngeNewsCVC: UICollectionViewController {
                                                                 action: nil)
         
         /* Allow 3D Touch on cells */
-        if #available(iOS 9, *),
-           let collection = self.collectionView,
+        if let collection = self.collectionView,
            self.traitCollection.forceTouchCapability == .available {
             self.registerForPreviewing(with: self,
                                        sourceView: collection)
@@ -203,10 +202,8 @@ extension IngeNewsCVC {
         let fileSize = ByteCountFormatter.string(fromByteCount: file.size,
                                                  countStyle:    .file)
         cell.subtitleLabel.text = fileDate + " · " + fileSize
-        if #available(iOS 9.0, *) {
-            cell.subtitleLabel.font = UIFont.monospacedDigitSystemFont(ofSize: cell.subtitleLabel.font.pointSize,
-                                                                       weight: .medium)
-        }
+        cell.subtitleLabel.font = UIFont.monospacedDigitSystemFont(ofSize: cell.subtitleLabel.font.pointSize,
+                                                                   weight: .medium)
         
         /* Set up icon */
         if let fileImage = file.img {
@@ -267,56 +264,42 @@ extension IngeNewsCVC {
         let fileURL      = selectedFile.file
         
         /* Present file as web content (browser can open PDFs, docs…) */
-        if #available(iOS 9.0, *) {
+        let safari = SFSafariViewController(url: fileURL)
+        if #available(iOS 10.0, *) {
+            safari.preferredBarTintColor = UINavigationBar.appearance().barTintColor
+            safari.preferredControlTintColor = UINavigationBar.appearance().tintColor
+        }
+        
+        self.present(safari, animated: true, completion: {
             
-            let safari = SFSafariViewController(url: fileURL)
-            if #available(iOS 10.0, *) {
-                safari.preferredBarTintColor = UINavigationBar.appearance().barTintColor
-                safari.preferredControlTintColor = UINavigationBar.appearance().tintColor
-            }
-            
-            self.present(safari, animated: true, completion: {
+            /* There's no Print icon in Safari View Controller Share Sheet,
+               so let's present a dialog (once during app launch) */
+            if self.printWarning != .dontShow &&
+               !self.alreadyPresentedWarningInSession {
                 
-                /* On iOS 9/10/11, there's no Print icon in Safari View Controller Share Sheet,
-                   so let's present a dialog (once during app launch) */
-                if self.printWarning != .dontShow &&
-                  !self.alreadyPresentedWarningInSession {
-                    
-                    /* Mark as already seen once, and present alert */
-                    self.printWarning = .alreadySeen
-                    self.alreadyPresentedWarningInSession = true
-                    
-                    let alert = UIAlertController(title: "Vous désirez partager le document, l'imprimer ou effectuer une recherche ?",
-                                                  message: "Pour rechercher dans le document ou le transférer vers n'importe quelle app, tapez sur l'icône de partage en bas.\n\nPour l'imprimer, tapez d'abord sur l'icône Ouvrir dans Safari en bas à droite, puis sur l'icône de partage.\n\nBonne lecture !",
-                                                  preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "Merci", style: .cancel))
-                    
-                    if self.printWarning != .neverSeen {
-                        /* Allow to stop presenting this warning if the user has already seen one */
-                        alert.addAction(UIAlertAction(title: "Ne plus me le rappeler",
-                                                      style: .destructive,
-                                                      handler: { _ in
-                            self.printWarning = .dontShow
-                        }))
-                    }
-                    
-                    safari.present(alert, animated: true)
+                /* Mark as already seen once, and present alert */
+                self.printWarning = .alreadySeen
+                self.alreadyPresentedWarningInSession = true
+                
+                let alert = UIAlertController(title: "Vous désirez partager le document, l'imprimer ou effectuer une recherche ?",
+                                              message: "Pour rechercher dans le document ou le transférer vers n'importe quelle app, tapez sur l'icône de partage en bas.\n\nPour l'imprimer, tapez d'abord sur l'icône Ouvrir dans Safari en bas à droite, puis sur l'icône de partage.\n\nBonne lecture !",
+                                              preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Merci", style: .cancel))
+                
+                if self.printWarning != .neverSeen {
+                    /* Allow to stop presenting this warning if the user has already seen one */
+                    alert.addAction(UIAlertAction(title: "Ne plus me le rappeler",
+                                                  style: .destructive,
+                                                  handler: { _ in
+                                                    self.printWarning = .dontShow
+                    }))
                 }
                 
-            })
+                safari.present(alert, animated: true)
+            }
             
-        } else {
-            /* Old web view if Safari View Controller not available */
-            let webViewController = UIViewController()
-            webViewController.title = selectedFile.name
-            
-            let webView = WKWebView()
-            webView.load(URLRequest(url: fileURL))
-            webViewController.view = webView
-            
-            self.navigationController?.pushViewController(webViewController, animated: true)
-        }
+        })
         
         self.collectionView?.deselectItem(at: indexPath, animated: true)
     }
@@ -388,7 +371,6 @@ extension IngeNewsCVC: UIViewControllerPreviewingDelegate {
     ///   - previewingContext: Context obejct for the previewing view controller
     ///   - location: Position of the touch in the source view's coordinate system
     /// - Returns: The view controller to preview
-    @available(iOS 9.0, *)
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            viewControllerForLocation location: CGPoint) -> UIViewController? {
         
@@ -418,7 +400,6 @@ extension IngeNewsCVC: UIViewControllerPreviewingDelegate {
     /// - Parameters:
     ///   - previewingContext: Context obejct for the previewing view controller
     ///   - viewControllerToCommit: View controller to display full-screen
-    @available(iOS 9.0, *)
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            commit viewControllerToCommit: UIViewController) {
         
