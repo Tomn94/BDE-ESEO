@@ -6,10 +6,12 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:bdeeseo.fr</string>
+		<string>webcredentials:portail.bdeeseo.fr</string>
+		<string>activitycontinuation:portail.bdeeseo.fr</string>
 		<string>webcredentials:*.bdeeseo.fr</string>
-		<string>activitycontinuation:bdeeseo.fr</string>
 		<string>activitycontinuation:*.bdeeseo.fr</string>
+		<string>webcredentials:bdeeseo.fr</string>
+		<string>activitycontinuation:bdeeseo.fr</string>
 	</array>
 </dict>
 </plist>
