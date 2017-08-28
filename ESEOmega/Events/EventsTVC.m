@@ -31,6 +31,12 @@
     self.tableView.emptyDataSetDelegate = self;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
+    /* Use Large Title on iOS 11 */
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.refreshControl.tintColor = [UIColor whiteColor];
+    }
+    
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     

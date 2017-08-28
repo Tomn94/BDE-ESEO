@@ -46,6 +46,12 @@
     self.navigationItem.leftItemsSupplementBackButton = YES;
     self.tableView.backgroundColor = [UIColor colorWithRed:248/255. green:248/255. blue:248/255. alpha:1];
     
+    /* Use Large Title on iOS 11 */
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.refreshControl.tintColor = [UIColor whiteColor];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotatePic)
                                                  name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme)

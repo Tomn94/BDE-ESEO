@@ -120,7 +120,11 @@ import UIKit
         /* Customize Navigation Bars */
         UINavigationBar.appearance().barTintColor = currentTheme.themeValue.bars
         UINavigationBar.appearance().tintColor    = currentTheme.themeValue.barButtons
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
+        let titleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = titleAttributes
+        if #available(iOS 11.0, *) {
+            UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
+        }
         
         /* Apply tint color to every view controller */
         if let delegate = UIApplication.shared.delegate as? AppDelegate,

@@ -76,6 +76,12 @@
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Charger les articles récents…"
                                                                             attributes:@{ NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor }]];
+    
+    /* Use Large Title on iOS 11 */
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.refreshControl.tintColor = [UIColor whiteColor];
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
