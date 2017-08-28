@@ -161,14 +161,22 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     
     if ([titles[index] isEqualToString:MAIL_BDE_TITLE])
         [[Data sharedData] mail:links[index] currentVC:self];
-    else if ([titles[index] isEqualToString:@"Instagram"])
-        [[Data sharedData] instagram:links[index] currentVC:self];
-    else if ([titles[index] isEqualToString:@"Snapchat"])
-        [[Data sharedData] snapchat:links[index] currentVC:self];
-    else if ([titles[index] isEqualToString:@"Twitter"])
-        [[Data sharedData] twitter:links[index] currentVC:self];
-    else
-        [[Data sharedData] openURL:links[index] currentVC:self];
+    else {
+        // Store parent view controller before self becomes nil
+        UIViewController *presenting = self.presentingViewController;
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+            if ([titles[index] isEqualToString:@"Instagram"])
+                [[Data sharedData] instagram:links[index] currentVC:presenting];
+            else if ([titles[index] isEqualToString:@"Snapchat"])
+                [[Data sharedData] snapchat:links[index] currentVC:presenting];
+            else if ([titles[index] isEqualToString:@"Twitter"])
+                [[Data sharedData] twitter:links[index] currentVC:presenting];
+            else
+                [[Data sharedData] openURL:links[index] currentVC:presenting];
+            
+        }];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

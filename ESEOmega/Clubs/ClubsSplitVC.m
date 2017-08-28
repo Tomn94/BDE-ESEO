@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     
+    self.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     self.delegate = self;
     master = [(UINavigationController *)self.viewControllers[0] viewControllers][0];
     
