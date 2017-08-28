@@ -109,10 +109,11 @@
     //}
     }
     
+    self.tableView.rowHeight = 44;  // iOS 11 dynamic row height disabled
     if ([titles count])
     {
-        [self.tableView setBackgroundColor:[UIColor whiteColor]];
-        self.preferredContentSize = CGSizeMake(200, (44 * [titles count]) - 1);
+        [self.tableView setBackgroundColor:[UIColor whiteColor]];   // -1 because no separator
+        self.preferredContentSize = CGSizeMake(200, ([titles count] * self.tableView.rowHeight) - 1);
         self.tableView.tableFooterView = nil;
         self.tableView.alwaysBounceVertical = YES;
     }
