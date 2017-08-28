@@ -355,6 +355,9 @@
 - (NSInteger) tableView:(nonnull UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
+    if ([news count] == 0) {
+        return 0;
+    }
     return [news count] + 1;
 }
 
