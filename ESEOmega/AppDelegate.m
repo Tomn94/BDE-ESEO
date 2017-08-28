@@ -79,10 +79,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 - (void) applicationWillEnterForeground:(nonnull UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    if (@available(iOS 11.0, *)) {
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"debugRefresh" object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"debugRefresh" object:nil];
     
     if ([[Data sharedData] cafetDebut] != 0 &&
         [[NSDate date] timeIntervalSinceReferenceDate] - [[Data sharedData] cafetDebut] > MAX_ORDER_TIME)

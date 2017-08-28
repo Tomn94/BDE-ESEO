@@ -45,12 +45,12 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         if let searchDisplay = storyboard.instantiateInitialViewController() as? GenealogySearch {
             searchDisplay.familyScreen = self   // Set search callback
             search = UISearchController(searchResultsController: searchDisplay)
-            search.searchResultsUpdater = searchDisplay;
-            search.dimsBackgroundDuringPresentation = false;
-            search.searchBar.delegate = searchDisplay;
+            search.searchResultsUpdater = searchDisplay
+            search.dimsBackgroundDuringPresentation = false
+            search.searchBar.delegate = searchDisplay
+            search.searchBar.placeholder = "Rechercher un étudiant"
             search.searchBar.sizeToFit()
-            search.searchBar.placeholder = "Rechercher un étudiant";
-            self.tableView.tableHeaderView = search.searchBar;
+            self.tableView.tableHeaderView = search.searchBar
         }
     }
     

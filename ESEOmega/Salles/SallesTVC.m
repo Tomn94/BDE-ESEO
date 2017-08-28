@@ -34,10 +34,10 @@
     filtre = [NSMutableArray array];
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.searchResultsUpdater = self;
-    search.dimsBackgroundDuringPresentation = NO;
-    [search.searchBar sizeToFit];
     search.searchBar.delegate = self;
+    search.dimsBackgroundDuringPresentation = NO;
     search.searchBar.placeholder = @"Rechercher une salle";
+    [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
     
     self.tableView.emptyDataSetSource = self;
@@ -133,7 +133,11 @@ sectionForSectionIndexTitle:(NSString *)title
 {
     if (!index)
     {
-        self.tableView.contentOffset = CGPointMake(0, -64);
+        if (@available(iOS 11.0, *)) {
+            self.tableView.contentOffset = CGPointMake(0, -self.tableView.safeAreaInsets.top);
+        } else {
+            self.tableView.contentOffset = CGPointMake(0, -64);
+        }
         return NSNotFound;
     }
     if ([title isEqualToString:@"#"])
