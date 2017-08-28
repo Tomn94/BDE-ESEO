@@ -535,6 +535,14 @@ class UserTVC: JAQBlurryTableViewController {
             
             /* Display connection form and appropriate navigation bar buttons */
             self.animateChange()
+
+            /* Reset default theme */
+            ThemeManager.currentTheme = .common
+            // Repaint the navigation bar
+            if let userNavController = self.navigationController {
+                ThemeManager.updateTheme(of: userNavController)
+            }
+                                        
             self.loadUI()
             self.tableView.reloadData()
             
