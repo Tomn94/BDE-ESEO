@@ -41,6 +41,9 @@
     
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
     self.navigationItem.leftItemsSupplementBackButton = YES;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void) selectedNews:(nonnull NSDictionary *)infos
