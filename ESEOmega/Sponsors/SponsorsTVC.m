@@ -36,19 +36,24 @@
     self.tableView.estimatedRowHeight = 131.;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
+    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
+    
     /* Use Large Title on iOS 11 */
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
         self.refreshControl.tintColor = [UIColor whiteColor];
+    } else {
+        [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                    name:@"debugRefresh" object:nil];
     }
     
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
-    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-    [ctr addObserver:self selector:@selector(loadSponsors) name:@"sponsors" object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"debugRefresh" object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"sponsorsSent" object:nil];
+    [ctr addObserver:self selector:@selector(loadSponsors)
+                name:@"sponsors" object:nil];
+    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                name:@"sponsorsSent" object:nil];
     
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     self.tableView.tableFooterView = [UIView new];

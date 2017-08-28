@@ -46,11 +46,14 @@
     
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(loadNews) name:@"news" object:nil];
-    [ctr addObserver:self selector:@selector(debugRefresh) name:@"debugRefresh" object:nil];
     [ctr addObserver:self selector:@selector(endBottomRefresh) name:@"moreNewsSent" object:nil];
     [ctr addObserver:self selector:@selector(hasLoadedMore) name:@"moreNewsOK" object:nil];
     [ctr addObserver:self selector:@selector(updateToolbarIcon) name:@"themeUpdated" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing) name:@"newsSent" object:nil];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        [ctr addObserver:self selector:@selector(debugRefresh) name:@"debugRefresh" object:nil];
+    }
     
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     self.tableView.tableFooterView = [UIView new];
@@ -93,8 +96,11 @@
     if (_delegate && [news count] > 0 && !iPAD && [UIScreen mainScreen].bounds.size.width >= 736 && UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
         [_delegate selectedNews:news[0]];
     
-    [self.refreshControl beginRefreshing];
-    [self debugRefresh];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        [self.refreshControl beginRefreshing];
+        [self debugRefresh];
+    }
 }
 
 - (void) dealloc
@@ -351,7 +357,6 @@
 {
     return [news count] + 1;
 }
-
 
 - (nonnull UITableViewCell *) tableView:(nonnull UITableView *)tableView
                   cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

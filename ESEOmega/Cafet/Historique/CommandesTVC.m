@@ -32,24 +32,26 @@
     self.tableView.emptyDataSetDelegate = self;
     self.refreshControl.tintColor = [UINavigationBar appearance].barTintColor;
     
+    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
+    
     /* Use Large Title on iOS 11 */
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
         self.refreshControl.tintColor = [UIColor whiteColor];
+    } else {
+        [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
+                    name:@"debugRefresh" object:nil];
     }
     
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
-    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(loadCmds)
                 name:@"cmds" object:nil];
     [ctr addObserver:self selector:@selector(loadService)
                 name:@"service" object:nil];
     [ctr addObserver:self selector:@selector(majTimerRecup)
                 name:NSProcessInfoPowerStateDidChangeNotification object:nil];
-    [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
-                name:@"debugRefresh" object:nil];
     [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)
                 name:@"cmdsSent" object:nil];
     [ctr addObserver:self selector:@selector(upd)
