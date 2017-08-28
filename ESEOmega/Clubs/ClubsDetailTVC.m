@@ -68,6 +68,7 @@
 {
     self.infos = infos;
     [self loadPic];
+    [self getDetailData];
     [[Data sharedData] setT_currentTopVC:nil];
 }
 
@@ -75,7 +76,6 @@
 {
     [super viewWillAppear:animated];
     [self loadPic];
-    [self getDetailData];
 }
 
 #pragma mark - 3D Touch
@@ -100,17 +100,38 @@
 
 - (void) loadPic
 {
+    [self removePic];
+    
+    // uses the long-version method to avoid offsetBase being reset
+    [self configureBannerWithImage:[UIImage imageNamed:@"placeholder"]
+                        blurRadius:12
+                     blurTintColor:[UIColor colorWithWhite:0 alpha:0.5]
+                  saturationFactor:1];
+    if (_infos[@"img"] != nil && ![_infos[@"img"] isEqualToString:@""])
+        [self configureBannerWithURL:[NSURL URLWithString:_infos[@"img"]]];
+
+    [self loadClub];
+}
+
+/**
+ Removes any previous top banner with picture.
+ And resets scroll offset for any future banner.
+ */
+- (void) removePic
+{
     [self.titleImageView removeFromSuperview];
     [self.blurImageView removeFromSuperview];
     [self.contentView removeFromSuperview];
     
     self.offsetBase = self.tableView.contentOffset.y;
-    
-    [self configureBannerWithImage:[UIImage imageNamed:@"placeholder"]];
-    if (_infos[@"img"] != nil && ![_infos[@"img"] isEqualToString:@""])
-        [self configureBannerWithURL:[NSURL URLWithString:_infos[@"img"]]];
-
-    [self loadClub];
+    if (@available(iOS 11.0, *)) {
+        /* On iOS 11+, contentOffset is not impacted by navigation bars, etc. */
+        self.offsetBase = -self.tableView.safeAreaInsets.top;
+        if (self.offsetBase == 0) {
+            // When view is not loaded, safeAreaInsets don't exist, let's hard-code them.
+            self.offsetBase = -116;
+        }
+    }
 }
 
 - (void) loadClub
@@ -227,13 +248,12 @@
     if (precImage == nil)
         return;
     
-    [self.titleImageView removeFromSuperview];
-    [self.blurImageView removeFromSuperview];
-    [self.contentView removeFromSuperview];
+    [self removePic];
     
-    self.offsetBase = self.tableView.contentOffset.y;
-    
-    [self configureBannerWithImage:precImage];
+    [self configureBannerWithImage:precImage    // uses the long-version method
+                        blurRadius:12           // to avoid offsetBase being reset
+                     blurTintColor:[UIColor colorWithWhite:0 alpha:0.5]
+                  saturationFactor:1];
     [self loadClub];
 }
 
