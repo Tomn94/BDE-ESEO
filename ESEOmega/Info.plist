@@ -38,6 +38,13 @@
 					<string>App-Icon-5</string>
 				</array>
 			</dict>
+			<key>ESEOdin</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-6</string>
+				</array>
+			</dict>
 			<key>ESEOmega</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -84,6 +91,13 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>App-Icon-5</string>
+				</array>
+			</dict>
+			<key>ESEOdin</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-6</string>
 				</array>
 			</dict>
 			<key>ESEOmega</key>

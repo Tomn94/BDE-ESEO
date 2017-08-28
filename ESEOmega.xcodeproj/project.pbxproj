@@ -75,6 +75,9 @@
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
+		64900CDA1F54DCCB00E2F09D /* App-Icon-6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */; };
+		64900CDB1F54DCCE00E2F09D /* App-Icon-6@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */; };
+		64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */; };
 		64934AFD1B750FC00040E6C5 /* NewsLinksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */; };
 		649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D411C44423A00FDF2A8 /* EventsOrderTVC.m */; };
 		649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D471C44534C00FDF2A8 /* EventsOrderNavTVC.m */; };
@@ -308,6 +311,9 @@
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
 		6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PerfectDOSVGA437.ttf; sourceTree = "<group>"; };
+		64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x.png"; path = "App Icons/App-Icon-6@2x.png"; sourceTree = "<group>"; };
+		64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x~ipad.png"; path = "App Icons/App-Icon-6@2x~ipad.png"; sourceTree = "<group>"; };
+		64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@3x.png"; path = "App Icons/App-Icon-6@3x.png"; sourceTree = "<group>"; };
 		64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLinksVC.h; sourceTree = "<group>"; };
 		64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLinksVC.m; sourceTree = "<group>"; };
 		649D9D401C44423A00FDF2A8 /* EventsOrderTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsOrderTVC.h; sourceTree = "<group>"; };
@@ -515,6 +521,9 @@
 				644D36451E923D5E0047EDDA /* App-Icon-5@2x.png */,
 				644D36461E923D5E0047EDDA /* App-Icon-5@2x~ipad.png */,
 				644D36471E923D5E0047EDDA /* App-Icon-5@3x.png */,
+				64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */,
+				64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */,
+				64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */,
 			);
 			name = "App Icons";
 			sourceTree = "<group>";
@@ -1169,6 +1178,7 @@
 				644D36581E923D5E0047EDDA /* App-Icon-5@2x~ipad.png in Resources */,
 				644D364C1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
+				64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */,
 				640026271C0A305D00AEF79B /* Salles.storyboard in Resources */,
 				644D36541E923D5E0047EDDA /* App-Icon-4@2x.png in Resources */,
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
@@ -1180,8 +1190,10 @@
 				644D36521E923D5E0047EDDA /* App-Icon-3@2x~ipad.png in Resources */,
 				64E61EAE1B69743D00D89D79 /* linowrite.ttf in Resources */,
 				6473AEC01DBA337C00381F98 /* elec.caf in Resources */,
+				64900CDB1F54DCCE00E2F09D /* App-Icon-6@2x~ipad.png in Resources */,
 				644D364D1E923D5E0047EDDA /* App-Icon-1@3x.png in Resources */,
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
+				64900CDA1F54DCCB00E2F09D /* App-Icon-6@3x.png in Resources */,
 				644D364A1E923D5E0047EDDA /* App-Icon-0@3x.png in Resources */,
 				644D364B1E923D5E0047EDDA /* App-Icon-1@2x.png in Resources */,
 				64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */,

@@ -54,6 +54,9 @@ import UIKit
         /// Un thème exotique
         case eseoasis   = 5
         
+        /// Un thème légendaire
+        case eseodin    = 6
+        
        
         // MARK: Themes associated attributes
         
@@ -69,6 +72,7 @@ import UIKit
             case .bdeldorado: return (bars: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9921568627, green: 0.7960784314, blue: 0.1775602698, alpha: 1), window: #colorLiteral(red: 0.5882352941, green: 0.03137254902, blue: 0, alpha: 1))
             case .eseomega:   return (bars: #colorLiteral(red: 0, green: 0.647, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.806, green: 0.959, blue: 1, alpha: 1), window: #colorLiteral(red: 0.078, green: 0.707, blue: 1, alpha: 1))
             case .eseoasis:   return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
+            case .eseodin:    return (bars: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1), barButtons: #colorLiteral(red: 0.68, green: 0.8986666667, blue: 1, alpha: 1), window: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1))
             }
         }
         
@@ -81,6 +85,7 @@ import UIKit
             case .bdeldorado: return "BDEl'dorado"
             case .eseomega:   return "ESEOmega"
             case .eseoasis:   return "ESEOasis"
+            case .eseodin:    return "ESEOdin"
             }
         }
     }
@@ -92,7 +97,8 @@ import UIKit
                 .eseonfire,
                 .bdeldorado,
                 .eseomega,
-                .eseoasis]
+                .eseoasis,
+                .eseodin]
     }
     
     
