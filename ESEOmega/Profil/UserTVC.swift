@@ -278,7 +278,7 @@ class UserTVC: JAQBlurryTableViewController {
         let body = "mail=\(mailEnc)&pass=\(passEnc)&hash=\(hash)"
         
         /* Set URL Session */
-        let urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
+        let urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         var urlRequest = URLRequest(url: URL(string: URL_LOGIN)!)
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = body.data(using: .utf8)

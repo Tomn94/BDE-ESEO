@@ -55,7 +55,8 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
     }
     
     /// Redraw connections when orientation changes
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func willTransition(to newCollection: UITraitCollection,
+                                 with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         
         self.tableView.reloadData()
@@ -70,37 +71,39 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         search.isActive = false
         
         /* Ask family members for the student */
-        let defaultSession = URLSession(configuration: URLSessionConfiguration.default,
-                                        delegate: nil, delegateQueue: OperationQueue.main)
+        let defaultSession = URLSession(configuration: .default,
+                                        delegate: nil, delegateQueue: .main)
+        
         let dataTask = defaultSession.dataTask(with: URL(string: URL_FML_INFO + String(student.id))!,
                                                completionHandler: { (data, resp, error) in
+                                                
             Data.shared().updLoadingActivity(false)
             self.loadingIndicator.stopAnimating()
-            guard let data = data, error == nil else { return }
-            do {
-                if let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: AnyObject]] {
-                    // Fill with the new data
-                    var familyMembers = [Student]()
-                    for result in JSON {
-                        if let id        = result["id"]       as? StudentID,
-                           let name      = result["name"]     as? String,
-                           let rank      = result["rank"]     as? StudentRankRaw,
-                           let children  = result["children"] as? [StudentID],
-                           let parents   = result["parents"]  as? [StudentID],
-                           let promotion = result["promo"]    as? String {
-                            // Add this student to the family
-                            let member = Student(id: id, name: name,
-                                                 promotion: promotion, rank: StudentRank(rawValue: rank) ?? .alumni,
-                                                 parents: parents, children: children)
-                            familyMembers.append(member)
-                            if member.id == student.id {
-                                self.query = member
-                            }
-                        }
+            guard error == nil, let data = data,
+                  let jsonData = try? JSONSerialization.jsonObject(with: data, options: []),
+                  let JSON     = jsonData as? [[String: AnyObject]]
+                else { return }
+                                               
+            // Fill with the new data
+            var familyMembers = [Student]()
+            for result in JSON {
+                if let id        = result["id"]       as? StudentID,
+                   let name      = result["name"]     as? String,
+                   let rank      = result["rank"]     as? StudentRankRaw,
+                   let children  = result["children"] as? [StudentID],
+                   let parents   = result["parents"]  as? [StudentID],
+                   let promotion = result["promo"]    as? String {
+                    // Add this student to the family
+                    let member = Student(id: id, name: name,
+                                         promotion: promotion, rank: StudentRank(rawValue: rank) ?? .alumni,
+                                         parents: parents, children: children)
+                    familyMembers.append(member)
+                    if member.id == student.id {
+                        self.query = member
                     }
-                    self.arrangeFamily(members: familyMembers)
                 }
-            } catch {}
+            }
+            self.arrangeFamily(members: familyMembers)
         })
         Data.shared().updLoadingActivity(true)
         loadingIndicator.startAnimating()
