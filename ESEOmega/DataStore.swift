@@ -59,19 +59,75 @@ enum UserDefaultsKey {
 
 /// Common keys to get or set values in Keychain
 enum KeychainKey {
-    /// Login of the connected user (e.g. `naudettho`)
-    static let login    = "login"
-    /// Hashed password of the logged user
-    static let password = "passw"
+    
     /// Name of the logged user (e.g. `Thomas NAUDET`)
     static let name     = "uname"
+    
+    /// Email address of the logged user (e.g. `prenom.nom@reseau.eseo.fr`)
+    static let mail     = "mail"
+    
+    /// Token needed for API requests requiring login
+    static let token    = "token"
+    
     /// Name of the logged user (e.g. `Thomas 06 01 02 03 04`)
     static let phone    = "phone"
-    /// Email address of the logged user (e.g. `thomas.naudet@reseau.eseo.fr`)
-    static let mail     = "mail"
+    
+}
+
+/// Lists all available API Paths
+enum API: String {
+    
+    /// Common URL for all API requests
+    static private let apiURL = "https://api.bdeeseo.fr/"
+    
+    
+    /// Creates an URL Request for the API quickly,
+    /// using one of the available API Paths
+    static func request(_ apiPath: API) -> URLRequest {
+        return URLRequest(url: URL(string: apiURL + apiPath.rawValue)!)
+    }
+    
+    
+    /// Connect user
+    case userLogin = "users/login"
+    
 }
 
 
-/// Replaces deprecated Data class
-class DataStore {
+/// Stores all crucial data for the app,
+/// and has some convenience methods revolving around them
+@objc class DataStore: NSObject {
+    
+    
+    // MARK: - User Login
+    
+    /// Marks the user as logged in the app, and store their info
+    ///
+    /// - Parameters:
+    ///   - name:  Full name of the user
+    ///   - mail:  Mail address of the user (ESEO)
+    ///   - token: Connection token to API
+    static func connectUser(name: String, mail: String, token: String) {
+        
+        JNKeychain.saveValue(name,  forKey: KeychainKey.name)
+        JNKeychain.saveValue(mail,  forKey: KeychainKey.mail)
+        JNKeychain.saveValue(token, forKey: KeychainKey.token)
+    }
+    
+    /// Returns whether the user is currently logged
+    @objc static var isUserLogged: Bool {
+        return JNKeychain.value(forKey: KeychainKey.token) != nil
+    }
+    
+    /// Marks the user as disconnected in the app.
+    /// Removes associated data.
+    static func disconnectUser() {
+        
+        Data.delPushToken()
+        
+        JNKeychain.deleteValue(forKey: KeychainKey.name)
+        JNKeychain.deleteValue(forKey: KeychainKey.mail)
+        JNKeychain.deleteValue(forKey: KeychainKey.token)
+    }
+    
 }

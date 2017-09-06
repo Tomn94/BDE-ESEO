@@ -141,32 +141,6 @@
     return [JNKeychain loadValueForKey:@"login"] != nil;
 }
 
-+ (void) connecter:(NSString *)user
-              pass:(NSString *)mdp
-               nom:(NSString *)nom
-              mail:(NSString *)mail
-{
-    [JNKeychain saveValue:user forKey:@"login"];
-    [JNKeychain saveValue:mdp  forKey:@"passw"];
-    [JNKeychain saveValue:nom  forKey:@"uname"];
-    [JNKeychain saveValue:mail  forKey:@"mail"];
-    
-    [[Data sharedData] updateJSON:@"cmds"];
-}
-
-+ (void) deconnecter
-{
-    [Data delPushToken];
-    
-    [JNKeychain deleteValueForKey:@"login"];
-    [JNKeychain deleteValueForKey:@"passw"];
-    [JNKeychain deleteValueForKey:@"uname"];
-    [JNKeychain deleteValueForKey:@"phone"];
-    [JNKeychain deleteValueForKey:@"mail"];
-    
-    [[Data sharedData] updateJSON:@"cmds"];
-}
-
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate
 {
     if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}])
@@ -429,9 +403,16 @@
     [self updateJSON:JSONname options:0];
 }
 
+/**
+ Fetch data from API
+
+ @param JSONname API module identifier
+ @param options Used for news to fetch old articles (offset)
+ */
 - (void) updateJSON:(NSString *)JSONname
             options:(NSInteger)options
 {
+    /* Set URL */
     int randCache = (int)arc4random_uniform(9999);
     NSURL *url;
     if ([JSONname isEqualToString:@"news"])
@@ -454,12 +435,14 @@
     else
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, randCache]];
     
+    /* Set REQUEST */
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
                                                                                    delegate:nil
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
+    /* Set POST CONTENT */
     if ([JSONname isEqualToString:@"cmds"])
     {
         if (![Data estConnecte])
@@ -503,11 +486,12 @@
         [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
+    /* SEND */
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
                                                        completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
                                           NSDictionary *JSON = nil;
-                                          /* Handle server data */
+                                          /* If we have server data */
                                           if (error == nil && data != nil)
                                           {
                                               id baseJSON = [NSJSONSerialization JSONObjectWithData:data

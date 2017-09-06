@@ -104,7 +104,8 @@ class UserTVC: JAQBlurryTableViewController {
         super.viewDidLoad()
         
         /* Configure Logout button action */
-        logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: .disconnect)
+        logoutBtn = UIBarButtonItem(title: "Déconnexion", style: .plain,
+                                    target: self, action: .disconnect)
         
         /* Make the UILabel look like a UIButton */
         sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
@@ -129,7 +130,7 @@ class UserTVC: JAQBlurryTableViewController {
         var currentBarButton = logoutBtn
         
         /* If disconnected */
-        if !Data.estConnecte() {
+        if !DataStore.isUserLogged {
             /* Set spin button used while connecting instead */
             currentBarButton = spinBtn
             
@@ -219,7 +220,7 @@ class UserTVC: JAQBlurryTableViewController {
         /* Allow inner selection and ensure the view is always visible (scrollable to) */
         self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableMargin + optionsTable.frame.height
         self.tableView.emptyDataSetView.tapGesture.cancelsTouchesInView = false
-        if Data.estConnecte() {
+        if DataStore.isUserLogged {
             self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44) + 80
         }
         optionsTable.reloadData()
@@ -264,23 +265,19 @@ class UserTVC: JAQBlurryTableViewController {
         /* Disable send button */
         configureSendCell(mail: "", password: "")
         
-        /* Encode password to POST */
-        let password = self.passField.text ?? ""
-        let postPass = encode(password: password)
-        
         /* CONNECT TO API */
         
         /* Create URL encoded POST attributes */
-        let mail = mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
-        let mailEnc = Data.encoderPourURL(mail) ?? ""
-        let passEnc = Data.encoderPourURL(postPass) ?? ""
-        let hash = Data.encoderPourURL(Data.hashed_string(mail + postPass + "selfRetain_$_0x128D4_objc")) ?? ""
-        let body = "mail=\(mailEnc)&pass=\(passEnc)&hash=\(hash)"
+        let cleanMail = mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+        let password  = self.passField.text ?? ""
+        
+        let mailEnc = Data.encoderPourURL(cleanMail) ?? ""
+        let passEnc = Data.encoderPourURL(password)  ?? ""
+        let body    = "email=\(mailEnc)&password=\(passEnc)"
         
         /* Set URL Session */
         let urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
-        var urlRequest = URLRequest(url: URL(string: URL_LOGIN)!)
-        urlRequest.httpMethod = "POST"
+        var urlRequest = API.request(.userLogin)
         urlRequest.httpBody = body.data(using: .utf8)
         
         /* Set data callback */
@@ -298,32 +295,38 @@ class UserTVC: JAQBlurryTableViewController {
                 do {
                     /* Parse the JSON response */
                     if let json = try JSONSerialization.jsonObject(with: d) as? [String : Any],
-                       let status = json["status"] as? Int {
+                       let success = json["success"] as? Bool {
                         
                         /* If connected */
-                        if status == 1,
-                           let jsonData = json["data"] as? [String : Any] {
+                        if success {
+                            if let username = json["fullname"] as? String,
+                               let tokenJWT = json["token"]    as? String {
                             
-                            /* Set up the app as connected */
-                            let saltedPass = Data.hashed_string("Oups, erreur de connexion" + password)
-                            
-                            if let username = jsonData["username"] as? String,
-                               let login    = jsonData["login"]    as? String {
-                            
-                                Data.connecter(login, pass: saltedPass, nom: username, mail: mail)
+                                DataStore.connectUser(name: username,
+                                                      mail: cleanMail,
+                                                      token: tokenJWT)
+                                
+                                /* Get user's orders
+                                   Since it's a tab, it's very probable they're currently on it, or right after */
+                                Data.shared().updateJSON("cmds")
                                 
                                 /* Alert other views */
                                 NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
                                 
                                 /* Present greeting message */
-                                self.connectionSucceeded(username: username,
-                                                         info: jsonData["info"] as? String)
+                                self.connectionSucceeded(for: username)
+                                return
+                                
+                            } else {
+                                self.connectionFailed(error: "Appelez Champollion, impossible de déchiffrer vos informations.")
                                 return
                             }
                             
-                        } else if let cause = json["cause"] as? String {
+                        } else if let error = json["error"]        as? [String : Any],
+                                  let cause = error["userMessage"] as? String,
+                                  let uid   = error["uid"]         as? Int {
                             /* Present custom error message otherwise */
-                            self.connectionFailed(error: cause, code: status)
+                            self.connectionFailed(error: cause, code: uid)
                             return
                         }
                     }
@@ -397,56 +400,25 @@ class UserTVC: JAQBlurryTableViewController {
         return true
     }
     
-    /// Encode the password to transit data
-    ///
-    /// - Returns: An encoded password
-    func encode(password: String) -> String {
-        
-        /* This function will not be commented… */
-        let passB64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
-        
-        var passInc = ""
-        for character in password.characters {
-            let scalars = String(character).unicodeScalars
-            let value   = scalars[scalars.startIndex].value
-            passInc    += String(Character(UnicodeScalar(value + 1)!))
-        }
-        let passIncB64 = passInc.data(using: .utf8)?.base64EncodedString() ?? ""
-        
-        var passFinal = ""
-        for (index, character) in passIncB64.characters.enumerated() {
-            let charIndex = passB64.index(passB64.startIndex, offsetBy: index)
-            passFinal += String(passB64[charIndex])
-            passFinal += String(character)
-        }
-        
-        if passFinal.contains("====") {
-            passFinal  = String(passFinal.characters.dropLast(2))
-        } else {
-            passFinal += "=="
-        }
-        
-        return passFinal
-    }
-    
     /// Displays an alert confirming login was a success, and inits push
     ///
     /// - Parameters:
     ///   - username: Customize welcome message with the name of the user
-    ///   - info: Provides some information about the database.
-    ///           If this string contains "existe", the welcome message will be adapted to welcome back
-    func connectionSucceeded(username: String?, info: String?) {
+    func connectionSucceeded(for username: String) {
         
         /* Set default values */
-        let userIsBack = info?.contains("existe") ?? false
-        var title = userIsBack ? "Vous êtes de retour" : "Bienvenue"
+        var title = "Bienvenue"
         
         /* Customize with name if available */
-        if let name = username,
-           let firstName = name.components(separatedBy: " ").first {
+        let formatter = PersonNameComponentsFormatter()
+        if #available(iOS 10.0, *),
+           let nameComponents = formatter.personNameComponents(from: username),
+           let firstName = nameComponents.givenName {
             title += ", \(firstName)"
         }
-        
+        else if let firstName = username.components(separatedBy: " ").first {
+            title += ", \(firstName)"
+        }
         title += " !"
         
         /* Present alert box */
@@ -466,7 +438,7 @@ class UserTVC: JAQBlurryTableViewController {
             
             /* Sync the device push token with the server to allow future push */
             if hasPushEnabled &&
-               JNKeychain.loadValue(forKey: KeychainKey.login) != nil {
+               JNKeychain.loadValue(forKey: KeychainKey.token) != nil {
                 Data.sendPushToken()
             }
             
@@ -492,11 +464,6 @@ class UserTVC: JAQBlurryTableViewController {
         if error != "" {
             title   = code == -2 ? "Oups…" : "Erreur"  // customize if wrong password
             message = error
-        }
-        
-        /* Don't display error code for obvious messages (wrong password, wrong mail domain) */
-        if code != -2 && code != -4 {
-            message += " (Code : \(code))"
         }
         
         /* Show alert with message */
@@ -531,7 +498,8 @@ class UserTVC: JAQBlurryTableViewController {
             }
             
             /* Delete all profile data */
-            Data.deconnecter()
+            DataStore.disconnectUser()
+            Data.shared().updateJSON("cmds")
             
             /* Display connection form and appropriate navigation bar buttons */
             self.animateChange()
@@ -719,7 +687,7 @@ extension UserTVC {
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         /* Display Empty Data Set if connected */
-        if Data.estConnecte() {
+        if DataStore.isUserLogged {
             return 0
         }
         /* Otherwise display Form and Send sections */
@@ -735,7 +703,7 @@ extension UserTVC {
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
 
-        if Data.estConnecte() {
+        if DataStore.isUserLogged {
             /* Display Empty Data Set if connected */
             return 0
         }

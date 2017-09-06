@@ -65,7 +65,6 @@
 #define URL_EVENT_SD @"https://api.bdeeseo.fr/event/send"
 #define URL_EVENT_ML @"https://api.bdeeseo.fr/event/mail"
 #define URL_INGENEWS @"https://api.bdeeseo.fr/ingenews?%d"
-#define URL_LOGIN    @"https://api.bdeeseo.fr/client/login"
 #define URL_PUSH     @"https://api.bdeeseo.fr/push/register"
 #define URL_UNPUSH   @"https://api.bdeeseo.fr/push/unregister"
 #define URL_GP       @"https://api.bdeeseo.fr/gantier/scores"
@@ -109,11 +108,6 @@
 + (NSString *) hashed_string:(NSString *)input;
 + (NSString *) encoderPourURL:(NSString *)url;
 + (BOOL) estConnecte;
-+ (void) connecter:(NSString *)user
-              pass:(NSString *)mdp
-               nom:(NSString *)nom
-              mail:(NSString *)mail;
-+ (void) deconnecter;
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void) sendPushToken;
 + (void) delPushToken;
