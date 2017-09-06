@@ -12,7 +12,7 @@
         <!--Light Status BarNVC-->
         <scene sceneID="Jf2-ti-6Vl">
             <objects>
-                <navigationController storyboardIdentifier="Genealogy" id="Fu0-zS-f5M" customClass="LightStatusBarNVC" sceneMemberID="viewController">
+                <navigationController id="Fu0-zS-f5M" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kR9-Ai-X19">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

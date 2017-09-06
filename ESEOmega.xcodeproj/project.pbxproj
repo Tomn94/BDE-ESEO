@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		640026271C0A305D00AEF79B /* Salles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Salles.storyboard */; };
-		6400262B1C0A3CAE00AEF79B /* SallesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6400262A1C0A3CAE00AEF79B /* SallesTVC.m */; };
+		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 640885FB1B6805CC00070429 /* CommandeDetailSegue.m */; };
 		6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */; };
 		6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425D8361BACB2BE00F15BDD /* EventAlertView.xib */; };
@@ -205,9 +204,7 @@
 
 /* Begin PBXFileReference section */
 		64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaUITests.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		640026261C0A305D00AEF79B /* Salles.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Salles.storyboard; sourceTree = "<group>"; };
-		640026291C0A3CAE00AEF79B /* SallesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SallesTVC.h; sourceTree = "<group>"; };
-		6400262A1C0A3CAE00AEF79B /* SallesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SallesTVC.m; sourceTree = "<group>"; };
+		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
 		640885FA1B6805CC00070429 /* CommandeDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandeDetailSegue.h; sourceTree = "<group>"; };
 		640885FB1B6805CC00070429 /* CommandeDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandeDetailSegue.m; sourceTree = "<group>"; };
 		641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE ESEO.entitlements"; sourceTree = "<group>"; };
@@ -462,16 +459,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		640026281C0A3C8300AEF79B /* Salles */ = {
+		640026281C0A3C8300AEF79B /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
 				645BFFF31F5F8F2C00BA97BA /* Room.swift */,
-				640026261C0A305D00AEF79B /* Salles.storyboard */,
-				640026291C0A3CAE00AEF79B /* SallesTVC.h */,
-				6400262A1C0A3CAE00AEF79B /* SallesTVC.m */,
+				640026261C0A305D00AEF79B /* Rooms.storyboard */,
 				642E47DA1F5F65E2002CC48E /* RoomsTVC.swift */,
 			);
-			path = Salles;
+			path = Rooms;
 			sourceTree = "<group>";
 		};
 		6425D8351BACB22E00F15BDD /* CustomiOSAlertView */ = {
@@ -898,7 +893,7 @@
 				64CDF0951B642C6E0051C7BB /* Cafet */,
 				64AD83CD1B601DD800AD4C25 /* Sponsors */,
 				648F1E4F1B62ED8C008AC8D5 /* Profil */,
-				640026281C0A3C8300AEF79B /* Salles */,
+				640026281C0A3C8300AEF79B /* Rooms */,
 				643B898B1C28CAB800B3A568 /* IngéNews */,
 				645852961DC3D0B5008AF43C /* Genealogy */,
 				64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */,
@@ -1188,7 +1183,7 @@
 				644D364C1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
 				64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */,
-				640026271C0A305D00AEF79B /* Salles.storyboard in Resources */,
+				640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */,
 				644D36541E923D5E0047EDDA /* App-Icon-4@2x.png in Resources */,
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				644D36551E923D5E0047EDDA /* App-Icon-4@2x~ipad.png in Resources */,
@@ -1263,7 +1258,6 @@
 				6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */,
 				6487C2E71B5EF6BD00DC3B77 /* NewsMasterTVC.m in Sources */,
 				646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */,
-				6400262B1C0A3CAE00AEF79B /* SallesTVC.m in Sources */,
 				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
 				64339B561F16EE2800EDA97D /* SDWebImageDownloaderOperation.m in Sources */,

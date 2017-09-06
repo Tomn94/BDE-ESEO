@@ -127,13 +127,13 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
         UIViewController *vc = self.window.rootViewController.presentedViewController;
         if ([vc isKindOfClass:[UINavigationController class]]) {
             UINavigationController *nvc = (UINavigationController *)self.window.rootViewController.presentedViewController;
-            if ([nvc isKindOfClass:[SallesTVC class]]) {
+            if ([nvc isKindOfClass:[RoomsTVC class]]) {
                 dontReopen = YES;
             }
         }
         if (!dontReopen) {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Salles" bundle:nil];
-            UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Salles"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Rooms" bundle:nil];
+            UINavigationController *vc = [sb instantiateInitialViewController];
             vc.modalPresentationStyle = UIModalPresentationFormSheet;
             [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
         }

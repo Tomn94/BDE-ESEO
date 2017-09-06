@@ -567,8 +567,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (IBAction) salles:(nullable id)sender
 {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Salles" bundle:nil];
-    UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Salles"];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Rooms" bundle:nil];
+    UINavigationController *vc = [sb instantiateInitialViewController];
     vc.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -576,7 +576,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (IBAction) genealogy:(nullable id)sender
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Genealogy" bundle:nil];
-    UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"Genealogy"];
+    UINavigationController *vc = [sb instantiateInitialViewController];
     vc.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -584,7 +584,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (IBAction) ingenews:(nullable id)sender
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"IngeNews" bundle:nil];
-    UINavigationController *vc = [sb instantiateViewControllerWithIdentifier:@"IngeNews"];
+    UINavigationController *vc = [sb instantiateInitialViewController];
     vc.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:vc animated:YES completion:nil];
 }
