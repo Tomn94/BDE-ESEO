@@ -40,20 +40,6 @@
     [img setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [img setContentMode:UIViewContentModeScaleAspectFit];
     [self.tableView addSubview:img];
-    /*
-    if (([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 320) || ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 320))
-    {
-        UILabel *label = [UILabel new];
-        label.frame = CGRectMake(0, self.view.bounds.size.height - 135, [UIScreen mainScreen].bounds.size.width, 100);
-        label.text = @"DZNEmptyDataSet · JAQBlurryTableViewController · EGOCache\n"
-                      "icons8.com · dribbble.com · SDWebImage ·  CCBottomRefreshControl";
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor lightGrayColor];
-        label.font = [UIFont systemFontOfSize:11];
-        label.numberOfLines = 0;
-        [label setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-        [self.tableView addSubview:label];
-    }*/
 }
 
 - (void) fermer

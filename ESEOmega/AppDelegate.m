@@ -34,6 +34,13 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
         [[EGOCache globalCache] clearCache];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"alreadyLaunchedv4NewAPI"];
     }
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"alreadyLaunchedv5NewAPI"])
+    {
+        [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+        [[SDImageCache sharedImageCache] clearMemory];
+        [[EGOCache globalCache] clearCache];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"alreadyLaunchedv5NewAPI"];
+    }
     
     /* UI COLORS */
     [ThemeManager updateThemeWithAppIcon:false];
@@ -142,38 +149,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [[Data sharedData] setPushToken:deviceToken];
     
-//    EGOCache *ec = [EGOCache globalCache];
-//    if ([ec hasCacheForKey:@"deviceTokenPush"] && [[ec dataForKey:@"deviceTokenPush"] isEqualToData:deviceToken])
-//        return;
-    
     [Data sendPushToken];
 }
 
 - (void)                             application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-//    NSLog(@"%@", error);
 }
-/*
-- (void)         application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo
-      fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSInteger vers = [userInfo[@"version"] doubleValue];
-    if (vers <= VERSION_NOTIFS_iOS)
-    {
-        NSInteger val = [userInfo[@"action"] integerValue];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if (val == 85)
-            [defaults setValue:@YES forKey:@"GPenabled"];
-        else if (val == 86)
-            [defaults setValue:@NO forKey:@"GPenabled"];
-        else
-            [self application:application didReceiveRemoteNotification:userInfo];
-        [defaults synchronize];
-    }
-    completionHandler(UIBackgroundFetchResultNoData);
-}*/
 
 
 // iOS 10: In-app support
@@ -270,14 +252,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
                                                                        message:message
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        //if (vers > VERSION_NOTIFS_iOS || val == 21/* || [userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]]*/)
-        /*{
-            [alert addAction:[UIAlertAction actionWithTitle:@"Mettre à jour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPSTORE]];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ignorer" style:UIAlertActionStyleCancel handler:nil]];
-        }
-        else */if (val > 0)
+        if (val > 0)
         {
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Voir" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                                             {
@@ -336,8 +311,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     }
     else if (val == 0)
     {
-        NSString *titre   = @"";//userInfo[@"aps"][@"alert"][@"title"];
-        NSString *message = @"";//userInfo[@"aps"][@"alert"][@"body"];
+        NSString *titre   = @"";
+        NSString *message = @"";
         if (![userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]] && ![userInfo[@"aps"][@"body"] isKindOfClass:[NSString class]])
         {
             titre   = userInfo[@"aps"][@"alert"][@"title"];
@@ -473,15 +448,6 @@ continueUserActivity:(NSUserActivity *)userActivity
   restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
-    /*
-    if (userActivity.activityType == CSSearchableItemActionType)
-    {
-        NSString *ident = userActivity.userInfo[CSSearchableItemActivityIdentifier];
-        if (ident != nil)
-        {
-            userActivity.userInfo[CSSearchableItemActivityIdentifier]
-        }
-    }*/
     
     if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.news"])
         [tab setSelectedIndex:0];

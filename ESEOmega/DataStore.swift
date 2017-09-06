@@ -48,6 +48,9 @@ enum UserDefaultsKey {
     /// Whether app data has already been erased to support ESEOasis API
     static let usesAPIv4      = "alreadyLaunchedv4NewAPI"
     
+    /// Whether app data has already been erased to support ESEOdin API
+    static let usesAPIv5      = "alreadyLaunchedv5NewAPI"
+    
 }
 
 
