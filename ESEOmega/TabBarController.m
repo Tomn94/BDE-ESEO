@@ -20,6 +20,7 @@
 //
 
 #import "TabBarController.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation TabBarController
 
@@ -38,7 +39,7 @@
     [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
     [[Data sharedData] updateJSON:@"clubs"];
-    if ([Data estConnecte])
+    if (DataStore.isUserLogged)
         [[Data sharedData] updateJSON:@"cmds"];
     [[Data sharedData] updateJSON:@"service"];
     [[Data sharedData] updateJSON:@"sponsors"];
@@ -82,7 +83,7 @@
 
 - (void) secret
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     /*
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"GPenabled"])
@@ -99,7 +100,7 @@
 
 - (void) ajouterTap
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];

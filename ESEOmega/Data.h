@@ -107,7 +107,6 @@
 
 + (NSString *) hashed_string:(NSString *)input;
 + (NSString *) encoderPourURL:(NSString *)url;
-+ (BOOL) estConnecte;
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate;
 + (void) sendPushToken;
 + (void) delPushToken;

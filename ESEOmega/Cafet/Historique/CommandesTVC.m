@@ -20,6 +20,7 @@
 //
 
 #import "CommandesTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation CommandesTVC
 
@@ -125,7 +126,7 @@
 
 - (void) upd
 {
-    [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+    [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
     [self majTimerRecup];
 }
 
@@ -134,7 +135,7 @@
     [upd invalidate];
     nbrUpd = 0;
     
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;
@@ -244,7 +245,7 @@
 
 - (IBAction) commander:(id)sender
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connectez-vous !"
                                                                        message:@"Connectez-vous grâce au bouton en haut à droite pour commander à la cafet !"
@@ -296,7 +297,7 @@
                                                                                    preferredStyle:UIAlertControllerStyleAlert];
                                           if (alert != nil)
                                           {
-                                              [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+                                              [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
                                               
                                               if (nvApp) {
                                                   UIAlertAction *updateAction = [UIAlertAction actionWithTitle:NEW_UPD_BT style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -315,7 +316,7 @@
 
 - (void) verifsCommande
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     UIAlertController *alert = nil;
@@ -329,7 +330,7 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"D'accord"
                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
-        [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+        [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
         [[Data sharedData] updLoadingActivity:NO];
         return;
     }
@@ -386,7 +387,7 @@
                                               
                                               if (title != nil && message != nil)
                                               {
-                                                  [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+                                                  [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
                                                   
                                                   UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                                                                  message:message
@@ -412,7 +413,7 @@
     
     if (alert != nil)
     {
-        [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+        [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK"
                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
@@ -431,7 +432,7 @@
                                                    completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
                                           [[Data sharedData] updLoadingActivity:NO];
-                                          [self.navigationItem setLeftBarButtonItem:([Data estConnecte]) ? _ajoutBtn : nil animated:YES];
+                                          [self.navigationItem setLeftBarButtonItem:(DataStore.isUserLogged) ? _ajoutBtn : nil animated:YES];
                                           UIAlertController *alert = nil;
                                           
                                           if (dataToken[@"token"] != nil && ![dataToken[@"token"] isEqualToString:@""] &&
@@ -661,12 +662,12 @@
 
 - (UIImage *) imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:([Data estConnecte]) ? @"cafetVide1" : @"cafetVide2"];
+    return [UIImage imageNamed:(DataStore.isUserLogged) ? @"cafetVide1" : @"cafetVide2"];
 }
 
 - (NSAttributedString *) titleForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = ([Data estConnecte]) ? @"Vous n'avez encore rien commandé" : @"Vous n'êtes pas connecté";
+    NSString *text = (DataStore.isUserLogged) ? @"Vous n'avez encore rien commandé" : @"Vous n'êtes pas connecté";
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -676,7 +677,7 @@
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = ([Data estConnecte])
+    NSString *text = (DataStore.isUserLogged)
                       ? @"Tapez sur le bouton ＋ pour commander,\nvos commandes s'afficheront ici."
                       : @"Connectez-vous à votre profil ESEO pour commander à la cafet.";
     //@"Connectez-vous à votre profil ESEO\npour commander à la cafet.";
@@ -698,12 +699,12 @@
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0],
                                  NSForegroundColorAttributeName: [UINavigationBar appearance].barTintColor};
     
-    return [[NSAttributedString alloc] initWithString:([Data estConnecte]) ? @"Commander" : @"Me connecter" attributes:attributes];
+    return [[NSAttributedString alloc] initWithString:(DataStore.isUserLogged) ? @"Commander" : @"Me connecter" attributes:attributes];
 }
 
 - (void) emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         [[UIApplication sharedApplication] sendAction:_userBtn.action
                                                    to:_userBtn.target
                                                  from:nil

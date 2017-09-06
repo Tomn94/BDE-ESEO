@@ -20,6 +20,7 @@
 //
 
 #import "Data.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation Data
 
@@ -136,11 +137,6 @@
     return output;
 }
 
-+ (BOOL) estConnecte
-{
-    return [JNKeychain loadValueForKey:@"login"] != nil;
-}
-
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate
 {
     if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}])
@@ -238,7 +234,7 @@
 
 + (void) sendPushToken
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -267,7 +263,7 @@
 
 + (void) delPushToken
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     [[EGOCache globalCache] removeCacheForKey:@"deviceTokenPush"];
@@ -445,7 +441,7 @@
     /* Set POST CONTENT */
     if ([JSONname isEqualToString:@"cmds"])
     {
-        if (![Data estConnecte])
+        if (!DataStore.isUserLogged)
         {
             _cmds = nil;
             [[EGOCache globalCache] removeCacheForKey:@"cmds"];
@@ -466,7 +462,7 @@
     }
     else if ([JSONname isEqualToString:@"eventsCmds"])
     {
-        if (![Data estConnecte])
+        if (!DataStore.isUserLogged)
         {
             _cmds = nil;
             [[EGOCache globalCache] removeCacheForKey:@"eventsCmds"];
@@ -781,7 +777,7 @@ shouldChangeCharactersInRange:(NSRange)range
         }
     }
     
-    if ([Data estConnecte])
+    if (DataStore.isUserLogged)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Demande de paiement Lydia"
                                                                        message:@"Veuillez patienter…"
@@ -971,7 +967,7 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) sendMail:(NSDictionary *)data
              inVC:(UIViewController *)vc
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes pas connecté"
                                                                        message:@"Impossible de vous envoyer votre place par mail.\nContactez un membre du BDE."

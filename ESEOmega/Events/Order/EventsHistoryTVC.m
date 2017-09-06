@@ -251,7 +251,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void) verifsCommande
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     UIAlertController *alert = nil;
@@ -430,7 +430,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [upd invalidate];
     nbrUpd = 0;
     
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     if ([[NSProcessInfo processInfo] isLowPowerModeEnabled])
         return;

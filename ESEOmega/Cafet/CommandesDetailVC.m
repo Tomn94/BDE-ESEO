@@ -20,6 +20,7 @@
 //
 
 #import "CommandesDetailVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation CommandesDetailVC
 
@@ -74,7 +75,7 @@
 
 - (void) loadCmd
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -275,7 +276,7 @@
 {
     if ([_infos[@"paidbefore"] intValue] == 1 || [_infos[@"price"] doubleValue] < 0.5 || [_infos[@"price"] doubleValue] > 250.0)
         return;
-    if (![Data estConnecte] && _infos[@"idcmd"] != nil && _infos[@"idlydia"] != nil)
+    if (!DataStore.isUserLogged && _infos[@"idcmd"] != nil && _infos[@"idlydia"] != nil)
         return;
     
     if ([_infos[@"idlydia"] integerValue] != -1)
@@ -290,7 +291,7 @@
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
         {
-            if ([Data estConnecte])
+            if (DataStore.isUserLogged)
                 [[Data sharedData] startLydia:[_infos[@"idcmd"] integerValue]
                                       forType:@"CAFET"];
             else

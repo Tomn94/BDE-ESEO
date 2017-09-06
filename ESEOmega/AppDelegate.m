@@ -46,7 +46,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     [ThemeManager updateThemeWithAppIcon:false];
     
     /* NOTIFICATIONS */
-    if ([Data estConnecte])
+    if (DataStore.isUserLogged)
         [Data registeriOSPush:self];
     
     // OPENED APP FROM NOTIFICATION
@@ -279,7 +279,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
     
     if (val == 42)
     {
-        if (![Data estConnecte])
+        if (!DataStore.isUserLogged)
             [NSTimer scheduledTimerWithTimeInterval:0.5 target:tab selector:@selector(ecranConnex) userInfo:nil repeats:NO];
         else
             [NSTimer scheduledTimerWithTimeInterval:0.5 target:tab selector:@selector(secret) userInfo:nil repeats:NO];
@@ -344,7 +344,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
         [[Data sharedData] updateJSON:@"events"];
     else if (index == 2)
         [[Data sharedData] updateJSON:@"clubs"];
-    else if (index == 3 && [Data estConnecte])
+    else if (index == 3 && DataStore.isUserLogged)
         [[Data sharedData] updateJSON:@"cmds"];
     else if (index == 4)
         [[Data sharedData] updateJSON:@"sponsors"];
@@ -399,7 +399,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
         [tab setSelectedIndex:4];
     else if ([url.host isEqualToString:@"pay"])  // eseomega://pay?id=4242&cat=CAFET
     {
-        if ([Data estConnecte])
+        if (DataStore.isUserLogged)
         {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             NSArray *pairs = [url.query componentsSeparatedByString:@"&"];

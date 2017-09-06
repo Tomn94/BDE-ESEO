@@ -20,6 +20,7 @@
 //
 
 #import "EventsTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation EventsTVC
 
@@ -471,7 +472,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         }
     }
     
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous devez vous connecter pour vous inscrire à un événement"
                                                                        message:@"Utilisez votre profil ESEO pour vous connecter dans l'application."
@@ -527,7 +528,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void) sendSignUp:(int)eventID
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
         return;
     
     if ([JNKeychain loadValueForKey:@"phone"] == nil)
@@ -865,7 +866,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (IBAction) commanderEvent:(id)sender
 {
-    if (![Data estConnecte])
+    if (!DataStore.isUserLogged)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous devez vous connecter pour commander une place"
                                                                        message:@"Pour commander pour un événement, connectez-vous à votre profil ESEO dans l'application."
