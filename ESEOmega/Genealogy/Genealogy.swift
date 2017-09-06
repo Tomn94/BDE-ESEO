@@ -46,7 +46,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             searchDisplay.familyScreen = self   // Set search callback
             search = UISearchController(searchResultsController: searchDisplay)
             search.searchResultsUpdater = searchDisplay
-            search.dimsBackgroundDuringPresentation = false
+            search.obscuresBackgroundDuringPresentation = false
             search.searchBar.delegate = searchDisplay
             search.searchBar.placeholder = "Rechercher un étudiant"
             search.searchBar.sizeToFit()
