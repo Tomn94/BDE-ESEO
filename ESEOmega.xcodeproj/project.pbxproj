@@ -15,6 +15,7 @@
 		6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8391BACB7F700F15BDD /* EventAlertView.m */; };
 		642BEC951F13A8670043701B /* IngeNewsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC941F13A8670043701B /* IngeNewsCVC.swift */; };
 		642BEC971F13B0480043701B /* IngeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC961F13B0480043701B /* IngeNews.swift */; };
+		642E47DD1F5F7EBC002CC48E /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */; };
 		6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */; };
 		6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D2731B63FF5E00F5C7F5 /* TabBarController.m */; };
 		64339B4E1F16EE2800EDA97D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 64339AFB1F16EBB700EDA97D /* MKAnnotationView+WebCache.m */; };
@@ -216,6 +217,7 @@
 		642BEC941F13A8670043701B /* IngeNewsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNewsCVC.swift; sourceTree = "<group>"; };
 		642BEC961F13B0480043701B /* IngeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNews.swift; sourceTree = "<group>"; };
 		642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		6430D26E1B63DC8C00F5C7F5 /* EventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTVC.h; sourceTree = "<group>"; };
 		6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTVC.m; sourceTree = "<group>"; };
 		6430D2721B63FF5E00F5C7F5 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -882,6 +884,7 @@
 				64F93EB01B5EA97900EE5C72 /* Main.storyboard */,
 				6430D2721B63FF5E00F5C7F5 /* TabBarController.h */,
 				6430D2731B63FF5E00F5C7F5 /* TabBarController.m */,
+				642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */,
 				64E273481B72444B00A84E68 /* Game */,
 				6487C2EB1B5EF81300DC3B77 /* News */,
 				6430D2711B63DC9100F5C7F5 /* Events */,
@@ -1301,6 +1304,7 @@
 				64339B601F16EE2800EDA97D /* UIView+WebCacheOperation.m in Sources */,
 				643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */,
 				64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */,
+				642E47DD1F5F7EBC002CC48E /* DismissSegue.swift in Sources */,
 				6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */,
 				64493F181E465811009C995B /* DataStore.swift in Sources */,
 				6458529A1DC722A3008AF43C /* Student.swift in Sources */,
