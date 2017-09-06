@@ -30,18 +30,24 @@ fileprivate extension Selector {
 /// Lists rooms in ESEO Angers
 class RoomsTVC: UITableViewController {
     
-    var rooms         = [[Room]]()
-    var filteredRooms = [[Room]]()
+    /// Unique cell reuse identifier
+    private let reuseIdentifier = "roomsCell"
     
+    /// Displayed rooms
+    private var rooms         = [[Room]]()
+    
+    /// Rooms filtered by search query
+    private var filteredRooms = [[Room]]()
+    
+    /// Current sort mode for rooms
     var sortMode = Room.SortMode(rawValue: UserDefaults.standard.integer(forKey: UserDefaultsKey.roomsSortMode)) ?? .byName {
         didSet {
             UserDefaults.standard.set(sortMode, forKey: UserDefaultsKey.roomsSortMode)
         }
     }
     
-    let reuseIdentifier = "roomsCell"
-    
-    let searchController = UISearchController()
+    /// Handles searching with its search bar
+    private let searchController = UISearchController()
     
     
     override func viewDidLoad() {
@@ -67,8 +73,8 @@ class RoomsTVC: UITableViewController {
                                                selector: .newDataRooms,
                                                name: .newDataRooms,
                                                object: nil)
-        if let resfresh = self.refreshControl {
-            NotificationCenter.default.addObserver(resfresh,
+        if let refresh = self.refreshControl {
+            NotificationCenter.default.addObserver(refresh,
                                                    selector: #selector(UIRefreshControl.endRefreshing),
                                                    name: .debugRefresh,
                                                    object: nil)
@@ -76,15 +82,7 @@ class RoomsTVC: UITableViewController {
     }
     
     
-    @IBAction func refresh() {
-        
-        guard Data.shared().shouldUpdateJSON("rooms") else {
-            refreshControl?.endRefreshing()
-            return
-        }
-        
-        Data.shared().updateJSON("rooms")
-    }
+    // MARK: - Actions
     
     @objc func loadRooms() {
         
@@ -99,18 +97,19 @@ class RoomsTVC: UITableViewController {
             break
         case .byBuilding:
             property = \.building
-        case .byFloor:
+        case .byFloor:  // sort Int
             allRooms.sort { room1, room2 in
                 room1.floor < room2.floor
             }
         }
-        if sortMode != .byFloor {
+        if sortMode != .byFloor {  // sort String
             allRooms.sort { room1, room2 in
                 room1[keyPath: property].localizedStandardCompare(room2[keyPath: property]) == .orderedAscending
             }
         }
         
-        /* Split rooms into building sections or floor sections or letter sections for alpha */
+        /* Since it is sorted (continuous), now split rooms into building sections
+           or floor sections or letter sections */
         var currentSectionId: String?
         var sortedRooms = [[Room]]()
         for room in allRooms {
@@ -124,8 +123,7 @@ class RoomsTVC: UITableViewController {
             if let currentSectionId = currentSectionId,
                roomId.caseInsensitiveCompare(currentSectionId) == .orderedSame {
                 sortedRooms[sortedRooms.count - 1].append(room)
-            }
-            else {  // or create a new section
+            } else {  // or create a new section
                 sortedRooms.append([room])
             }
             
@@ -143,8 +141,10 @@ class RoomsTVC: UITableViewController {
             for rooms in sortedRooms {
                 resortedRooms.append(rooms.sorted { room1, room2 in
                     if room1.floor == room2.floor {
+                        // Inner-inner sort by name makes sense for the same floor
                         return room1.name.localizedStandardCompare(room2.name) == .orderedAscending
                     }
+                    // Otherwise inner sort by floor
                     return room1.floor < room2.floor
                 })
             }
@@ -171,18 +171,36 @@ class RoomsTVC: UITableViewController {
         tableView.reloadData()
     }
     
+    /// Refresh control triggered
+    @IBAction func refresh() {
+        
+        guard Data.shared().shouldUpdateJSON("rooms") else {
+            refreshControl?.endRefreshing()
+            return
+        }
+        
+        Data.shared().updateJSON("rooms")
+    }
+    
+    /// Display a full-screen map
     @IBAction func showMap() {
         
+        /* Load image */
         let imageInfo = JTSImageInfo()
         imageInfo.image = #imageLiteral(resourceName: "plan")
         
+        /* View controller handling display */
         let imageViewer = JTSImageViewController(imageInfo: imageInfo,
-                                                 mode: .image, backgroundStyle: .blurred)
-        imageViewer?.show(from: self, transition: .fromOffscreen)
+                                                 mode: .image,
+                                                 backgroundStyle: .blurred)
+        imageViewer?.show(from: self,
+                          transition: .fromOffscreen)
     }
     
+    /// Loops through search modes
     @IBAction func changeSortMode() {
         
+        /* Update model */
         switch sortMode {
         case .byName:
             sortMode = .byBuilding
@@ -192,18 +210,20 @@ class RoomsTVC: UITableViewController {
             sortMode = .byName
         }
         
+        /* UI transition */
         let transition = CATransition()
         transition.duration = 0.42
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        
         tableView.layer.add(transition, forKey: nil)
         
+        /* Update UI */
         loadRooms()
     }
     
 }
 
 
+// MARK: - Table View Data Source
 extension RoomsTVC {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -214,7 +234,8 @@ extension RoomsTVC {
         return rooms.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         
         if searchController.isActive {
             return filteredRooms[section].count
@@ -222,13 +243,15 @@ extension RoomsTVC {
         return rooms[section].count
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView,
+                            titleForHeaderInSection section: Int) -> String? {
         
         let currentSet = searchController.isActive ? filteredRooms : rooms
         let sectionRooms = currentSet[section]
-        guard let firstRoom = sectionRooms.first else {
-            return nil
-        }
+        
+        /* Uses the first room of the section to make a title */
+        guard let firstRoom = sectionRooms.first
+            else { return nil }
         
         switch sortMode {
         case .byName:
@@ -243,6 +266,7 @@ extension RoomsTVC {
         }
     }
     
+    /// Customizes section index titles: the vertical bar on the right side
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         
         guard !searchController.isActive && !rooms.isEmpty
@@ -250,13 +274,13 @@ extension RoomsTVC {
         
         var initials: [String]
         if sortMode == .byName {
+            // Use already defined set. May end with # for numbers
             initials = UILocalizedIndexedCollation.current().sectionIndexTitles
             
         } else {
             initials = []
             
             for section in rooms {
-                
                 if let firstRoom = section.first {
                     
                     switch sortMode {
@@ -272,15 +296,18 @@ extension RoomsTVC {
                 }
             }
         }
-        
+        // Add Search icon
         initials.insert(UITableViewIndexSearch, at: 0)
         
         return initials
     }
     
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+    /// Syncs a section index title with a section
+    override func tableView(_ tableView: UITableView,
+                            sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         
         guard index != 0 else {
+            // Show Search
             if #available(iOS 11.0, *) {
                 tableView.contentOffset = CGPoint(x: 0, y: -tableView.safeAreaInsets.top)
             } else {
@@ -289,15 +316,18 @@ extension RoomsTVC {
             return NSNotFound
         }
         
-        guard sortMode != .byName || title != "#" else {
+        if sortMode == .byName && title == "#" {
+            // Show last section
             return rooms.count - 1
         }
         
+        /* Loop through all sections */
         var sectionIndex = 0
         for section in rooms {
-            
+            /* Get the first item */
             if let firstRoom = section.first {
                 
+                /* Computes the associated raw title (± like section title) */
                 let sectionTitle: String
                 switch sortMode {
                 case .byName:
@@ -308,12 +338,17 @@ extension RoomsTVC {
                     sectionTitle = "\(firstRoom.floor)"
                 }
                 
+                /* Compare the location of the title and the computed one */
                 switch title.caseInsensitiveCompare(sectionTitle) {
                 case .orderedSame:
+                    // If we have the same, it's a perfect match
                     return sectionIndex
                 case .orderedAscending:
-                    break  // will return previous index
+                    // Less perfect match, we missed it (the section may not exist)
+                    // We'll return the previous section
+                    break
                 case .orderedDescending:
+                    // Continue to the next one
                     sectionIndex += 1
                 }
             }
@@ -322,15 +357,17 @@ extension RoomsTVC {
         return sectionIndex
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /// Populate cells
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        /* Get cell and its data from model */
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
                                                  for: indexPath)
-        
         let currentSet = searchController.isActive ? filteredRooms : rooms
         let room = currentSet[indexPath.section][indexPath.row]
         
-        
+        /* Associate values to make a descriptive text */
         var detailText = "Bâtiment \(room.building) · Étage \(room.floor)"
         if let roomNumber = room.number {
             detailText = "\(roomNumber) · " + detailText
@@ -340,7 +377,8 @@ extension RoomsTVC {
             detailText += " · " + roomInfo
         }
         
-        cell.textLabel?.text = room.name
+        /* Apply data */
+        cell.textLabel?.text       = room.name
         cell.detailTextLabel?.text = detailText
         
         /* Monospaced font */
@@ -365,19 +403,20 @@ extension RoomsTVC {
 // MARK: - Search Results Updating
 extension RoomsTVC: UISearchResultsUpdating {
     
+    /// Called when user changes the text of the search bar
     func updateSearchResults(for searchController: UISearchController) {
         
+        // Reset results and get what's been typed
         filteredRooms = []
-        
         let query = searchController.searchBar.text ?? ""
         
-        let predicate = NSPredicate(format: "(%K contains[cd] %@) OR (%K contains[cd] %@) OR (%K contains[cd] %@)",
-                                    "name", query,
-                                    "num",  query,
-                                    "info", query)
-        
+        // Find data in each section
         for section in rooms {
-            filteredRooms.append((section as NSArray).filtered(using: predicate) as! [Room])
+            filteredRooms.append(section.filter { room in
+                return room.name.localizedStandardContains(query) ||
+                      (room.info   ?? "").localizedStandardContains(query) ||
+                      (room.number ?? "").localizedStandardContains(query)
+            })
         }
         
         tableView.reloadData()
@@ -422,6 +461,7 @@ extension RoomsTVC: DZNEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
         
+        // Don't show empty data set if user is in an empty search field
         return !searchController.isActive
     }
     
