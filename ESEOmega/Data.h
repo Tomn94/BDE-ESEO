@@ -34,8 +34,8 @@
 #define NEW_UPD_BT @"Mettre à jour"
 
 #define URL_APPSTORE @"https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=updCafet&mt=8"
-#define URL_PORTAIL  @"https://portail-etudiants.eseo.fr"
-#define URL_CAMPUS   @"https://portail-etudiants.eseo.fr"
+#define URL_PORTAIL  @"https://portail-etudiants.eseo.fr/portal/"
+#define URL_CAMPUS   @"https://portail-etudiants.eseo.fr/campus/"
 #define URL_MAIL     @"https://mail.office365.com"
 #define URL_ESEO     @"http://www.eseo.fr"
 #define URL_PROJETS  @"http://www.projets.eseo.fr"
