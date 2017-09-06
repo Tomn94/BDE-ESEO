@@ -15,6 +15,7 @@
 		6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8391BACB7F700F15BDD /* EventAlertView.m */; };
 		642BEC951F13A8670043701B /* IngeNewsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC941F13A8670043701B /* IngeNewsCVC.swift */; };
 		642BEC971F13B0480043701B /* IngeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642BEC961F13B0480043701B /* IngeNews.swift */; };
+		642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E47DA1F5F65E2002CC48E /* RoomsTVC.swift */; };
 		642E47DD1F5F7EBC002CC48E /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */; };
 		6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */; };
 		6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6430D2731B63FF5E00F5C7F5 /* TabBarController.m */; };
@@ -67,6 +68,7 @@
 		645852981DC3D21C008AF43C /* Genealogy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645852971DC3D21C008AF43C /* Genealogy.storyboard */; };
 		6458529A1DC722A3008AF43C /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645852991DC722A3008AF43C /* Student.swift */; };
 		6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459F9AB1E36861500C6812D /* UserTVC.swift */; };
+		645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
 		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
@@ -217,6 +219,7 @@
 		642BEC941F13A8670043701B /* IngeNewsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNewsCVC.swift; sourceTree = "<group>"; };
 		642BEC961F13B0480043701B /* IngeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngeNews.swift; sourceTree = "<group>"; };
 		642D4D7F1D96BC5400D3EEDD /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		642E47DA1F5F65E2002CC48E /* RoomsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsTVC.swift; sourceTree = "<group>"; };
 		642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		6430D26E1B63DC8C00F5C7F5 /* EventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTVC.h; sourceTree = "<group>"; };
 		6430D26F1B63DC8C00F5C7F5 /* EventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTVC.m; sourceTree = "<group>"; };
@@ -297,6 +300,7 @@
 		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Genealogy.storyboard; path = Genealogy/Genealogy.storyboard; sourceTree = "<group>"; };
 		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Student.swift; path = Genealogy/Student.swift; sourceTree = "<group>"; };
 		6459F9AB1E36861500C6812D /* UserTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTVC.swift; sourceTree = "<group>"; };
+		645BFFF31F5F8F2C00BA97BA /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		646E56661B681F3300E357F8 /* CommandesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesDetailVC.h; sourceTree = "<group>"; };
 		646E56671B681F3300E357F8 /* CommandesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesDetailVC.m; sourceTree = "<group>"; };
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
@@ -461,9 +465,11 @@
 		640026281C0A3C8300AEF79B /* Salles */ = {
 			isa = PBXGroup;
 			children = (
+				645BFFF31F5F8F2C00BA97BA /* Room.swift */,
 				640026261C0A305D00AEF79B /* Salles.storyboard */,
 				640026291C0A3CAE00AEF79B /* SallesTVC.h */,
 				6400262A1C0A3CAE00AEF79B /* SallesTVC.m */,
+				642E47DA1F5F65E2002CC48E /* RoomsTVC.swift */,
 			);
 			path = Salles;
 			sourceTree = "<group>";
@@ -1265,6 +1271,7 @@
 				64339B581F16EE2800EDA97D /* SDWebImagePrefetcher.m in Sources */,
 				64ED610B1B6D251F00456B01 /* OrderPanierTVC.m in Sources */,
 				640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */,
+				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
 				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */,
 				64F8AE001E408ACF00489198 /* ThemeManager.swift in Sources */,
@@ -1287,6 +1294,7 @@
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
 				6487C2E41B5EF4A800DC3B77 /* NewsSplitVC.m in Sources */,
+				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
 				64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */,
 				64339B531F16EE2800EDA97D /* SDWebImageCompat.m in Sources */,
 				64339B5D1F16EE2800EDA97D /* UIImageView+HighlightedWebCache.m in Sources */,

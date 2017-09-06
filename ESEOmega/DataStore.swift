@@ -18,6 +18,9 @@ extension Notification.Name {
     /// App theme has been changed
     static let themeChanged           = NSNotification.Name("themeUpdated")
     
+    /// Rooms data received
+    static let newDataRooms           = NSNotification.Name(Room.apiPath)
+    
     /// IngeNews data received
     static let newDataIngeNews        = NSNotification.Name(IngeNews.apiPath)
     
