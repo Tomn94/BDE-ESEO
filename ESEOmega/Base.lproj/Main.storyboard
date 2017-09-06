@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -410,6 +410,7 @@ Paquet de chips</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                                                     <connections>
+                                                        <action selector="textFieldEdited" destination="jdp-au-bz4" eventType="editingChanged" id="hPL-ts-LrV"/>
                                                         <outlet property="delegate" destination="jdp-au-bz4" id="0jH-sU-MDY"/>
                                                     </connections>
                                                 </textField>
@@ -456,6 +457,7 @@ Paquet de chips</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                     <connections>
+                                                        <action selector="textFieldEdited" destination="jdp-au-bz4" eventType="editingChanged" id="GlI-FN-Dbl"/>
                                                         <outlet property="delegate" destination="jdp-au-bz4" id="J0l-Jl-d1d"/>
                                                     </connections>
                                                 </textField>
@@ -635,7 +637,6 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <navigationController id="PJx-tp-jgP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PZF-Gb-Wdq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -947,7 +948,6 @@ Bâtiment : F. Rolland</string>
             <objects>
                 <navigationController title="News" id="2RX-2W-agy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GFq-lL-hgk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -979,7 +979,6 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" selectedImage="sponsorsSel" id="sSY-rw-nz9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="krn-aS-nQJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -998,7 +997,6 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Cafétéria" image="cafet" selectedImage="cafetSel" id="pfX-fs-rpx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UmN-d8-iIC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1018,7 +1016,6 @@ Bâtiment : F. Rolland</string>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kmd-T4-Thd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1036,7 +1033,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Njh-RV-AH8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bIi-bw-Kn2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1054,7 +1051,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZa-VF-6Df" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fCe-Zp-Ibl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1072,7 +1069,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1105,8 +1102,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="yVs-TG-kRj"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="atF-cd-EdF"/>
-        <segue reference="yVs-TG-kRj"/>
     </inferredMetricsTieBreakers>
 </document>

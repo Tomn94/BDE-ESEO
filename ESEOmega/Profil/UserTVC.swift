@@ -24,7 +24,6 @@ import UIKit
 
 // MARK: - UserTVC actions
 fileprivate extension Selector {
-    static let textEdited  = #selector(UserTVC.textFieldEdited)
     static let disconnect  = #selector(UserTVC.disconnect)  // Logoff button
     static let changePhoto = #selector(UserTVC.changePhoto) // Tap on user pic
 }
@@ -41,7 +40,7 @@ class UserTVC: JAQBlurryTableViewController {
     static let mailDomain = "reseau.eseo.fr"
     
     /// Some indications on how to fill the mail field. "@reseau.eseo.fr" is automatically added
-    static let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson"]
+    static let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson", "joe.macmillan", "gordon.clark", "cameron.howe", "donna.clark"]
     
     /// User picture diameter size
     static let avatarImgSize: CGFloat = 170
@@ -111,9 +110,6 @@ class UserTVC: JAQBlurryTableViewController {
         sendCell.textLabel?.textColor = UINavigationBar.appearance().barTintColor
         /* No current text entry, so disable the Connect button */
         configureSendCell(mail: mailField.text, password: passField.text)
-        
-        mailField.addTarget(self, action: .textEdited, for: .editingChanged)
-        passField.addTarget(self, action: .textEdited, for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,7 +164,7 @@ class UserTVC: JAQBlurryTableViewController {
     
     /// Called when text in fields is edited.
     /// Includes text deletion.
-    @objc func textFieldEdited() {
+    @IBAction func textFieldEdited() {
         
         configureSendCell(mail:     mailField.text,
                           password: passField.text)
