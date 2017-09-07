@@ -141,6 +141,8 @@
 		64FDD9581D95C33800A3ED8F /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64FDD9511D95C33800A3ED8F /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		64FFB9BA1F60EB9900986F1C /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
 		64FFB9BB1F60EC7800986F1C /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
+		64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */; };
+		64FFB9BF1F60F04300986F1C /* UserTVC+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -425,6 +427,8 @@
 		64FDD9531D95C33800A3ED8F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		64FDD9551D95C33800A3ED8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateConstants.swift; sourceTree = "<group>"; };
+		64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTVC+Avatar.swift"; sourceTree = "<group>"; };
+		64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTVC+Login.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -663,6 +667,8 @@
 			isa = PBXGroup;
 			children = (
 				6459F9AB1E36861500C6812D /* UserTVC.swift */,
+				64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */,
+				64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */,
 				64AC81491E490E6C00C1AB8E /* UserTV.swift */,
 			);
 			path = Profil;
@@ -1308,6 +1314,7 @@
 				64339B531F16EE2800EDA97D /* SDWebImageCompat.m in Sources */,
 				64339B5D1F16EE2800EDA97D /* UIImageView+HighlightedWebCache.m in Sources */,
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
+				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
@@ -1344,6 +1351,7 @@
 				64339B541F16EE2800EDA97D /* SDWebImageDecoder.m in Sources */,
 				64ED61111B6D7A4D00456B01 /* Data.m in Sources */,
 				64934AFD1B750FC00040E6C5 /* NewsLinksVC.m in Sources */,
+				64FFB9BF1F60F04300986F1C /* UserTVC+Login.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
