@@ -243,8 +243,8 @@
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURL *url = [NSURL URLWithString:URL_PUSH];
-    NSString *login  = [JNKeychain loadValueForKey:@"login"];
-    NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+    NSString *login  = @"nil";//[JNKeychain loadValueForKey:@"login"];
+    NSString *pass   = @"nil";//[JNKeychain loadValueForKey:@"passw"];
     NSString *sToken = [[[NSString stringWithFormat:@"%@", [[Data sharedData] pushToken]]
                         stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&token=%@&os=%@&hash=%@",
@@ -274,8 +274,8 @@
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURL *url = [NSURL URLWithString:URL_UNPUSH];
-    NSString *login  = [JNKeychain loadValueForKey:@"login"];
-    NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+    NSString *login  = @"nil";//[JNKeychain loadValueForKey:@"login"];
+    NSString *pass   = @"nil";//[JNKeychain loadValueForKey:@"passw"];
     NSString *sToken = [[[NSString stringWithFormat:@"%@", [[Data sharedData] pushToken]]
                          stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&token=%@&os=%@&hash=%@",
@@ -450,8 +450,8 @@
             return;
         }
         
-        NSString *login  = [JNKeychain loadValueForKey:@"login"];
-        NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+        NSString *login  = @"nil";//[JNKeychain loadValueForKey:@"login"];
+        NSString *pass   = @"nil";//[JNKeychain loadValueForKey:@"passw"];
         NSString *toHash = [[@"Connexion au serveur ..." stringByAppendingString:login] stringByAppendingString:pass];
         NSString *body   = [NSString stringWithFormat:@"client=%@&password=%@&hash=%@",
                             [Data encoderPourURL:login],

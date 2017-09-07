@@ -91,7 +91,8 @@ enum KeychainKey {
 enum API: String {
     
     /// Common URL for all API requests
-    static private let apiURL = "https://api.bdeeseo.fr/"
+    static private let apiURL     = "https://api.bdeeseo.fr/"
+    static private let apiVersion = "1"
     
     
     /// Creates an URL Request for the API quickly,
@@ -111,6 +112,8 @@ enum API: String {
         var request = URLRequest(url: urlComponents.url ?? URL(string: apiURL + apiPath.rawValue)!,
                                  cachePolicy: cachePolicy,
                                  timeoutInterval: 60)
+        request.setValue(apiKey,     forHTTPHeaderField: "API-key")
+        request.setValue(apiVersion, forHTTPHeaderField: "API-version")
         
         /* POST */
         if !postParameters.isEmpty {
