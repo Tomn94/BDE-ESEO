@@ -426,8 +426,8 @@
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_EVENT_CM, randCache]];
     else if ([JSONname isEqualToString:@"service"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_SERVICE, randCache]];
-    else if ([JSONname isEqualToString:@"ingenews"])
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_INGENEWS, randCache]];
+//    else if ([JSONname isEqualToString:@"ingenews"])
+//        url = [NSURL URLWithString:[NSString stringWithFormat:URL_INGENEWS, randCache]];
     else
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, randCache]];
     

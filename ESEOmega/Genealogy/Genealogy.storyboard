@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-2613" y="-514"/>
         </scene>
-        <!--Généalogie-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="ksx-1M-zX0">
             <objects>
                 <tableViewController id="O43-FL-dEv" customClass="Genealogy" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,6 +70,8 @@
                         <connections>
                             <outlet property="dataSource" destination="O43-FL-dEv" id="i6H-qb-zcp"/>
                             <outlet property="delegate" destination="O43-FL-dEv" id="Hb9-UL-lnI"/>
+                            <outlet property="emptyDataSetDelegate" destination="O43-FL-dEv" id="2ea-iM-nJ3"/>
+                            <outlet property="emptyDataSetSource" destination="O43-FL-dEv" id="3cr-rn-bjW"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Généalogie" id="nqy-sb-Abr">
@@ -91,7 +93,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="u0R-6w-ler">
                             <connections>
-                                <action selector="close:" destination="O43-FL-dEv" id="R7v-9Z-rkB"/>
+                                <segue destination="O43-FL-dEv" kind="custom" customClass="DismissSegue" customModule="BDE_ESEO" customModuleProvider="target" id="dvY-jK-Omt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -152,12 +152,12 @@ class IngeNewsCVC: UICollectionViewController {
     /// Refresh control triggered
     @objc func refresh() {
         
-        guard Data.shared().shouldUpdateJSON(IngeNews.apiPath) else {
+        guard Data.shared().shouldUpdateJSON(API.ingenews.rawValue) else {
             refreshControl.endRefreshing()
             return
         }
         
-        Data.shared().updateJSON(IngeNews.apiPath)
+        Data.shared().updateJSON(API.ingenews.rawValue)
     }
     
 }

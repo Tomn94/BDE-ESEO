@@ -558,8 +558,8 @@
 		645852961DC3D0B5008AF43C /* Genealogy */ = {
 			isa = PBXGroup;
 			children = (
-				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
 				645852991DC722A3008AF43C /* Student.swift */,
+				645852971DC3D21C008AF43C /* Genealogy.storyboard */,
 				64AF21481DC8746B0000F987 /* Genealogy.swift */,
 				643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */,
 				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,

@@ -22,22 +22,31 @@
 import UIKit
 
 class GenealogyCell: UITableViewCell {
-    @IBOutlet weak var stackView: UIStackView!  /// Student names
-    @IBOutlet weak var infoLabel: UILabel!      /// Promotion info
+    
+    /// Student names
+    @IBOutlet weak var stackView: UIStackView!
+    
+    /// Promotion info
+    @IBOutlet weak var infoLabel: UILabel!
+    
 }
 
-class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+
+class Genealogy: UITableViewController {
     
     var search: UISearchController!
+    
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     var family: [[Student]] = []
-    var query: Student?             // Highlighted student
+    
+    /// Highlighted student
+    var query: Student?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
         self.tableView.tableFooterView = UIView()
         
         /* Configure Search Bar and Search Display Controller */
@@ -47,7 +56,6 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             search = UISearchController(searchResultsController: searchDisplay)
             search.searchResultsUpdater = searchDisplay
             search.obscuresBackgroundDuringPresentation = false
-            search.searchBar.delegate = searchDisplay
             search.searchBar.placeholder = "Rechercher un étudiant"
             search.searchBar.sizeToFit()
             self.tableView.tableHeaderView = search.searchBar
@@ -67,44 +75,37 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
      - Parameter student: The student whose family is requested by its ID number
      */
     func setUpFamily(for student: GenealogySearchResult) {
+        
         /* Dismiss search */
         search.isActive = false
         
         /* Ask family members for the student */
         let defaultSession = URLSession(configuration: .default,
                                         delegate: nil, delegateQueue: .main)
-        
-        let dataTask = defaultSession.dataTask(with: URL(string: URL_FML_INFO + String(student.id))!,
+        let id = String(student.id)
+
+        let dataTask = defaultSession.dataTask(with: API.request(.family,
+                                                                 get: ["student" : id]),
                                                completionHandler: { (data, resp, error) in
                                                 
             Utils.requiresActivityIndicator(false)
             self.loadingIndicator.stopAnimating()
-            guard error == nil, let data = data,
-                  let jsonData = try? JSONSerialization.jsonObject(with: data, options: []),
-                  let JSON     = jsonData as? [[String: AnyObject]]
+            
+            /* Parse the new data */
+            guard let data = data, error == nil,
+                  let familyMembers = try? JSONDecoder().decode([Student].self,
+                                                                from: data)
                 else { return }
-                                               
-            // Fill with the new data
-            var familyMembers = [Student]()
-            for result in JSON {
-                if let id        = result["id"]       as? StudentID,
-                   let name      = result["name"]     as? String,
-                   let rank      = result["rank"]     as? StudentRankRaw,
-                   let children  = result["children"] as? [StudentID],
-                   let parents   = result["parents"]  as? [StudentID],
-                   let promotion = result["promo"]    as? String {
-                    // Add this student to the family
-                    let member = Student(id: id, name: name,
-                                         promotion: promotion, rank: StudentRank(rawValue: rank) ?? .alumni,
-                                         parents: parents, children: children)
-                    familyMembers.append(member)
-                    if member.id == student.id {
-                        self.query = member
-                    }
+            
+            familyMembers.forEach { familyMember in
+                if familyMember.id == student.id {
+                    self.query = familyMember
                 }
             }
+            
             self.arrangeFamily(members: familyMembers)
         })
+        
         Utils.requiresActivityIndicator(true)
         loadingIndicator.startAnimating()
         dataTask.resume()
@@ -115,6 +116,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
      - Parameter members: Students to be organized
      */
     func arrangeFamily(members: [Student]) {
+        
         var tree: [[Student]] = []
         
         /* 1: Split students by rank */
@@ -178,22 +180,25 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         self.tableView.reloadData()
     }
 
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true)
-    }
-    
-    
-    // MARK: - Table view data source
+}
+
+
+// MARK: - Table view data source
+extension Genealogy {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
+        
         return family.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "genealogyCell",
                                                  for: indexPath) as! GenealogyCell
@@ -259,23 +264,28 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         return cell
     }
     
-    
-    // MARK: - DZNEmptyDataSet
+}
+
+
+// MARK: - Empty Data Set Source
+extension Genealogy: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        
         return #imageLiteral(resourceName: "genealogyEmpty")
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18),
-                     NSAttributedStringKey.foregroundColor: UIColor.darkGray]
-        return NSAttributedString(string: "Retrouvez ici les familles de parrainage à l'ESEO", attributes: attrs)
+    
+        return NSAttributedString(string: "Retrouvez ici les familles de parrainage à l'ESEO",
+                                  attributes: [.foregroundColor: UIColor.darkGray])
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-                     NSAttributedStringKey.foregroundColor: UIColor.lightGray]
-        return NSAttributedString(string: "Commencez par rechercher un nom !", attributes: attrs)
+
+        return NSAttributedString(string: "Commencez par rechercher un nom !",
+                                  attributes: [.font: UIFont.preferredFont(forTextStyle: .subheadline),
+                                               .foregroundColor: UIColor.lightGray])
     }
 
 }

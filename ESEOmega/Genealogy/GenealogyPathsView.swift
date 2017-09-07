@@ -21,14 +21,16 @@
 
 import UIKit
 
-class GenealogyPathsView: UIView
-{
-    let minLabelHeight: CGFloat = 35
-    let topMargin: CGFloat = 5
-    let pathWidth: CGFloat = 3
+class GenealogyPathsView: UIView {
+    
+    private let minLabelHeight: CGFloat = 35
+    private let topMargin:      CGFloat =  5
+    private let pathWidth:      CGFloat =  3
     
     var family: [[Student]] = []
+    
     var currentRank: Int?
+    
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -36,64 +38,65 @@ class GenealogyPathsView: UIView
         let width = rect.width
         let height = rect.height
         
-        if let rank = currentRank, rank < family.count {
-            /* Enumerate for each student on a line */
-            let brothers = family[rank]
-            for (index, student) in brothers.enumerated() {
-                
-                /* Get the horizontal center of its label */
-                let x = xFrom(index: index, nbrItems: brothers.count, width: width)
-                let center = CGPoint(x: x, y: height / 2)
-                
-                /* Draw TOP line if it has parents */
-                let parents = student.parents
-                if !parents.isEmpty {
-                    /* Compute the sum of each X from the student's parents */
-                    var xTopBaricenter: CGFloat = 0
-                    if rank > 0 {
-                        let elderly = family[rank - 1]
-                        for (oldIndex, oldOne) in elderly.enumerated() {
-                            if oldOne.children.contains(student.id) {
-                                xTopBaricenter += xFrom(index: oldIndex, nbrItems: elderly.count, width: width)
-                            }
+        guard let rank = currentRank, rank < family.count
+            else { return }
+        
+        /* Enumerate for each student on a line */
+        let brothers = family[rank]
+        for (index, student) in brothers.enumerated() {
+            
+            /* Get the horizontal center of its label */
+            let x = xFrom(index: index, nbrItems: brothers.count, width: width)
+            let center = CGPoint(x: x, y: height / 2)
+            
+            /* Draw TOP line if it has parents */
+            let parents = student.parents
+            if !parents.isEmpty {
+                /* Compute the sum of each X from the student's parents */
+                var xTopBaricenter: CGFloat = 0
+                if rank > 0 {
+                    let elderly = family[rank - 1]
+                    for (oldIndex, oldOne) in elderly.enumerated() {
+                        if oldOne.children.contains(student.id) {
+                            xTopBaricenter += xFrom(index: oldIndex, nbrItems: elderly.count, width: width)
                         }
                     }
-                    
-                    /* And do the average */
-                    xTopBaricenter /= CGFloat(student.parents.count)
-                    let topBaricenter = CGPoint(x: xTopBaricenter, y: 0)
-                    
-                    /* And draw on the view */
-                    drawLink(from: CGPoint(x: center.x, y: center.y - (minLabelHeight / 2) + topMargin),
-                             to: topBaricenter)
                 }
                 
-                /* Draw BOTTOM line if it has children */
-                if !student.children.isEmpty {
-                    /* Analyze brothers to see which ones have the same children
-                       Then do the sum of each X from brothers found */
-                    var xBottomBaricenter: CGFloat = 0
-                    var nbrBrotherWithChildren = 0  // Incest
-                    for (brotherIndex, brother) in brothers.enumerated() {
-                        /* The brother has children in common with current student */
-                        if !Set(brother.children).intersection(Set(student.children)).isEmpty {
-                            xBottomBaricenter += xFrom(index: brotherIndex, nbrItems: brothers.count, width: width)
-                            nbrBrotherWithChildren += 1
-                        }
+                /* And do the average */
+                xTopBaricenter /= CGFloat(student.parents.count)
+                let topBaricenter = CGPoint(x: xTopBaricenter, y: 0)
+                
+                /* And draw on the view */
+                drawLink(from: CGPoint(x: center.x, y: center.y - (minLabelHeight / 2) + topMargin),
+                         to: topBaricenter)
+            }
+            
+            /* Draw BOTTOM line if it has children */
+            if !student.children.isEmpty {
+                /* Analyze brothers to see which ones have the same children
+                   Then do the sum of each X from brothers found */
+                var xBottomBaricenter: CGFloat = 0
+                var nbrBrotherWithChildren = 0  // Incest
+                for (brotherIndex, brother) in brothers.enumerated() {
+                    /* The brother has children in common with current student */
+                    if !Set(brother.children).intersection(Set(student.children)).isEmpty {
+                        xBottomBaricenter += xFrom(index: brotherIndex, nbrItems: brothers.count, width: width)
+                        nbrBrotherWithChildren += 1
                     }
-                    
-                    /* And do the average */
-                    if nbrBrotherWithChildren > 0 {
-                        xBottomBaricenter /= CGFloat(nbrBrotherWithChildren)
-                    } else { // Fallback to the center of the current student label if no common children
-                        xBottomBaricenter = x
-                    }
-                    let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
-                    
-                    /* And draw on the view */
-                    drawLink(from: CGPoint(x: center.x, y: center.y + (minLabelHeight / 2) + topMargin - 1),
-                             to: bottomBaricenter)
                 }
+                
+                /* And do the average */
+                if nbrBrotherWithChildren > 0 {
+                    xBottomBaricenter /= CGFloat(nbrBrotherWithChildren)
+                } else { // Fallback to the center of the current student label if no common children
+                    xBottomBaricenter = x
+                }
+                let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
+                
+                /* And draw on the view */
+                drawLink(from: CGPoint(x: center.x, y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                         to: bottomBaricenter)
             }
         }
     }
@@ -103,6 +106,7 @@ class GenealogyPathsView: UIView
      - Parameter path: Path to draw
     */
     func drawLink(from start: CGPoint, to end: CGPoint) {
+        
         let ctrlPt1 = CGPoint(x: start.x, y: end.y)
         let ctrlPt2 = CGPoint(x: end.x, y: start.y)
         
@@ -135,6 +139,7 @@ class GenealogyPathsView: UIView
      - Returns: the x value of the center of the item at index
      */
     func xFrom(index: Int, nbrItems: Int, width: CGFloat) -> CGFloat {
+        
         let shiftIndex = CGFloat(index * 2) + 1
         let centerDivider = CGFloat(nbrItems) * 2
         return shiftIndex * width / centerDivider

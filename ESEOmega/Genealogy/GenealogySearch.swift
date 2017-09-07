@@ -21,42 +21,77 @@
 
 import UIKit
 
-struct GenealogySearchResult {
-    let id: StudentID
-    let name: String
-    let rank: StudentRank
-    let promotion: String
-}
-
-class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class GenealogySearch: UITableViewController {
+    
+    private let reuseIdentifier = "genealogySearchCell"
+    
     
     var familyScreen: Genealogy?
-    var results = [GenealogySearchResult]()
-    var shouldDisplayEmptyDataPane = true
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-    }
+    private var shouldDisplayEmptyDataPane = true
     
-    // MARK: - Table view data source
+    private var results = [GenealogySearchResult]()
+    
+}
+
+
+// MARK: - Table View Data Source
+extension GenealogySearch {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
+        
         return results.count
     }
     
+    // Fill cell content with data
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
+                                                 for: indexPath)
+
+        let student = results[indexPath.row]
+        cell.textLabel?.text = student.name
+        cell.detailTextLabel?.text = student.rank.name + " · Promotion " + student.promotion
+
+        return cell
+    }
+    
+}
+
+
+// MARK: - Table View Delegate
+extension GenealogySearch {
+    
+    // Show family tree for this search result
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let familyScreen = familyScreen else { return }
+            
+        let student = results[indexPath.row]
+        familyScreen.setUpFamily(for: student)
+    }
+}
+
+
+// MARK: - Search Results Updating
+extension GenealogySearch: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
+        
         /* Get Search Bar text typed */
         var query = searchController.searchBar.text ?? ""
         // Accept accents and spaces but not trailing ones
-        query = query.folding(options: .diacriticInsensitive, locale: .current).trimmingCharacters(in: CharacterSet.whitespaces)
-        query = Data.encoderPourURL(query)
+        query = query.folding(options: .diacriticInsensitive,
+                              locale:  .current).trimmingCharacters(in: .whitespaces)
         
         /* Don't overload servers, let's assume everyone has at least 3 letters in their name */
         guard query.characters.count >= 3 else {
@@ -70,86 +105,69 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
         
         /* Allows No Results message if no data */
         self.shouldDisplayEmptyDataPane = true
-        let urlString = URL_FML_SRCH + query
 
         /* Ask students results */
-        let defaultSession = URLSession(configuration: URLSessionConfiguration.default,
-                                          delegate: nil, delegateQueue: OperationQueue.main)
-        let dataTask = defaultSession.dataTask(with: URL(string: urlString)!, completionHandler: { (data, resp, error) in
+        let defaultSession = URLSession(configuration: .default,
+                                          delegate: nil, delegateQueue: .main)
+        let dataTask = defaultSession.dataTask(with: API.request(.familySearch,
+                                                                 get: ["name" : query]),
+                                               completionHandler: { (data, resp, error) in
+                                                
             Utils.requiresActivityIndicator(false)
-            guard let data = data, error == nil else { return }
-            do {
-                if let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: AnyObject]] {
-                    /* Fill with the new data */
-                    self.results.removeAll()
-                    for result in JSON {
-                        if let id        = result["id"]    as? StudentID,
-                           let name      = result["name"]  as? String,
-                           let rank      = result["rank"]  as? StudentRankRaw,
-                           let promotion = result["promo"] as? String {
-                            /* Create a new result entry */
-                            let student = GenealogySearchResult(id: id,
-                                                                name: name,
-                                                                rank: StudentRank(rawValue: rank) ?? .alumni,
-                                                                promotion: promotion)
-                            self.results.append(student)
-                        }
-                    }
-                    
-                    /* Sort alphabetically */
-                    self.results.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-                    
-                    /* Reload data and display No Results accordingly */
-                    self.tableView.tableFooterView = self.results.count > 0 ? nil : UIView()
-                    self.tableView.reloadData()
-                }
-            } catch {}
+            
+            /* Parse the new data */
+            guard let data = data, error == nil,
+                  let json = try? JSONDecoder().decode([GenealogySearchResult].self,
+                                                       from: data)
+                else { return }
+
+            /* Store sorted alphabetically */
+            self.results = json.sorted {
+                $0.name.localizedStandardCompare($1.name) == .orderedAscending
+            }
+            
+            /* Reload data and display No Results accordingly */
+            self.tableView.tableFooterView = self.results.count > 0 ? nil : UIView()
+            self.tableView.reloadData()
         })
+        
         Utils.requiresActivityIndicator(true)
         dataTask.resume()
     }
-
-    // Fill cell content with data
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "genealogySearchCell", for: indexPath)
-
-        let student = results[indexPath.row]
-        cell.textLabel?.text = student.name
-        cell.detailTextLabel?.text = student.rank.name + " · Promotion " + student.promotion
-
-        return cell
-    }
     
-    // Show family tree for this search result
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if let familyScreen = familyScreen {
-            let student = results[indexPath.row]
-            familyScreen.setUpFamily(for: student)
-        }
-    }
-    
-    // MARK: - DZNEmptyDataSet
-    
-    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        return shouldDisplayEmptyDataPane
-    }
+}
+
+
+// MARK: - Empty Data Set Source
+extension GenealogySearch: DZNEmptyDataSetSource {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        
         return #imageLiteral(resourceName: "genealogyEmpty")
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18),
-                     NSAttributedStringKey.foregroundColor: UIColor.darkGray]
-        return NSAttributedString(string: "Aucun résultat\nvérifiez l'orthographe du nom", attributes: attrs)
+        
+        return NSAttributedString(string: "Aucun résultat\nvérifiez l'orthographe du nom",
+                                  attributes: [.foregroundColor: UIColor.darkGray])
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-                     NSAttributedStringKey.foregroundColor: UIColor.lightGray]
-        return NSAttributedString(string: "Venez vous présenter au module RCII du BDE si vous n'êtes pas dans la liste !", attributes: attrs)
+        
+        return NSAttributedString(string: "Venez vous présenter au module RCII du BDE si vous n'êtes pas dans la liste !",
+                                  attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline),
+                                               .foregroundColor : UIColor.lightGray])
+    }
+    
+}
+
+
+// MARK: - Empty Data Set Delegate
+extension GenealogySearch: DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        
+        return shouldDisplayEmptyDataPane
     }
     
 }

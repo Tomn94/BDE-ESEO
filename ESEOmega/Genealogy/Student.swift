@@ -21,14 +21,10 @@
 
 import Foundation
 
-
 // MARK: - Student rank
 
-/// JSON raw type to identify a student rank
-typealias StudentRankRaw = Int
-
 /// Describes a student level of studies, and their associated JSON raw value
-enum StudentRank: StudentRankRaw {
+enum StudentRank: Int, Codable {
     
     /// First year, prep cycle
     case p1 = 0
@@ -93,14 +89,25 @@ struct Student {
     /// List of the IDs of the student's children in the tree view
     let children: [StudentID]
     
+    
+    /// Finds equality between 2 students
+    static func == (left: Student, right: Student) -> Bool {
+        return left.id == right.id
+    }
+    
 }
 
-/// Finds equality between 2 students
-///
-/// - Parameters:
-///   - left: First student
-///   - right: Second student
-/// - Returns: True if they both represent the same student
-func == (left: Student, right: Student) -> Bool {
-    return left.id == right.id
+
+// MARK: - Search
+
+struct GenealogySearchResult: Codable {
+    
+    let id: StudentID
+    
+    let name: String
+    
+    let rank: StudentRank
+    
+    let promotion: String
+    
 }

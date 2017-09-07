@@ -125,15 +125,21 @@ enum API: String {
     
     
     /// Connect user
-    case userLogin = "me/login"
+    case userLogin    = "me/login"
     
     /// List of IngeNews editions
-    case ingenews  = "ingenews"
+    case ingenews     = "ingenews"
     
     /// List of rooms
-    case rooms     = "rooms"
+    case rooms        = "rooms"
+    
+    /// Information about a family
+    case family       = "family"
+    
+    /// Search a student name for their family
+    case familySearch = "family/search"
     
     /// MessagesExtension, list of stickers
-    case stickers  = "stickers"
+    case stickers     = "stickers"
     
 }
