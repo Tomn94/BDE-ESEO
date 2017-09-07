@@ -286,51 +286,46 @@ class UserTVC: JAQBlurryTableViewController {
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
             
-            /* If we get some data back */
-            if let d = data, error == nil {
-                do {
-                    /* Parse the JSON response */
-                    if let json = try JSONSerialization.jsonObject(with: d) as? [String : Any],
-                       let success = json["success"] as? Bool {
-                        
-                        /* If connected */
-                        if success {
-                            if let username = json["fullname"] as? String,
-                               let tokenJWT = json["token"]    as? String {
-                            
-                                DataStore.connectUser(name: username,
-                                                      mail: cleanMail,
-                                                      token: tokenJWT)
-                                
-                                /* Get user's orders
-                                   Since it's a tab, it's very probable they're currently on it, or right after */
-                                Data.shared().updateJSON("cmds")
-                                
-                                /* Alert other views */
-                                NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
-                                
-                                /* Present greeting message */
-                                self.connectionSucceeded(for: username)
-                                return
-                                
-                            } else {
-                                self.connectionFailed(error: "Appelez Champollion, impossible de déchiffrer vos informations.")
-                                return
-                            }
-                            
-                        } else if let error = json["error"]        as? [String : Any],
-                                  let cause = error["userMessage"] as? String,
-                                  let uid   = error["uid"]         as? Int {
-                            /* Present custom error message otherwise */
-                            self.connectionFailed(error: cause, code: uid)
-                            return
-                        }
-                    }
-                } catch { }
+            guard let d = data, error == nil,
+                  let jsonData = try? JSONSerialization.jsonObject(with: d),
+                  let json     = jsonData as? [String : Any],
+                  let success  = json["success"] as? Bool else {
+                /* Present unknown error due to parsing */
+                self.connectionFailed()
+                return
             }
             
-            /* If any previous case didn't success, present unknown error */
-            self.connectionFailed()
+            /* If connection error */
+            guard success else {
+                if let error =  json["error"]       as? [String : Any],
+                   let cause = error["userMessage"] as? String,
+                   let uid   = error["uid"]         as? Int {
+                    self.connectionFailed(error: cause, code: uid)
+                } else {
+                    self.connectionFailed()
+                }
+                return
+            }
+            
+            /* If connected */
+            guard let username = json["fullname"] as? String,
+                  let tokenJWT = json["token"]    as? String else {
+                self.connectionFailed(error: "Appelez Champollion, impossible de déchiffrer vos informations.")
+                return
+            }
+            
+            /* Validated, save data */
+            DataStore.connectUser(name: username, mail: cleanMail, token: tokenJWT)
+            
+            /* Get user's orders
+               Since it's a tab, it's very probable they're currently on it, or right after */
+            Data.shared().updateJSON("cmds")
+            
+            /* Alert other views */
+            NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
+            
+            /* Present greeting message */
+            self.connectionSucceeded(for: username)
         }
         
         /* Fire connection */
@@ -458,7 +453,7 @@ class UserTVC: JAQBlurryTableViewController {
         
         /* Use a description of the error instead if provided */
         if error != "" {
-            title   = code == -2 ? "Oups…" : "Erreur"  // customize if wrong password
+            title   = code == 7 ? "Oups…" : "Erreur"  // customize if wrong password
             message = error
         }
         
@@ -495,6 +490,9 @@ class UserTVC: JAQBlurryTableViewController {
             
             /* Delete all profile data */
             DataStore.disconnectUser()
+                                        
+            /* Remove user's orders
+               Since it's a tab, it's very probable they're currently on it, or right after */
             Data.shared().updateJSON("cmds")
             
             /* Display connection form and appropriate navigation bar buttons */
