@@ -25,11 +25,6 @@ import Foundation
 /// Describes an IngéNews document
 struct IngeNews: Codable {
     
-    /// Remote API path,
-    /// and reference when asking IngéNews cache or data updates
-    static let apiPath = "ingenews"
-    
-    
     /// Unique identifier for the document
     let id: Int
     

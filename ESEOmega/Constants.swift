@@ -31,10 +31,10 @@ extension Notification.Name {
     static let themeChanged           = NSNotification.Name("themeUpdated")
     
     /// Rooms data received
-    static let newDataRooms           = NSNotification.Name(Room.apiPath)
+    static let newDataRooms           = NSNotification.Name("newDataRooms")
     
     /// IngeNews data received
-    static let newDataIngeNews        = NSNotification.Name(IngeNews.apiPath)
+    static let newDataIngeNews        = NSNotification.Name("newDataIngeNews")
     
     /// Debug refresh control stuck when quitting and reopening the app
     static let debugRefresh           = NSNotification.Name("debugRefresh")
@@ -96,12 +96,44 @@ enum API: String {
     
     /// Creates an URL Request for the API quickly,
     /// using one of the available API Paths
-    static func request(_ apiPath: API) -> URLRequest {
-        return URLRequest(url: URL(string: apiURL + apiPath.rawValue)!)
+    static func request(_ apiPath: API,
+                        get  getParameters:  [String : String] = [:],
+                        post postParameters: [String : String] = [:],
+                        noCache: Bool = false) -> URLRequest {
+        
+        let cachePolicy: NSURLRequest.CachePolicy = noCache ? .reloadIgnoringLocalCacheData
+                                                            : .useProtocolCachePolicy
+        
+        /* URL + GET */
+        var urlComponents = URLComponents(string: apiURL + apiPath.rawValue)!
+        urlComponents.queryItems = getParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+        
+        var request = URLRequest(url: urlComponents.url ?? URL(string: apiURL + apiPath.rawValue)!,
+                                 cachePolicy: cachePolicy,
+                                 timeoutInterval: 60)
+        
+        /* POST */
+        if !postParameters.isEmpty {
+            request.httpMethod       = "POST"
+            urlComponents.queryItems = postParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+            let postString           = urlComponents.query ?? ""
+            request.httpBody         = postString.data(using: .utf8)
+        }
+        
+        return request
     }
     
     
     /// Connect user
     case userLogin = "me/login"
+    
+    /// List of IngeNews editions
+    case ingenews  = "ingenews"
+    
+    /// List of rooms
+    case rooms     = "rooms"
+    
+    /// MessagesExtension, list of stickers
+    case stickers  = "stickers"
     
 }

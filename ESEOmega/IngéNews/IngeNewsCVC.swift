@@ -91,7 +91,7 @@ class IngeNewsCVC: UICollectionViewController {
         super.viewDidLoad()
         
         /* Load local data and ask for updates */
-        Data.shared().updateJSON(IngeNews.apiPath)
+        Data.shared().updateJSON(API.ingenews.rawValue)
         loadFiles()
         NotificationCenter.default.addObserver(self,
                                                selector: .newDataIngeNews,

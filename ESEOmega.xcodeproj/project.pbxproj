@@ -70,6 +70,7 @@
 		645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
 		645BFFF61F60C7B100BA97BA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF51F60C7B100BA97BA /* Utils.swift */; };
 		645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF71F60C7C200BA97BA /* Constants.swift */; };
+		645BFFFB1F60CAE600BA97BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF71F60C7C200BA97BA /* Constants.swift */; };
 		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
@@ -1245,6 +1246,7 @@
 			files = (
 				64EEB8FF1D9BAE25003678E2 /* MessagesViewController.swift in Sources */,
 				64EEB90E1D9BAF9A003678E2 /* StickerBrowserViewController.swift in Sources */,
+				645BFFFB1F60CAE600BA97BA /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -267,14 +267,10 @@ class UserTVC: JAQBlurryTableViewController {
         let cleanMail = mailField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
         let password  = self.passField.text ?? ""
         
-        let mailEnc = Data.encoderPourURL(cleanMail) ?? ""
-        let passEnc = Data.encoderPourURL(password)  ?? ""
-        let body    = "email=\(mailEnc)&password=\(passEnc)"
-        
         /* Set URL Session */
         let urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
-        var urlRequest = API.request(.userLogin)
-        urlRequest.httpBody = body.data(using: .utf8)
+        let urlRequest = API.request(.userLogin, get: ["email"    : cleanMail,
+                                                       "password" : password])
         
         /* Set data callback */
         let dataTask = urlSession.dataTask(with: urlRequest) { (data, urlResponse, error) in

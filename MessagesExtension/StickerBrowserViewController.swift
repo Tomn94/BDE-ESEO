@@ -12,8 +12,8 @@ import Messages
 
 class StickerBrowserViewController: MSStickerBrowserViewController {
     
-    let stickerListURL = "https://web59.secure-secure.co.uk/francoisle.fr/api/stickers"
     var stickers = [MSSticker]()
+    
     
     // MARK: Delegates
     
@@ -61,7 +61,8 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     func getStickersFromServer() {
         let queue = DispatchQueue(label: "downloadStickers")
         queue.async {
-            let request = URLRequest(url: URL(string: self.stickerListURL)!, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
+            let request = API.request(.stickers, get: [:], post: [:],
+                                      noCache: true)
             let defaultSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .current)
             // Get JSON
             let dataTask = defaultSession.dataTask(with: request) { (data, resp, error) in

@@ -54,7 +54,7 @@ class RoomsTVC: UITableViewController {
         super.viewDidLoad()
         
         /* Load local data and ask for updates */
-        Data.shared().updateJSON(Room.apiPath)
+        Data.shared().updateJSON(API.rooms.rawValue)
         loadRooms()
         
         /* Search */
@@ -174,12 +174,12 @@ class RoomsTVC: UITableViewController {
     /// Refresh control triggered
     @IBAction func refresh() {
         
-        guard Data.shared().shouldUpdateJSON("rooms") else {
+        guard Data.shared().shouldUpdateJSON(API.rooms.rawValue) else {
             refreshControl?.endRefreshing()
             return
         }
         
-        Data.shared().updateJSON("rooms")
+        Data.shared().updateJSON(API.rooms.rawValue)
     }
     
     /// Display a full-screen map

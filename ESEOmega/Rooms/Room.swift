@@ -25,10 +25,6 @@ import Foundation
 /// Describes a room and its attributes
 struct Room: Codable {
     
-    /// Remote API path,
-    /// and reference when asking Rooms cache or data updates
-    static let apiPath = "rooms"
-    
     /// Ways to sort rooms.
     /// Raw value is how this preference is stored
     enum SortMode: Int {
