@@ -280,7 +280,7 @@ class UserTVC: JAQBlurryTableViewController {
         let dataTask = urlSession.dataTask(with: urlRequest) { (data, urlResponse, error) in
             
             /* Stop loading indicators */
-            Data.shared().updLoadingActivity(false)
+            Utils.requiresActivityIndicator(false)
             self.spin.stopAnimating()
             
             /* Allow Send button to be tapped again */
@@ -329,7 +329,7 @@ class UserTVC: JAQBlurryTableViewController {
         }
         
         /* Fire connection */
-        Data.shared().updLoadingActivity(true)
+        Utils.requiresActivityIndicator(true)
         spin.startAnimating()
         dataTask.resume()
     }
@@ -594,7 +594,7 @@ class UserTVC: JAQBlurryTableViewController {
             imagePicker.allowsEditing = true
             
             /* Show the picker in a pop-over on iPad, fullscreen if not */
-            if Data.isiPad(),
+            if UIDevice.current.userInterfaceIdiom == .pad,
                let avatarView = self.tableView.emptyDataSetView.imageView {
                 
                 /* Configure the picker as a pop-over */

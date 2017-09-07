@@ -77,7 +77,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
         let dataTask = defaultSession.dataTask(with: URL(string: URL_FML_INFO + String(student.id))!,
                                                completionHandler: { (data, resp, error) in
                                                 
-            Data.shared().updLoadingActivity(false)
+            Utils.requiresActivityIndicator(false)
             self.loadingIndicator.stopAnimating()
             guard error == nil, let data = data,
                   let jsonData = try? JSONSerialization.jsonObject(with: data, options: []),
@@ -105,7 +105,7 @@ class Genealogy: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDe
             }
             self.arrangeFamily(members: familyMembers)
         })
-        Data.shared().updLoadingActivity(true)
+        Utils.requiresActivityIndicator(true)
         loadingIndicator.startAnimating()
         dataTask.resume()
     }

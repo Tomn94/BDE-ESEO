@@ -68,6 +68,8 @@
 		6458529A1DC722A3008AF43C /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645852991DC722A3008AF43C /* Student.swift */; };
 		6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459F9AB1E36861500C6812D /* UserTVC.swift */; };
 		645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
+		645BFFF61F60C7B100BA97BA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF51F60C7B100BA97BA /* Utils.swift */; };
+		645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF71F60C7C200BA97BA /* Constants.swift */; };
 		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
@@ -298,6 +300,8 @@
 		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Student.swift; path = Genealogy/Student.swift; sourceTree = "<group>"; };
 		6459F9AB1E36861500C6812D /* UserTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTVC.swift; sourceTree = "<group>"; };
 		645BFFF31F5F8F2C00BA97BA /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		645BFFF51F60C7B100BA97BA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		645BFFF71F60C7C200BA97BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		646E56661B681F3300E357F8 /* CommandesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesDetailVC.h; sourceTree = "<group>"; };
 		646E56671B681F3300E357F8 /* CommandesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesDetailVC.m; sourceTree = "<group>"; };
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
@@ -880,6 +884,8 @@
 				64ED610F1B6D7A4D00456B01 /* Data.h */,
 				64ED61101B6D7A4D00456B01 /* Data.m */,
 				64493F171E465811009C995B /* DataStore.swift */,
+				645BFFF51F60C7B100BA97BA /* Utils.swift */,
+				645BFFF71F60C7C200BA97BA /* Constants.swift */,
 				64F8ADFF1E408ACF00489198 /* ThemeManager.swift */,
 				64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */,
 				64F93EB01B5EA97900EE5C72 /* Main.storyboard */,
@@ -1257,6 +1263,7 @@
 				64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */,
 				6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */,
 				6487C2E71B5EF6BD00DC3B77 /* NewsMasterTVC.m in Sources */,
+				645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */,
 				646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */,
 				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
@@ -1272,6 +1279,7 @@
 				6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */,
 				64339B551F16EE2800EDA97D /* SDWebImageDownloader.m in Sources */,
 				64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */,
+				645BFFF61F60C7B100BA97BA /* Utils.swift in Sources */,
 				649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */,
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,

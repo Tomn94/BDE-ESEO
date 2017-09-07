@@ -76,7 +76,7 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
         let defaultSession = URLSession(configuration: URLSessionConfiguration.default,
                                           delegate: nil, delegateQueue: OperationQueue.main)
         let dataTask = defaultSession.dataTask(with: URL(string: urlString)!, completionHandler: { (data, resp, error) in
-            Data.shared().updLoadingActivity(false)
+            Utils.requiresActivityIndicator(false)
             guard let data = data, error == nil else { return }
             do {
                 if let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: AnyObject]] {
@@ -105,7 +105,7 @@ class GenealogySearch: UITableViewController, UISearchResultsUpdating, UISearchB
                 }
             } catch {}
         })
-        Data.shared().updLoadingActivity(true)
+        Utils.requiresActivityIndicator(true)
         dataTask.resume()
     }
 
