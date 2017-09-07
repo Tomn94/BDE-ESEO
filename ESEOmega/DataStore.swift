@@ -44,7 +44,7 @@ import Foundation
     
     /// Returns whether the user is currently logged
     @objc static var isUserLogged: Bool {
-        return JNKeychain.value(forKey: KeychainKey.token) != nil
+        return JNKeychain.loadValue(forKey: KeychainKey.token) != nil
     }
     
     /// Marks the user as disconnected in the app.
