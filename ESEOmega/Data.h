@@ -39,7 +39,7 @@
 #define URL_MAIL     @"https://mail.office365.com"
 #define URL_ESEO     @"http://www.eseo.fr"
 #define URL_PROJETS  @"http://www.projets.eseo.fr"
-#define URL_DREAMSP  @"https://msdn-aa.eseo.fr"
+#define URL_DREAMSP  @"https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin"
 
 #define URL_JSONS    @"https://api.bdeeseo.fr/%@?%d"
 #define URL_NEWS     @"https://api.bdeeseo.fr/news?height=%d&ptr=%d&uzless=%d"
