@@ -166,7 +166,7 @@ class RoomsTVC: UITableViewController {
             tableView.tableFooterView = nil
         } else {
             tableView.backgroundColor = .groupTableViewBackground
-            tableView.tableFooterView = UIView()
+            tableView.tableFooterView = UITableViewHeaderFooterView()
         }
         tableView.reloadData()
     }

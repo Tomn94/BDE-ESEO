@@ -47,7 +47,7 @@ class Genealogy: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UITableViewHeaderFooterView()
         
         /* Configure Search Bar and Search Display Controller */
         let storyboard = UIStoryboard(name: "GenealogySearch", bundle: nil)
