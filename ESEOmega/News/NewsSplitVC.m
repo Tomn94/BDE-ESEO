@@ -20,6 +20,7 @@
 //
 
 #import "NewsSplitVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation NewsSplitVC
 

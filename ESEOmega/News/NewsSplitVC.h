@@ -23,7 +23,6 @@
 #import "TabBarController.h"
 #import "NewsMasterTVC.h"
 #import "NewsDetailVC.h"
-#import "CreditsTVC.h"
 
 @interface NewsSplitVC : UISplitViewController <UISplitViewControllerDelegate>
 {
