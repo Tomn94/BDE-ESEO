@@ -44,3 +44,13 @@ struct IngeNews: Codable {
     let img: URL?
     
 }
+
+/// Describes a IngeNews JSON response from API
+struct IngeNewsResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    /// List of IngeNews files
+    let files: [IngeNews]
+    
+}

@@ -25,8 +25,6 @@ import WebKit
 
 
 fileprivate extension Selector {
-    /// New data incoming
-    static let newDataIngeNews = #selector(IngeNewsCVC.loadFiles)
     /// Refresh control triggered
     static let refresh = #selector(IngeNewsCVC.refresh)
 }
@@ -91,12 +89,8 @@ class IngeNewsCVC: UICollectionViewController {
         super.viewDidLoad()
         
         /* Load local data and ask for updates */
-        Data.shared().updateJSON(API.ingenews.rawValue)
-        loadFiles()
-        NotificationCenter.default.addObserver(self,
-                                               selector: .newDataIngeNews,
-                                               name:     .newDataIngeNews,
-                                               object: nil)
+        loadFromCache()
+        fetchRemote()
         
         /* Add refresh control */
         refreshControl.tintColor = UINavigationBar.appearance().barTintColor
@@ -131,33 +125,55 @@ class IngeNewsCVC: UICollectionViewController {
     
     // MARK: - Actions
     
-    /// Dismiss this view controller
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true)
-    }
-    
-    /// Reload content from eventually updated files data
-    @objc func loadFiles() {
-        
-        /* Update model */
-        //files = Data.shared().ingenews
-        
-        /* Update UI */
-        refreshControl.endRefreshing()
-        
-        self.collectionView?.backgroundColor = files.isEmpty ? .groupTableViewBackground : .white
-        self.collectionView?.reloadData()
-    }
-    
     /// Refresh control triggered
     @objc func refresh() {
         
-        guard Data.shared().shouldUpdateJSON(API.ingenews.rawValue) else {
-            refreshControl.endRefreshing()
-            return
-        }
+        fetchRemote()
+    }
+    
+}
+
+
+// MARK: - API Viewer
+extension IngeNewsCVC: APIViewer {
+    
+    typealias T = [IngeNews]
+    
+    
+    func loadFromCache() {
         
-        Data.shared().updateJSON(API.ingenews.rawValue)
+        guard let data   = APIArchiver.getCache(for: .ingenews),
+              let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data)
+            else { return }
+        
+        self.loadData(result.files)
+    }
+    
+    func fetchRemote() {
+        
+        API.request(.ingenews, completed: { data in
+            
+            self.refreshControl.endRefreshing()
+            
+            guard let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data),
+                  result.success
+                else { return }
+            
+            self.loadData(result.files)
+            APIArchiver.save(data: result.files, for: .ingenews)
+            
+        }, failure: { (_, _) in
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
+    func loadData(_ data: [IngeNews]) {
+        
+        /* Update model */
+        files = data
+        
+        self.collectionView?.backgroundColor = files.isEmpty ? .groupTableViewBackground : .white
+        self.collectionView?.reloadData()
     }
     
 }
