@@ -21,6 +21,21 @@
 
 import UIKit
 
+struct LoginResult: APIResult, Decodable {
+    
+    let success: Bool = true
+    
+    /// Id of the student (e.g. "thomas.naudet")
+    let ID: String
+    
+    /// Name of the student (e.g. "Thomas NAUDET")
+    let fullname: String
+    
+    /// API connection token granted
+    let token: String
+    
+}
+
 
 extension UserTVC {
     
@@ -45,50 +60,29 @@ extension UserTVC {
         let password  = self.passField.text ?? ""
         
         /* Set URL Session */
-        let urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
-        let urlRequest = API.request(.userLogin, get: ["email"    : cleanMail,
-                                                       "password" : password])
-        
-        /* Set data callback */
-        let dataTask = urlSession.dataTask(with: urlRequest) { (data, urlResponse, error) in
-            
-            /* Stop loading indicators */
-            Utils.requiresActivityIndicator(false)
+        API.request(.userLogin, get: ["email"    : cleanMail,
+                                      "password" : password],
+        completed: { data in
+                                        
             self.spin.stopAnimating()
-            
+                                        
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
-            
-            guard let d = data, error == nil,
-                  let jsonData = try? JSONSerialization.jsonObject(with: d),
-                  let json     = jsonData as? [String : Any],
-                  let success  = json["success"] as? Bool else {
-                /* Present unknown error due to parsing */
-                self.connectionFailed()
-                return
-            }
-            
-            /* If connection error */
-            guard success else {
-                if let error =  json["error"]       as? [String : Any],
-                   let cause = error["userMessage"] as? String,
-                   let uid   = error["uid"]         as? Int {
-                    self.connectionFailed(error: cause, code: uid)
-                } else {
+                                        
+            guard let result = try? JSONDecoder().decode(LoginResult.self, from: data) else {
+                
+                guard let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
+                      let error = baseError.error else {
                     self.connectionFailed()
+                    return
                 }
-                return
-            }
-            
-            /* If connected */
-            guard let username = json["fullname"] as? String,
-                  let tokenJWT = json["token"]    as? String else {
-                self.connectionFailed(error: "Appelez Champollion, impossible de déchiffrer vos informations.")
+                
+                self.connectionFailed(error: error.userMessage, code: error.uid)
                 return
             }
             
             /* Validated, save data */
-            DataStore.connectUser(name: username, mail: cleanMail, token: tokenJWT)
+            DataStore.connectUser(name: result.fullname, mail: cleanMail, token: result.token)
             
             /* Get user's orders
                Since it's a tab, it's very probable they're currently on it, or right after */
@@ -98,13 +92,19 @@ extension UserTVC {
             NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
             
             /* Present greeting message */
-            self.connectionSucceeded(for: username)
-        }
+            self.connectionSucceeded(for: result.fullname)
         
-        /* Fire connection */
-        Utils.requiresActivityIndicator(true)
+        }, failure: { error, data in
+            
+            self.spin.stopAnimating()
+            
+            /* Allow Send button to be tapped again */
+            self.configureSendCell(mail: self.mailField.text, password: password)
+            
+            self.connectionFailed(error: error?.localizedDescription ?? "")
+        })
+        
         spin.startAnimating()
-        dataTask.resume()
     }
     
     /// Checks connection parameters (mail, password) and blocks if too many attempts

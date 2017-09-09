@@ -70,7 +70,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     /// Fetch all stickers from the web
     func getStickersFromServer() {
         
-        API.request(.stickers, get: [:], post: [:], completed: { data in
+        API.request(.stickers, completed: { data in
             
             guard let stickers = try? JSONDecoder().decode([Sticker].self, from: data),
                   !stickers.isEmpty

@@ -6,7 +6,16 @@
 //  Copyright © 2017 Tomn. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+/// Describes *any* JSON message from API
+protocol APIResult: Decodable {
+    
+    /// Whether API request was valid
+    var success: Bool { get }
+    
+}
+
 
 /// Tools to contact the server
 class API {
@@ -40,8 +49,8 @@ class API {
     }
     
     
-    /// Describes *any* JSON message from API
-    struct Result: Decodable {
+    /// Describes a JSON error message from API
+    struct ErrorResult: APIResult, Decodable {
         
         /// Whether API request was valid
         let success: Bool
@@ -49,6 +58,7 @@ class API {
         /// Failure info if request was not valid
         let error: Error?
         
+        /// Inner error info
         struct Error: Decodable {
             
             /// Type of error
@@ -137,15 +147,14 @@ class API {
         
         /* Default message */
         var message = """
-                      Raison inconnue.
-                      Oui, c'est le genre de message utile et précis.
+                      Appelez Champollion, impossible de déchiffrer la réponse du serveur.
 
                       Si l'erreur persiste, contactez-nous.
                       """
         
         /* Get API error if available */
         if let data = data,
-           let result = try? JSONDecoder().decode(Result.self, from: data),
+           let result = try? JSONDecoder().decode(ErrorResult.self, from: data),
            let error = result.error,
            let userMessage = error.userMessage {
             message = userMessage
