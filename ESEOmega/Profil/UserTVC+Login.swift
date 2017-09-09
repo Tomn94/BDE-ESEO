@@ -21,9 +21,14 @@
 
 import UIKit
 
+/// Describes a Login JSON response from API
 struct LoginResult: APIResult, Decodable {
     
-    let success: Bool = true
+    /// `API.ErrorResult.Error.ui` value if user entered wrong password
+    static let wrongPasswordErrorCode = 7
+    
+    
+    let success = true
     
     /// Id of the student (e.g. "thomas.naudet")
     let ID: String
@@ -71,13 +76,8 @@ extension UserTVC {
                                         
             guard let result = try? JSONDecoder().decode(LoginResult.self, from: data) else {
                 
-                guard let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
-                      let error = baseError.error else {
-                    self.connectionFailed()
-                    return
-                }
-                
-                self.connectionFailed(error: error.userMessage, code: error.uid)
+                let error = API.handleFailure(data: data)
+                self.connectionFailed(error: error.message, code: error.code ?? -1)
                 return
             }
             
@@ -101,7 +101,7 @@ extension UserTVC {
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
             
-            self.connectionFailed(error: error?.localizedDescription ?? "")
+            self.connectionFailed(error: error?.localizedDescription ?? "Impossible de valider votre connexion sur nos serveurs.\nSi le problème persiste, contactez-nous.")
         })
         
         spin.startAnimating()
@@ -217,21 +217,15 @@ extension UserTVC {
     ///
     /// - Parameters:
     ///   - error: Description of the cause of the error, default alert texts if empty
-    ///   - code: Error code
-    func connectionFailed(error: String = "", code: Int = 0) {
+    ///   - code: Error code (defaults to -1)
+    func connectionFailed(error: String, code: Int = -1) {
         
-        /* Set default error messages */
-        var title   = "Impossible de valider votre connexion sur nos serveurs"
-        var message = "Impossible de valider votre connexion sur nos serveurs. Si le problème persiste, contactez-nous."
-        
-        /* Use a description of the error instead if provided */
-        if error != "" {
-            title   = code == 7 ? "Oups…" : "Erreur"  // customize if wrong password
-            message = error
-        }
+        /* Customize title if wrong password */
+        let title = code == LoginResult.wrongPasswordErrorCode
+                    ? "Oups…" : "Erreur de connexion"
         
         /* Show alert with message */
-        let alert = UIAlertController(title: title, message: message,
+        let alert = UIAlertController(title: title, message: error,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK",
                                       style: .cancel))

@@ -74,6 +74,8 @@ class API {
         
     }
     
+    typealias APIError = (message: String, code: Int?)
+    
     
     /// Contacts the API
     ///
@@ -134,42 +136,20 @@ class API {
     }
     
     
-    /// Tries to analyse parameters to get information about an error.
-    /// Presents an alert.
+    /// Tries to analyse bad API response data to at least get an error message.
     ///
     /// - Parameters:
-    ///   - data: Server error
-    ///   - error: Network error
-    ///   - viewController: View controller displaying the alert
-    static func handleFailure(data: Foundation.Data?,
-                              error: Error?,
-                              in viewController: UIViewController) {
+    ///   - data: API response data
+    static func handleFailure(data: Foundation.Data) -> APIError {
         
-        /* Default message */
-        var message = """
-                      Appelez Champollion, impossible de déchiffrer la réponse du serveur.
-
-                      Si l'erreur persiste, contactez-nous.
-                      """
-        
-        /* Get API error if available */
-        if let data = data,
-           let result = try? JSONDecoder().decode(ErrorResult.self, from: data),
-           let error = result.error,
-           let userMessage = error.userMessage {
-            message = userMessage
-            
-        /* If not, turn to network error */
-        } else if let error = error {
-            message = error.localizedDescription
+        guard let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
+              let error = baseError.error,
+              let cause = error.userMessage else {
+                return APIError(message: "Appelez Champollion, impossible de déchiffrer la réponse du serveur.",
+                                code: nil)
         }
         
-        /* Present alert */
-        let alert = UIAlertController(title: "Erreur",
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        viewController.present(alert, animated: true)
+        return APIError(message: cause, code: error.uid)
     }
 
 }
