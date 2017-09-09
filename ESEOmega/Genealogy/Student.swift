@@ -110,7 +110,7 @@ struct StudentResult: APIResult, Decodable {
 
 // MARK: - Search
 
-struct GenealogySearchResult: Codable {
+struct GenealogySearchItem: Decodable {
     
     let id: StudentID
     
@@ -119,5 +119,15 @@ struct GenealogySearchResult: Codable {
     let rank: StudentRank
     
     let promotion: String
+    
+}
+
+/// Describes a Student Search JSON response from API
+struct GenealogySearchResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    /// List of Students corresponding to query
+    let students: [GenealogySearchItem]
     
 }

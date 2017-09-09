@@ -30,7 +30,7 @@ class GenealogySearch: UITableViewController {
     
     private var shouldDisplayEmptyDataPane = true
     
-    private var results = [GenealogySearchResult]()
+    private var results = [GenealogySearchItem]()
     
 }
 
@@ -107,22 +107,15 @@ extension GenealogySearch: UISearchResultsUpdating {
         self.shouldDisplayEmptyDataPane = true
 
         /* Ask students results */
-        let defaultSession = URLSession(configuration: .default,
-                                          delegate: nil, delegateQueue: .main)
-        let dataTask = defaultSession.dataTask(with: API.request(.familySearch,
-                                                                 get: ["name" : query]),
-                                               completionHandler: { (data, resp, error) in
-                                                
-            Utils.requiresActivityIndicator(false)
+        API.request(.familySearch, get: ["name" : query], completed: { data in
             
-            /* Parse the new data */
-            guard let data = data, error == nil,
-                  let json = try? JSONDecoder().decode([GenealogySearchResult].self,
-                                                       from: data)
+            guard let result = try? JSONDecoder().decode(GenealogySearchResult.self,
+                                                       from: data),
+                  result.success
                 else { return }
-
+            
             /* Store sorted alphabetically */
-            self.results = json.sorted {
+            self.results = result.students.sorted {
                 $0.name.localizedStandardCompare($1.name) == .orderedAscending
             }
             
@@ -131,9 +124,6 @@ extension GenealogySearch: UISearchResultsUpdating {
                                            ? nil : UITableViewHeaderFooterView()
             self.tableView.reloadData()
         })
-        
-        Utils.requiresActivityIndicator(true)
-        dataTask.resume()
     }
     
 }

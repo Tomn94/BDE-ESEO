@@ -74,7 +74,7 @@ class Genealogy: UITableViewController {
      Get family for student previously searched
      - Parameter student: The student whose family is requested by its ID number
      */
-    func setUpFamily(for student: GenealogySearchResult) {
+    func setUpFamily(for student: GenealogySearchItem) {
         
         /* Dismiss search */
         search.isActive = false
