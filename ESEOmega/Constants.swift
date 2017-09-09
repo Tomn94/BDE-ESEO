@@ -30,12 +30,6 @@ extension Notification.Name {
     /// App theme has been changed
     static let themeChanged           = NSNotification.Name("themeUpdated")
     
-    /// Rooms data received
-    static let newDataRooms           = NSNotification.Name("newDataRooms")
-    
-    /// IngeNews data received
-    static let newDataIngeNews        = NSNotification.Name("newDataIngeNews")
-    
     /// Debug refresh control stuck when quitting and reopening the app
     static let debugRefresh           = NSNotification.Name("debugRefresh")
     

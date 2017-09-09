@@ -104,7 +104,7 @@ Le BDE n'est en aucun cas responsable du contenu proposé.</string>
                     <navigationItem key="navigationItem" title="Éditions Ingénews" id="zD5-Bk-mL6">
                         <barButtonItem key="rightBarButtonItem" title="Fermer" style="done" id="bla-H5-6R7">
                             <connections>
-                                <action selector="close:" destination="TaD-tl-08N" id="7rb-La-yXg"/>
+                                <segue destination="TaD-tl-08N" kind="custom" customClass="DismissSegue" customModule="BDE_ESEO" customModuleProvider="target" id="8jo-9j-Y86"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

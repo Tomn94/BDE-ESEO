@@ -89,7 +89,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
                 self.cleanFolder()
             }
             
-        }, failure: nil, noCache: true)
+        }, noCache: true)
     }
     
     /// Get sticker image and data
