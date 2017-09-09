@@ -1,10 +1,9 @@
 //
 //  Utils.swift
-//  ESEOmega
+//  MessagesExtension
 //
-//  Created by Tomn on 07/09/2017.
-//  Copyright © 2017 Thomas NAUDET
-
+//  Created by Tomn on 09/09/2017.
+//  Copyright © 2017 Thomas Naudet
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
@@ -19,29 +18,15 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-import UIKit
+import Foundation
 
-/// Pot-pourri
+/// Pot-pourri for MessagesExtension
 enum Utils {
-    
-    // MARK: Activity Loading Indicator
-    
-    /// Number of resources requesting iOS activity
-    /// indicator in status bar to be displayed
-    private static var loadingCount = 0
-    
-    /// Retain or release iOS activity indicator in status bar
-    ///
-    /// - Parameter showIndicator: Whether the caller needs the indicator or not
+
+    /// Empty implementation, because needed in API requests, and because
+    /// UIApplication.shared in requiresActivityIndicator(_:) from main target
+    /// is not available in MessagesExtensions.
     static func requiresActivityIndicator(_ showIndicator: Bool) {
-    
-        if showIndicator {
-            loadingCount += 1
-        } else {
-            loadingCount -= 1
-        }
-    
-        UIApplication.shared.isNetworkActivityIndicatorVisible = loadingCount > 0
     }
     
 }
