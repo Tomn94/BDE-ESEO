@@ -21,11 +21,6 @@
 
 import UIKit
 
-fileprivate extension Selector {
-    /// New data incoming
-    static let newDataRooms = #selector(RoomsTVC.loadRooms)
-}
-
 
 /// Lists rooms in ESEO Angers
 class RoomsTVC: UITableViewController {
@@ -54,8 +49,8 @@ class RoomsTVC: UITableViewController {
         super.viewDidLoad()
         
         /* Load local data and ask for updates */
-        Data.shared().updateJSON(API.rooms.rawValue)
-        loadRooms()
+        // TODO: Load from cache
+        fetchRooms()
         
         /* Search */
         searchController.searchResultsUpdater = self
@@ -69,10 +64,6 @@ class RoomsTVC: UITableViewController {
         refreshControl?.tintColor = UINavigationBar.appearance().barTintColor
         
         /* Data */
-        NotificationCenter.default.addObserver(self,
-                                               selector: .newDataRooms,
-                                               name: .newDataRooms,
-                                               object: nil)
         if let refresh = self.refreshControl {
             NotificationCenter.default.addObserver(refresh,
                                                    selector: #selector(UIRefreshControl.endRefreshing),
@@ -84,11 +75,25 @@ class RoomsTVC: UITableViewController {
     
     // MARK: - Actions
     
-    @objc func loadRooms() {
+    func fetchRooms() {
         
-        refreshControl?.endRefreshing()
+        API.request(.rooms, completed: { data in
+            
+            self.refreshControl?.endRefreshing()
+            
+            guard let result = try? JSONDecoder().decode(RoomsResult.self, from: data),
+                  result.success else {
+                    return
+            }
+            
+            self.loadRooms(result.rooms)
+            // TODO: Save to cache
+        })
+    }
+    
+    func loadRooms(_ rooms: [Room]) {
         
-        var allRooms = Data.shared().salles["rooms"] as! [Room]
+        var rooms = rooms
 
         /* Sort alphabetically or by building or by floor */
         var property: KeyPath<Room, String> = \.name
@@ -98,12 +103,12 @@ class RoomsTVC: UITableViewController {
         case .byBuilding:
             property = \.building
         case .byFloor:  // sort Int
-            allRooms.sort { room1, room2 in
+            rooms.sort { room1, room2 in
                 room1.floor < room2.floor
             }
         }
         if sortMode != .byFloor {  // sort String
-            allRooms.sort { room1, room2 in
+            rooms.sort { room1, room2 in
                 room1[keyPath: property].localizedStandardCompare(room2[keyPath: property]) == .orderedAscending
             }
         }
@@ -112,7 +117,7 @@ class RoomsTVC: UITableViewController {
            or floor sections or letter sections */
         var currentSectionId: String?
         var sortedRooms = [[Room]]()
-        for room in allRooms {
+        for room in rooms {
             
             var roomId = room[keyPath: property]
             if sortMode == .byName {  // alpha = sort by 1st letter
@@ -174,12 +179,7 @@ class RoomsTVC: UITableViewController {
     /// Refresh control triggered
     @IBAction func refresh() {
         
-        guard Data.shared().shouldUpdateJSON(API.rooms.rawValue) else {
-            refreshControl?.endRefreshing()
-            return
-        }
-        
-        Data.shared().updateJSON(API.rooms.rawValue)
+        fetchRooms()
     }
     
     /// Display a full-screen map
@@ -217,7 +217,7 @@ class RoomsTVC: UITableViewController {
         tableView.layer.add(transition, forKey: nil)
         
         /* Update UI */
-        loadRooms()
+        // TODO: Reload from cache
     }
     
 }

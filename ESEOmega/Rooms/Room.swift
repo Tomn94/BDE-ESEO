@@ -50,3 +50,14 @@ struct Room: Codable {
     let info: String?
     
 }
+
+
+/// Describes a Rooms JSON response from API
+struct RoomsResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    /// List of rooms
+    let rooms: [Room]
+    
+}

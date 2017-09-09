@@ -28,7 +28,7 @@ struct LoginResult: APIResult, Decodable {
     static let wrongPasswordErrorCode = 7
     
     
-    let success = true
+    let success: Bool
     
     /// Id of the student (e.g. "thomas.naudet")
     let ID: String
@@ -74,7 +74,8 @@ extension UserTVC {
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
                                         
-            guard let result = try? JSONDecoder().decode(LoginResult.self, from: data) else {
+            guard let result = try? JSONDecoder().decode(LoginResult.self, from: data),
+                  result.success else {
                 
                 let error = API.handleFailure(data: data)
                 self.connectionFailed(error: error.message, code: error.code ?? -1)

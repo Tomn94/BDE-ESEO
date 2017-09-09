@@ -136,20 +136,36 @@ class API {
     }
     
     
+    enum HandleFailureMode {
+        /// Only get error info (default)
+        case onlyFetchMessage
+        /// Present alert from decoded error info
+        case presentFetchedMessage(UIViewController)
+    }
+    
     /// Tries to analyse bad API response data to at least get an error message.
-    ///
-    /// - Parameters:
-    ///   - data: API response data
-    static func handleFailure(data: Foundation.Data) -> APIError {
+    static func handleFailure(data: Foundation.Data,
+                              mode: HandleFailureMode = .onlyFetchMessage) -> APIError {
         
-        guard let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
-              let error = baseError.error,
-              let cause = error.userMessage else {
-                return APIError(message: "Appelez Champollion, impossible de déchiffrer la réponse du serveur.",
-                                code: nil)
+        var result = APIError(message: "Appelez Champollion, impossible de déchiffrer la réponse du serveur.",
+                          code: nil)
+        
+        if let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
+           let error = baseError.error,
+           let cause = error.userMessage {
+            result = APIError(message: cause, code: error.uid)
         }
         
-        return APIError(message: cause, code: error.uid)
+        if case let .presentFetchedMessage(parentVC) = mode {
+            
+            let alert = UIAlertController(title: "Erreur réseau inconnue",
+                                          message: result.message,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            parentVC.present(alert, animated: true)
+        }
+        
+        return result
     }
 
 }
