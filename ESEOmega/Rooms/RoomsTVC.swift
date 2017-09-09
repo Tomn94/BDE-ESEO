@@ -150,7 +150,7 @@ extension RoomsTVC: APIViewer {
             self.loadData(result.rooms)
             APIArchiver.save(data: result.rooms, for: .rooms)
             
-        }, failure: { (_, _) in
+        }, failure: { _, _ in
             self.refreshControl?.endRefreshing()
         })
     }

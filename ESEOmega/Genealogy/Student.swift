@@ -69,7 +69,7 @@ func > (left: StudentRank, right: StudentRank) -> Bool {
 typealias StudentID = Int
 
 /// Describes a student and their characteristics
-struct Student {
+struct Student: Decodable {
     
     /// API Student ID
     let id: StudentID
@@ -94,6 +94,16 @@ struct Student {
     static func == (left: Student, right: Student) -> Bool {
         return left.id == right.id
     }
+    
+}
+
+/// Describes a Student JSON response from API
+struct StudentResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    /// List of Students in a family
+    let students: [Student]
     
 }
 

@@ -79,23 +79,21 @@ class Genealogy: UITableViewController {
         /* Dismiss search */
         search.isActive = false
         
+        loadingIndicator.startAnimating()
+        
         /* Ask family members for the student */
-        let defaultSession = URLSession(configuration: .default,
-                                        delegate: nil, delegateQueue: .main)
         let id = String(student.id)
-
-        let dataTask = defaultSession.dataTask(with: API.request(.family,
-                                                                 get: ["student" : id]),
-                                               completionHandler: { (data, resp, error) in
-                                                
-            Utils.requiresActivityIndicator(false)
+        API.request(.family, get: ["student" : id], completed: { data in
+            
             self.loadingIndicator.stopAnimating()
             
             /* Parse the new data */
-            guard let data = data, error == nil,
-                  let familyMembers = try? JSONDecoder().decode([Student].self,
-                                                                from: data)
+            guard let result = try? JSONDecoder().decode(StudentResult.self,
+                                                         from: data),
+                  result.success
                 else { return }
+            
+            let familyMembers = result.students
             
             familyMembers.forEach { familyMember in
                 if familyMember.id == student.id {
@@ -104,11 +102,10 @@ class Genealogy: UITableViewController {
             }
             
             self.arrangeFamily(members: familyMembers)
+            
+        }, failure: { _, _ in
+            self.loadingIndicator.stopAnimating()
         })
-        
-        Utils.requiresActivityIndicator(true)
-        loadingIndicator.startAnimating()
-        dataTask.resume()
     }
     
     /**

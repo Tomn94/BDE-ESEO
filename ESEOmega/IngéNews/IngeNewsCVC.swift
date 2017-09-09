@@ -162,7 +162,7 @@ extension IngeNewsCVC: APIViewer {
             self.loadData(result.files)
             APIArchiver.save(data: result.files, for: .ingenews)
             
-        }, failure: { (_, _) in
+        }, failure: { _, _ in
             self.refreshControl.endRefreshing()
         })
     }
