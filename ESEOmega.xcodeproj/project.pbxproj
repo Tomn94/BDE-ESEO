@@ -276,7 +276,7 @@
 		64339B231F16EBB800EDA97D /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		64339B241F16EBB800EDA97D /* SDWebImageDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloader.m; sourceTree = "<group>"; };
 		643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IngeNews.storyboard; sourceTree = "<group>"; };
-		643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogyPathsView.swift; path = Genealogy/GenealogyPathsView.swift; sourceTree = "<group>"; };
+		643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenealogyPathsView.swift; sourceTree = "<group>"; };
 		64493F171E465811009C995B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		644D36361E923D5E0047EDDA /* App-Icon-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-0@2x.png"; path = "App Icons/App-Icon-0@2x.png"; sourceTree = "<group>"; };
 		644D36371E923D5E0047EDDA /* App-Icon-0@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-0@2x~ipad.png"; path = "App Icons/App-Icon-0@2x~ipad.png"; sourceTree = "<group>"; };
@@ -308,8 +308,8 @@
 		64582C2D1BD6A9F50007C104 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		64582C2E1BD6A9F50007C104 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
 		64582C2F1BD6A9F50007C104 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
-		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Genealogy.storyboard; path = Genealogy/Genealogy.storyboard; sourceTree = "<group>"; };
-		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Student.swift; path = Genealogy/Student.swift; sourceTree = "<group>"; };
+		645852971DC3D21C008AF43C /* Genealogy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Genealogy.storyboard; sourceTree = "<group>"; };
+		645852991DC722A3008AF43C /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		6459F9AB1E36861500C6812D /* UserTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTVC.swift; sourceTree = "<group>"; };
 		645BFFF31F5F8F2C00BA97BA /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		645BFFF51F60C7B100BA97BA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -363,9 +363,9 @@
 		64AD83D41B61664800AD4C25 /* NewsDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailVC.h; sourceTree = "<group>"; };
 		64AD83D51B61664800AD4C25 /* NewsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailVC.m; sourceTree = "<group>"; };
 		64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESEOmega-Bridging-Header.h"; sourceTree = "<group>"; };
-		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = GenealogySearch.storyboard; path = Genealogy/GenealogySearch.storyboard; sourceTree = "<group>"; };
-		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenealogySearch.swift; path = Genealogy/GenealogySearch.swift; sourceTree = "<group>"; };
-		64AF21481DC8746B0000F987 /* Genealogy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Genealogy.swift; path = Genealogy/Genealogy.swift; sourceTree = "<group>"; };
+		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GenealogySearch.storyboard; sourceTree = "<group>"; };
+		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenealogySearch.swift; sourceTree = "<group>"; };
+		64AF21481DC8746B0000F987 /* Genealogy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Genealogy.swift; sourceTree = "<group>"; };
 		64B7B3781B86722700A0E296 /* OrderItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemCell.h; sourceTree = "<group>"; };
 		64B7B3791B86722700A0E296 /* OrderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemCell.m; sourceTree = "<group>"; };
 		64B7B37D1B86980700A0E296 /* OrderIngredTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderIngredTVC.h; sourceTree = "<group>"; };
@@ -582,7 +582,7 @@
 				64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */,
 				64AF21441DC7409C0000F987 /* GenealogySearch.swift */,
 			);
-			name = Genealogy;
+			path = Genealogy;
 			sourceTree = "<group>";
 		};
 		645ACDE01B695724005ABCE2 /* Historique */ = {
