@@ -49,8 +49,8 @@ class RoomsTVC: UITableViewController {
         super.viewDidLoad()
         
         /* Load local data and ask for updates */
-        // TODO: Load from cache
-        fetchRooms()
+        loadFromCache()
+        fetchRemote()
         
         /* Search */
         searchController.searchResultsUpdater = self
@@ -75,25 +75,89 @@ class RoomsTVC: UITableViewController {
     
     // MARK: - Actions
     
-    func fetchRooms() {
+    /// Refresh control triggered
+    @IBAction func refresh() {
+        
+        fetchRemote()
+    }
+    
+    /// Display a full-screen map
+    @IBAction func showMap() {
+        
+        /* Load image */
+        let imageInfo = JTSImageInfo()
+        imageInfo.image = #imageLiteral(resourceName: "plan")
+        
+        /* View controller handling display */
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo,
+                                                 mode: .image,
+                                                 backgroundStyle: .blurred)
+        imageViewer?.show(from: self,
+                          transition: .fromOffscreen)
+    }
+    
+    /// Loops through search modes
+    @IBAction func changeSortMode() {
+        
+        /* Update model */
+        switch sortMode {
+        case .byName:
+            sortMode = .byBuilding
+        case .byBuilding:
+            sortMode = .byFloor
+        case .byFloor:
+            sortMode = .byName
+        }
+        
+        /* UI transition */
+        let transition = CATransition()
+        transition.duration = 0.42
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        tableView.layer.add(transition, forKey: nil)
+        
+        /* Update UI */
+        loadFromCache()
+    }
+    
+}
+
+
+// MARK: - API Viewer
+extension RoomsTVC: APIViewer {
+    
+    typealias T = [Room]
+    
+    
+    func loadFromCache() {
+        
+        guard let data   = APIArchiver.getCache(for: .rooms),
+              let result = try? JSONDecoder().decode(RoomsResult.self, from: data)
+            else { return }
+        
+        self.loadData(result.rooms)
+    }
+    
+    func fetchRemote() {
         
         API.request(.rooms, completed: { data in
             
             self.refreshControl?.endRefreshing()
             
             guard let result = try? JSONDecoder().decode(RoomsResult.self, from: data),
-                  result.success else {
-                    return
-            }
+                  result.success
+                else { return }
             
-            self.loadRooms(result.rooms)
-            // TODO: Save to cache
+            self.loadData(result.rooms)
+            APIArchiver.save(data: result.rooms, for: .rooms)
+            
+        }, failure: { (_, _) in
+            self.refreshControl?.endRefreshing()
         })
     }
     
-    func loadRooms(_ rooms: [Room]) {
+    func loadData(_ data: [Room]) {
         
-        var rooms = rooms
+        var rooms = data
 
         /* Sort alphabetically or by building or by floor */
         var property: KeyPath<Room, String> = \.name
@@ -174,50 +238,6 @@ class RoomsTVC: UITableViewController {
             tableView.tableFooterView = UITableViewHeaderFooterView()
         }
         tableView.reloadData()
-    }
-    
-    /// Refresh control triggered
-    @IBAction func refresh() {
-        
-        fetchRooms()
-    }
-    
-    /// Display a full-screen map
-    @IBAction func showMap() {
-        
-        /* Load image */
-        let imageInfo = JTSImageInfo()
-        imageInfo.image = #imageLiteral(resourceName: "plan")
-        
-        /* View controller handling display */
-        let imageViewer = JTSImageViewController(imageInfo: imageInfo,
-                                                 mode: .image,
-                                                 backgroundStyle: .blurred)
-        imageViewer?.show(from: self,
-                          transition: .fromOffscreen)
-    }
-    
-    /// Loops through search modes
-    @IBAction func changeSortMode() {
-        
-        /* Update model */
-        switch sortMode {
-        case .byName:
-            sortMode = .byBuilding
-        case .byBuilding:
-            sortMode = .byFloor
-        case .byFloor:
-            sortMode = .byName
-        }
-        
-        /* UI transition */
-        let transition = CATransition()
-        transition.duration = 0.42
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        tableView.layer.add(transition, forKey: nil)
-        
-        /* Update UI */
-        // TODO: Reload from cache
     }
     
 }
