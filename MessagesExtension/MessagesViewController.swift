@@ -3,16 +3,35 @@
 //  MessagesExtension
 //
 //  Created by Tomn on 28/09/2016.
-//  Copyright © 2016 Tomn. All rights reserved.
+//  Copyright © 2016 Thomas Naudet
+
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+
+//  You should have received a copy of the GNU General Public License
+//  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
 import UIKit
 import Messages
 
+fileprivate extension Selector {
+    static let showStickers = #selector(MessagesViewController.showStickers)
+}
+
 class MessagesViewController: MSMessagesAppViewController {
     
     var stickerBrowserViewController: StickerBrowserViewController!
+    
     var label = UILabel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +39,8 @@ class MessagesViewController: MSMessagesAppViewController {
         
         stickerBrowserViewController = StickerBrowserViewController(stickerSize: .small)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(showStickers), name: .stickersReloaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showStickers),
+                                               name: .stickersReloaded, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,21 +70,19 @@ class MessagesViewController: MSMessagesAppViewController {
             label.removeFromSuperview()
         }
         
-        stickerBrowserViewController.view.frame = self.view.frame
+        stickerBrowserViewController.view.frame = view.frame
         stickerBrowserViewController.stickerBrowserView.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
         addChildViewController(stickerBrowserViewController)
         
         stickerBrowserViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(stickerBrowserViewController.view)
-        stickerBrowserViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        stickerBrowserViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stickerBrowserViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        stickerBrowserViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        view.addSubview(stickerBrowserViewController.view)
+        NSLayoutConstraint.activate([
+            stickerBrowserViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            stickerBrowserViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            stickerBrowserViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            stickerBrowserViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         
         stickerBrowserViewController.didMove(toParentViewController: self)
     }
-}
-
-extension Notification.Name {
-    static let stickersReloaded = Notification.Name(rawValue: "stickersReloaded")
 }

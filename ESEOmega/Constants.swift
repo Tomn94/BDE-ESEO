@@ -39,6 +39,12 @@ extension Notification.Name {
     /// Debug refresh control stuck when quitting and reopening the app
     static let debugRefresh           = NSNotification.Name("debugRefresh")
     
+    
+    // MARK: MessagesExtension
+    
+    /// Sticker list changed
+    static let stickersReloaded       = Notification.Name("stickersReloaded")
+    
 }
 
 
@@ -65,6 +71,12 @@ enum UserDefaultsKey {
     
     /// Whether app data has already been erased to support ESEOdin API
     static let usesAPIv5      = "alreadyLaunchedv5NewAPI"
+    
+    
+    // MARK: MessagesExtension
+    
+    /// Server response cached for fast reload
+    static let stickers       = "stickers"
     
 }
 
