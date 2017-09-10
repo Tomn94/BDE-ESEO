@@ -1,5 +1,5 @@
 //
-//  NewsList.swift
+//  NewsListVC.swift
 //  ESEOmega
 //
 //  Created by Tomn on 10/09/2017.
@@ -28,7 +28,7 @@ protocol NewsSelectionDelegate {
 }
 
 
-class NewsList: UITableViewController {
+class NewsListTVC: UITableViewController {
     
     /// List of HTML entities not encoded by server
     private static let poop = ["&nbsp;", "&iexcl;", "&cent;", "&pound;", "&curren;", "&yen;", "&brvbar;",
@@ -169,7 +169,7 @@ class NewsList: UITableViewController {
 
 
 // MARK: - API Viewer
-extension NewsList: APIViewer {
+extension NewsListTVC: APIViewer {
     
     typealias T = [NewsArticle]
     
@@ -232,7 +232,7 @@ extension NewsList: APIViewer {
 
 
 // MARK: - Table View Controller Data Source
-extension NewsList {
+extension NewsListTVC {
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
@@ -276,7 +276,7 @@ extension NewsList {
         cleanPreview = cleanPreview.replacingOccurrences(of: "&amp;", with: "&")
         cleanPreview = cleanPreview.replacingOccurrences(of: "&lsquo;", with: "‘")
         cleanPreview = cleanPreview.replacingOccurrences(of: "&rsquo;", with: "’")
-        for (poopIndex, poopChar) in NewsList.poop.enumerated() {
+        for (poopIndex, poopChar) in NewsListTVC.poop.enumerated() {
             cleanPreview = cleanPreview.replacingOccurrences(of: poopChar,
                               with: String(format: "%C", 160 + poopIndex))
         }
@@ -303,7 +303,7 @@ extension NewsList {
 
 
 // MARK: - Table View Data Source Prefetching
-extension NewsList: UITableViewDataSourcePrefetching {
+extension NewsListTVC: UITableViewDataSourcePrefetching {
     
     /// Prepares data (news image) at specified index paths
     ///
@@ -326,7 +326,7 @@ extension NewsList: UITableViewDataSourcePrefetching {
 
 
 // MARK: - Table View Controller Delegate
-extension NewsList {
+extension NewsListTVC {
     
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
@@ -345,7 +345,7 @@ extension NewsList {
 
 
 // MARK: - VC Previewing Delegate
-extension NewsList: UIViewControllerPreviewingDelegate {
+extension NewsListTVC: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -374,7 +374,7 @@ extension NewsList: UIViewControllerPreviewingDelegate {
 
 
 // MARK: - Mail Compose VC Delegate
-extension NewsList: MFMailComposeViewControllerDelegate {
+extension NewsListTVC: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult,
@@ -387,7 +387,7 @@ extension NewsList: MFMailComposeViewControllerDelegate {
 
 
 // MARK: - Empty Data Set Data Source
-extension NewsList: DZNEmptyDataSetSource {
+extension NewsListTVC: DZNEmptyDataSetSource {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         
