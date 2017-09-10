@@ -25,7 +25,7 @@ import Foundation
 struct NewsArticle: Codable {
     
     /// Unique identifier for the article
-    let id: Int
+    let ID: Int
     
     /// Title of the news article
     let title: String
@@ -47,20 +47,20 @@ struct NewsArticle: Codable {
     let creator: String
     
     /// Illustration, club image… associated with the article
-    let img: URL?
+    let img: String?
     
     /// Link to article on BDE website.
     /// Consider using `getURL()` instead.
-    let url: URL?
+    let url: String?
     
     
     // If the BDE has no website link, let's make one
     func getURL() -> URL? {
         
         if url == nil {
-            return URL(string: "https://bdeeseo.fr/news/\(id)")
+            return URL(string: "https://bdeeseo.fr/news/\(ID)")
         }
-        return url
+        return URL(string: url!)
     }
     
 }

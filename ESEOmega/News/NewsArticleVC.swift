@@ -77,7 +77,7 @@ class NewsArticleVC: UIViewController {
     func load(article: NewsArticle) {
         
         if self.article != nil &&
-           self.article!.id == article.id {
+           self.article!.ID == article.ID {
             return
         }
         self.article = article
@@ -92,7 +92,7 @@ class NewsArticleVC: UIViewController {
         }
         
         let html = String(format: NewsArticleVC.wrapper,
-                          article.img?.absoluteString ?? "",
+                          article.img ?? "",
                           article.title,
                           article.club,
                           article.content)

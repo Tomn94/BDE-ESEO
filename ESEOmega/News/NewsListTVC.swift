@@ -190,9 +190,16 @@ extension NewsListTVC: APIViewer {
         API.request(.news, get: ["maxInPage" : String(newsPerPage)],
                     completed: { data in
             
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
             
-            guard let result = try? JSONDecoder().decode(NewsResult.self, from: data),
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            guard let result = try? decoder.decode(NewsResult.self, from: data),
                   result.success
                 else { return }
             
@@ -200,7 +207,9 @@ extension NewsListTVC: APIViewer {
             APIArchiver.save(data: result.news, for: .news)
             
         }, failure: { _, _ in
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
         })
     }
     
@@ -208,12 +217,15 @@ extension NewsListTVC: APIViewer {
         
         news += data
         
-        // TODO: Uniquement au lancement
-        if let firstNews = news.first {
-            delegate?.present(article: firstNews)
+        DispatchQueue.main.async {
+            
+            // TODO: Uniquement au lancement
+            if let firstNews = self.news.first {
+                self.delegate?.present(article: firstNews)
+            }
+            
+            self.reloadData()
         }
-        
-        reloadData()
     }
     
     func reloadData() {
@@ -283,7 +295,8 @@ extension NewsListTVC {
         cell.detailTextLabel?.text = cleanPreview
         
         cell.imageView?.contentMode = .scaleAspectFill
-        if let imgURL = article.img {
+        if let imgString = article.img,
+            let imgURL = URL(string: imgString) {
             
             cell.imageView?.sd_setImage(with: imgURL,
                                         placeholderImage: #imageLiteral(resourceName: "placeholder"),
@@ -315,9 +328,11 @@ extension NewsListTVC: UITableViewDataSourcePrefetching {
         
         let thumbnailURLs: [URL] = indexPaths.flatMap { indexPath in
             
-            guard indexPath.row != news.count else { return nil }
+            guard indexPath.row != news.count,
+                  let articleImg = news[indexPath.row].img
+                else { return nil }
             
-            return news[indexPath.row].img
+            return URL(string: articleImg)
         }
         SDWebImagePrefetcher.shared().prefetchURLs(thumbnailURLs)
     }
