@@ -183,9 +183,9 @@ shouldSelectViewController:(UIViewController *)viewController
         switch (tabBarController.selectedIndex)
         {
             case 0:
-                if ([viewController isKindOfClass:[NewsSplitVC class]])
+                if ([viewController isKindOfClass:[NewsSplit class]])
                 {
-                    NewsSplitVC *split = (NewsSplitVC *)viewController;
+                    NewsSplit *split = (NewsSplit *)viewController;
                     if (split.collapsed)
                         [(UINavigationController *)split.viewControllers[0] popToRootViewControllerAnimated:YES];
                 }

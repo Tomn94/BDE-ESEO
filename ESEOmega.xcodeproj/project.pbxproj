@@ -82,8 +82,8 @@
 		647F6BF21F64B311006FA132 /* NewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsList.swift */; };
 		647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */; };
 		647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */; };
+		647F6BFA1F65E508006FA132 /* NewsSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF91F65E508006FA132 /* NewsSplit.swift */; };
 		6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */; };
-		6487C2E41B5EF4A800DC3B77 /* NewsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */; };
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
@@ -326,10 +326,9 @@
 		647F6BF11F64B311006FA132 /* NewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsList.swift; sourceTree = "<group>"; };
 		647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksToolbar.swift; sourceTree = "<group>"; };
 		647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleVC.swift; sourceTree = "<group>"; };
+		647F6BF91F65E508006FA132 /* NewsSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSplit.swift; sourceTree = "<group>"; };
 		6482C3BB1BB33A7A008F8DF8 /* OrderConfirmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderConfirmCell.h; sourceTree = "<group>"; };
 		6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderConfirmCell.m; sourceTree = "<group>"; };
-		6487C2E21B5EF4A800DC3B77 /* NewsSplitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsSplitVC.h; sourceTree = "<group>"; };
-		6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsSplitVC.m; sourceTree = "<group>"; };
 		6488AA4F1B728CDC000E2660 /* ka1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ka1.ttf; sourceTree = "<group>"; };
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
@@ -657,9 +656,8 @@
 		6487C2EB1B5EF81300DC3B77 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				6487C2E21B5EF4A800DC3B77 /* NewsSplitVC.h */,
-				6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */,
 				64F84CFD1F633CBD0064F696 /* NewsArticle.swift */,
+				647F6BF91F65E508006FA132 /* NewsSplit.swift */,
 				647F6BF11F64B311006FA132 /* NewsList.swift */,
 				647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */,
 				647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */,
@@ -1294,6 +1292,7 @@
 				64F84CFE1F633CBD0064F696 /* NewsArticle.swift in Sources */,
 				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
+				647F6BFA1F65E508006FA132 /* NewsSplit.swift in Sources */,
 				64339B561F16EE2800EDA97D /* SDWebImageDownloaderOperation.m in Sources */,
 				64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */,
 				64339B581F16EE2800EDA97D /* SDWebImagePrefetcher.m in Sources */,
@@ -1322,7 +1321,6 @@
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
-				6487C2E41B5EF4A800DC3B77 /* NewsSplitVC.m in Sources */,
 				645C29771F63760A001F79AC /* API.swift in Sources */,
 				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
 				64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */,

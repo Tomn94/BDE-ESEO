@@ -21,7 +21,6 @@
 
 @import UIKit;
 #import "Data.h"
-#import "NewsSplitVC.h"
 #import "EventsTVC.h"
 #import "ClubsSplitVC.h"
 #import "ClubsDetailTVC.h"

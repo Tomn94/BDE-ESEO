@@ -45,3 +45,20 @@ enum Utils {
     }
     
 }
+
+
+extension UISplitViewController {
+    
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+}
+
+extension UINavigationController {
+    
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+}

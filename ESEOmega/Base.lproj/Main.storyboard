@@ -987,7 +987,7 @@ Bâtiment : F. Rolland</string>
         <!--News-->
         <scene sceneID="C7b-VM-bVY">
             <objects>
-                <splitViewController id="fBW-LR-6io" customClass="NewsSplitVC" sceneMemberID="viewController">
+                <splitViewController id="fBW-LR-6io" customClass="NewsSplit" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="news" selectedImage="newsSel" id="sRY-Op-d2M"/>
                     <connections>
                         <segue destination="2RX-2W-agy" kind="relationship" relationship="masterViewController" id="Wyv-Ew-7mi"/>
@@ -1130,6 +1130,6 @@ Bâtiment : F. Rolland</string>
     <inferredMetricsTieBreakers>
         <segue reference="hZX-Yt-D3E"/>
         <segue reference="mMl-75-8h7"/>
-        <segue reference="atF-cd-EdF"/>
+        <segue reference="LLY-gO-oS9"/>
     </inferredMetricsTieBreakers>
 </document>
