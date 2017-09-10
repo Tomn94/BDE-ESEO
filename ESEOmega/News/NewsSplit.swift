@@ -65,9 +65,11 @@ class NewsSplit: UISplitViewController {
     func setupBarButtons() {
         
         if displayMode == .allVisible && !isCollapsed {
+            // Only show Credits icon, since Login is on detail view
             master?.navigationItem.setRightBarButtonItems([creditsItem],
                                                           animated: true)
         } else {
+            // Show User Login icon on master, on iPhone portrait
             master?.navigationItem.setRightBarButtonItems(initialRightBarItems + [creditsItem],
                                                           animated: true)
         }

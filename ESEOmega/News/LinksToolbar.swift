@@ -32,14 +32,16 @@ class LinksToolbar: UIView {
     
     typealias QuickLink = (image: UIImage, url: String)
     
+    @objc static let portalQuickLink = "https://portail-etudiants.eseo.fr/portal/"
+    @objc static let campusQuickLink = "https://portail-etudiants.eseo.fr/campus/"
     static let quickLinks: [QuickLink] = [QuickLink(image: #imageLiteral(resourceName: "eseoMails"),
                                                     url: "https://mail.office365.com"),
                                           QuickLink(image: #imageLiteral(resourceName: "eseo"),
                                                     url: "http://www.eseo.fr"),
                                           QuickLink(image: #imageLiteral(resourceName: "eseoPortail"),
-                                                    url: "https://portail-etudiants.eseo.fr/portal/"),
+                                                    url: LinksToolbar.portalQuickLink),
                                           QuickLink(image: #imageLiteral(resourceName: "eseoCampus"),
-                                                    url: "https://portail-etudiants.eseo.fr/campus/"),
+                                                    url: LinksToolbar.campusQuickLink),
                                           QuickLink(image: #imageLiteral(resourceName: "dreamspark"),
                                                     url: "https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin")]
     

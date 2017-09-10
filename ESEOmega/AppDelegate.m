@@ -119,9 +119,11 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.portail"])
-        [[Data sharedData] openURL:URL_PORTAIL currentVC:tab];
+        [[Data sharedData] openURL:[LinksToolbar portalQuickLink]
+                         currentVC:tab];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.campus"])
-        [[Data sharedData] openURL:URL_CAMPUS currentVC:tab];
+        [[Data sharedData] openURL:[LinksToolbar campusQuickLink]
+                         currentVC:tab];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.salles"]) {
         BOOL dontReopen = NO;
         UIViewController *vc = self.window.rootViewController.presentedViewController;
@@ -454,7 +456,17 @@ continueUserActivity:(NSUserActivity *)userActivity
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.article"])
     {
         [tab setSelectedIndex:0];
-        [[(NewsSplitVC *)([tab viewControllers][0]) master] openWithInfos:userActivity.userInfo];
+        NewsSplit *newsSplit = tab.viewControllers.firstObject;
+        UIViewController *detailNVC = newsSplit.viewControllers.lastObject;
+        if ([detailNVC isKindOfClass:[UINavigationController class]])
+        {
+            UIViewController *detailVC = ((UINavigationController *)detailNVC).viewControllers.firstObject;
+            if ([detailVC isKindOfClass:[NewsArticleVC class]])
+            {
+                [newsSplit showDetailViewController:detailNVC sender:nil];
+                [((NewsArticleVC *)detailVC) continueReadingWithUserInfo:userActivity.userInfo];
+            }
+        }
     }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];

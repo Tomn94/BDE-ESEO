@@ -19,6 +19,8 @@ class NewsArticleVC: UIViewController {
     
     private static let wrapper = "<html><head><meta name='viewport' content='initial-scale=1.0' /><style>body { font-family: -apple-system, 'Helvetica Neue', sans-serif; margin: 0; padding: 0; color: #757575; text-align: left; } a { color: #FFA200; }  img { max-width: 98%%; } .header { background: url('%@'); background-size: cover; background-position: center center; height: 142px; width: 100%%; position: relative; } .titre { color: white; font-size: 20px; text-shadow: 0px 0px 5px black; position: absolute; bottom: -11px; padding: 0px 8px; } .content { padding: 0; margin: 0; padding-top: 8px; width: 100%%; }</style></head><body><div class='header'><p class='titre'>%@<br/><span style='font-size: 12px;'>%@</span></p></div><div class='content'><div style='padding: 0 10px 10px 10px; overflow: scroll;'>%@</div></div></body></html>"
     
+    private let handoffArticleKey = "article"
+    
     let webView: WKWebView = {
         
         let config = WKWebViewConfiguration()
@@ -63,7 +65,9 @@ class NewsArticleVC: UIViewController {
     
     override func updateUserActivityState(_ activity: NSUserActivity) {
         
-        try? activity.addUserInfoEntries(from: ["article" : JSONEncoder().encode(article)])
+        if let encodedData = try? JSONEncoder().encode(article) {
+            activity.addUserInfoEntries(from: [handoffArticleKey : encodedData])
+        }
         super.updateUserActivityState(activity)
     }
     
@@ -112,6 +116,17 @@ class NewsArticleVC: UIViewController {
         }
         
         self.userActivity?.becomeCurrent()
+    }
+    
+    /// Handoff
+    @objc func continueReading(userInfo: [String : Any]) {
+        
+        guard let data = userInfo[handoffArticleKey] as? Foundation.Data,
+              let article = try? JSONDecoder().decode(NewsArticle.self,
+                                                      from: data)
+            else { return }
+        
+        load(article: article)
     }
     
     @objc func shareArticle() {
@@ -195,7 +210,7 @@ extension NewsArticleVC: WKUIDelegate {
         
         let safari = SFSafariViewController(url: previewURL)
         
-        safari.preferredBarTintColor = UINavigationBar.appearance().barTintColor
+        safari.preferredBarTintColor     = UINavigationBar.appearance().barTintColor
         safari.preferredControlTintColor = UINavigationBar.appearance().tintColor
         
         return safari
