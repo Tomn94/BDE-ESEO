@@ -146,4 +146,6 @@
 - (void) tel:(NSString *)num
     currentVC:(UIViewController *)vc;
 
++ (UIImage *) linksToolbarBDEIcon;
+
 @end

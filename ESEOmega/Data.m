@@ -1194,5 +1194,42 @@ shouldChangeCharactersInRange:(NSRange)range
     [vc presentViewController:alert animated:YES completion:nil];
 }
 
++ (UIImage *) linksToolbarBDEIcon
+{
+    /* Image size constants */
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGSize targetSize = CGSizeMake(40, 40);
+    
+    /* Create context */
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef mainViewContentContext = CGBitmapContextCreate(NULL, targetSize.width * scale,
+                                                                targetSize.height * scale, 8, 0,
+                                                                colorSpace, kCGImageAlphaPremultipliedLast);
+    CGColorSpaceRelease(colorSpace);
+    
+    /* Get image and its mask on disk */
+    int themeNumber    = (int)[ThemeManager objc_currentTheme];
+    UIImage *image     = [UIImage imageNamed:[NSString stringWithFormat:@"App-Icon-%d",
+                                              themeNumber]];
+    UIImage *maskImage = [UIImage imageNamed:@"eseo"];
+    
+    /* Draw image and mask */
+    CGRect targetRect = CGRectMake(0, 0, targetSize.width * scale,
+                                         targetSize.height * scale);
+    CGContextClipToMask(mainViewContentContext, targetRect, maskImage.CGImage);
+    CGContextDrawImage (mainViewContentContext, targetRect, image.CGImage);
+
+    /* Get result back */
+    CGImageRef newImage = CGBitmapContextCreateImage(mainViewContentContext);
+    CGContextRelease(mainViewContentContext);
+    
+    /* Set masked image to the button */
+    UIImage *finalImage = [Data scaleAndCropImage:[UIImage imageWithCGImage:newImage]
+                                           toSize:targetSize retina:YES];
+    CGImageRelease(newImage);
+    
+    return [finalImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
+
 @end
 

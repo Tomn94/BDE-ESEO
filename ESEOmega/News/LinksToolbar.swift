@@ -31,21 +31,27 @@ class LinksToolbar: UIView {
     
     var bdeItem: UIBarButtonItem {
         
-        
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "eseo"), style: .plain,
+        return UIBarButtonItem(image: Data.linksToolbarBDEIcon(),
+                               style: .plain,
                                target: self, action: nil)
     }
     
     var toolbarItems: [UIBarButtonItem] {
         
-        return [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        return [flexibleSpace,
                 UIBarButtonItem(image: #imageLiteral(resourceName: "eseoMails"), style: .plain, target: nil, action: nil),
+                flexibleSpace,
                 UIBarButtonItem(image: #imageLiteral(resourceName: "eseo"), style: .plain, target: nil, action: nil),
+                flexibleSpace,
                 UIBarButtonItem(image: #imageLiteral(resourceName: "eseoPortail"), style: .plain, target: nil, action: nil),
+                flexibleSpace,
                 UIBarButtonItem(image: #imageLiteral(resourceName: "eseoCampus"), style: .plain, target: nil, action: nil),
+                flexibleSpace,
                 UIBarButtonItem(image: #imageLiteral(resourceName: "dreamspark"), style: .plain, target: nil, action: nil),
+                flexibleSpace,
                 bdeItem,
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
+                flexibleSpace]
     }
     
     
