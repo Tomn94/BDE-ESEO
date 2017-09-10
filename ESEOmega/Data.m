@@ -40,10 +40,6 @@
         [defaults synchronize];
         
         EGOCache *ec        = [EGOCache globalCache];
-        instance.news       = (![ec hasCacheForKey:@"news"]) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"news"]
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
         instance.events     = (![ec hasCacheForKey:@"events"]) ? nil
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"events"]
                                                                                                options:kNilOptions
@@ -56,7 +52,7 @@
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"clubs"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
-        instance.cmds       = (![ec hasCacheForKey:@"cmds"] || ![Data estConnecte]) ? nil
+        instance.cmds       = (![ec hasCacheForKey:@"cmds"] || !DataStore.isUserLogged) ? nil
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"cmds"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
@@ -69,14 +65,6 @@
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"sponsors"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
-        instance.salles     = (![ec hasCacheForKey:@"rooms"]) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"rooms"]
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
-        instance.ingenews   = (![ec hasCacheForKey:@"ingenews"]) ? nil
-                                                                 : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"ingenews"]
-                                                                                                   options:kNilOptions
-                                                                                                     error:nil];
         NSNumber *time      = [NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]];
         instance.lastCheck  = [NSMutableDictionary dictionaryWithDictionary:@{ @"news":      time,
                                                                                @"events":    time,
@@ -394,40 +382,22 @@
     return ([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max);
 }
 
-- (void) updateJSON:(NSString *)JSONname
-{
-    [self updateJSON:JSONname options:0];
-}
-
 /**
  Fetch data from API
 
  @param JSONname API module identifier
- @param options Used for news to fetch old articles (offset)
  */
 - (void) updateJSON:(NSString *)JSONname
-            options:(NSInteger)options
 {
     /* Set URL */
     int randCache = (int)arc4random_uniform(9999);
     NSURL *url;
-    if ([JSONname isEqualToString:@"news"])
-    {
-        CGSize sz = [UIScreen mainScreen].bounds.size;
-        CGFloat l = sz.height;
-        if (sz.width > sz.height)
-            l = sz.width;
-        int nbrNews = (int)MIN(20, l / 44);
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_NEWS, nbrNews, (int)options * nbrNews, randCache]];
-    }
-    else if ([JSONname isEqualToString:@"cmds"])
+    if ([JSONname isEqualToString:@"cmds"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_CMDS, randCache]];
     else if ([JSONname isEqualToString:@"eventsCmds"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_EVENT_CM, randCache]];
     else if ([JSONname isEqualToString:@"service"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_SERVICE, randCache]];
-//    else if ([JSONname isEqualToString:@"ingenews"])
-//        url = [NSURL URLWithString:[NSString stringWithFormat:URL_INGENEWS, randCache]];
     else
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, randCache]];
     
@@ -505,8 +475,6 @@
                                                       key = @"history";
                                                   else if ([JSONname isEqualToString:@"rooms"])
                                                       key = @"rooms";
-                                                  else if ([JSONname isEqualToString:@"ingenews"])
-                                                      key = @"fichiers";
                                                   
                                                   JSON = [NSDictionary dictionaryWithObject:baseJSON
                                                                                      forKey:key];
@@ -519,13 +487,13 @@
                                                   JSON = JSON[@"data"];
                                               
                                               /* Cache data */
-                                              if (JSON != nil && JSON.count && options == 0 && ![JSONname isEqualToString:@"service"])
+                                              if (JSON != nil && JSON.count && ![JSONname isEqualToString:@"service"])
                                                   [[EGOCache globalCache] setData:data
                                                                            forKey:JSONname
                                                               withTimeoutInterval:90 * 86400];
                                           }
                                           /* Get cache if nothing from network */
-                                          else if ([[EGOCache globalCache] hasCacheForKey:JSONname] && options == 0)
+                                          else if ([[EGOCache globalCache] hasCacheForKey:JSONname])
                                               JSON = [NSJSONSerialization JSONObjectWithData:[[EGOCache globalCache] dataForKey:JSONname]
                                                                                      options:kNilOptions
                                                                                        error:nil];
@@ -533,9 +501,7 @@
                                           /* Set data in memory */
                                           if (JSON != nil)
                                           {
-                                              if ([JSONname isEqualToString:@"news"])
-                                                  [self traiterNewNews:JSON start:options];
-                                              else if ([JSONname isEqualToString:@"events"])
+                                              if ([JSONname isEqualToString:@"events"])
                                                   _events = JSON;
                                               else if ([JSONname isEqualToString:@"eventsCmds"])
                                                   _eventsCmds = JSON;
@@ -549,23 +515,15 @@
                                                   _menus = JSON;
                                               else if ([JSONname isEqualToString:@"sponsors"])
                                                   _sponsors = JSON;
-                                              else if ([JSONname isEqualToString:@"rooms"])
-                                                  _salles = JSON;
-                                              else if ([JSONname isEqualToString:@"ingenews"])
-                                                  _ingenews = JSON;
                                               
                                               // LastCheck
-                                              if (options == 0)
-                                                  [_lastCheck setValue:@([NSDate timeIntervalSinceReferenceDate]) forKey:JSONname];
+                                              [_lastCheck setValue:@([NSDate timeIntervalSinceReferenceDate]) forKey:JSONname];
                                               
                                               // Informer la vue
-                                              if (![JSONname isEqualToString:@"news"])
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:JSONname object:nil];
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:JSONname object:nil];
                                           }
                                           
                                           [[NSNotificationCenter defaultCenter] postNotificationName:[NSString stringWithFormat:@"%@Sent", JSONname] object:nil];
-                                          if ([JSONname isEqualToString:@"news"] && options != 0)
-                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"moreNewsSent" object:nil];
                                           [self updLoadingActivity:NO];
                                       }];
     [dataTask resume];
@@ -582,58 +540,6 @@
         --loadingCount;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(loadingCount > 0)];
-}
-
-- (void) traiterNewNews:(NSDictionary *)JSON
-                  start:(NSInteger)index
-{
-    if (_news == nil || [_news[@"articles"] count] < 1)
-        _news = JSON;
-    else
-    {
-        NSArray *oldNews = _news[@"articles"];
-        NSArray *newNews =  JSON[@"articles"];
-        NSMutableArray *toAddNews = [NSMutableArray array];
-        NSMutableIndexSet *toUpdNewsIndexes = [NSMutableIndexSet indexSet];
-        NSMutableArray    *toUpdNewsData  = [NSMutableArray array];
-        for (NSDictionary *newArticle in newNews)
-        {
-            BOOL pasDedans = YES;
-            NSUInteger index = 0;
-            for (NSDictionary *oldArticle in oldNews)
-            {
-                if ([newArticle[@"id"] integerValue] == [oldArticle[@"id"] integerValue])
-                {
-                    pasDedans = NO;
-                    break;
-                }
-                index++;
-            }
-            if (pasDedans)
-                [toAddNews addObject:newArticle];
-            else
-            {
-                [toUpdNewsIndexes addIndex:index];
-                [toUpdNewsData addObject:newArticle];
-            }
-        }
-        
-        NSMutableArray *m_oldNews = [NSMutableArray arrayWithArray:oldNews];
-        [m_oldNews replaceObjectsAtIndexes:toUpdNewsIndexes withObjects:toUpdNewsData];
-        
-        NSMutableArray *turfuNews = [NSMutableArray array];
-        if (index == 0)
-            [turfuNews addObjectsFromArray:toAddNews];
-        [turfuNews addObjectsFromArray:m_oldNews];
-        if (index != 0)
-            [turfuNews addObjectsFromArray:toAddNews];
-
-        _news = @{ @"articles": [NSArray arrayWithArray:turfuNews] };
-    }
-    
-    if (index > 0)
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"moreNewsOK" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"news" object:nil];
 }
 
 + (void) checkAvailability

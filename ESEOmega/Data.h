@@ -34,12 +34,6 @@
 #define NEW_UPD_BT @"Mettre à jour"
 
 #define URL_APPSTORE @"https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=updCafet&mt=8"
-#define URL_PORTAIL  @"https://portail-etudiants.eseo.fr/portal/"
-#define URL_CAMPUS   @"https://portail-etudiants.eseo.fr/campus/"
-#define URL_MAIL     @"https://mail.office365.com"
-#define URL_ESEO     @"http://www.eseo.fr"
-#define URL_PROJETS  @"http://www.projets.eseo.fr"
-#define URL_DREAMSP  @"https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin"
 
 #define URL_JSONS    @"https://api.bdeeseo.fr/%@?%d"
 #define URL_NEWS     @"https://api.bdeeseo.fr/news?height=%d&ptr=%d&uzless=%d"
@@ -80,7 +74,6 @@
 
 + (Data *) sharedData;
 
-@property (strong, nonatomic) NSDictionary *news;
 @property (strong, nonatomic) NSDictionary *events;
 @property (strong, nonatomic) NSDictionary *eventsCmds;
 @property (strong, nonatomic) NSDictionary *clubs;
@@ -88,8 +81,6 @@
 @property (strong, nonatomic) NSDictionary *service;
 @property (strong, nonatomic) NSDictionary *menus;
 @property (strong, nonatomic) NSDictionary *sponsors;
-@property (strong, nonatomic) NSDictionary *salles;
-@property (strong, nonatomic) NSDictionary *ingenews;
 @property (strong, nonatomic) NSMutableDictionary *lastCheck;
 @property (nonatomic) NSTimeInterval launchTime;
 @property (strong, nonatomic) NSArray *cafetData;
@@ -114,11 +105,7 @@
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname;
 - (void) updateJSON:(NSString *)JSONname;
-- (void) updateJSON:(NSString *)JSONname
-            options:(NSInteger)options;
 - (void) updLoadingActivity:(BOOL)visible;
-- (void) traiterNewNews:(NSDictionary *)JSON
-                  start:(NSInteger)index;
 
 - (void) cafetPanierAjouter:(NSDictionary *)elem;
 - (void) cafetPanierSupprimerAt:(NSInteger)index;
