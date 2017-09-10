@@ -23,35 +23,50 @@ import UIKit
 
 fileprivate extension Selector {
     static let updateTheme = #selector(LinksToolbar.updateTheme)
+    static let showLink    = #selector(LinksToolbar.showLink(_:))
+    static let showBDEMenu = #selector(LinksToolbar.showBDEMenu)
 }
+
 
 class LinksToolbar: UIView {
     
-    let toolbar = UIToolbar()
+    typealias QuickLink = (image: UIImage, url: String)
     
-    var bdeItem: UIBarButtonItem {
-        
-        return UIBarButtonItem(image: Data.linksToolbarBDEIcon(),
-                               style: .plain,
-                               target: self, action: nil)
-    }
+    static let quickLinks: [QuickLink] = [QuickLink(image: #imageLiteral(resourceName: "eseoMails"),
+                                                    url: "https://mail.office365.com"),
+                                          QuickLink(image: #imageLiteral(resourceName: "eseo"),
+                                                    url: "http://www.eseo.fr"),
+                                          QuickLink(image: #imageLiteral(resourceName: "eseoPortail"),
+                                                    url: "https://portail-etudiants.eseo.fr/portal/"),
+                                          QuickLink(image: #imageLiteral(resourceName: "eseoCampus"),
+                                                    url: "https://portail-etudiants.eseo.fr/campus/"),
+                                          QuickLink(image: #imageLiteral(resourceName: "dreamspark"),
+                                                    url: "https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin")]
     
-    var toolbarItems: [UIBarButtonItem] {
+    private let toolbar = UIToolbar()
+    
+    /// Where the popover comes from
+    private var bdeLink: UIBarButtonItem?
+    
+    private var currentItems = [UIBarButtonItem]()
+    
+    /// NewsList
+    var viewController: UIViewController?
+    
+    
+    private var toolbarItems: [UIBarButtonItem] {
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        return [flexibleSpace,
-                UIBarButtonItem(image: #imageLiteral(resourceName: "eseoMails"), style: .plain, target: nil, action: nil),
-                flexibleSpace,
-                UIBarButtonItem(image: #imageLiteral(resourceName: "eseo"), style: .plain, target: nil, action: nil),
-                flexibleSpace,
-                UIBarButtonItem(image: #imageLiteral(resourceName: "eseoPortail"), style: .plain, target: nil, action: nil),
-                flexibleSpace,
-                UIBarButtonItem(image: #imageLiteral(resourceName: "eseoCampus"), style: .plain, target: nil, action: nil),
-                flexibleSpace,
-                UIBarButtonItem(image: #imageLiteral(resourceName: "dreamspark"), style: .plain, target: nil, action: nil),
-                flexibleSpace,
-                bdeItem,
-                flexibleSpace]
+        var items = [UIBarButtonItem]()
+        
+        for link in LinksToolbar.quickLinks {
+            items.append(UIBarButtonItem(image: link.image, style: .plain,
+                                         target: self, action: .showLink))
+        }
+        bdeLink = UIBarButtonItem(image: Data.linksToolbarBDEIcon(), style: .plain,
+                                  target: self, action: .showBDEMenu)
+        items.append(bdeLink!)
+        
+        return items
     }
     
     
@@ -80,9 +95,20 @@ class LinksToolbar: UIView {
         toolbar.frame = CGRect(x: 0, y: 16, width: frame.width, height: 48)
         toolbar.autoresizingMask = .flexibleWidth
         toolbar.delegate = self
-        toolbar.items = toolbarItems
         toolbar.setBackgroundImage(UIImage(),
                                    forToolbarPosition: .any, barMetrics: .default)
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                            target: nil, action: nil)
+        currentItems      = toolbarItems
+        var items         = [flexibleSpace]
+        for linkItem in currentItems {
+            items.append(flexibleSpace)
+            items.append(linkItem)
+        }
+        items.append(flexibleSpace)
+        toolbar.items = items
+        
         addSubview(toolbar)
         
         NotificationCenter.default.addObserver(self, selector: .updateTheme,
@@ -94,7 +120,32 @@ class LinksToolbar: UIView {
     }
     
     @objc func updateTheme() {
+        
         toolbar.items = toolbarItems
+    }
+    
+    
+    // MARK: - Actions
+    
+    @objc func showLink(_ sender: UIBarButtonItem) {
+        
+        guard viewController != nil,
+              let index = currentItems.index(of: sender),
+              index < LinksToolbar.quickLinks.count else {
+            return
+        }
+        
+        Data.shared().openURL(LinksToolbar.quickLinks[index].url,
+                              currentVC: viewController)
+    }
+    
+    @objc func showBDEMenu() {
+        
+        let pop = NewsLinksVC()
+        pop.popoverPresentationController?.barButtonItem = bdeLink
+        pop.popoverPresentationController?.delegate = self
+    
+        viewController?.present(pop, animated: true)
     }
 
 }
@@ -106,6 +157,17 @@ extension LinksToolbar: UIToolbarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         
         return .top
+    }
+    
+}
+
+
+// MARK: - Popover Presentation Controller Delegate
+extension LinksToolbar: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        return .none
     }
     
 }

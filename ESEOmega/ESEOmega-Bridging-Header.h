@@ -15,5 +15,6 @@
 #import "JAQBlurryTableViewController.h"
 #import "SDWebImagePrefetcher.h"
 #import "TUSafariActivity.h"
+#import "NewsLinksVC.h"
 
 #endif /* ESEOmega_Bridging_Header_h */

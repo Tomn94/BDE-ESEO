@@ -68,7 +68,9 @@ class NewsList: UITableViewController {
         
         self.clearsSelectionOnViewWillAppear = true
         tableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
-        tableView.tableHeaderView = LinksToolbar()
+        let toolbar = LinksToolbar()
+        toolbar.viewController = self
+        tableView.tableHeaderView = toolbar
         
         /* Load local data and ask for updates */
         loadFromCache()
@@ -366,17 +368,6 @@ extension NewsList: UIViewControllerPreviewingDelegate {
                            commit viewControllerToCommit: UIViewController) {
         
         splitViewController?.showDetailViewController(viewControllerToCommit, sender: nil)
-    }
-    
-}
-
-
-// MARK: - Popover Presentation Controller Delegate
-extension NewsList: UIPopoverPresentationControllerDelegate {
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        
-        return .none
     }
     
 }
