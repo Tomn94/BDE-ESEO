@@ -37,12 +37,12 @@ class RoomsTVC: UITableViewController {
     /// Current sort mode for rooms
     var sortMode = Room.SortMode(rawValue: UserDefaults.standard.integer(forKey: UserDefaultsKey.roomsSortMode)) ?? .byName {
         didSet {
-            UserDefaults.standard.set(sortMode, forKey: UserDefaultsKey.roomsSortMode)
+            UserDefaults.standard.set(sortMode.rawValue, forKey: UserDefaultsKey.roomsSortMode)
         }
     }
     
     /// Handles searching with its search bar
-    private let searchController = UISearchController()
+    private let searchController = UISearchController(searchResultsController: nil)
     
     
     override func viewDidLoad() {
@@ -91,7 +91,7 @@ class RoomsTVC: UITableViewController {
         /* View controller handling display */
         let imageViewer = JTSImageViewController(imageInfo: imageInfo,
                                                  mode: .image,
-                                                 backgroundStyle: .blurred)
+                                                 backgroundStyle: [.blurred, .scaled])
         imageViewer?.show(from: self,
                           transition: .fromOffscreen)
     }
@@ -131,8 +131,10 @@ extension RoomsTVC: APIViewer {
     func loadFromCache() {
         
         guard let data   = APIArchiver.getCache(for: .rooms),
-              let result = try? JSONDecoder().decode(RoomsResult.self, from: data)
-            else { return }
+              let result = try? JSONDecoder().decode(RoomsResult.self, from: data) else {
+                reloadData()
+                return
+        }
         
         self.loadData(result.rooms)
     }
@@ -230,6 +232,11 @@ extension RoomsTVC: APIViewer {
         }
         
         /* Now, present */
+        reloadData()
+    }
+    
+    func reloadData() {
+        
         if !rooms.isEmpty || searchController.isActive {
             tableView.backgroundColor = .white
             tableView.tableFooterView = nil
@@ -439,7 +446,7 @@ extension RoomsTVC: UISearchResultsUpdating {
             })
         }
         
-        tableView.reloadData()
+        reloadData()
     }
     
 }
@@ -473,6 +480,11 @@ extension RoomsTVC: DZNEmptyDataSetSource {
         return .groupTableViewBackground
     }
     
+    func offset(forEmptyDataSet scrollView: UIScrollView!) -> CGPoint {
+        
+        return CGPoint(x: 0, y: -searchController.searchBar.frame.height)
+    }
+    
 }
 
 
@@ -486,4 +498,3 @@ extension RoomsTVC: DZNEmptyDataSetDelegate {
     }
     
 }
-

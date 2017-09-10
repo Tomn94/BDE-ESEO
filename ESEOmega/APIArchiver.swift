@@ -20,6 +20,8 @@ protocol APIViewer {
     
     func loadData(_ data: T)
     
+    func reloadData()
+    
 }
 
 /// Cache

@@ -143,8 +143,10 @@ extension IngeNewsCVC: APIViewer {
     func loadFromCache() {
         
         guard let data   = APIArchiver.getCache(for: .ingenews),
-              let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data)
-            else { return }
+              let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data) else {
+                reloadData()
+                return
+        }
         
         self.loadData(result.files)
     }
@@ -171,6 +173,12 @@ extension IngeNewsCVC: APIViewer {
         
         /* Update model */
         files = data
+        
+        /* Update UI */
+        reloadData()
+    }
+    
+    func reloadData() {
         
         self.collectionView?.backgroundColor = files.isEmpty ? .groupTableViewBackground : .white
         self.collectionView?.reloadData()

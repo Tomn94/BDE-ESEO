@@ -284,5 +284,10 @@ extension Genealogy: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
                                   attributes: [.font: UIFont.preferredFont(forTextStyle: .subheadline),
                                                .foregroundColor: UIColor.lightGray])
     }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        
+        return .groupTableViewBackground
+    }
 
 }

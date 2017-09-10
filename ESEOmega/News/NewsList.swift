@@ -175,8 +175,10 @@ extension NewsList: APIViewer {
     func loadFromCache() {
         
         guard let data   = APIArchiver.getCache(for: .news),
-              let result = try? JSONDecoder().decode(NewsResult.self, from: data)
-            else { return }
+              let result = try? JSONDecoder().decode(NewsResult.self, from: data) else {
+                reloadData()
+                return
+        }
         
         self.loadData(result.news)
     }
@@ -208,6 +210,11 @@ extension NewsList: APIViewer {
         if let firstNews = news.first {
             delegate?.present(article: firstNews)
         }
+        
+        reloadData()
+    }
+    
+    func reloadData() {
         
         if news.isEmpty {
             tableView.backgroundColor = .groupTableViewBackground
