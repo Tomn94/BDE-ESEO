@@ -29,7 +29,6 @@
 #import "../SDWebImage/UIImageView+WebCache.h"
 #import "../SDWebImage/SDWebImageDownloader.h"
 #import "SDWebImagePrefetcher.h"
-#import "NewsDetailVC.h"
 #import "EventsTVC.h"
 #import "CustomIOSAlertView.h"
 

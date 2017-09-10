@@ -20,6 +20,7 @@
 //
 
 #import "ClubsDetailTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation ClubsDetailTVC
 
@@ -582,8 +583,8 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                                                       [mJSON setObject:_infos[@"name"] forKey:@"author"];
                                                       
                                                       UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                                                      NewsDetailVC *articleVC = [sb instantiateViewControllerWithIdentifier:@"newsDetailVC"];
-                                                      [articleVC selectedNews:[mJSON copy]];
+                                                      NewsArticleVC *articleVC = [sb instantiateViewControllerWithIdentifier:@"newsArticleVC"];
+                                                      //                                                     [articleVC selectedNews:[mJSON copy]];
                                                       [self.navigationController pushViewController:articleVC animated:YES];
                                                   }
                                               }];
