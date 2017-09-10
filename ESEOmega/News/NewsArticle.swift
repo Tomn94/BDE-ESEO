@@ -25,7 +25,7 @@ import Foundation
 struct NewsArticle: Codable {
     
     /// Unique identifier for the article
-    let id: String
+    let id: Int
     
     /// Title of the news article
     let title: String
@@ -48,5 +48,31 @@ struct NewsArticle: Codable {
     
     /// Illustration, club image… associated with the article
     let img: URL?
+    
+    /// Link to article on BDE website.
+    /// Consider using `getURL()` instead.
+    let url: URL?
+    
+    
+    // If the BDE has no website link, let's make one
+    func getURL() -> URL? {
+        
+        if url == nil {
+            return URL(string: "https://bdeeseo.fr/news/\(id)")
+        }
+        return url
+    }
+    
+}
+
+
+/// Describes a News JSON response from API
+struct NewsResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    let page: Int
+    
+    let news: [NewsArticle]
     
 }

@@ -79,9 +79,11 @@
 		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
+		647F6BF21F64B311006FA132 /* NewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsList.swift */; };
+		647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */; };
+		647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */; };
 		6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */; };
 		6487C2E41B5EF4A800DC3B77 /* NewsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */; };
-		6487C2E71B5EF6BD00DC3B77 /* NewsMasterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2E61B5EF6BD00DC3B77 /* NewsMasterTVC.m */; };
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
@@ -101,7 +103,6 @@
 		64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */; };
 		64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */; };
 		64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D21B60230500AD4C25 /* SponsorsCell.m */; };
-		64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D51B61664800AD4C25 /* NewsDetailVC.m */; };
 		64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */; };
 		64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21441DC7409C0000F987 /* GenealogySearch.swift */; };
 		64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21481DC8746B0000F987 /* Genealogy.swift */; };
@@ -322,13 +323,13 @@
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
+		647F6BF11F64B311006FA132 /* NewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsList.swift; sourceTree = "<group>"; };
+		647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksToolbar.swift; sourceTree = "<group>"; };
+		647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleVC.swift; sourceTree = "<group>"; };
 		6482C3BB1BB33A7A008F8DF8 /* OrderConfirmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderConfirmCell.h; sourceTree = "<group>"; };
 		6482C3BC1BB33A7A008F8DF8 /* OrderConfirmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderConfirmCell.m; sourceTree = "<group>"; };
 		6487C2E21B5EF4A800DC3B77 /* NewsSplitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsSplitVC.h; sourceTree = "<group>"; };
 		6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsSplitVC.m; sourceTree = "<group>"; };
-		6487C2E51B5EF6BD00DC3B77 /* NewsMasterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsMasterTVC.h; sourceTree = "<group>"; };
-		6487C2E61B5EF6BD00DC3B77 /* NewsMasterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsMasterTVC.m; sourceTree = "<group>"; };
-		6487C2F61B5F06C000DC3B77 /* NewsSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsSelectionDelegate.h; sourceTree = "<group>"; };
 		6488AA4F1B728CDC000E2660 /* ka1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ka1.ttf; sourceTree = "<group>"; };
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
@@ -360,8 +361,6 @@
 		64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsTVC.m; sourceTree = "<group>"; };
 		64AD83D11B60230500AD4C25 /* SponsorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsorsCell.h; sourceTree = "<group>"; };
 		64AD83D21B60230500AD4C25 /* SponsorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsCell.m; sourceTree = "<group>"; };
-		64AD83D41B61664800AD4C25 /* NewsDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailVC.h; sourceTree = "<group>"; };
-		64AD83D51B61664800AD4C25 /* NewsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailVC.m; sourceTree = "<group>"; };
 		64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESEOmega-Bridging-Header.h"; sourceTree = "<group>"; };
 		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GenealogySearch.storyboard; sourceTree = "<group>"; };
 		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenealogySearch.swift; sourceTree = "<group>"; };
@@ -661,11 +660,9 @@
 				6487C2E21B5EF4A800DC3B77 /* NewsSplitVC.h */,
 				6487C2E31B5EF4A800DC3B77 /* NewsSplitVC.m */,
 				64F84CFD1F633CBD0064F696 /* NewsArticle.swift */,
-				6487C2E51B5EF6BD00DC3B77 /* NewsMasterTVC.h */,
-				6487C2E61B5EF6BD00DC3B77 /* NewsMasterTVC.m */,
-				64AD83D41B61664800AD4C25 /* NewsDetailVC.h */,
-				64AD83D51B61664800AD4C25 /* NewsDetailVC.m */,
-				6487C2F61B5F06C000DC3B77 /* NewsSelectionDelegate.h */,
+				647F6BF11F64B311006FA132 /* NewsList.swift */,
+				647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */,
+				647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */,
 				64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */,
 				64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */,
 			);
@@ -1292,7 +1289,6 @@
 				64B7B37A1B86722700A0E296 /* OrderItemCell.m in Sources */,
 				64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */,
 				6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */,
-				6487C2E71B5EF6BD00DC3B77 /* NewsMasterTVC.m in Sources */,
 				645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */,
 				646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */,
 				64F84CFE1F633CBD0064F696 /* NewsArticle.swift in Sources */,
@@ -1310,7 +1306,6 @@
 				64F8AE001E408ACF00489198 /* ThemeManager.swift in Sources */,
 				6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */,
 				64339B551F16EE2800EDA97D /* SDWebImageDownloader.m in Sources */,
-				64AD83D61B61664800AD4C25 /* NewsDetailVC.m in Sources */,
 				645BFFF61F60C7B100BA97BA /* Utils.swift in Sources */,
 				649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */,
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
@@ -1323,6 +1318,7 @@
 				64E273471B72444300A84E68 /* GameVC.m in Sources */,
 				64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */,
 				642BEC971F13B0480043701B /* IngeNews.swift in Sources */,
+				647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */,
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
@@ -1335,6 +1331,7 @@
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
 				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
+				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
 				64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */,
@@ -1354,6 +1351,7 @@
 				64493F181E465811009C995B /* DataStore.swift in Sources */,
 				6458529A1DC722A3008AF43C /* Student.swift in Sources */,
 				6488AA531B72C299000E2660 /* LoseScreen.m in Sources */,
+				647F6BF21F64B311006FA132 /* NewsList.swift in Sources */,
 				64E273441B723E8000A84E68 /* GameScene.m in Sources */,
 				64C4B21F1B657F5600F43FB9 /* UIImage+ImageEffects.m in Sources */,
 				64C4B21E1B657F5600F43FB9 /* UIImage+Fit.m in Sources */,

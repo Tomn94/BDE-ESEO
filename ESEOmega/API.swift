@@ -43,6 +43,9 @@ class API {
         /// Connect user
         case userLogin    = "me/login"
         
+        /// Get news articles
+        case news         = "news"
+        
         /// List of IngeNews editions
         case ingenews     = "ingenews"
         

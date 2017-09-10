@@ -91,3 +91,22 @@ enum KeychainKey {
     static let phone = "phone"
     
 }
+
+
+/// Types used for NSUserActivity/Handoff
+enum ActivityType {
+    
+    typealias ActivityInfo = (type: String, title: String, url: URL)
+    
+    static let baseURL = "https://bdeeseo.fr/"
+    
+    
+    static let news = ActivityInfo(type: "com.eseomega.ESEOmega.news",
+                                   title: "News BDE ESEO",
+                                   url: URL(string: baseURL + "news")!)
+    
+    static let article = ActivityInfo(type: "com.eseomega.ESEOmega.article",
+                                   title: "News Article BDE ESEO",
+                                   url: URL(string: baseURL + "news")!)
+    
+}

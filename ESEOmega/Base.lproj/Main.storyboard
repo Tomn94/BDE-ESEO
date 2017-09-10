@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VJD-mW-V5r" id="Hff-qB-flU">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wc0-Ky-eT3">
@@ -93,7 +93,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vzf-zu-EHZ" id="y02-m3-xku">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="206.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="207"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batiment" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-Ci-3lm">
@@ -209,7 +209,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J64-Bb-giS" id="3Jh-gM-LTL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOh-1N-lBN">
@@ -389,10 +389,10 @@ Paquet de chips</string>
                             <tableViewSection headerTitle="Me connecter" footerTitle="" id="tSq-a4-7ne">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilIdCell" id="nAr-jP-Q9f">
-                                        <rect key="frame" x="0.0" y="55.5" width="384" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAr-jP-Q9f" id="rzK-4R-rBz">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-UZ-zXo">
@@ -436,10 +436,10 @@ Paquet de chips</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilMdpCell" id="3n4-0p-LxX">
-                                        <rect key="frame" x="0.0" y="99.5" width="384" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3n4-0p-LxX" id="1U0-fk-4yx">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de passe" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-z6-eXP">
@@ -491,10 +491,10 @@ Nous n'avons pas accès à votre mot de passe, il permet uniquement à Outlook d
 Bâtiment : F. Rolland</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilCoCell" textLabel="0RU-mS-Rdu" style="IBUITableViewCellStyleDefault" id="NiU-es-bbA">
-                                        <rect key="frame" x="0.0" y="163.5" width="384" height="44"/>
+                                        <rect key="frame" x="0.0" y="164" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NiU-es-bbA" id="EV6-nd-VpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Connexion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0RU-mS-Rdu">
@@ -566,7 +566,7 @@ Bâtiment : F. Rolland</string>
                                 <rect key="frame" x="0.0" y="22" width="375" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZB-eN-ivf" id="4FT-8Z-gmo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="141.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2un-D0-LF5">
@@ -693,10 +693,10 @@ Bâtiment : F. Rolland</string>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commandeCell" id="UvV-Fm-Ak6" customClass="CommandesCell">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="61"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UvV-Fm-Ak6" id="OPa-8T-lSc">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="60.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="21 janvier 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-oQ-fbt">
@@ -813,10 +813,10 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="-320" y="180"/>
         </scene>
-        <!--News DetailVC-->
+        <!--News ArticleVC-->
         <scene sceneID="zCN-Kc-qMe">
             <objects>
-                <viewController storyboardIdentifier="newsDetailVC" id="iYf-NG-Y3x" customClass="NewsDetailVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newsDetailVC" id="iYf-NG-Y3x" customClass="NewsArticleVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wwW-iT-iSC">
                         <barButtonItem key="rightBarButtonItem" image="user" id="e4n-BJ-bUD">
                             <connections>
@@ -825,27 +825,51 @@ Bâtiment : F. Rolland</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="userButton" destination="e4n-BJ-bUD" id="JOf-x7-QsM"/>
+                        <outlet property="userButton" destination="e4n-BJ-bUD" id="SE5-Fn-4YP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEV-7S-FO4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2452" y="-1627"/>
         </scene>
-        <!--News-->
+        <!--Rooms-->
+        <scene sceneID="zAV-Ww-qUV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Rooms" id="PqK-1x-Igr" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gFu-Qr-rOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2209" y="-2782"/>
+        </scene>
+        <!--Genealogy-->
+        <scene sceneID="PMQ-DO-4Mf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Genealogy" id="jjo-OM-Bq7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bZa-3N-ieE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2452" y="-2782"/>
+        </scene>
+        <!--IngeNews-->
+        <scene sceneID="ge3-Cv-vEy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="IngeNews" id="lbS-rr-gnB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HVX-on-sUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2678" y="-2782"/>
+        </scene>
+        <!--Empty Data Set Delegate-->
         <scene sceneID="Du2-MZ-eG2">
             <objects>
-                <tableViewController title="News" clearsSelectionOnViewWillAppear="NO" id="rVk-wj-hnv" customClass="NewsMasterTVC" sceneMemberID="viewController">
+                <tableViewController title="News" clearsSelectionOnViewWillAppear="NO" id="rVk-wj-hnv" customClass="NewsList" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qqx-bA-yg8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterMoreCell" id="glO-Ej-odd" customClass="NewsMasterMoreCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterMoreCell" id="glO-Ej-odd" customClass="NewsListMoreCell" customModule="BDE_ESEO" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glO-Ej-odd" id="Mmh-UE-zbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charger les anciens articles…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17q-cl-Lv2">
@@ -868,15 +892,15 @@ Bâtiment : F. Rolland</string>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="label" destination="17q-cl-Lv2" id="hTj-M7-y7R"/>
-                                    <outlet property="refresh" destination="bWf-hw-kPb" id="6Bt-gw-aO4"/>
+                                    <outlet property="label" destination="17q-cl-Lv2" id="6e3-o8-sUT"/>
+                                    <outlet property="refresh" destination="bWf-hw-kPb" id="xmz-cu-ebv"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterCell" textLabel="TCT-IX-hrN" detailTextLabel="nXJ-mV-K1B" style="IBUITableViewCellStyleSubtitle" id="CRf-kt-mgJ">
                                 <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CRf-kt-mgJ" id="k0p-CZ-xYZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TCT-IX-hrN">
@@ -903,25 +927,27 @@ Bâtiment : F. Rolland</string>
                         <connections>
                             <outlet property="dataSource" destination="rVk-wj-hnv" id="pNw-Ax-p0H"/>
                             <outlet property="delegate" destination="rVk-wj-hnv" id="vM4-ZP-eWw"/>
+                            <outlet property="emptyDataSetDelegate" destination="rVk-wj-hnv" id="uQX-nO-TEe"/>
+                            <outlet property="emptyDataSetSource" destination="rVk-wj-hnv" id="eOM-Vi-zoa"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="        News" id="mH3-Fc-xDI">
                         <leftBarButtonItems>
                             <barButtonItem image="salles" id="nXm-KZ-PMr">
                                 <connections>
-                                    <action selector="salles:" destination="rVk-wj-hnv" id="t5u-g9-dga"/>
+                                    <segue destination="PqK-1x-Igr" kind="presentation" modalPresentationStyle="formSheet" id="uMb-kv-8EL"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="genealogy" id="p8E-j9-lhg">
                                 <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <action selector="genealogy:" destination="rVk-wj-hnv" id="ebQ-Np-5K6"/>
+                                    <segue destination="jjo-OM-Bq7" kind="presentation" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="ingenews" id="rqC-m9-Uef">
                                 <inset key="imageInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <action selector="ingenews:" destination="rVk-wj-hnv" id="da4-F1-AOZ"/>
+                                    <segue destination="lbS-rr-gnB" kind="presentation" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -935,7 +961,7 @@ Bâtiment : F. Rolland</string>
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh:" destination="rVk-wj-hnv" eventType="valueChanged" id="xcG-rG-Olg"/>
+                            <action selector="refresh" destination="rVk-wj-hnv" eventType="valueChanged" id="Kfq-TI-5jh"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>
@@ -1102,7 +1128,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yVs-TG-kRj"/>
+        <segue reference="hZX-Yt-D3E"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="atF-cd-EdF"/>
     </inferredMetricsTieBreakers>

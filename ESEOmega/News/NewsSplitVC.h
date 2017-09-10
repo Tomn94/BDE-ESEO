@@ -21,8 +21,6 @@
 
 @import UIKit;
 #import "TabBarController.h"
-#import "NewsMasterTVC.h"
-#import "NewsDetailVC.h"
 
 @interface NewsSplitVC : UISplitViewController <UISplitViewControllerDelegate>
 {
@@ -30,7 +28,7 @@
     UIBarButtonItem *creditsItem;
 }
 
-@property (nonatomic, strong) NewsMasterTVC *master;
+@property (nonatomic, strong) UIViewController *master;
 
 - (void) credits;
 

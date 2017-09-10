@@ -14,5 +14,6 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "JAQBlurryTableViewController.h"
 #import "SDWebImagePrefetcher.h"
+#import "TUSafariActivity.h"
 
 #endif /* ESEOmega_Bridging_Header_h */
