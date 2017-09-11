@@ -119,6 +119,22 @@ class NewsListTVC: UITableViewController {
     
     // MARK: - Actions
     
+    func selectCurrentArticle() {
+        
+        guard let split = splitViewController,
+              !split.isCollapsed,
+              let detailNVC = split.viewControllers.last as? UINavigationController,
+              let detail    = detailNVC.viewControllers.first as? NewsArticleVC,
+              let currentArticle = detail.article,
+              let row       = news.index(of: currentArticle)
+            else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            self.tableView.selectRow(at: IndexPath(row: row, section: 0),
+                                     animated: true, scrollPosition: .none)
+        }
+    }
+    
     @IBAction func refresh() {
         
         fetchRemote()
@@ -268,10 +284,7 @@ extension NewsListTVC: APIViewer {
                 let navVC = UINavigationController(rootViewController: destination)
                 self.splitViewController?.showDetailViewController(navVC, sender: nil)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    self.tableView.selectRow(at: IndexPath(row: 0, section: 0),
-                                             animated: true, scrollPosition: .none)
-                }
+                self.selectCurrentArticle()
             }
             
         }
@@ -290,6 +303,7 @@ extension NewsListTVC: APIViewer {
                 self.tableView.tableFooterView = nil
             }
             self.tableView.reloadData()
+            self.selectCurrentArticle()
         }
     }
     
@@ -404,6 +418,7 @@ extension NewsListTVC {
             
             loadMoreArticles()
             tableView.deselectRow(at: indexPath, animated: true)
+            selectCurrentArticle()
         }
     }
     
