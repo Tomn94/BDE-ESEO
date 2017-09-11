@@ -278,6 +278,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     NSURL *url = [NSURL URLWithString:URL_EVENT_NE];
     NSString *client = [Data encoderPourURL:[JNKeychain loadValueForKey:@"login"]];
     NSString *pass   = [Data encoderPourURL:[JNKeychain loadValueForKey:@"passw"]];
+    if (client == nil || pass == nil) {
+        [self.navigationItem setLeftBarButtonItem:_ajoutBtn animated:YES];
+        [[Data sharedData] updLoadingActivity:NO];
+        return;
+    }
     NSString *body = [NSString stringWithFormat:@"client=%@&password=%@&os=%@&hash=%@",
                       client, pass, @"IOS",
                       [Data encoderPourURL:[Data hashed_string:[[[@"(c) Team Sheep Dev" stringByAppendingString:client] stringByAppendingString:pass] stringByAppendingString:@"IOS"]]]];

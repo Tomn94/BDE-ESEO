@@ -443,6 +443,13 @@
         
         NSString *login  = [JNKeychain loadValueForKey:@"login"];
         NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
+        if (login == nil || pass == nil) {
+            _cmds = nil;
+            [[EGOCache globalCache] removeCacheForKey:@"eventsCmds"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmdsSent" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmds" object:nil];
+            return;
+        }
         NSString *toHash = [[@"Connexion en cours" stringByAppendingString:login] stringByAppendingString:pass];
         NSString *body   = [NSString stringWithFormat:@"client=%@&password=%@&hash=%@",
                             [Data encoderPourURL:login],
