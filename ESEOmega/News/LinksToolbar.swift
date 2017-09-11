@@ -100,16 +100,7 @@ class LinksToolbar: UIView {
         toolbar.setBackgroundImage(UIImage(),
                                    forToolbarPosition: .any, barMetrics: .default)
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                            target: nil, action: nil)
-        currentItems      = toolbarItems
-        var items         = [flexibleSpace]
-        for linkItem in currentItems {
-            items.append(flexibleSpace)
-            items.append(linkItem)
-        }
-        items.append(flexibleSpace)
-        toolbar.items = items
+        reloadItems()
         
         addSubview(toolbar)
         
@@ -121,9 +112,23 @@ class LinksToolbar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reloadItems() {
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                            target: nil, action: nil)
+        currentItems      = toolbarItems
+        var items         = [flexibleSpace]
+        for linkItem in currentItems {
+            items.append(flexibleSpace)
+            items.append(linkItem)
+        }
+        items.append(flexibleSpace)
+        toolbar.items = items
+    }
+    
     @objc func updateTheme() {
         
-        toolbar.items = toolbarItems
+        reloadItems()
     }
     
     
