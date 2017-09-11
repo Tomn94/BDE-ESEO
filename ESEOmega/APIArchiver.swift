@@ -33,7 +33,15 @@ class APIArchiver {
     static func save<T: Encodable>(data: T,
                      for apiPath: API.Path) {
         
-        guard let encodedData = try? JSONEncoder().encode(data)
+        let encoder = JSONEncoder()
+        
+        if apiPath == .news {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = NewsArticle.dateFormat
+            encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        }
+        
+        guard let encodedData = try? encoder.encode(data)
             else { return }
         
         cache.setData(encodedData,

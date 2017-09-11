@@ -90,6 +90,7 @@ class NewsArticleVC: UIViewController {
         if view.bounds.width < 350 {
             date = date.replacingOccurrences(of: "/20", with: "/")
         }
+        title = date.replacingOccurrences(of: ", ", with: " ")
         
         let html = String(format: NewsArticleVC.wrapper,
                           article.img ?? "",

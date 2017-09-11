@@ -22,7 +22,7 @@
 import Foundation
 
 /// Describes a news article and its attributes
-struct NewsArticle: Codable {
+struct NewsArticle: Codable, Equatable {
     
     /// Unique identifier for the article
     let ID: Int
@@ -61,6 +61,12 @@ struct NewsArticle: Codable {
             return URL(string: "https://bdeeseo.fr/news/\(ID)")
         }
         return URL(string: url!)
+    }
+    
+    static let dateFormat = "yyyy-MM-dd HH:mm:ss"
+    
+    static func == (left: NewsArticle, right: NewsArticle) -> Bool {
+        return left.ID == right.ID
     }
     
 }

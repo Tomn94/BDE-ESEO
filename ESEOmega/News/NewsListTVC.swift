@@ -126,30 +126,35 @@ class NewsListTVC: UITableViewController {
     func loadMoreArticles() {
         
         isLoadingMoreNews = true
-        
-        var generator: AnyObject? = nil
-        if #available(iOS 10.0, *) {
-            generator = UIImpactFeedbackGenerator(style: .light)
-            (generator as! UIImpactFeedbackGenerator).prepare()
-        }
+        tableView.reloadRows(at: [IndexPath(row: news.count, section: 0)],
+                             with: .automatic)
         
         API.request(.news, get: ["page" :      String(currentPage + 1),
                                  "maxInPage" : String(newsPerPage)],
                     completed: { data in
                         
             self.isLoadingMoreNews = false
-            self.tableView.reloadRows(at: [IndexPath(row: self.news.count, section: 0)],
-                                 with: .automatic)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [IndexPath(row: self.news.count, section: 0)],
+                                          with: .automatic)
+            }
         
-            guard let result = try? JSONDecoder().decode(NewsResult.self, from: data),
-                result.success
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = NewsArticle.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            guard let result = try? decoder.decode(NewsResult.self, from: data),
+                  result.success
                 else { return }
             
             self.loadData(result.news)
+            self.currentPage += 1
                         
-            if #available(iOS 10.0, *),
-               let generator = generator as? UIImpactFeedbackGenerator {
-                generator.impactOccurred()
+            if #available(iOS 10.0, *) {
+                DispatchQueue.main.async {
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                }
             }
             
         }, failure: { _, _ in
@@ -182,13 +187,17 @@ extension NewsListTVC: APIViewer {
     
     func loadFromCache() {
         
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = NewsArticle.dateFormat
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         guard let data   = APIArchiver.getCache(for: .news),
-              let result = try? JSONDecoder().decode(NewsResult.self, from: data) else {
+              let result = try? decoder.decode([NewsArticle].self, from: data) else {
                 reloadData()
                 return
         }
         
-        self.loadData(result.news)
+        self.loadData(result)
     }
     
     func fetchRemote() {
@@ -202,7 +211,7 @@ extension NewsListTVC: APIViewer {
             
             let decoder = JSONDecoder()
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = NewsArticle.dateFormat
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             guard let result = try? decoder.decode(NewsResult.self, from: data),
@@ -221,7 +230,9 @@ extension NewsListTVC: APIViewer {
     
     func loadData(_ data: [NewsArticle]) {
         
-        news += data
+        news += data.filter { newArticle in
+            !news.contains(newArticle)
+        }
         
         DispatchQueue.main.async {
             
@@ -292,19 +303,19 @@ extension NewsListTVC {
         let preview = article.preview.trimmingCharacters(in: .whitespaces)
         
         // Remove double spaces
-        let titleComps   =   title.components(separatedBy: .whitespacesAndNewlines)
-        let previewComps = preview.components(separatedBy: .whitespacesAndNewlines)
+        let titleComps = title.components(separatedBy: .whitespacesAndNewlines)
         cell.textLabel?.text = titleComps.filter { !$0.isEmpty }.joined(separator: " ")
-        var cleanPreview   = previewComps.filter { !$0.isEmpty }.joined(separator: " ")
         
         // Replace HTML entities
-        cleanPreview = cleanPreview.replacingOccurrences(of: "&amp;", with: "&")
+        var cleanPreview = preview.replacingOccurrences(of: "&amp;", with: "&")
         cleanPreview = cleanPreview.replacingOccurrences(of: "&lsquo;", with: "‘")
         cleanPreview = cleanPreview.replacingOccurrences(of: "&rsquo;", with: "’")
         for (poopIndex, poopChar) in NewsListTVC.poop.enumerated() {
             cleanPreview = cleanPreview.replacingOccurrences(of: poopChar,
                               with: String(format: "%C", 160 + poopIndex))
         }
+        let previewComps = cleanPreview.components(separatedBy: .whitespacesAndNewlines)
+        cleanPreview = previewComps.filter { !$0.isEmpty }.joined(separator: " ")
         cell.detailTextLabel?.text = cleanPreview
         
         cell.imageView?.contentMode = .scaleAspectFill
