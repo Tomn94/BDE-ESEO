@@ -261,9 +261,12 @@ extension NewsListTVC: APIViewer {
     func loadData(_ data: [NewsArticle]) {
         
         let atLaunch = news.isEmpty
-        news += data.filter { newArticle in
-            !news.contains(newArticle)
-        }
+        /* Add new articles.
+           Replace the same old articles with fresh content.
+           Sort by date. */
+        news = (news.filter { oldArticle in
+                   !data.contains(oldArticle)
+               } + data).sorted { $0.date > $1.date }
         
         DispatchQueue.main.async {
             
