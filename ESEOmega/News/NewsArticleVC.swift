@@ -95,7 +95,7 @@ class NewsArticleVC: UIViewController {
         let html = String(format: NewsArticleVC.wrapper,
                           article.img ?? "",
                           article.title,
-                          article.club,
+                          article.clubName,
                           article.content)
         webView.loadHTMLString(html, baseURL: nil)
         

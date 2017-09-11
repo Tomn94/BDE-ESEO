@@ -40,8 +40,11 @@ struct NewsArticle: Codable, Equatable {
     /// Date when the article was written/published
     let date: Date
     
-    /// Club attribution
+    /// Club attribution (ID)
     let club: String
+    
+    /// Club attribution (name)
+    let clubName: String
     
     /// User attribution
     let creator: String
