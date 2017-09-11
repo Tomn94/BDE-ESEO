@@ -47,12 +47,13 @@ class Genealogy: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableFooterView = UITableViewHeaderFooterView()
+        tableView.tableFooterView = UITableViewHeaderFooterView()
+        tableView.backgroundColor = .groupTableViewBackground
         
         /* Configure Search Bar and Search Display Controller */
         let storyboard = UIStoryboard(name: "GenealogySearch", bundle: nil)
         if let searchDisplay = storyboard.instantiateInitialViewController() as? GenealogySearch {
-            searchDisplay.familyScreen = self   // Set search callback
+            searchDisplay.familyScreen = self  // Set search callback
             search = UISearchController(searchResultsController: searchDisplay)
             search.searchResultsUpdater = searchDisplay
             search.obscuresBackgroundDuringPresentation = false

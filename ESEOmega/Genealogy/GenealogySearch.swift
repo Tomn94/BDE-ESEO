@@ -101,6 +101,9 @@ extension GenealogySearch: UISearchResultsUpdating {
         
         /* Allows No Results message if no data */
         self.shouldDisplayEmptyDataPane = true
+        self.tableView.tableFooterView = self.results.count > 0
+                                       ? nil : UITableViewHeaderFooterView()
+        self.tableView.reloadData()
 
         /* Ask students results */
         API.request(.familySearch, get: ["name" : query], completed: { data in
@@ -138,7 +141,8 @@ extension GenealogySearch: DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
         return NSAttributedString(string: "Aucun résultat\nvérifiez l'orthographe du nom",
-                                  attributes: [.foregroundColor: UIColor.darkGray])
+                                  attributes: [.font: UIFont.preferredFont(forTextStyle: .title3),
+                                               .foregroundColor: UIColor.darkGray])
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
