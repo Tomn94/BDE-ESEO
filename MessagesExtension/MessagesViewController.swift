@@ -38,6 +38,34 @@ class MessagesViewController: MSMessagesAppViewController {
         self.view.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
         
         stickerBrowserViewController = StickerBrowserViewController(stickerSize: .small)
+        stickerBrowserViewController.view.frame = view.bounds
+        stickerBrowserViewController.stickerBrowserView.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
+        addChildViewController(stickerBrowserViewController)
+        
+        stickerBrowserViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stickerBrowserViewController.view)
+        stickerBrowserViewController.didMove(toParentViewController: self)
+        
+        label.frame = view.bounds
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Récupération des stickers…"
+        label.textAlignment = .center
+        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        label.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            stickerBrowserViewController.view.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor),
+            stickerBrowserViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            stickerBrowserViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            stickerBrowserViewController.view.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor),
+            label.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor),
+            label.leftAnchor.constraint(equalTo: view.leftAnchor),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor),
+            label.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor)
+        ])
+        
+        stickerBrowserViewController.view.alpha = 0
         
         NotificationCenter.default.addObserver(self, selector: #selector(showStickers),
                                                name: .stickersReloaded, object: nil)
@@ -50,39 +78,19 @@ class MessagesViewController: MSMessagesAppViewController {
         stickerBrowserViewController.getStickersFromServer()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
+        super.didTransition(to: presentationStyle)
         
-        label.removeFromSuperview()
-        if stickerBrowserViewController.stickers.count == 0 {
-            label.frame = view.bounds
-            label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            label.text = "Récupération des stickers…"
-            label.textAlignment = .center
-            label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            label.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
-            self.view.addSubview(label)
-        }
+        view.setNeedsLayout()
     }
     
     @objc func showStickers() {
-        if stickerBrowserViewController.stickers.count > 0 {
-            label.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            let hasStickers = self.stickerBrowserViewController.stickers.count > 0
+            self.label.alpha                             = hasStickers ? 0 : 1
+            self.stickerBrowserViewController.view.alpha = hasStickers ? 1 : 0
         }
-        
-        stickerBrowserViewController.view.frame = view.frame
-        stickerBrowserViewController.stickerBrowserView.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
-        addChildViewController(stickerBrowserViewController)
-        
-        stickerBrowserViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(stickerBrowserViewController.view)
-        NSLayoutConstraint.activate([
-            stickerBrowserViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            stickerBrowserViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            stickerBrowserViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            stickerBrowserViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        stickerBrowserViewController.didMove(toParentViewController: self)
     }
 }

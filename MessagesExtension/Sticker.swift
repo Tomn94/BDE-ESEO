@@ -20,14 +20,31 @@
 //
 
 import Foundation
+import Messages
 
 /// Describes an iMessage sticker
-struct Sticker {
+struct Sticker: Decodable {
+    
+    /// Used for sorting
+    let id: Int
     
     /// Name of the sticker (used for VoiceOver for instance)
     let name: String
     
     /// Address where it can be downloaded
     let img: URL
+    
+}
+
+
+class RawSticker: MSSticker {
+    
+    /// Used for sorting
+    let id: Int
+    
+    init(contentsOfFileURL fileURL: URL, localizedDescription: String, id: Int) throws {
+        self.id = id
+        try super.init(contentsOfFileURL: fileURL, localizedDescription: localizedDescription)
+    }
     
 }

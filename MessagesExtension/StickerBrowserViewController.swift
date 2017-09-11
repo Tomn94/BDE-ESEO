@@ -26,7 +26,14 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     
     private let folder = "stickers"
     
-    var stickers = [MSSticker]()
+    var stickers = [RawSticker]()
+    
+    private var stickersLoaded = 0
+    private var stickersToBeLoaded = 0
+    
+    private let stickerFetchQueue = DispatchQueue(label: "fetchStickerQueue",
+                                                  qos: .userInitiated,
+                                                  attributes: .concurrent)
     
     
     /// Fetch cached stickers
@@ -52,9 +59,12 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
                     let fileURL = cacheURL.appendingPathComponent(imageName)
                     
                     if fileManager.fileExists(atPath: fileURL.path),
-                       let sticker = try? MSSticker(contentsOfFileURL: fileURL,
-                                                    localizedDescription: cachedSticker.name) {
-                        
+                       let sticker = try? RawSticker(contentsOfFileURL: fileURL,
+                                                     localizedDescription: cachedSticker.name,
+                                                     id: cachedSticker.id),
+                       !self.stickers.contains(where: { rawSticker in
+                           rawSticker.id == sticker.id
+                       }) {
                         stickers.append(sticker)
                     }
                 }
@@ -78,31 +88,44 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
                 
             UserDefaults.standard.set(data, forKey: UserDefaultsKey.stickers)
             self.stickers.removeAll()
+            self.stickersToBeLoaded = stickers.count
+            self.stickersLoaded = 0
     
             for sticker in stickers {
-                self.fetchSticker(at: sticker.img, description: sticker.name)  // sync
+                self.fetch(sticker: sticker)
             }
     
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .stickersReloaded, object: nil)
-                self.stickerBrowserView.reloadData()
-                self.cleanFolder()
-            }
+            self.cleanFolder()
             
         }, noCache: true)
     }
     
     /// Get sticker image and data
-    func fetchSticker(at url: URL, description: String) {
+    func fetch(sticker remoteSticker: Sticker) {
         
-        guard let imageData = try? Data(contentsOf: url),  // sync
-              let imageName = url.pathComponents.last,
-              let path      = save(imageNamed: imageName, data: imageData),
-              let sticker   = try? MSSticker(contentsOfFileURL: path,
-                                             localizedDescription: description)
-            else { return }
-        
-        stickers.append(sticker)
+        stickerFetchQueue.async {  // Data(contentsOf: url) is blocking
+            guard let imageData = try? Data(contentsOf: remoteSticker.img),
+                  let imageName = remoteSticker.img.pathComponents.last,
+                  let path      = self.save(imageNamed: imageName, data: imageData),
+                  let sticker   = try? RawSticker(contentsOfFileURL: path,
+                                                  localizedDescription: remoteSticker.name,
+                                                  id: remoteSticker.id),
+                  !self.stickers.contains(where: { rawSticker in
+                      rawSticker.id == remoteSticker.id
+                  })
+                else { return }
+            
+            self.stickers.append(sticker)
+            self.stickers.sort { $0.id < $1.id }
+            self.stickersLoaded += 1
+            
+            if self.stickersLoaded == self.stickersToBeLoaded {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .stickersReloaded, object: nil)
+                    self.stickerBrowserView.reloadData()
+                }
+            }
+        }
     }
     
     /// Save sticker on disk
@@ -160,11 +183,13 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
 extension StickerBrowserViewController {
     
     override func numberOfStickers(in stickerBrowserView: MSStickerBrowserView) -> Int {
+        
         return stickers.count
     }
     
     override func stickerBrowserView(_ stickerBrowserView: MSStickerBrowserView,
                                      stickerAt index: Int) -> MSSticker {
+        
         return stickers[index]
     }
     
