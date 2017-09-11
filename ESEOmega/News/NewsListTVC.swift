@@ -21,6 +21,10 @@
 
 import UIKit
 
+fileprivate extension Selector {
+    static let updateTheme = #selector(LinksToolbar.updateTheme)
+}
+
 
 class NewsListTVC: UITableViewController {
     
@@ -70,20 +74,14 @@ class NewsListTVC: UITableViewController {
         if #available(iOS 10.0, *) {
             tableView.prefetchDataSource = self
         }
-        
-        /* Refresh control */
-        let refreshText = "Charger les articles récents…"
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            refreshControl?.tintColor = .white
-            refreshControl?.attributedTitle = NSAttributedString(string: refreshText,
-                                                                 attributes: [.foregroundColor : UIColor.white])
-        } else {
-            let refreshColor = UINavigationBar.appearance().barTintColor ?? .blue
-            refreshControl?.tintColor = refreshColor
-            refreshControl?.attributedTitle = NSAttributedString(string: refreshText,
-                                                                 attributes: [.foregroundColor : refreshColor])
         }
+        
+        /* Refresh control */
+        reloadRefreshControl()
+        NotificationCenter.default.addObserver(self, selector: .updateTheme,
+                                               name: .themeChanged, object: nil)
         
         /* Handoff */
         let info = ActivityType.news
@@ -136,9 +134,12 @@ class NewsListTVC: UITableViewController {
     
     func loadMoreArticles() {
         
+        guard !isLoadingMoreNews else { return }
         isLoadingMoreNews = true
-        tableView.reloadRows(at: [IndexPath(row: news.count, section: 0)],
-                             with: .automatic)
+        if !news.isEmpty {
+            tableView.reloadRows(at: [IndexPath(row: news.count, section: 0)],
+                                 with: .automatic)
+        }
         
         API.request(.news, get: ["page" :      String(currentPage + 1),
                                  "maxInPage" : String(newsPerPage)],
@@ -146,8 +147,10 @@ class NewsListTVC: UITableViewController {
                         
             self.isLoadingMoreNews = false
             DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [IndexPath(row: self.news.count, section: 0)],
-                                          with: .automatic)
+                if !self.news.isEmpty {
+                    self.tableView.reloadRows(at: [IndexPath(row: self.news.count, section: 0)],
+                                              with: .automatic)
+                }
             }
         
             let decoder = JSONDecoder()
@@ -171,9 +174,11 @@ class NewsListTVC: UITableViewController {
         }, failure: { _, _ in
             self.isLoadingMoreNews = false
             DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [IndexPath(row: self.news.count,
-                                                         section: 0)],
-                                          with: .automatic)
+                if !self.news.isEmpty {
+                    self.tableView.reloadRows(at: [IndexPath(row: self.news.count,
+                                                             section: 0)],
+                                              with: .automatic)
+                }
             }
         })
     }
@@ -204,6 +209,30 @@ class NewsListTVC: UITableViewController {
             return currentID != news[selection.row].ID
         }
         return true
+    }
+    
+    func reloadRefreshControl() {
+        
+        let refreshText = "Charger les articles récents…"
+        var refreshColor: UIColor = .white
+        
+        if #available(iOS 11.0, *) {
+        } else {
+            refreshColor = UINavigationBar.appearance().barTintColor ?? .blue
+        }
+        
+        refreshControl?.tintColor = refreshColor
+        refreshControl?.attributedTitle = NSAttributedString(string: refreshText,
+                                                             attributes: [.foregroundColor : refreshColor])
+    }
+    
+    @objc func updateTheme() {
+        
+        reloadRefreshControl()
+        if !news.isEmpty {
+            tableView.reloadRows(at: [IndexPath(row: news.count, section: 0)],
+                                 with: .automatic)
+        }
     }
     
 }
@@ -326,6 +355,7 @@ extension NewsListTVC {
                 cell = UITableViewCell(style: .default,
                                        reuseIdentifier: moreReuseIdentifier) as? NewsListMoreCell
             }
+            cell?.label.textColor = UINavigationBar.appearance().barTintColor
             if isLoadingMoreNews {
                 cell?.refresh.startAnimating()
             } else {

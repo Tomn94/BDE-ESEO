@@ -659,8 +659,8 @@
 				64F84CFD1F633CBD0064F696 /* NewsArticle.swift */,
 				647F6BF91F65E508006FA132 /* NewsSplit.swift */,
 				647F6BF11F64B311006FA132 /* NewsListTVC.swift */,
-				647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */,
 				647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */,
+				647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */,
 				64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */,
 				64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */,
 			);
