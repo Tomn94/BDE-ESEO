@@ -450,23 +450,21 @@ continueUserActivity:(NSUserActivity *)userActivity
   restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
+    if (tab.presentedViewController != nil) {
+        [tab dismissViewControllerAnimated:true completion:nil];
+    }
     
     if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.news"])
         [tab setSelectedIndex:0];
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.article"])
     {
         [tab setSelectedIndex:0];
+        
         NewsSplit *newsSplit = tab.viewControllers.firstObject;
-        UIViewController *detailNVC = newsSplit.viewControllers.lastObject;
-        if ([detailNVC isKindOfClass:[UINavigationController class]])
-        {
-            UIViewController *detailVC = ((UINavigationController *)detailNVC).viewControllers.firstObject;
-            if ([detailVC isKindOfClass:[NewsArticleVC class]])
-            {
-                [newsSplit showDetailViewController:detailNVC sender:nil];
-                [((NewsArticleVC *)detailVC) continueReadingWithUserInfo:userActivity.userInfo];
-            }
-        }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NewsArticleVC *detail = (NewsArticleVC *)[storyboard instantiateViewControllerWithIdentifier:@"newsArticleVC"];
+        [detail continueReadingWithUserInfo:userActivity.userInfo];
+        [newsSplit showDetailViewController:detail sender:nil];
     }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];

@@ -21,12 +21,6 @@
 
 import UIKit
 
-protocol NewsSelectionDelegate {
-    
-    func present(article: NewsArticle)
-    
-}
-
 
 class NewsListTVC: UITableViewController {
     
