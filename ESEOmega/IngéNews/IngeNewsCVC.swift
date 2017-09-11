@@ -143,12 +143,12 @@ extension IngeNewsCVC: APIViewer {
     func loadFromCache() {
         
         guard let data   = APIArchiver.getCache(for: .ingenews),
-              let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data) else {
+              let result = try? JSONDecoder().decode([IngeNews].self, from: data) else {
                 reloadData()
                 return
         }
         
-        self.loadData(result.files)
+        self.loadData(result)
     }
     
     func fetchRemote() {

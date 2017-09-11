@@ -131,12 +131,12 @@ extension RoomsTVC: APIViewer {
     func loadFromCache() {
         
         guard let data   = APIArchiver.getCache(for: .rooms),
-              let result = try? JSONDecoder().decode(RoomsResult.self, from: data) else {
+              let result = try? JSONDecoder().decode([Room].self, from: data) else {
                 reloadData()
                 return
         }
         
-        self.loadData(result.rooms)
+        self.loadData(result)
     }
     
     func fetchRemote() {
