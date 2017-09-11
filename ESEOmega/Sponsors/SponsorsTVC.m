@@ -324,7 +324,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Vérifiez votre connexion et tirez pour rafraîchir.";
+    NSString *text = @"C'est triste…\nVérifiez votre connexion et tirez pour rafraîchir.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
