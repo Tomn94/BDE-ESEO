@@ -120,9 +120,11 @@ extension GenealogySearch: UISearchResultsUpdating {
             }
             
             /* Reload data and display No Results accordingly */
-            self.tableView.tableFooterView = self.results.count > 0
-                                           ? nil : UITableViewHeaderFooterView()
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.tableFooterView = self.results.count > 0
+                                               ? nil : UITableViewHeaderFooterView()
+                self.tableView.reloadData()
+            }
         })
     }
     

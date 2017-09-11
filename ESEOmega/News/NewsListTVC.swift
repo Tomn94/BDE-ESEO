@@ -159,9 +159,11 @@ class NewsListTVC: UITableViewController {
             
         }, failure: { _, _ in
             self.isLoadingMoreNews = false
-            self.tableView.reloadRows(at: [IndexPath(row: self.news.count,
-                                                     section: 0)],
-                                 with: .automatic)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [IndexPath(row: self.news.count,
+                                                         section: 0)],
+                                          with: .automatic)
+            }
         })
     }
     
@@ -247,20 +249,23 @@ extension NewsListTVC: APIViewer {
                 self.splitViewController?.showDetailViewController(destination, sender: nil)
             }
             
-            self.reloadData()
         }
+            
+        self.reloadData()
     }
     
     func reloadData() {
         
-        if news.isEmpty {
-            tableView.backgroundColor = .groupTableViewBackground
-            tableView.tableFooterView = UITableViewHeaderFooterView()
-        } else {
-            tableView.backgroundColor = .white
-            tableView.tableFooterView = nil
+        DispatchQueue.main.async {
+            if self.news.isEmpty {
+                self.tableView.backgroundColor = .groupTableViewBackground
+                self.tableView.tableFooterView = UITableViewHeaderFooterView()
+            } else {
+                self.tableView.backgroundColor = .white
+                self.tableView.tableFooterView = nil
+            }
+            self.tableView.reloadData()
         }
-        tableView.reloadData()
     }
     
 }

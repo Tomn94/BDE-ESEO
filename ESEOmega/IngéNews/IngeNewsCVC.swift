@@ -155,7 +155,9 @@ extension IngeNewsCVC: APIViewer {
         
         API.request(.ingenews, completed: { data in
             
-            self.refreshControl.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
             
             guard let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data),
                   result.success
@@ -165,7 +167,9 @@ extension IngeNewsCVC: APIViewer {
             APIArchiver.save(data: result.files, for: .ingenews)
             
         }, failure: { _, _ in
-            self.refreshControl.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
         })
     }
     
@@ -180,8 +184,11 @@ extension IngeNewsCVC: APIViewer {
     
     func reloadData() {
         
-        self.collectionView?.backgroundColor = files.isEmpty ? .groupTableViewBackground : .white
-        self.collectionView?.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView?.backgroundColor = self.files.isEmpty
+                                                 ? .groupTableViewBackground : .white
+            self.collectionView?.reloadData()
+        }
     }
     
 }

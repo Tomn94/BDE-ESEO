@@ -143,7 +143,9 @@ extension RoomsTVC: APIViewer {
         
         API.request(.rooms, completed: { data in
             
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
             
             guard let result = try? JSONDecoder().decode(RoomsResult.self, from: data),
                   result.success
@@ -153,7 +155,9 @@ extension RoomsTVC: APIViewer {
             APIArchiver.save(data: result.rooms, for: .rooms)
             
         }, failure: { _, _ in
-            self.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
         })
     }
     
@@ -237,14 +241,16 @@ extension RoomsTVC: APIViewer {
     
     func reloadData() {
         
-        if !rooms.isEmpty || searchController.isActive {
-            tableView.backgroundColor = .white
-            tableView.tableFooterView = nil
-        } else {
-            tableView.backgroundColor = .groupTableViewBackground
-            tableView.tableFooterView = UITableViewHeaderFooterView()
+        DispatchQueue.main.async {
+            if !self.rooms.isEmpty || self.searchController.isActive {
+                self.tableView.backgroundColor = .white
+                self.tableView.tableFooterView = nil
+            } else {
+                self.tableView.backgroundColor = .groupTableViewBackground
+                self.tableView.tableFooterView = UITableViewHeaderFooterView()
+            }
+            self.tableView.reloadData()
         }
-        tableView.reloadData()
     }
     
 }

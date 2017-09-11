@@ -41,7 +41,9 @@ enum Utils {
             loadingCount -= 1
         }
     
-        UIApplication.shared.isNetworkActivityIndicatorVisible = loadingCount > 0
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = loadingCount > 0
+        }
     }
     
 }

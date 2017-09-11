@@ -68,9 +68,11 @@ extension UserTVC {
         API.request(.userLogin, get: ["email"    : cleanMail,
                                       "password" : password],
         completed: { data in
-                                        
-            self.spin.stopAnimating()
-                                        
+            
+            DispatchQueue.main.async {
+                self.spin.stopAnimating()
+            }
+                
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
                                         
@@ -97,7 +99,9 @@ extension UserTVC {
         
         }, failure: { error, data in
             
-            self.spin.stopAnimating()
+            DispatchQueue.main.async {
+                self.spin.stopAnimating()
+            }
             
             /* Allow Send button to be tapped again */
             self.configureSendCell(mail: self.mailField.text, password: password)
@@ -211,7 +215,9 @@ extension UserTVC {
             self.close()
         }))
         
-        self.present(alert, animated: true)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
     
     /// Displays an alert explaining why login has failed
@@ -230,7 +236,10 @@ extension UserTVC {
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK",
                                       style: .cancel))
-        self.present(alert, animated: true)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
     
     

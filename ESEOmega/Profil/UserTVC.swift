@@ -192,9 +192,11 @@ class UserTVC: JAQBlurryTableViewController {
         }
         
         /* Apply changes */
-        sendCell.textLabel?.isEnabled     = tappable
-        sendCell.isUserInteractionEnabled = tappable
-        sendCell.selectionStyle           = tappable ? .default : .none
+        DispatchQueue.main.async {
+            self.sendCell.textLabel?.isEnabled     = tappable
+            self.sendCell.isUserInteractionEnabled = tappable
+            self.sendCell.selectionStyle           = tappable ? .default : .none
+        }
     }
     
     /// Set avatar shape and tap reactions on the empty data set elements

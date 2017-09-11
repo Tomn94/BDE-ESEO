@@ -85,7 +85,9 @@ class Genealogy: UITableViewController {
         let id = String(student.id)
         API.request(.family, get: ["student" : id], completed: { data in
             
-            self.loadingIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+            }
             
             /* Parse the new data */
             guard let result = try? JSONDecoder().decode(StudentResult.self,
@@ -104,7 +106,9 @@ class Genealogy: UITableViewController {
             self.arrangeFamily(members: familyMembers)
             
         }, failure: { _, _ in
-            self.loadingIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+            }
         })
     }
     
@@ -169,12 +173,15 @@ class Genealogy: UITableViewController {
         
         family = tree
         
-        /* Reload data, display No Results accordingly and animate */
-        let animation = CATransition()
-        animation.duration = 0.45
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.tableView.layer.add(animation, forKey: nil)
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            /* Reload data, display No Results accordingly and animate */
+            let animation = CATransition()
+            animation.duration = 0.45
+            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.tableView.layer.add(animation, forKey: nil)
+            
+            self.tableView.reloadData()
+        }
     }
 
 }
