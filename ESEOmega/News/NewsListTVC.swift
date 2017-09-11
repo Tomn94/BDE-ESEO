@@ -108,7 +108,8 @@ class NewsListTVC: UITableViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
         }
-        if let selection = tableView.indexPathForSelectedRow {
+        if splitViewController?.isCollapsed ?? true,
+           let selection = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selection, animated: true)
         }
         
@@ -171,11 +172,28 @@ class NewsListTVC: UITableViewController {
         
         guard segue.identifier == "newsSelectionSegue",
               let detailNVC = segue.destination as? UINavigationController,
-              let detail = detailNVC.viewControllers.first as? NewsArticleVC,
+              let detail    = detailNVC.viewControllers.first as? NewsArticleVC,
               let selection = tableView.indexPathForSelectedRow
             else { return }
         
         detail.load(article: news[selection.row])
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String,
+                                     sender: Any?) -> Bool {
+        
+        if identifier == "newsSelectionSegue" {
+            
+            guard let detailNVC = splitViewController?.viewControllers.last as? UINavigationController,
+                  let detail    = detailNVC.viewControllers.first as? NewsArticleVC,
+                  let currentID = detail.article?.ID,
+                  let selection = tableView.indexPathForSelectedRow
+                else { return true }
+            
+            // Don't allow reselect, because screen flashes
+            return currentID != news[selection.row].ID
+        }
+        return true
     }
     
 }
@@ -232,21 +250,28 @@ extension NewsListTVC: APIViewer {
     
     func loadData(_ data: [NewsArticle]) {
         
+        let atLaunch = news.isEmpty
         news += data.filter { newArticle in
             !news.contains(newArticle)
         }
         
         DispatchQueue.main.async {
             
-            // TODO: Uniquement au lancement
-            if !(self.splitViewController?.isCollapsed ?? true),
+            if atLaunch,
+               !(self.splitViewController?.isCollapsed ?? true),
                let firstNews = self.news.first {
                 
                 let storyboard  = UIStoryboard(name: "Main", bundle: nil)
                 let destination = storyboard.instantiateViewController(withIdentifier: "newsArticleVC") as! NewsArticleVC
                 
                 destination.load(article: firstNews)
-                self.splitViewController?.showDetailViewController(destination, sender: nil)
+                let navVC = UINavigationController(rootViewController: destination)
+                self.splitViewController?.showDetailViewController(navVC, sender: nil)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    self.tableView.selectRow(at: IndexPath(row: 0, section: 0),
+                                             animated: true, scrollPosition: .none)
+                }
             }
             
         }
