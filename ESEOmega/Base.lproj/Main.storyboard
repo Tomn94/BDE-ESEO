@@ -920,7 +920,7 @@ Bâtiment : F. Rolland</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Njh-RV-AH8" kind="showDetail" trigger="accessoryAction" id="atF-cd-EdF"/>
+                                    <segue destination="Njh-RV-AH8" kind="showDetail" identifier="newsSelectionSegue" id="h8p-a8-6YF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1128,8 +1128,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="luS-Gd-MmJ"/>
+        <segue reference="hZX-Yt-D3E"/>
         <segue reference="mMl-75-8h7"/>
-        <segue reference="LLY-gO-oS9"/>
+        <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
 </document>

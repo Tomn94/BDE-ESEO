@@ -37,7 +37,7 @@ class NewsSplit: UISplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        delegate = self;
+        delegate = self
         preferredDisplayMode = .allVisible
         
         if let masterNav = self.viewControllers.first as? UINavigationController,

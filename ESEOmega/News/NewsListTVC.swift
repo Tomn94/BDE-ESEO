@@ -58,15 +58,12 @@ class NewsListTVC: UITableViewController {
                    Int(tableView.bounds.size.height / tableView.rowHeight))
     }
     
-    weak var delegate: (UIViewController & NewsSelectionDelegate)?
-    
     private var isLoadingMoreNews = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.clearsSelectionOnViewWillAppear = true
         tableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         let toolbar = LinksToolbar()
         toolbar.viewController = self
@@ -76,11 +73,6 @@ class NewsListTVC: UITableViewController {
         loadFromCache()
         fetchRemote()
         
-        /* Delegates */
-        if let detailNVC = splitViewController?.viewControllers.last as? UINavigationController,
-           let detailVC = detailNVC.viewControllers.first as? UIViewController & NewsSelectionDelegate {
-            delegate = detailVC
-        }
         if #available(iOS 10.0, *) {
             tableView.prefetchDataSource = self
         }
@@ -116,8 +108,11 @@ class NewsListTVC: UITableViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
         }
+        if let selection = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selection, animated: true)
+        }
         
-        self.userActivity?.becomeCurrent()
+        userActivity?.becomeCurrent()
     }
     
     
@@ -163,6 +158,17 @@ class NewsListTVC: UITableViewController {
                                                      section: 0)],
                                  with: .automatic)
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard segue.identifier == "newsSelectionSegue",
+              let detailNVC = segue.destination as? UINavigationController,
+              let detail = detailNVC.viewControllers.first as? NewsArticleVC,
+              let selection = tableView.indexPathForSelectedRow
+            else { return }
+        
+        detail.load(article: news[selection.row])
     }
     
 }
@@ -220,8 +226,14 @@ extension NewsListTVC: APIViewer {
         DispatchQueue.main.async {
             
             // TODO: Uniquement au lancement
-            if let firstNews = self.news.first {
-                self.delegate?.present(article: firstNews)
+            if !(self.splitViewController?.isCollapsed ?? true),
+               let firstNews = self.news.first {
+                
+                let storyboard  = UIStoryboard(name: "Main", bundle: nil)
+                let destination = storyboard.instantiateViewController(withIdentifier: "newsArticleVC") as! NewsArticleVC
+                
+                destination.load(article: firstNews)
+                self.splitViewController?.showDetailViewController(destination, sender: nil)
             }
             
             self.reloadData()
@@ -248,6 +260,7 @@ extension NewsListTVC {
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
+        
         return news.isEmpty ? 0 : (news.count + 1)
     }
     
@@ -346,14 +359,11 @@ extension NewsListTVC {
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
         
-        guard indexPath.row != news.count else {
+        if indexPath.row == news.count {
             
             loadMoreArticles()
             tableView.deselectRow(at: indexPath, animated: true)
-            return
         }
-        
-        delegate?.present(article: news[indexPath.row])
     }
     
 }
@@ -370,9 +380,9 @@ extension NewsListTVC: UIViewControllerPreviewingDelegate {
             else { return nil }
         
         let storyboard  = UIStoryboard(name: "Main", bundle: nil)
-        let destination = storyboard.instantiateViewController(withIdentifier: "newsDetailVC") as! (UIViewController & NewsSelectionDelegate)
+        let destination = storyboard.instantiateViewController(withIdentifier: "newsArticleVC") as! NewsArticleVC
         
-        destination.present(article: news[indexPath.row])
+        destination.load(article: news[indexPath.row])
         
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         

@@ -147,17 +147,6 @@ class NewsArticleVC: UIViewController {
 }
 
 
-// MARK: - News Selection Delegate
-extension NewsArticleVC: NewsSelectionDelegate {
-    
-    func present(article: NewsArticle) {
-
-        load(article: article)
-    }
-    
-}
-
-
 // MARK: - Web View Navigation Delegate
 extension NewsArticleVC: WKNavigationDelegate {
     
