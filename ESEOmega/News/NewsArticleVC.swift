@@ -130,6 +130,7 @@ class NewsArticleVC: UIViewController {
         load(article: article)
     }
     
+    /// Called from Bar Button Item or 3D Touch action
     @objc func shareArticle() {
         
         guard let url = article?.getURL(),
@@ -137,12 +138,11 @@ class NewsArticleVC: UIViewController {
             else { return }
             
         let safari = TUSafariActivity()
-        
         let shareMenu = UIActivityViewController(activityItems: [url],
                                                  applicationActivities: [safari])
         shareMenu.popoverPresentationController?.barButtonItem = shareItem
         
-        present(shareMenu, animated: true)
+        UIApplication.shared.windows.first?.rootViewController?.present(shareMenu, animated: true)
     }
 
 }
