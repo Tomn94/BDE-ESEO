@@ -71,10 +71,8 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
             }
         } catch {}
         
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .stickersReloaded, object: nil)
-            self.stickerBrowserView.reloadData()
-        }
+        NotificationCenter.default.post(name: .stickersReloaded, object: nil)
+        self.stickerBrowserView.reloadData()
     }
     
     /// Fetch all stickers from the web
