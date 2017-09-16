@@ -189,9 +189,14 @@ extension RoomsTVC: APIViewer {
         var sortedRooms = [[Room]]()
         for room in rooms {
             
-            var roomId = room[keyPath: property]
-            if sortMode == .byName {  // alpha = sort by 1st letter
-                roomId = String(roomId.prefix(1))
+            var roomId: String
+            switch sortMode {
+            case .byName:  // alpha = sort by 1st letter
+                roomId = String(room[keyPath: property].prefix(1))
+            case .byBuilding:
+                roomId = room[keyPath: property]
+            case .byFloor:
+                roomId = String(room.floor)
             }
             
             // Let's fill the current section if it belongs to it
