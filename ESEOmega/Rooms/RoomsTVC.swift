@@ -99,6 +99,8 @@ class RoomsTVC: UITableViewController {
     /// Loops through search modes
     @IBAction func changeSortMode() {
         
+        guard !self.rooms.isEmpty else { return }
+        
         /* Update model */
         switch sortMode {
         case .byName:
