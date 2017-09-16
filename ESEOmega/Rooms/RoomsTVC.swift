@@ -401,12 +401,11 @@ extension RoomsTVC {
         let room = currentSet[indexPath.section][indexPath.row]
         
         /* Associate values to make a descriptive text */
-        var detailText = "Bâtiment \(room.building) · Étage \(room.floor)"
-        if let roomNumber = room.number {
-            detailText = "\(roomNumber) · " + detailText
+        var detailText = "Bâtiment " + room.building + " · Étage \(room.floor)"
+        if let roomNumber = room.number, !roomNumber.isEmpty {
+            detailText = roomNumber + " · " + detailText
         }
-        if let roomInfo = room.info,
-           roomInfo != "" {
+        if let roomInfo = room.info, !roomInfo.isEmpty {
             detailText += " · " + roomInfo
         }
         
