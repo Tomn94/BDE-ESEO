@@ -159,7 +159,12 @@ extension IngeNewsCVC: APIViewer {
                 self.refreshControl.endRefreshing()
             }
             
-            guard let result = try? JSONDecoder().decode(IngeNewsResult.self, from: data),
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = IngeNews.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            guard let result = try? decoder.decode(IngeNewsResult.self,
+                                                   from: data),
                   result.success
                 else { return }
             
@@ -237,7 +242,7 @@ extension IngeNewsCVC {
                                                                    weight: .medium)
         
         /* Set up icon */
-        if let fileImage = file.img {
+        if let fileImage = file.preview {
             cell.iconView.sd_setImage(with: fileImage,
                                       placeholderImage: #imageLiteral(resourceName: "doc"))
         } else {
@@ -269,7 +274,7 @@ extension IngeNewsCVC: UICollectionViewDataSourcePrefetching {
         /* Get every image URL to fetch */
         var thumbnails = [URL]()
         for indexPath in indexPaths {
-            if let thumbnailURL = files[indexPath.item].img {
+            if let thumbnailURL = files[indexPath.item].preview {
                 thumbnails.append(thumbnailURL)
             }
         }
@@ -292,7 +297,7 @@ extension IngeNewsCVC {
                         didSelectItemAt indexPath: IndexPath) {
         
         let selectedFile = files[indexPath.item]
-        let fileURL      = selectedFile.file
+        let fileURL      = selectedFile.url
         
         /* Present file as web content (browser can open PDFs, docs…) */
         let safari = SFSafariViewController(url: fileURL)
@@ -409,7 +414,7 @@ extension IngeNewsCVC: UIViewControllerPreviewingDelegate {
         guard let index = self.collectionView?.indexPathForItem(at: location) else {
             return nil
         }
-        let fileURL = files[index.item].file
+        let fileURL = files[index.item].url
         
         /* Get its frame */
         if let originatingFrame = self.collectionView?.layoutAttributesForItem(at: index)?.frame {

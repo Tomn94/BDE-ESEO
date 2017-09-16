@@ -26,7 +26,7 @@ import Foundation
 struct IngeNews: Codable {
     
     /// Unique identifier for the document
-    let id: Int
+    let ID: Int
     
     /// Name of the edition
     let name: String
@@ -35,13 +35,16 @@ struct IngeNews: Codable {
     let date: Date
     
     /// Remote file URL where the document is stored
-    let file: URL
+    let url: URL
     
-    /// Size of the remote document
+    /// Size of the remote document (bytes)
     let size: Int64
     
     /// Thumbnail icon for document preview
-    let img: URL?
+    let preview: URL?
+    
+    
+    static let dateFormat = "yyyy-MM-dd HH:mm:ss"
     
 }
 
