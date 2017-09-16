@@ -30,7 +30,7 @@ class GenealogySearch: UITableViewController {
     
     private var shouldDisplayEmptyDataPane = true
     
-    private var results = [GenealogySearchItem]()
+    private var results = [FamilyMember]()
     
 }
 
@@ -52,8 +52,8 @@ extension GenealogySearch {
                                                  for: indexPath)
 
         let student = results[indexPath.row]
-        cell.textLabel?.text = student.name
-        cell.detailTextLabel?.text = student.rank.name + " · Promotion " + student.promotion
+        cell.textLabel?.text = student.fullname
+        cell.detailTextLabel?.text = "Promotion " + student.promo
 
         return cell
     }
@@ -108,14 +108,14 @@ extension GenealogySearch: UISearchResultsUpdating {
         /* Ask students results */
         API.request(.familySearch, get: ["name" : query], completed: { data in
             
-            guard let result = try? JSONDecoder().decode(GenealogySearchResult.self,
-                                                       from: data),
+            guard let result = try? JSONDecoder().decode(StudentSearchResult.self,
+                                                         from: data),
                   result.success
                 else { return }
             
             /* Store sorted alphabetically */
             self.results = result.students.sorted {
-                $0.name.localizedStandardCompare($1.name) == .orderedAscending
+                $0.fullname.localizedStandardCompare($1.fullname) == .orderedAscending
             }
             
             /* Reload data and display No Results accordingly */

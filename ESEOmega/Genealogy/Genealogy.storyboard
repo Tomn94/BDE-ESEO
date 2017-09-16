@@ -74,7 +74,7 @@
                             <outlet property="emptyDataSetSource" destination="O43-FL-dEv" id="3cr-rn-bjW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Généalogie" id="nqy-sb-Abr">
+                    <navigationItem key="navigationItem" title="Familles" id="nqy-sb-Abr">
                         <barButtonItem key="leftBarButtonItem" id="bKE-Io-xLm">
                             <view key="customView" contentMode="scaleToFill" id="0CE-YV-8QK">
                                 <rect key="frame" x="16" y="5.5" width="85" height="33"/>

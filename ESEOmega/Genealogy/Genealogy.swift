@@ -34,14 +34,17 @@ class GenealogyCell: UITableViewCell {
 
 class Genealogy: UITableViewController {
     
+    private let reuseIdentifier = "genealogyCell"
+    
+    
     var search: UISearchController!
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    var family: [[Student]] = []
+    var family: [[FamilyMember]] = []
     
     /// Highlighted student
-    var query: Student?
+    var query: FamilyMember?
     
     
     override func viewDidLoad() {
@@ -75,7 +78,7 @@ class Genealogy: UITableViewController {
      Get family for student previously searched
      - Parameter student: The student whose family is requested by its ID number
      */
-    func setUpFamily(for student: GenealogySearchItem) {
+    func setUpFamily(for student: FamilyMember) {
         
         /* Dismiss search */
         search.isActive = false
@@ -83,23 +86,23 @@ class Genealogy: UITableViewController {
         loadingIndicator.startAnimating()
         
         /* Ask family members for the student */
-        let id = String(student.id)
-        API.request(.family, get: ["student" : id], completed: { data in
+        let familyID = String(student.familyID)
+        API.request(.family, appendPath: familyID, completed: { data in
             
             DispatchQueue.main.async {
                 self.loadingIndicator.stopAnimating()
             }
             
             /* Parse the new data */
-            guard let result = try? JSONDecoder().decode(StudentResult.self,
+            guard let result = try? JSONDecoder().decode(FamilyResult.self,
                                                          from: data),
                   result.success
                 else { return }
             
-            let familyMembers = result.students
+            let familyMembers = result.familyMembers
             
             familyMembers.forEach { familyMember in
-                if familyMember.id == student.id {
+                if familyMember.ID == student.ID {
                     self.query = familyMember
                 }
             }
@@ -117,15 +120,15 @@ class Genealogy: UITableViewController {
      Sort the array of students received into one family tree
      - Parameter members: Students to be organized
      */
-    func arrangeFamily(members: [Student]) {
+    func arrangeFamily(members: [FamilyMember]) {
         
-        var tree: [[Student]] = []
+        var tree: [[FamilyMember]] = []
         
         /* 1: Split students by rank */
         // Prepare: sort students by rank
-        let students = members.sorted { $0.rank > $1.rank }
-        var currentRank = StudentRank.alumni
-        var currentRankMembers: [Student]?
+        let students = members.sorted { $0.rank < $1.rank }
+        var currentRank = 0
+        var currentRankMembers: [FamilyMember]?
         // Allocate each rank
         for student in students {
             if currentRank == student.rank {
@@ -153,20 +156,20 @@ class Genealogy: UITableViewController {
         for (index, rank) in tree.enumerated() {
             // We'll order children according to each parent from current rank
             for student in rank {
-                let children = student.children
                 // Let's order children to be under this parent
-                if !children.isEmpty && index < tree.count - 1 {
-                    tree[index+1].sort(by: { (student1, student2) -> Bool in
-                        return children.contains(student1.id)
-                    })
+                if let children = student.childIDs,
+                   !children.isEmpty && index < tree.count - 1 {
+                    tree[index+1].sort { student1, _ in
+                        return children.contains(student1.ID)
+                    }
                     
                     // Fix for some relations: 2 students on a row have each one, one child
                     if tree[index+1].count == 2 &&
-                       tree[index+1][0].parents.first != tree[index][0].id &&
-                       tree[index+1][1].parents.first != tree[index][1].id {
-                        tree[index+1].sort(by: { (student1, student2) -> Bool in
-                            return children.contains(student2.id)
-                        })
+                       tree[index+1][0].parentIDs?.first != tree[index][0].ID &&
+                       tree[index+1][1].parentIDs?.first != tree[index][1].ID {
+                        tree[index+1].sort { _, student2 in
+                            return children.contains(student2.ID)
+                        }
                     }
                 }
             }
@@ -200,7 +203,7 @@ extension Genealogy {
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "genealogyCell",
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
                                                  for: indexPath) as! GenealogyCell
         
         /* Remove labels from previous search */
@@ -214,10 +217,10 @@ extension Genealogy {
         for student in studentsForRank {
             /* Setup a label per name */
             let nameBox = UILabel()
-            nameBox.text = student.name
+            nameBox.text = student.fullname
             nameBox.numberOfLines = 0
             nameBox.textAlignment = .center
-            nameBox.textColor = UIColor.white
+            nameBox.textColor     = .white
             
             /* Highlight requested student */
             if let q = query, q == student {
@@ -242,24 +245,26 @@ extension Genealogy {
             nameBox.layer.cornerRadius = 4
             nameBox.clipsToBounds = true
             nameBox.adjustsFontSizeToFitWidth = true
-            nameBox.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[view(>=35)]", options: [], metrics: nil, views: ["view": nameBox]))
+            nameBox.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[view(>=35)]",
+                                                                  options: [], metrics: nil,
+                                                                  views: ["view": nameBox]))
             
             cell.stackView.addArrangedSubview(nameBox)
         }
         
         /* Promotion setup */
         if let firstStudent = studentsForRank.first {
-            cell.infoLabel.text = firstStudent.rank.name + " · " + firstStudent.promotion
+            cell.infoLabel.text = firstStudent.promo
         }
         
         /* Draw links between rows */
         let pathsView = GenealogyPathsView(frame: cell.frame)
-        pathsView.family = self.family
+        pathsView.family      = self.family
         pathsView.currentRank = indexPath.row
         
         /* Alternate rows and setup background */
         pathsView.backgroundColor = indexPath.row & 1 == 0 ? #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.9882352941, alpha: 1) : .white
-        cell.backgroundView = pathsView
+        cell.backgroundView       = pathsView
 
         return cell
     }

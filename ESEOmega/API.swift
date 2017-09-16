@@ -52,11 +52,11 @@ class API {
         /// List of rooms
         case rooms        = "rooms"
         
-        /// Information about a family
-        case family       = "family"
+        /// Information about a family. Family number must be suffixed.
+        case family       = "families/"
         
         /// Search a student name for their family
-        case familySearch = "family/search"
+        case familySearch = "families"
         
         /// MessagesExtension, list of stickers
         case stickers     = "stickers"
@@ -96,12 +96,15 @@ class API {
     ///
     /// - Parameters:
     ///   - apiPath: Requested component
+    ///   - appendPath: Eventual additional and dynamic Path component.
+    ///                 Should not start with / if `apiPath` is already suffixed.
     ///   - getParameters:  List of GET  parameters that will get encoded and packed
     ///   - postParameters: List of POST parameters that will get encoded and packed
     ///   - completed: Called when request got data and no error
     ///   - failure: Called when request failed, no data or error
     ///   - noCache: Ignore local cache when making the request
     static func request(_ apiPath: API.Path,
+                        appendPath: String? = nil,
                         get  getParameters:  [String : String] = [:],
                         post postParameters: [String : String] = [:],
                         completed: @escaping (Foundation.Data) -> (),
@@ -112,10 +115,23 @@ class API {
                                                             : .useProtocolCachePolicy
         
         /* URL + GET */
-        var urlComponents = URLComponents(string: url + apiPath.rawValue)!
-        urlComponents.queryItems = getParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+        var rawURL = url + apiPath.rawValue
+        if let suffixPath = appendPath {
+            rawURL += suffixPath
+        }
+        guard var urlComponents = URLComponents(string: rawURL) else {
+            failure?(nil, nil)
+            return
+        }
+        urlComponents.queryItems = getParameters.map {  // GET
+            URLQueryItem(name: $0.key, value: $0.value)
+        }
+        guard let finalURL = urlComponents.url ?? URL(string: rawURL) else {
+            failure?(nil, nil)
+            return
+        }
         
-        var request = URLRequest(url: urlComponents.url ?? URL(string: url + apiPath.rawValue)!,
+        var request = URLRequest(url: finalURL,
                                  cachePolicy: cachePolicy,
                                  timeoutInterval: 60)
         request.setValue(key,     forHTTPHeaderField: "API-key")

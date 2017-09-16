@@ -27,7 +27,7 @@ class GenealogyPathsView: UIView {
     private let topMargin:      CGFloat =  5
     private let pathWidth:      CGFloat =  3
     
-    var family: [[Student]] = []
+    var family: [[FamilyMember]] = []
     
     var currentRank: Int?
     
@@ -50,38 +50,44 @@ class GenealogyPathsView: UIView {
             let center = CGPoint(x: x, y: height / 2)
             
             /* Draw TOP line if it has parents */
-            let parents = student.parents
-            if !parents.isEmpty {
+            if let parents = student.parentIDs,
+               !parents.isEmpty {
                 /* Compute the sum of each X from the student's parents */
                 var xTopBaricenter: CGFloat = 0
                 if rank > 0 {
                     let elderly = family[rank - 1]
                     for (oldIndex, oldOne) in elderly.enumerated() {
-                        if oldOne.children.contains(student.id) {
-                            xTopBaricenter += xFrom(index: oldIndex, nbrItems: elderly.count, width: width)
+                        if oldOne.childIDs?.contains(student.ID) ?? false {
+                            xTopBaricenter += xFrom(index: oldIndex,
+                                                    nbrItems: elderly.count,
+                                                    width: width)
                         }
                     }
                 }
                 
                 /* And do the average */
-                xTopBaricenter /= CGFloat(student.parents.count)
+                xTopBaricenter   /= CGFloat(parents.count)
                 let topBaricenter = CGPoint(x: xTopBaricenter, y: 0)
                 
                 /* And draw on the view */
-                drawLink(from: CGPoint(x: center.x, y: center.y - (minLabelHeight / 2) + topMargin),
+                drawLink(from: CGPoint(x: center.x,
+                                       y: center.y - (minLabelHeight / 2) + topMargin),
                          to: topBaricenter)
             }
             
             /* Draw BOTTOM line if it has children */
-            if !student.children.isEmpty {
+            if let children = student.childIDs,
+               !children.isEmpty {
                 /* Analyze brothers to see which ones have the same children
                    Then do the sum of each X from brothers found */
                 var xBottomBaricenter: CGFloat = 0
                 var nbrBrotherWithChildren = 0  // Incest
                 for (brotherIndex, brother) in brothers.enumerated() {
                     /* The brother has children in common with current student */
-                    if !Set(brother.children).intersection(Set(student.children)).isEmpty {
-                        xBottomBaricenter += xFrom(index: brotherIndex, nbrItems: brothers.count, width: width)
+                    if !Set(brother.childIDs ?? []).intersection(Set(children)).isEmpty {
+                        xBottomBaricenter += xFrom(index: brotherIndex,
+                                                   nbrItems: brothers.count,
+                                                   width: width)
                         nbrBrotherWithChildren += 1
                     }
                 }
@@ -90,12 +96,13 @@ class GenealogyPathsView: UIView {
                 if nbrBrotherWithChildren > 0 {
                     xBottomBaricenter /= CGFloat(nbrBrotherWithChildren)
                 } else { // Fallback to the center of the current student label if no common children
-                    xBottomBaricenter = x
+                    xBottomBaricenter  = x
                 }
                 let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
                 
                 /* And draw on the view */
-                drawLink(from: CGPoint(x: center.x, y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                drawLink(from: CGPoint(x: center.x,
+                                       y: center.y + (minLabelHeight / 2) + topMargin - 1),
                          to: bottomBaricenter)
             }
         }
