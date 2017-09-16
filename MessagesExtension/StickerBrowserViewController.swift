@@ -82,16 +82,17 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
         
         API.request(.stickers, completed: { data in
             
-            guard let stickers = try? JSONDecoder().decode([Sticker].self, from: data),
-                  !stickers.isEmpty
+            guard let result = try? JSONDecoder().decode(StickersResult.self,
+                                                         from: data),
+                  result.success
                 else { return }
                 
             UserDefaults.standard.set(data, forKey: UserDefaultsKey.stickers)
             self.stickers.removeAll()
-            self.stickersToBeLoaded = stickers.count
+            self.stickersToBeLoaded = result.stickers.count
             self.stickersLoaded = 0
     
-            for sticker in stickers {
+            for sticker in result.stickers {
                 self.fetch(sticker: sticker)
             }
     

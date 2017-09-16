@@ -36,6 +36,16 @@ struct Sticker: Decodable {
     
 }
 
+/// Describes a Stickers JSON response from API
+struct StickersResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    /// List of available Stickers
+    let stickers: [Sticker]
+    
+}
+
 
 class RawSticker: MSSticker {
     
