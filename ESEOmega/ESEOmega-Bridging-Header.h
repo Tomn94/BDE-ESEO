@@ -16,5 +16,6 @@
 #import "SDWebImagePrefetcher.h"
 #import "TUSafariActivity.h"
 #import "NewsLinksVC.h"
+#import "CommandeDetailSegue.h"
 
 #endif /* ESEOmega_Bridging_Header_h */

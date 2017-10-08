@@ -77,6 +77,22 @@ struct CafetOrder: Codable {
         case done      = 2
         /// Order was done but not paid
         case notPaid   = 3
+        
+        
+        var color: UIColor {
+            let values = [#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5490196078, green: 0.8235294118, blue: 0, alpha: 1), .darkGray, #colorLiteral(red: 1, green: 0.1764705882, blue: 0.3333333333, alpha: 1)]
+            return values[self.rawValue]
+        }
+        
+        var pluralName: String {
+            let values = ["En préparation", "Prêtes", "Terminées", "Impayées"]
+            return values[self.rawValue]
+        }
+        
+        var singularName: String {
+            let values = ["En préparation", "Prête",  "Terminée",  "Impayée"]
+            return values[self.rawValue]
+        }
     }
     
     /// Payment status during `Status.preparing` or `Status.ready` states
