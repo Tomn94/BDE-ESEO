@@ -35,10 +35,17 @@ class APIArchiver {
         
         let encoder = JSONEncoder()
         
-        if apiPath == .news {
+        switch apiPath {
+        case .news:
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = NewsArticle.dateFormat
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        case .orders:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = CafetOrder.dateFormat
+            encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        default:
+            break
         }
         
         guard let encodedData = try? encoder.encode(data)

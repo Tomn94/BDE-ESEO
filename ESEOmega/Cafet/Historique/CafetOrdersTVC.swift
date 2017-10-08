@@ -100,15 +100,83 @@ extension CafetOrdersTVC: APIViewer {
     
     
     func loadFromCache() {
+        
+        guard DataStore.isUserLogged else {
+            orders = []
+            reloadData()
+            return
+        }
+        
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = NewsArticle.dateFormat
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        guard let data   = APIArchiver.getCache(for: .orders),
+              let result = try? decoder.decode([CafetOrder].self, from: data) else {
+                reloadData()
+                return
+        }
+        
+        self.loadData(result)
     }
     
     func fetchRemote() {
+        
+        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+            else { return }
+        
+        API.request(.orders, authentication: token, completed: { data in
+            
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
+            
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = CafetOrder.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            guard let result = try? decoder.decode(CafetOrderResult.self, from: data),
+                  result.success
+                else { return }
+            
+            self.loadData(result.orders)
+            APIArchiver.save(data: result.orders, for: .orders)
+            
+        }, failure: { _, _ in
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
+        })
     }
     
     func loadData(_ data: [CafetOrder]) {
+        
+        let groupedOrdersByStatus = Dictionary(grouping: data,
+                                               by: { order in order.status })
+        
+        orders = []
+        let sortedKeys = Array(groupedOrdersByStatus.keys).sorted { $0.rawValue < $1.rawValue }
+        for key in sortedKeys {
+            orders.append(groupedOrdersByStatus[key]!)
+        }
+        
+        self.reloadData()
     }
     
     func reloadData() {
+        
+        DispatchQueue.main.async {
+            if self.orders.isEmpty {
+                self.tableView.backgroundColor = .groupTableViewBackground
+                self.tableView.tableFooterView = UITableViewHeaderFooterView()
+            } else {
+                self.tableView.backgroundColor = .white
+                self.tableView.tableFooterView = nil
+            }
+            self.tableView.reloadData()
+        }
     }
     
 }
@@ -118,11 +186,13 @@ extension CafetOrdersTVC: APIViewer {
 extension CafetOrdersTVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return orders.count
     }
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
+        
         return orders[section].count
     }
     

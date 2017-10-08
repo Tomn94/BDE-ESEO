@@ -46,6 +46,9 @@ class API {
         /// Get news articles
         case news         = "news"
         
+        /// Get cafet orders
+        case orders       = "me/orders"
+        
         /// List of IngeNews editions
         case ingenews     = "ingenews"
         
@@ -100,6 +103,7 @@ class API {
     ///                 Should not start with / if `apiPath` is already suffixed.
     ///   - getParameters:  List of GET  parameters that will get encoded and packed
     ///   - postParameters: List of POST parameters that will get encoded and packed
+    ///   - authToken: Whether user's token is sent with the request.
     ///   - completed: Called when request got data and no error
     ///   - failure: Called when request failed, no data or error
     ///   - noCache: Ignore local cache when making the request
@@ -107,6 +111,7 @@ class API {
                         appendPath: String? = nil,
                         get  getParameters:  [String : String] = [:],
                         post postParameters: [String : String] = [:],
+                        authentication authToken: String? = nil,
                         completed: @escaping (Foundation.Data) -> (),
                         failure: ((Error?, Foundation.Data?) -> ())? = nil,
                         noCache: Bool = false) {
@@ -136,6 +141,9 @@ class API {
                                  timeoutInterval: 60)
         request.setValue(key,     forHTTPHeaderField: "API-key")
         request.setValue(version, forHTTPHeaderField: "API-version")
+        if let token = authToken {
+            request.setValue(token, forHTTPHeaderField: "API-token")
+        }
         
         /* POST */
         if !postParameters.isEmpty {
