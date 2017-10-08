@@ -87,6 +87,8 @@
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
+		648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */; };
+		648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A55D31F8A994A003424D5 /* CafetOrder.swift */; };
 		64900CDA1F54DCCB00E2F09D /* App-Icon-6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */; };
 		64900CDB1F54DCCE00E2F09D /* App-Icon-6@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */; };
 		64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */; };
@@ -333,6 +335,8 @@
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
 		6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PerfectDOSVGA437.ttf; sourceTree = "<group>"; };
+		648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrdersTVC.swift; sourceTree = "<group>"; };
+		648A55D31F8A994A003424D5 /* CafetOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrder.swift; sourceTree = "<group>"; };
 		64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x.png"; path = "App Icons/App-Icon-6@2x.png"; sourceTree = "<group>"; };
 		64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x~ipad.png"; path = "App Icons/App-Icon-6@2x~ipad.png"; sourceTree = "<group>"; };
 		64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@3x.png"; path = "App Icons/App-Icon-6@3x.png"; sourceTree = "<group>"; };
@@ -586,6 +590,8 @@
 		645ACDE01B695724005ABCE2 /* Historique */ = {
 			isa = PBXGroup;
 			children = (
+				648A55D31F8A994A003424D5 /* CafetOrder.swift */,
+				648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */,
 				64CDF0921B642C670051C7BB /* CommandesTVC.h */,
 				64CDF0931B642C670051C7BB /* CommandesTVC.m */,
 				64A271F11B645A350001063A /* CommandesCell.h */,
@@ -1321,6 +1327,7 @@
 				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
+				648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */,
 				645C29771F63760A001F79AC /* API.swift in Sources */,
 				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
 				64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */,
@@ -1330,6 +1337,7 @@
 				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
+				648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
 				64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */,

@@ -29,8 +29,6 @@
     CommandesTVC *sourceViewController = self.sourceViewController;
     CommandesDetailVC *destinationViewController = self.destinationViewController;
     
-//    destinationViewController.infos = sourceViewController.infosCmdSel;
-    
     if (iPAD)
     {
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:destinationViewController];
