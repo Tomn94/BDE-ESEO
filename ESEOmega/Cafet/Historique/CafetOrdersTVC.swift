@@ -25,6 +25,8 @@ import UIKit
 /// Lists user's orders at the cafétéria
 class CafetOrdersTVC: UITableViewController {
     
+    private static let versionCheckURL = "https://itunes.apple.com/fr/lookup?bundleId=com.eseomega.ESEOmega"
+    
     private let reuseIdentifier = "commandeCell"
     
     
@@ -34,6 +36,12 @@ class CafetOrdersTVC: UITableViewController {
     var updateTimer: Timer?
     
     @IBOutlet weak var userButton: UIBarButtonItem!
+    
+    @IBOutlet weak var orderButton: UIBarButtonItem!
+    
+    @IBOutlet weak var loadingButton: UIBarButtonItem!
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
 
     override func viewDidLoad() {
@@ -83,8 +91,156 @@ class CafetOrdersTVC: UITableViewController {
         fetchRemote()
     }
     
-    func order() {
+    @IBAction func order() {
         
+        guard DataStore.isUserLogged else {
+            let alert = UIAlertController(title: "Connectez-vous !",
+                                          message: "Connectez-vous grâce au bouton en haut à droite pour commander à la cafet !",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(alert, animated: true)
+            return
+        }
+        
+        checkVersion()
+    }
+    
+    /// Step 1
+    func checkVersion() {
+        
+        let session  = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let url      = URL(string: CafetOrdersTVC.versionCheckURL)!
+        let dataTask = session.dataTask(with: url) { data, _, error in
+            
+            Utils.requiresActivityIndicator(false)
+            
+            var title   = "Erreur"
+            var message = "Impossible de vérifier si l'application est à jour"
+            var updateAvailable = false
+            
+            if error == nil && data != nil,
+               let JSON    = try? JSONSerialization.jsonObject(with: data!, options: []),
+               let info         = JSON            as?  [String : Any],
+               let results      = info["results"] as? [[String : Any]],
+               let app          = results.first,
+               let storeVersion = app["version"]  as?   String,
+               let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+                
+                if storeVersion.compare(appVersion, options: String.CompareOptions.numeric) != .orderedDescending {
+                    
+                    self.checkTime()
+                    return
+                    
+                } else {
+                    
+                    title   = NEW_UPD_TI
+                    message = NEW_UPD_TE
+                    updateAvailable = true
+                }
+                
+            }
+            
+            let alert = UIAlertController(title: title,
+                                          message: message,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: updateAvailable ? "Cancel" : "OK", style: .cancel))
+            if updateAvailable {
+                let updateAction = UIAlertAction(title: NEW_UPD_BT, style: .default, handler: { _ in
+                    UIApplication.shared.openURL(URL(string: URL_APPSTORE)!)
+                })
+                alert.addAction(updateAction)
+                alert.preferredAction = updateAction
+            }
+            DispatchQueue.main.async {
+                self.present(alert, animated: true)
+            }
+        }
+        
+        loadingIndicator.startAnimating()
+        navigationItem.setLeftBarButton(loadingButton, animated: true)
+        Utils.requiresActivityIndicator(true)
+        dataTask.resume()
+    }
+    
+    /// Step 2
+    func checkTime() {
+        
+        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+            else { return }
+        
+        let timeZone = TimeZone.current
+        guard timeZone.identifier == "Europe/Paris" else {
+            let alert = UIAlertController(title: "Erreur 🌍",
+                                          message: "L'accès à la cafet ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "D'accord", style: .cancel))
+            present(alert, animated: true)
+            return
+        }
+        
+        let defaultError = "Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
+        
+        API.request(.newOrder, get: ["os"   : "IOS",
+                                     "tstp" : String(Date().timeIntervalSince1970)],
+                    authentication: token, completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(CafetNewOrderResult.self, from: data),
+                  result.success else {
+                    
+                let alert = UIAlertController(title: "Erreur",
+                                              message: defaultError,
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
+                return
+            }
+                    
+            self.startShopping(with: result.token)
+            
+        }, failure: { _, data in
+            
+            API.handleFailure(data: data, mode: .presentFetchedMessage(self),
+                              defaultMessage: defaultError)
+        })
+    }
+    
+    func startShopping(with token: String) {
+        
+        let defaultError = "Impossible de récupérer les menus"
+        
+        API.request(.menus, authentication: token, completed: { data in
+            
+            // TODO: tester si aucun element/ingrédient/menu/categorie disponible
+            guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
+                  result.success else {
+                    
+                let alert = UIAlertController(title: "Erreur",
+                                              message: defaultError,
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
+                return
+            }
+            
+            let storyboard = UIStoryboard(name: "Order", bundle: nil)
+            let orderVC = storyboard.instantiateViewController(withIdentifier: "Order")
+            orderVC.modalTransitionStyle = self.traitCollection.horizontalSizeClass == .regular
+                                         ? .coverVertical : .flipHorizontal
+            orderVC.modalPresentationStyle = .formSheet
+            DispatchQueue.main.async {
+                self.present(orderVC, animated: true)
+            }
+            // TODO: Give token + data
+            
+        }, failure: { _, data in
+            
+            API.handleFailure(data: data, mode: .presentFetchedMessage(self),
+                              defaultMessage: defaultError)
+        })
     }
     
     func dismissDetail() {

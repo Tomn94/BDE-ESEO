@@ -46,8 +46,14 @@ class API {
         /// Get news articles
         case news         = "news"
         
-        /// Get cafet orders
+        /// Get cafet order history
         case orders       = "me/orders"
+        
+        /// Begin new cafet order
+        case newOrder     = "orders/token"
+        
+        /// Get available items to order
+        case menus        = "orders/items"
         
         /// List of IngeNews editions
         case ingenews     = "ingenews"
@@ -183,13 +189,15 @@ class API {
     }
     
     /// Tries to analyse bad API response data to at least get an error message.
-    static func handleFailure(data: Foundation.Data,
-                              mode: HandleFailureMode = .onlyFetchMessage) -> APIError {
+    @discardableResult static func handleFailure(data: Foundation.Data?,
+                                                 mode: HandleFailureMode = .onlyFetchMessage,
+                                                 defaultMessage: String? = nil) -> APIError {
         
-        var result = APIError(message: "Appelez Champollion, impossible de déchiffrer la réponse du serveur.",
+        var result = APIError(message: defaultMessage ?? "Appelez Champollion, impossible de déchiffrer la réponse du serveur.",
                           code: nil)
         
-        if let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: data),
+        if let d = data,
+           let baseError = try? JSONDecoder().decode(API.ErrorResult.self, from: d),
            let error = baseError.error,
            let cause = error.userMessage {
             result = APIError(message: cause, code: error.uid)
@@ -197,11 +205,13 @@ class API {
         
         if case let .presentFetchedMessage(parentVC) = mode {
             
-            let alert = UIAlertController(title: "Erreur réseau inconnue",
+            let alert = UIAlertController(title: "Erreur",
                                           message: result.message,
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            parentVC.present(alert, animated: true)
+            DispatchQueue.main.async {
+                parentVC.present(alert, animated: true)
+            }
         }
         
         return result

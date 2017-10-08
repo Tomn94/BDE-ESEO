@@ -115,3 +115,67 @@ struct CafetOrderResult: APIResult, Decodable {
     
 }
 
+/// Describes a JSON response with token from API when creating a new order
+struct CafetNewOrderResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    let token: String
+    
+}
+
+/// Describes a JSON response from API containing available items
+struct CafetMenusResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    let categories: [CafetCategory]
+    
+    let menus: [CafetMenu]
+    
+    let elements: [CafetElement]
+    
+    let ingredients: [CafetIngredient]
+    
+}
+
+struct CafetCategory: Decodable {
+    
+    let position: Int
+    let name: String
+    let firstPrice: Double
+    let imgUrl: String
+    let catname: String
+    let briefText: String
+}
+
+struct CafetMenu: Decodable {
+    
+    let idstr: String
+    let name: String
+    let price: Double
+    let mainElemStr: String
+    let nbMainElem: Int
+    let nbSecoElem: Int
+}
+
+struct CafetElement: Decodable {
+    
+    let idstr: String
+    let name: String
+    let stock: Int
+    let priceuni: Double
+    let pricemore: Double
+    let outofmenu: Int
+    let hasingredients: Int
+    let idcat: String
+    let countFor: Int
+}
+
+struct CafetIngredient: Decodable {
+    
+    let idstr: String
+    let name: String
+    let stock: Int
+    let priceuni: Double
+}
