@@ -226,9 +226,14 @@ class CafetOrdersTVC: UITableViewController {
     
     func startShopping(with token: String) {
         
+        guard let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+            self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
+            return
+        }
+        
         let defaultError = "Impossible de récupérer les menus"
         
-        API.request(.menus, authentication: token, completed: { data in
+        API.request(.menus, authentication: userToken, completed: { data in
             
             // TODO: tester si aucun element/ingrédient/menu/categorie disponible
             guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
