@@ -558,7 +558,7 @@ extension CafetOrdersTVC: DZNEmptyDataSetSource {
     
     func offset(forEmptyDataSet scrollView: UIScrollView!) -> CGPoint {
         
-        return CGPoint(x: 0, y: -(tableView.tableHeaderView?.frame.size.height ?? 0) / 2)
+        return CGPoint(x: 0, y: -(tableView.tableHeaderView?.frame.size.height ?? 0))
     }
     
 }
