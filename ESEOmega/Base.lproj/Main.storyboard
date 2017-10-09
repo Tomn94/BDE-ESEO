@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -661,10 +661,10 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="812" y="327"/>
         </scene>
-        <!--Mes commandes-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="Cld-QZ-gcH">
             <objects>
-                <tableViewController id="1LM-i4-dgy" customClass="CommandesTVC" sceneMemberID="viewController">
+                <tableViewController id="1LM-i4-dgy" customClass="CafetOrdersTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="61" sectionHeaderHeight="5" sectionFooterHeight="10" id="Sfh-xm-zKm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -760,14 +760,31 @@ Bâtiment : F. Rolland</string>
                         <connections>
                             <outlet property="dataSource" destination="1LM-i4-dgy" id="m0y-Fk-rlc"/>
                             <outlet property="delegate" destination="1LM-i4-dgy" id="3nC-uN-gEs"/>
+                            <outlet property="emptyDataSetDelegate" destination="1LM-i4-dgy" id="1M1-yn-FmU"/>
+                            <outlet property="emptyDataSetSource" destination="1LM-i4-dgy" id="pvC-6N-EGI"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Mes commandes" id="l2d-Zj-sIn">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="MRj-4r-mZO">
-                            <connections>
-                                <action selector="commander:" destination="1LM-i4-dgy" id="y1t-Qj-Ofk"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="add" id="MRj-4r-mZO">
+                                <connections>
+                                    <action selector="order" destination="1LM-i4-dgy" id="0Kl-cL-m6K"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="rSv-Al-Asb">
+                                <view key="customView" contentMode="scaleToFill" id="Rx9-uM-bdd">
+                                    <rect key="frame" x="52.5" y="22" width="0.0" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-dp-cv4">
+                                            <rect key="frame" x="-9" y="-9" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="user" id="hh4-GE-16q">
                             <connections>
                                 <segue destination="GbG-dZ-NEX" kind="presentation" id="Lkv-Aq-dDA"/>
@@ -778,12 +795,14 @@ Bâtiment : F. Rolland</string>
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh:" destination="1LM-i4-dgy" eventType="valueChanged" id="Ajw-RB-VcB"/>
+                            <action selector="refresh" destination="1LM-i4-dgy" eventType="valueChanged" id="uKy-m4-gu1"/>
                         </connections>
                     </refreshControl>
                     <connections>
-                        <outlet property="ajoutBtn" destination="MRj-4r-mZO" id="iZH-7m-bN7"/>
-                        <outlet property="userBtn" destination="hh4-GE-16q" id="2ho-ED-OrC"/>
+                        <outlet property="loadingButton" destination="rSv-Al-Asb" id="g7g-CE-GR1"/>
+                        <outlet property="loadingIndicator" destination="Vzg-dp-cv4" id="Jza-R5-2HG"/>
+                        <outlet property="orderButton" destination="MRj-4r-mZO" id="JXt-gY-fgl"/>
+                        <outlet property="userButton" destination="hh4-GE-16q" id="ZYq-KS-YAu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGN-p9-NhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1128,7 +1147,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hZX-Yt-D3E"/>
+        <segue reference="Lkv-Aq-dDA"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
