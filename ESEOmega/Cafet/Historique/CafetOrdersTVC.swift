@@ -369,7 +369,8 @@ extension CafetOrdersTVC: APIViewer {
         guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
             else { return }
         
-        API.request(.orders, authentication: token, completed: { data in
+        API.request(.orders, get: ["all": "1"], authentication: token,
+                    completed: { data in
             
             DispatchQueue.main.async {
                 self.refreshControl?.endRefreshing()
@@ -400,8 +401,15 @@ extension CafetOrdersTVC: APIViewer {
                                                by: { order in order.status })
         
         orders = []
-        let sortedKeys = Array(groupedOrdersByStatus.keys).sorted { $0.rawValue < $1.rawValue }
-        for key in sortedKeys {
+        let sortedKeys = Array(groupedOrdersByStatus.keys).sorted {
+            $0.rawValue < $1.rawValue
+        }
+        if let notPaid = groupedOrdersByStatus[.notPaid] {
+            // Added first since their rawValue is 3 (> 0, 1, 2)
+            // but we need them on top
+            orders.append(notPaid)
+        }
+        for key in sortedKeys where key != .notPaid {
             orders.append(groupedOrdersByStatus[key]!)
         }
         
