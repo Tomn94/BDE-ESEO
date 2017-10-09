@@ -521,6 +521,10 @@ extension CafetOrdersTVC {
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
         cell.numLabel.text    = String(format: "%@%03d", order.strcmd, order.modcmd)
+
+        DispatchQueue.main.async {
+            cell.imgView.backgroundColor = order.status.color
+        }
         
         return cell
     }
