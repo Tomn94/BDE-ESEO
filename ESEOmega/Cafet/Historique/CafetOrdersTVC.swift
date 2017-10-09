@@ -139,7 +139,7 @@ class CafetOrdersTVC: UITableViewController {
                let storeVersion = app["version"]  as?   String,
                let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
                 
-                if storeVersion.compare(appVersion, options: String.CompareOptions.numeric) != .orderedDescending {
+                if storeVersion.compare(appVersion, options: .numeric) != .orderedDescending {
                     
                     self.checkTime()
                     return
@@ -203,13 +203,10 @@ class CafetOrdersTVC: UITableViewController {
             
             guard let result = try? JSONDecoder().decode(CafetNewOrderResult.self, from: data),
                   result.success else {
-                    
-                let alert = UIAlertController(title: "Erreur",
-                                              message: defaultError,
-                                              preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                
+                API.handleFailure(data: data, mode: .presentFetchedMessage(self),
+                                  defaultMessage: defaultError)
                 DispatchQueue.main.async {
-                    self.present(alert, animated: true)
                     self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
                 }
                 return
@@ -236,13 +233,10 @@ class CafetOrdersTVC: UITableViewController {
             // TODO: tester si aucun element/ingrédient/menu/categorie disponible
             guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
                   result.success else {
-                    
-                let alert = UIAlertController(title: "Erreur",
-                                              message: defaultError,
-                                              preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                
+                API.handleFailure(data: data, mode: .presentFetchedMessage(self),
+                                  defaultMessage: defaultError)
                 DispatchQueue.main.async {
-                    self.present(alert, animated: true)
                     self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
                 }
                 return
