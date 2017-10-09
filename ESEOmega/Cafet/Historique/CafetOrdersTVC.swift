@@ -21,6 +21,13 @@
 
 import UIKit
 
+fileprivate extension Selector {
+    /// Timer for regular updates on order status
+    static let triggerUpdate = #selector(CafetOrdersTVC.triggerUpdate)
+    /// Called when Low Power mode toggled
+    static let toggleUpdates = #selector(CafetOrdersTVC.toggleUpdates)
+}
+
 
 /// Lists user's orders at the cafétéria
 class CafetOrdersTVC: UITableViewController {
@@ -34,6 +41,9 @@ class CafetOrdersTVC: UITableViewController {
     var orders = [[CafetOrder]]()
     
     var updateTimer: Timer?
+    
+    static let updateInterval: TimeInterval = 10
+    
     
     @IBOutlet weak var userButton: UIBarButtonItem!
     
@@ -70,6 +80,10 @@ class CafetOrdersTVC: UITableViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForPublicIndexing = true
         self.userActivity = activity
+        
+        NotificationCenter.default.addObserver(self, selector: .toggleUpdates,
+                                               name: .NSProcessInfoPowerStateDidChange,
+                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +100,55 @@ class CafetOrdersTVC: UITableViewController {
     }
     
     
-    // MARK: Actions
+    // MARK: - Timer
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        startUpdates()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        stopUpdates()
+    }
+    
+    
+    func startUpdates() {
+        
+        guard !ProcessInfo.processInfo.isLowPowerModeEnabled else {
+            stopUpdates()
+            return
+        }
+        
+        updateTimer = Timer.scheduledTimer(timeInterval: CafetOrdersTVC.updateInterval,
+                                           target: self, selector: .triggerUpdate,
+                                           userInfo: nil, repeats: true)
+    }
+    
+    func stopUpdates() {
+        
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+    
+    @objc func toggleUpdates() {
+        
+        if ProcessInfo.processInfo.isLowPowerModeEnabled {
+            stopUpdates()
+        } else if !(updateTimer?.isValid ?? false) {
+            startUpdates()
+        }
+    }
+    
+    @objc func triggerUpdate() {
+        
+        fetchRemote()
+    }
+    
+    
+    // MARK: - Actions
     
     @IBAction func refresh() {
         
