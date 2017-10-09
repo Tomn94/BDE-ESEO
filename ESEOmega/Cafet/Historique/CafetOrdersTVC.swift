@@ -488,6 +488,7 @@ extension CafetOrdersTVC {
         cell.dateLabel.textColor = .darkGray
         cell.numLabel.textColor  = .darkGray
         
+        let color = order.status.color
         switch order.status
         {
         case .preparing:
@@ -509,10 +510,10 @@ extension CafetOrdersTVC {
             cell.imgView.image  = #imageLiteral(resourceName: "cafetNotPaid")
         }
         
-        cell.nomLabel.textColor  = order.status.color
-        cell.prixLabel.textColor = order.status.color
+        cell.nomLabel.textColor  = color
+        cell.prixLabel.textColor = color
         
-        cell.color = order.status.color
+        cell.color = color
         cell.imgView.layer.cornerRadius  = 24
         cell.imgView.layer.shadowColor   = UIColor.lightGray.cgColor
         cell.imgView.layer.shadowOffset  = CGSize(width: 0, height: 1)
@@ -529,10 +530,6 @@ extension CafetOrdersTVC {
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
         cell.numLabel.text    = String(format: "%@%03d", order.strcmd, order.modcmd)
-
-        DispatchQueue.main.async {
-            cell.imgView.backgroundColor = order.status.color
-        }
         
         return cell
     }
