@@ -349,13 +349,6 @@ extension CafetOrdersTVC: APIViewer {
     func reloadData() {
         
         DispatchQueue.main.async {
-            if self.orders.isEmpty {
-                self.tableView.backgroundColor = .groupTableViewBackground
-                self.tableView.tableFooterView = UITableViewHeaderFooterView()
-            } else {
-                self.tableView.backgroundColor = .white
-                self.tableView.tableFooterView = nil
-            }
             self.tableView.reloadData()
         }
     }
@@ -396,9 +389,7 @@ extension CafetOrdersTVC {
     override func tableView(_ tableView: UITableView,
                             titleForFooterInSection section: Int) -> String? {
         
-        let nbrOrdersInSection     = orders[section].count
-        guard orders[nbrOrdersInSection].count > 0,
-              let firstOrderStatus = orders[section].first?.status
+        guard let firstOrderStatus = orders[section].first?.status
             else { return nil }
         
         switch firstOrderStatus {

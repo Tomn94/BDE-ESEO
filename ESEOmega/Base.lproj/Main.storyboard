@@ -741,7 +741,7 @@ Bâtiment : F. Rolland</string>
                                         <constraint firstItem="HB4-Na-c2j" firstAttribute="leading" secondItem="ZMz-oQ-fbt" secondAttribute="trailing" constant="10" id="WPo-AG-u9Z"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="ZMz-oQ-fbt" secondAttribute="bottom" constant="4" id="X8T-8y-2bN"/>
                                         <constraint firstItem="iXG-Qz-QWp" firstAttribute="leading" secondItem="ZAA-0O-Fih" secondAttribute="trailing" constant="15" id="YQN-si-gyY"/>
-                                        <constraint firstItem="ZAA-0O-Fih" firstAttribute="leading" secondItem="OPa-8T-lSc" secondAttribute="leadingMargin" constant="8" id="Zea-4Q-p8L"/>
+                                        <constraint firstItem="ZAA-0O-Fih" firstAttribute="leading" secondItem="OPa-8T-lSc" secondAttribute="leadingMargin" id="Zea-4Q-p8L"/>
                                         <constraint firstItem="ZMz-oQ-fbt" firstAttribute="leading" secondItem="ZAA-0O-Fih" secondAttribute="trailing" constant="15" id="bXL-pt-UCd"/>
                                         <constraint firstItem="ZAA-0O-Fih" firstAttribute="top" secondItem="OPa-8T-lSc" secondAttribute="topMargin" constant="-2" id="hyI-W4-U3L"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="HB4-Na-c2j" secondAttribute="trailing" constant="-2" id="yly-hI-4Og"/>
@@ -771,7 +771,7 @@ Bâtiment : F. Rolland</string>
                                     <action selector="order" destination="1LM-i4-dgy" id="0Kl-cL-m6K"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="rSv-Al-Asb">
+                            <barButtonItem id="rSv-Al-Asb">
                                 <view key="customView" contentMode="scaleToFill" id="Rx9-uM-bdd">
                                     <rect key="frame" x="52.5" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
