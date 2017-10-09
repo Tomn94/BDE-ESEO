@@ -31,7 +31,7 @@ struct CafetOrder: Codable {
     let strcmd: String
     
     /// Modulo applied on `idcmd`, usually written after `strcmd`
-    let modcmd: String
+    let modcmd: Int
     
     /// Cooking status
     let status: Status
@@ -43,19 +43,19 @@ struct CafetOrder: Codable {
     let resume: String
     
     /// Client requests concerning their food/delivery
-    let instructions: String?
+    let instructions: String
     
     /// Price of the whole order
     let price: Double
+    
+    /// Whether the order is already paid (before it's been `Status.done`)
+    let paidbefore: PaidBeforeStatus
     
     
     // MARK: Available after requesting details
     
     /// Category illustration
     let imgurl: URL?
-    
-    /// Whether the order is already paid (before it's been `Status.done`)
-    let paidbefore: PaidBeforeStatus?
     
     /// ID of the transaction with Lydia, -1 otherwise
     /// means `paidbefore == .alreadyPaid`
