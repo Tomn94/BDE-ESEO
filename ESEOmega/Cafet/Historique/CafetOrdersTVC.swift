@@ -37,9 +37,9 @@ class CafetOrdersTVC: UITableViewController {
     
     @IBOutlet weak var userButton: UIBarButtonItem!
     
-    @IBOutlet weak var orderButton: UIBarButtonItem!
+    @IBOutlet var orderButton: UIBarButtonItem!
     
-    @IBOutlet weak var loadingButton: UIBarButtonItem!
+    @IBOutlet var loadingButton: UIBarButtonItem!
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
@@ -58,6 +58,8 @@ class CafetOrdersTVC: UITableViewController {
         } else {
             refreshControl?.tintColor = UINavigationBar.appearance().barTintColor ?? .blue
         }
+        
+        navigationItem.leftBarButtonItems = [orderButton]
         
         /* Handoff */
         let info = ActivityType.cafet
@@ -97,7 +99,18 @@ class CafetOrdersTVC: UITableViewController {
             let alert = UIAlertController(title: "Connectez-vous !",
                                           message: "Connectez-vous grâce au bouton en haut à droite pour commander à la cafet !",
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Annuler", style: .cancel))
+            let connectAction = UIAlertAction(title: "Me connecter", style: .default, handler: { _ in
+                
+                guard let action = self.userButton.action,
+                      let target = self.userButton.target
+                    else { return }
+                
+                UIApplication.shared.sendAction(action, to: target,
+                                                from: nil, for: nil)
+            })
+            alert.addAction(connectAction)
+            alert.preferredAction = connectAction
             present(alert, animated: true)
             return
         }
@@ -153,6 +166,7 @@ class CafetOrdersTVC: UITableViewController {
             }
             DispatchQueue.main.async {
                 self.present(alert, animated: true)
+                self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             }
         }
         
@@ -165,8 +179,10 @@ class CafetOrdersTVC: UITableViewController {
     /// Step 2
     func checkTime() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
-            else { return }
+        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+            self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
+            return
+        }
         
         let timeZone = TimeZone.current
         guard timeZone.identifier == "Europe/Paris" else {
@@ -175,6 +191,7 @@ class CafetOrdersTVC: UITableViewController {
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "D'accord", style: .cancel))
             present(alert, animated: true)
+            self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
         
@@ -193,6 +210,7 @@ class CafetOrdersTVC: UITableViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel))
                 DispatchQueue.main.async {
                     self.present(alert, animated: true)
+                    self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
                 }
                 return
             }
@@ -203,6 +221,9 @@ class CafetOrdersTVC: UITableViewController {
             
             API.handleFailure(data: data, mode: .presentFetchedMessage(self),
                               defaultMessage: defaultError)
+            DispatchQueue.main.async {
+                self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
+            }
         })
     }
     
@@ -222,6 +243,7 @@ class CafetOrdersTVC: UITableViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel))
                 DispatchQueue.main.async {
                     self.present(alert, animated: true)
+                    self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
                 }
                 return
             }
@@ -233,6 +255,7 @@ class CafetOrdersTVC: UITableViewController {
             orderVC.modalPresentationStyle = .formSheet
             DispatchQueue.main.async {
                 self.present(orderVC, animated: true)
+                self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             }
             // TODO: Give token + data
             
@@ -240,6 +263,9 @@ class CafetOrdersTVC: UITableViewController {
             
             API.handleFailure(data: data, mode: .presentFetchedMessage(self),
                               defaultMessage: defaultError)
+            DispatchQueue.main.async {
+                self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
+            }
         })
     }
     
