@@ -55,6 +55,9 @@ class API {
         /// Get available items to order
         case menus        = "orders/items"
         
+        /// Get available items to order
+        case orderService = "apps/service"
+        
         /// List of IngeNews editions
         case ingenews     = "ingenews"
         

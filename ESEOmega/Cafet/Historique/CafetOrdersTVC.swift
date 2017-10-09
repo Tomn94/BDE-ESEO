@@ -40,6 +40,8 @@ class CafetOrdersTVC: UITableViewController {
     /// User's orders, split by status
     var orders = [[CafetOrder]]()
     
+    var serviceStatus = "Cafétéria en ligne non disponible"
+    
     var updateTimer: Timer?
     
     static let updateInterval: TimeInterval = 10
@@ -60,6 +62,7 @@ class CafetOrdersTVC: UITableViewController {
         /* Load local data and ask for updates */
         loadFromCache()
         fetchRemote()
+        fetchService()
         
         /* Refresh control */
         if #available(iOS 11.0, *) {
@@ -106,6 +109,7 @@ class CafetOrdersTVC: UITableViewController {
         super.viewDidAppear(animated)
         
         startUpdates()
+        fetchService()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -337,6 +341,7 @@ class CafetOrdersTVC: UITableViewController {
 }
 
 
+// MARK: - API Viewer
 extension CafetOrdersTVC: APIViewer {
     
     typealias T = [CafetOrder]
@@ -420,6 +425,61 @@ extension CafetOrdersTVC: APIViewer {
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    
+    // MARK: - Service
+    
+    func fetchService() {
+        
+        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+            else { return }
+        
+        let unavailableStatus = "Cafétéria en ligne non disponible"
+        
+        API.request(.orderService, authentication: token,
+                    completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(CafetServiceResult.self, from: data),
+                  result.success else {
+                self.serviceStatus = unavailableStatus
+                return
+            }
+            
+            self.serviceStatus = result.message.replacingOccurrences(of: "\\n", with: "\n")
+            self.updateService()
+
+        }, failure: { error, data in
+            self.serviceStatus = unavailableStatus
+            self.updateService()
+        })
+    }
+    
+    func updateService() {
+        
+        DispatchQueue.main.async {
+            
+            guard let header = self.tableView.tableHeaderView as? CustomHeaderView,
+                  let label  = header.serviceLabel
+                else { return }
+            
+            label.text = self.serviceStatus
+            label.sizeToFit()
+            
+            let constraintRect = CGSize(width: label.frame.width,
+                                        height: .greatestFiniteMagnitude)
+            let boundingBox = self.serviceStatus.boundingRect(with: constraintRect,
+                                                              options: .usesLineFragmentOrigin,
+                                                              attributes: [.font: label.font],
+                                                              context: nil)
+            var offset: CGFloat = 15
+            if #available(iOS 11.0, *) {
+                offset = UIFontMetrics.default.scaledValue(for: offset)
+            }
+            header.frame.size.height = boundingBox.height + offset
+            
+            self.tableView.tableHeaderView = header
         }
     }
     

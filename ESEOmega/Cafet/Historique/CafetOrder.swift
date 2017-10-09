@@ -106,6 +106,16 @@ struct CafetOrder: Codable {
 }
 
 
+/// Describes a Service JSON response from API
+struct CafetServiceResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    let message: String
+    
+}
+
+
 /// Describes a CafetOrder JSON response from API
 struct CafetOrderResult: APIResult, Decodable {
     
