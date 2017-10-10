@@ -720,13 +720,3 @@
 
 @end
 
-
-@implementation CustomHeaderView
-
-- (void) layoutSubviews
-{
-    [super layoutSubviews];
-    _serviceLabel.preferredMaxLayoutWidth = _serviceLabel.bounds.size.width;
-}
-
-@end

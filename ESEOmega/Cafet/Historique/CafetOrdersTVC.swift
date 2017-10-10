@@ -21,6 +21,18 @@
 
 import UIKit
 
+class CustomHeaderView: UIView {
+    
+    @IBOutlet weak var serviceLabel: UILabel!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        serviceLabel.preferredMaxLayoutWidth = serviceLabel.bounds.size.width
+    }
+    
+}
+
 fileprivate extension Selector {
     /// Timer for regular updates on order status
     static let triggerUpdate = #selector(CafetOrdersTVC.triggerUpdate)
