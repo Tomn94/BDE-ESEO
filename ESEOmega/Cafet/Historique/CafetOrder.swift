@@ -93,6 +93,11 @@ struct CafetOrder: Codable {
             let values = ["En préparation", "Prête",  "Terminée",  "Impayée"]
             return values[self.rawValue]
         }
+        
+        var fullName: String {
+            let values = ["Commande en préparation", "Commande prête",  "Commande terminée",  "Commande impayée"]
+            return values[self.rawValue]
+        }
     }
     
     /// Payment status during `Status.preparing` or `Status.ready` states

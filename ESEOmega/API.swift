@@ -36,6 +36,8 @@ class API {
     static private let url     = "https://api.bdeeseo.fr/"
     static private let version = "1"
     
+    static let assetsURL = "https://portail.bdeeseo.fr/modules/lacommande/assets/"
+    
     
     /// Available API endpoints
     enum Path: String {
@@ -48,6 +50,9 @@ class API {
         
         /// Get cafet order history
         case orders       = "me/orders"
+        
+        /// Information about a specific cafet order. `idcmd` number must be suffixed.
+        case order        = "orders/"
         
         /// Begin new cafet order
         case newOrder     = "orders/token"

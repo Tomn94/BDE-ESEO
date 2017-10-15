@@ -10,6 +10,7 @@
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
 		640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 640885FB1B6805CC00070429 /* CommandeDetailSegue.m */; };
+		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
 		6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */; };
 		6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425D8361BACB2BE00F15BDD /* EventAlertView.xib */; };
 		6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8391BACB7F700F15BDD /* EventAlertView.m */; };
@@ -224,6 +225,7 @@
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
 		640885FA1B6805CC00070429 /* CommandeDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandeDetailSegue.h; sourceTree = "<group>"; };
 		640885FB1B6805CC00070429 /* CommandeDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandeDetailSegue.m; sourceTree = "<group>"; };
+		6418FFA01F939DEE0044206B /* CafetOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrderVC.swift; sourceTree = "<group>"; };
 		641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE ESEO.entitlements"; sourceTree = "<group>"; };
 		6425D8321BACB22000F15BDD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 			children = (
 				648A55D31F8A994A003424D5 /* CafetOrder.swift */,
 				648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */,
+				6418FFA01F939DEE0044206B /* CafetOrderVC.swift */,
 				64CDF0921B642C670051C7BB /* CommandesTVC.h */,
 				64CDF0931B642C670051C7BB /* CommandesTVC.m */,
 				64A271F11B645A350001063A /* CommandesCell.h */,
@@ -1334,6 +1337,7 @@
 				64339B531F16EE2800EDA97D /* SDWebImageCompat.m in Sources */,
 				64339B5D1F16EE2800EDA97D /* UIImageView+HighlightedWebCache.m in Sources */,
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
+				6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */,
 				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
