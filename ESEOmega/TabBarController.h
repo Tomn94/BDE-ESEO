@@ -24,7 +24,6 @@
 #import "EventsTVC.h"
 #import "ClubsSplitVC.h"
 #import "ClubsDetailTVC.h"
-#import "CommandesTVC.h"
 #import "SponsorsTVC.h"
 #import "GameVC.h"
 #import "SDWebImage/UIImageView+WebCache.h"

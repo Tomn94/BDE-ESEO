@@ -159,7 +159,7 @@ shouldSelectViewController:(UIViewController *)viewController
 {
     if ([viewController isEqual:self.selectedViewController])
         if ([viewController respondsToSelector:@selector(visibleViewController)] &&
-            [[(UINavigationController *)viewController visibleViewController] isKindOfClass:[CommandesTVC class]])
+            [[(UINavigationController *)viewController visibleViewController] isKindOfClass:[CafetOrdersTVC class]])
             retapCmd = YES;
     return YES;
 }
@@ -207,7 +207,7 @@ shouldSelectViewController:(UIViewController *)viewController
             case 3:
                 if (retapCmd)
                 {
-                    [[(CommandesTVC *)[(UINavigationController *)viewController visibleViewController] tableView] scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+                    [[(CafetOrdersTVC *)[(UINavigationController *)viewController visibleViewController] tableView] scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
                     retapCmd = NO;
                 }
                 break;

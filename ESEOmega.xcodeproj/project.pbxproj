@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
-		640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 640885FB1B6805CC00070429 /* CommandeDetailSegue.m */; };
 		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
 		6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */; };
 		6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425D8361BACB2BE00F15BDD /* EventAlertView.xib */; };
@@ -77,7 +76,6 @@
 		645C29781F637625001F79AC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29761F63760A001F79AC /* API.swift */; };
 		645C297A1F638792001F79AC /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29791F638792001F79AC /* Sticker.swift */; };
 		645C297D1F640D7F001F79AC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C297C1F640D7F001F79AC /* Utils.swift */; };
-		646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 646E56671B681F3300E357F8 /* CommandesDetailVC.m */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
 		647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsListTVC.swift */; };
@@ -114,7 +112,6 @@
 		64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B2181B657F4D00F43FB9 /* JAQBlurryTableViewController.m */; };
 		64C4B21E1B657F5600F43FB9 /* UIImage+Fit.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B21B1B657F5600F43FB9 /* UIImage+Fit.m */; };
 		64C4B21F1B657F5600F43FB9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C4B21D1B657F5600F43FB9 /* UIImage+ImageEffects.m */; };
-		64CDF0941B642C670051C7BB /* CommandesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64CDF0931B642C670051C7BB /* CommandesTVC.m */; };
 		64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */; };
 		64D768371B87B43300C09215 /* OrderElemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D768361B87B43300C09215 /* OrderElemTVC.m */; };
 		64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 64DE993F1C9EBC6E00751204 /* bellum.mp3 */; };
@@ -223,8 +220,6 @@
 		64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaUITests.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
-		640885FA1B6805CC00070429 /* CommandeDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandeDetailSegue.h; sourceTree = "<group>"; };
-		640885FB1B6805CC00070429 /* CommandeDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandeDetailSegue.m; sourceTree = "<group>"; };
 		6418FFA01F939DEE0044206B /* CafetOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrderVC.swift; sourceTree = "<group>"; };
 		641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE ESEO.entitlements"; sourceTree = "<group>"; };
 		6425D8321BACB22000F15BDD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
@@ -322,8 +317,6 @@
 		645C29761F63760A001F79AC /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		645C29791F638792001F79AC /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		645C297C1F640D7F001F79AC /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		646E56661B681F3300E357F8 /* CommandesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesDetailVC.h; sourceTree = "<group>"; };
-		646E56671B681F3300E357F8 /* CommandesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesDetailVC.m; sourceTree = "<group>"; };
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
@@ -381,8 +374,6 @@
 		64C4B21B1B657F5600F43FB9 /* UIImage+Fit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Fit.m"; sourceTree = "<group>"; };
 		64C4B21C1B657F5600F43FB9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		64C4B21D1B657F5600F43FB9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
-		64CDF0921B642C670051C7BB /* CommandesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesTVC.h; sourceTree = "<group>"; };
-		64CDF0931B642C670051C7BB /* CommandesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesTVC.m; sourceTree = "<group>"; };
 		64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		64D768351B87B43300C09215 /* OrderElemTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderElemTVC.h; sourceTree = "<group>"; };
 		64D768361B87B43300C09215 /* OrderElemTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderElemTVC.m; sourceTree = "<group>"; };
@@ -594,11 +585,9 @@
 			children = (
 				648A55D31F8A994A003424D5 /* CafetOrder.swift */,
 				648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */,
-				6418FFA01F939DEE0044206B /* CafetOrderVC.swift */,
-				64CDF0921B642C670051C7BB /* CommandesTVC.h */,
-				64CDF0931B642C670051C7BB /* CommandesTVC.m */,
 				64A271F11B645A350001063A /* CommandesCell.h */,
 				64A271F21B645A350001063A /* CommandesCell.m */,
+				6418FFA01F939DEE0044206B /* CafetOrderVC.swift */,
 			);
 			path = Historique;
 			sourceTree = "<group>";
@@ -785,11 +774,7 @@
 		64CDF0951B642C6E0051C7BB /* Cafet */ = {
 			isa = PBXGroup;
 			children = (
-				640885FA1B6805CC00070429 /* CommandeDetailSegue.h */,
-				640885FB1B6805CC00070429 /* CommandeDetailSegue.m */,
 				645ACDE01B695724005ABCE2 /* Historique */,
-				646E56661B681F3300E357F8 /* CommandesDetailVC.h */,
-				646E56671B681F3300E357F8 /* CommandesDetailVC.m */,
 				6479F2F31B6D068A0004C867 /* Order */,
 			);
 			path = Cafet;
@@ -1297,7 +1282,6 @@
 				64C4B2191B657F4D00F43FB9 /* JAQBlurryTableViewController.m in Sources */,
 				6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */,
 				645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */,
-				646E56681B681F3300E357F8 /* CommandesDetailVC.m in Sources */,
 				64F84CFE1F633CBD0064F696 /* NewsArticle.swift in Sources */,
 				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
@@ -1306,7 +1290,6 @@
 				64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */,
 				64339B581F16EE2800EDA97D /* SDWebImagePrefetcher.m in Sources */,
 				64ED610B1B6D251F00456B01 /* OrderPanierTVC.m in Sources */,
-				640885FC1B6805CC00070429 /* CommandeDetailSegue.m in Sources */,
 				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
 				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				64F84CFC1F632F5F0064F696 /* CreditsTVC.swift in Sources */,
@@ -1374,7 +1357,6 @@
 				64339B4E1F16EE2800EDA97D /* MKAnnotationView+WebCache.m in Sources */,
 				64339B511F16EE2800EDA97D /* SDImageCache.m in Sources */,
 				64339B4F1F16EE2800EDA97D /* NSData+ImageContentType.m in Sources */,
-				64CDF0941B642C670051C7BB /* CommandesTVC.m in Sources */,
 				64339B5F1F16EE2800EDA97D /* UIView+WebCache.m in Sources */,
 				64339B541F16EE2800EDA97D /* SDWebImageDecoder.m in Sources */,
 				64ED61111B6D7A4D00456B01 /* Data.m in Sources */,

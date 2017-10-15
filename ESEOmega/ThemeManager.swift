@@ -161,7 +161,7 @@ import UIKit
             
             /* Refresh the color of any empty data set button in Cafeteria tab */
             if let cafetTab = tabs[3] as? UINavigationController,
-               let cafetTVC = cafetTab.topViewController as? CommandesTVC {
+               let cafetTVC = cafetTab.topViewController as? CafetOrdersTVC {
                 cafetTVC.tableView.reloadEmptyDataSet()
             }
         }
