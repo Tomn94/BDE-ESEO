@@ -626,6 +626,8 @@
 - (void) startLydia:(NSInteger)idCmd
             forType:(NSString *)catOrder
 {
+    [self lydiaUnavailable];
+    return;
     if ([JNKeychain loadValueForKey:@"phone"] == nil)
     {
         NSString *message = @"Votre numéro de téléphone portable est utilisé par Lydia afin de lier la commande à votre compte. Il n'est pas stocké sur nos serveurs.";
@@ -674,6 +676,8 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) sendLydia:(NSString *)idCmd
            forType:(NSString *)catOrder
 {
+    [self lydiaUnavailable];
+    return;
     if ([JNKeychain loadValueForKey:@"phone"] == nil)
     {
         NSString *num = self.tempPhone;
@@ -757,6 +761,8 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void) openLydia:(NSDictionary *)JSON
 {
+    [self lydiaUnavailable];
+    return;
     if (JSON != nil && [JSON[@"status"] intValue] == 1 &&
         JSON[@"data"][@"lydia_intent"] && ![JSON[@"data"][@"lydia_intent"] isEqualToString:@""] &&
         JSON[@"data"][@"lydia_url"]    && ![JSON[@"data"][@"lydia_url"]    isEqualToString:@""])
@@ -813,8 +819,21 @@ shouldChangeCharactersInRange:(NSRange)range
     }
 }
 
+- (void) lydiaUnavailable
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Paiement via Lydia non disponible"
+                                                                   message:@"Le BDE et le développeur travaillent actuellement au rétablissement du service. Réessayez donc ultérieurement.\n\nEn attendant, vous pourrez aller payer cette commande au comptoir lorsque qu'elle sera prête !"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
 - (void) checkLydia:(NSDictionary *)data
 {
+    [self lydiaUnavailable];
+    return;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"État du paiement Lydia"
                                                                    message:@"Vérification en cours…"
                                                             preferredStyle:UIAlertControllerStyleAlert];
