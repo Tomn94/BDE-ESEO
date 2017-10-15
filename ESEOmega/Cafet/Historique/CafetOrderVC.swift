@@ -156,10 +156,11 @@ class CafetOrderVC: UIViewController {
         numCmdBack.backgroundColor = lighterColor
         
         /* Title */
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = CafetOrder.dateFormat
-        let dateString  = dateFormatter.string(from: order.datetime).replacingOccurrences(of: " ", with: " ")  // Non-Breaking Space
-        titreLabel.text = "Votre commande du " + dateString
+        let dateString = DateFormatter.localizedString(from: order.datetime,
+                                                       dateStyle: .full,
+                                                       timeStyle: .none)
+        titreLabel.text = "Votre commande du " +
+                          dateString.replacingOccurrences(of: " ", with: " ")  // Non-Breaking Space
         
         /* Price */
         var priceString = numberFormatter.string(from: NSDecimalNumber(value: order.price)) ?? "Unknown price"
