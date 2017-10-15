@@ -65,11 +65,7 @@ class CafetOrderDetailSegue: UIStoryboardSegue {
 
 class CafetOrderVC: UIViewController {
     
-    var order: CafetOrder? {
-        didSet {
-            showOrder()
-        }
-    }
+    var order: CafetOrder?
     
     var updateTimer: Timer?
     
@@ -88,6 +84,7 @@ class CafetOrderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showOrder()
         NotificationCenter.default.addObserver(self, selector: .toggleUpdates,
                                                name: .NSProcessInfoPowerStateDidChange,
                                                object: nil)
@@ -96,6 +93,7 @@ class CafetOrderVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        fetchDetailedOrder()
         startUpdates()
     }
     
@@ -259,6 +257,7 @@ class CafetOrderVC: UIViewController {
             
             DispatchQueue.main.async {
                 self.order = result.order
+                self.showOrder()
             }
                         
         }, failure: { _, data in
