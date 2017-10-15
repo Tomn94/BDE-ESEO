@@ -28,6 +28,39 @@ fileprivate extension Selector {
     static let toggleUpdates = #selector(CafetOrderVC.toggleUpdates)
     /// Tapped Pay Bar Button item
     static let askPayOrder   = #selector(CafetOrderVC.askPayOrder)
+    /// Dismiss modal view on iPad
+    static let dismissDetail = #selector(CafetOrdersTVC.dismissDetail)
+}
+
+class CafetOrderDetailSegue: UIStoryboardSegue {
+    
+    override func perform() {
+        
+        if UI_USER_INTERFACE_IDIOM() == .pad {
+            
+            guard let typedSource = self.source as? CafetOrdersTVC
+                else { return }
+            
+            let navVC = UINavigationController(rootViewController: destination)
+            navVC.modalPresentationStyle = .formSheet
+            
+            let dismissButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                                target: source,
+                                                action: .dismissDetail)
+            destination.navigationItem.rightBarButtonItem = dismissButton
+            
+            source.present(navVC, animated: true) {
+                if let selection = typedSource.tableView.indexPathForSelectedRow {
+                    typedSource.tableView.deselectRow(at: selection, animated: true)
+                }
+            }
+            
+        } else {
+            source.navigationController?.pushViewController(destination,
+                                                            animated: true)
+        }
+    }
+    
 }
 
 class CafetOrderVC: UIViewController {

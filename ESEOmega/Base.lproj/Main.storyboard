@@ -247,10 +247,10 @@
             </objects>
             <point key="canvasLocation" x="2452" y="663"/>
         </scene>
-        <!--Commandes DetailVC-->
+        <!--Cafet OrderVC-->
         <scene sceneID="Ds5-fh-Dpv">
             <objects>
-                <viewController storyboardIdentifier="detailCmd" id="kbf-Cb-tz2" customClass="CommandesDetailVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailCmd" id="kbf-Cb-tz2" customClass="CafetOrderVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XNB-w7-p6V"/>
                         <viewControllerLayoutGuide type="bottom" id="dgF-Sk-ner"/>
@@ -753,7 +753,7 @@ Bâtiment : F. Rolland</string>
                                     <outlet property="nomLabel" destination="iXG-Qz-QWp" id="tgx-PX-Mok"/>
                                     <outlet property="numLabel" destination="HB4-Na-c2j" id="9HB-dM-vkC"/>
                                     <outlet property="prixLabel" destination="Oa2-Oc-56c" id="UMH-cY-xCf"/>
-                                    <segue destination="kbf-Cb-tz2" kind="custom" identifier="commandeDetailSegue" customClass="CommandeDetailSegue" id="X0O-Ib-dNI"/>
+                                    <segue destination="kbf-Cb-tz2" kind="custom" identifier="cafetOrderDetailSegue" customClass="CafetOrderDetailSegue" customModule="BDE_ESEO" customModuleProvider="target" id="X0O-Ib-dNI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -346,7 +346,7 @@ class CafetOrdersTVC: UITableViewController {
         })
     }
     
-    func dismissDetail() {
+    @objc func dismissDetail() {
         
         dismiss(animated: true)
     }
@@ -609,12 +609,12 @@ extension CafetOrdersTVC {
     /// Selection
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard segue.identifier == "commandeDetailSegue",
-              let destination  = segue.destination as? CommandesDetailVC,
+        guard segue.identifier == "cafetOrderDetailSegue",
+              let destination  = segue.destination as? CafetOrderVC,
               let indexPath    = tableView.indexPathForSelectedRow
             else { return }
         
-//        destination.infos = orders[indexPath.section][indexPath.row]
+        destination.order = orders[indexPath.section][indexPath.row]
     }
     
 }
@@ -630,20 +630,20 @@ extension CafetOrdersTVC: UIViewControllerPreviewingDelegate {
             else { return nil }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationViewController = storyboard.instantiateViewController(withIdentifier: "detailCmd") as! CommandesDetailVC
+        let destination = storyboard.instantiateViewController(withIdentifier: "detailCmd") as! CafetOrderVC
         
-//        destinationViewController.infos = orders[indexPath.section][indexPath.row]
+        destination.order = orders[indexPath.section][indexPath.row]
         previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
         
-        return destinationViewController;
+        return destination
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            commit viewControllerToCommit: UIViewController) {
         
-        let segue = CommandeDetailSegue(identifier: "commandeDetailSegue",
-                                        source: self,
-                                        destination: viewControllerToCommit)
+        let segue = CafetOrderDetailSegue(identifier: "cafetOrderDetailSegue",
+                                          source: self,
+                                          destination: viewControllerToCommit)
         segue.perform()
     }
     
