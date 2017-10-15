@@ -55,7 +55,7 @@ struct CafetOrder: Codable {
     // MARK: Available after requesting details
     
     /// Category illustration
-    let imgurl: URL?
+    let imgurl: String?
     
     /// ID of the transaction with Lydia, -1 otherwise
     /// means `paidbefore == .alreadyPaid`
@@ -116,12 +116,21 @@ struct CafetServiceResult: APIResult, Decodable {
 }
 
 
+/// Describes a CafetOrder list JSON response from API
+struct CafetOrdersResult: APIResult, Decodable {
+    
+    let success: Bool
+    
+    let orders: [CafetOrder]
+    
+}
+
 /// Describes a CafetOrder JSON response from API
 struct CafetOrderResult: APIResult, Decodable {
     
     let success: Bool
     
-    let orders: [CafetOrder]
+    let order: CafetOrder
     
 }
 

@@ -398,7 +398,7 @@ extension CafetOrdersTVC: APIViewer {
             dateFormatter.dateFormat = CafetOrder.dateFormat
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
-            guard let result = try? decoder.decode(CafetOrderResult.self, from: data),
+            guard let result = try? decoder.decode(CafetOrdersResult.self, from: data),
                   result.success
                 else { return }
             
