@@ -191,6 +191,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (IBAction) reserver:(id)sender
 {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Commande de place d'événements/Blue Moon, de saucissons, pulls… indisponible"
+                                                                   message:@"Contactez le BDE pour qu'elle soit de nouveau fonctionnelle."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    return;
+    
     UIActivityIndicatorView *spin = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [spin startAnimating];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:spin] animated:YES];
