@@ -174,18 +174,21 @@ class CafetOrderVC: UIViewController {
         detailLabel.text = resume
         
         /* Instructions */
-        let attrStr = NSMutableAttributedString(string: resume + "\n\nCommentaire :\n"
-                                                               + order.instructions,
+        var instructions = resume
+        var addedInstructions = false
+        if let decodedData   = Foundation.Data(base64Encoded: order.instructions),
+           let decodedString = String(data: decodedData, encoding: .utf8),
+           decodedString != "" {
+            instructions += "\n\nCommentaire :\n" + decodedString
+            addedInstructions = true
+        }
+
+        let attrStr = NSMutableAttributedString(string: instructions,
                                                 attributes: [.font : UIFont.systemFont(ofSize: 15)])
-        attrStr.setAttributes([.font : UIFont.boldSystemFont(ofSize: 15)],
-                              range: NSMakeRange(resume.count + 2, 13))
-        
-        let animation = CATransition()
-        animation.duration = 0.42
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type     = "cube"
-        animation.subtype  = kCATransitionFromBottom
-        detailLabel.layer.add(animation, forKey: nil)
+        if addedInstructions {
+            attrStr.setAttributes([.font : UIFont.boldSystemFont(ofSize: 15)],
+                                  range: NSMakeRange(resume.count + 2, 13))
+        }
         detailLabel.attributedText = attrStr
         
         /* Num */

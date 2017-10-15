@@ -42,7 +42,8 @@ struct CafetOrder: Codable {
     /// Generated text describing the order
     let resume: String
     
-    /// Client requests concerning their food/delivery
+    /// Client requests concerning their food/delivery.
+    /// Base64
     let instructions: String
     
     /// Price of the whole order
