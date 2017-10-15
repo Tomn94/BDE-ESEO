@@ -73,6 +73,7 @@ class CafetOrdersTVC: UITableViewController {
         
         /* Refresh control */
         if #available(iOS 11.0, *) {
+            tableView.separatorInsetReference = .fromAutomaticInsets
             navigationController?.navigationBar.prefersLargeTitles = true
             refreshControl?.tintColor = .white
         } else {
@@ -553,7 +554,11 @@ extension CafetOrdersTVC {
                                                   for: indexPath) as! CommandesCell
         let order = orders[indexPath.section][indexPath.row]
         
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 79, bottom: 0, right: 0)
+        if #available(iOS 11.0, *) {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 63, bottom: 0, right: 0)
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 79, bottom: 0, right: 0)
+        }
         
         cell.nomLabel.font       = UIFont.systemFont(ofSize: 16)
         cell.prixLabel.font      = UIFont.systemFont(ofSize: 16)

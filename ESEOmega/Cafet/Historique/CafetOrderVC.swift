@@ -47,7 +47,7 @@ class CafetOrderDetailSegue: UIStoryboardSegue {
             let dismissButton = UIBarButtonItem(barButtonSystemItem: .done,
                                                 target: source,
                                                 action: .dismissDetail)
-            destination.navigationItem.rightBarButtonItem = dismissButton
+            destination.navigationItem.leftBarButtonItem = dismissButton
             
             source.present(navVC, animated: true) {
                 if let selection = typedSource.tableView.indexPathForSelectedRow {
