@@ -84,7 +84,11 @@ class CafetOrderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
         showOrder()
+        
         NotificationCenter.default.addObserver(self, selector: .toggleUpdates,
                                                name: .NSProcessInfoPowerStateDidChange,
                                                object: nil)
@@ -137,10 +141,6 @@ class CafetOrderVC: UIViewController {
         
         guard let order = self.order else { return }
         
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        numberFormatter.locale      = Locale(identifier: "fr_FR")
-        
         /* VC Title & Color */
         self.title = order.status.fullName
         let color  = order.status.color
@@ -163,6 +163,9 @@ class CafetOrderVC: UIViewController {
                           dateString.replacingOccurrences(of: " ", with: " ")  // Non-Breaking Space
         
         /* Price */
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale      = Locale(identifier: "fr_FR")
         var priceString = numberFormatter.string(from: NSDecimalNumber(value: order.price)) ?? "Unknown price"
         if order.status == .notPaid {
             priceString += " ⚠️"
