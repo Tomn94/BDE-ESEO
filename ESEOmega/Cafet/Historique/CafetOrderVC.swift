@@ -224,7 +224,7 @@ class CafetOrderVC: UIViewController {
             let item = UIBarButtonItem(title: "Payée", style: .plain,
                                        target: nil, action: nil)
             item.isEnabled = false
-            navigationItem.setRightBarButton(item, animated: true)
+            navigationItem.rightBarButtonItem = item
             
         } else if let isLydiaEnabled = order.lydia_enabled,
                   isLydiaEnabled && order.status != .done &&
@@ -232,10 +232,10 @@ class CafetOrderVC: UIViewController {
             
             let item = UIBarButtonItem(title: "Payer", style: .plain,
                                        target: self, action: .askPayOrder)
-            navigationItem.setRightBarButton(item, animated: true)
+            navigationItem.rightBarButtonItem = item
             
         } else {
-            navigationItem.setRightBarButton(nil, animated: true)
+            navigationItem.rightBarButtonItem = nil
         }
     }
     
