@@ -71,11 +71,6 @@ class CafetOrdersTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Load local data and ask for updates */
-        loadFromCache()
-        fetchRemote()
-        fetchService()
-        
         /* Refresh control */
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -103,6 +98,11 @@ class CafetOrdersTVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        /* Load local data and ask for updates */
+        loadFromCache()
+        fetchRemote()
+        fetchService()
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
