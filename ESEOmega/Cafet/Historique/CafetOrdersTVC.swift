@@ -122,7 +122,6 @@ class CafetOrdersTVC: UITableViewController {
         super.viewDidAppear(animated)
         
         startUpdates()
-        fetchService()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -477,6 +476,15 @@ extension CafetOrdersTVC: APIViewer {
                   let label  = header.serviceLabel
                 else { return }
             
+            if label.text != self.serviceStatus {
+                let animation = CATransition()
+                animation.duration = 0.42
+                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                animation.type     = "cube"
+                animation.subtype  = kCATransitionFromBottom
+                label.layer.add(animation, forKey: nil)
+            }
+            
             label.text = self.serviceStatus
             label.sizeToFit()
             
@@ -597,7 +605,7 @@ extension CafetOrdersTVC {
         cell.imgView.layer.shadowOpacity = 1
         cell.imgView.layer.shadowRadius  = 1
         
-        cell.nomLabel.text = order.resume.replacingOccurrences(of: "<br>", with: ", ")
+        cell.nomLabel.text  = order.resume.replacingOccurrences(of: "<br>", with: ", ")
         cell.dateLabel.text = DateFormatter.localizedString(from: order.datetime,
                                                             dateStyle: .full,
                                                             timeStyle: .short)
