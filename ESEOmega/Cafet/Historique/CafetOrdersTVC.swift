@@ -313,7 +313,6 @@ class CafetOrdersTVC: UITableViewController {
         
         API.request(.menus, authentication: userToken, completed: { data in
             
-            // TODO: tester si aucun element/ingrédient/menu/categorie disponible
             guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
                   result.success else {
                 
@@ -325,16 +324,8 @@ class CafetOrdersTVC: UITableViewController {
                 return
             }
             
-            let storyboard = UIStoryboard(name: "Order", bundle: nil)
-            let orderVC = storyboard.instantiateViewController(withIdentifier: "Order")
-            orderVC.modalTransitionStyle = self.traitCollection.horizontalSizeClass == .regular
-                                         ? .coverVertical : .flipHorizontal
-            orderVC.modalPresentationStyle = .formSheet
-            DispatchQueue.main.async {
-                self.present(orderVC, animated: true)
-                self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
-            }
-            // TODO: Give token + data
+            self.displayShopping(menus: result,
+                                 token: token)
             
         }, failure: { _, data in
             
@@ -344,6 +335,75 @@ class CafetOrdersTVC: UITableViewController {
                 self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             }
         })
+    }
+    
+    func displayShopping(menus: CafetMenusResult,
+                         token: String) {
+        
+        /* Converts current API structure to older format.
+           The best would be to rewrite Objective-C Order code in Swift.
+           Including Data class. */
+        // Categories
+        let categories = menus.categories.sorted { $0.position < $1.position }
+        var objcCategories = [[String : String]]()
+        for category in categories {
+            objcCategories.append(["name"       : category.name,
+                                   "imgUrl"     : category.imgUrl,
+                                   "firstPrice" : String(category.firstPrice),
+                                   "catname"    : category.catname,
+                                   "briefText"  : category.briefText])
+        }
+        // Menus
+        var objcMenus = [[String : Any]]()
+        for menu in menus.menus {
+            objcMenus.append(["name"        : menu.name,
+                              "idstr"       : menu.idstr,
+                              "price"       : String(menu.price),
+                              "mainElemStr" : menu.mainElemStr,
+                              "nbMainElem"  : menu.nbMainElem,
+                              "nbSecoElem"  : menu.nbSecoElem])
+        }
+        // Elements
+        var objcElements = [[String : Any]]()
+        for element in menus.elements {
+            objcElements.append(["name"           : element.name,
+                                 "idstr"          : element.idstr,
+                                 "priceuni"       : String(element.priceuni),
+                                 "pricemore"      : String(element.pricemore),
+                                 "stock"          : String(element.stock),
+                                 "outofmenu"      : String(element.outofmenu),
+                                 "hasingredients" : String(element.hasingredients),
+                                 "idcat"          : element.idcat,
+                                 "countFor"       : element.countFor]) // new in API
+        }
+        // Ingredients
+        var objcIngredients = [[String : String]]()
+        for ingredient in menus.ingredients {
+            objcIngredients.append(["name"     : ingredient.name,
+                                    "idstr"    : ingredient.idstr,
+                                    "priceuni" : String(ingredient.priceuni),
+                                    "stock"    : String(ingredient.stock)])
+        }
+        // Gather it all
+        let objcBridgedData = [["lacmd-categories"  : objcCategories],
+                               ["lacmd-menus"       : objcMenus],
+                               ["lacmd-elements"    : objcElements],
+                               ["lacmd-ingredients" : objcIngredients]]
+        
+        Data.shared().cafetCmdEnCours = false
+        Data.shared().cafetData       = objcBridgedData
+        Data.shared().cafetToken      = token
+        
+        /* Present menu */
+        let storyboard = UIStoryboard(name: "Order", bundle: nil)
+        let orderVC    = storyboard.instantiateViewController(withIdentifier: "Order")
+        orderVC.modalPresentationStyle = .formSheet
+        orderVC.modalTransitionStyle   = self.traitCollection.horizontalSizeClass == .regular
+                                       ? .coverVertical : .flipHorizontal
+        DispatchQueue.main.async {
+            self.present(orderVC, animated: true)
+            self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
+        }
     }
     
     @objc func dismissDetail() {
