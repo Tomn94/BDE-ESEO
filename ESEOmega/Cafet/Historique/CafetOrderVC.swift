@@ -180,10 +180,8 @@ class CafetOrderVC: UIViewController {
         /* Instructions */
         var instructions = resume
         var addedInstructions = false
-        if let decodedData   = Foundation.Data(base64Encoded: order.instructions),
-           let decodedString = String(data: decodedData, encoding: .utf8),
-           decodedString != "" {
-            instructions += "\n\nCommentaire :\n" + decodedString
+        if order.instructions != "" {
+            instructions += "\n\nCommentaire :\n" + order.instructions
             addedInstructions = true
         }
 

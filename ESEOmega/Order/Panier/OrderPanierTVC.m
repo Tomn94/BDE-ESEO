@@ -288,7 +288,6 @@
     NSData *panierJSON = [NSJSONSerialization dataWithJSONObject:[[Data sharedData] cafetPanier]
                                                          options:kNilOptions
                                                            error:&error];
-    NSData *instruct   = [txtInstructions dataUsingEncoding:NSUTF8StringEncoding];
     if (error != nil)
     {
         [[Data sharedData] setCafetCmdEnCours:NO];
@@ -303,12 +302,8 @@
         return;
     }
     
-
-    NSString *panier = [panierJSON base64EncodedStringWithOptions:0];
-    NSString *instru = [instruct base64EncodedStringWithOptions:0];
-    
-    [OrderCartTVC sendCart:panier
-              instructions:instru
+    [OrderCartTVC sendCart:[[NSString alloc] initWithData:panierJSON encoding:NSUTF8StringEncoding]
+              instructions:txtInstructions
             viewController:self];
 }
 
