@@ -34,8 +34,7 @@
     [self rotateInsets];
     NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
     [ctr addObserver:self selector:@selector(rotateInsets) name:UIDeviceOrientationDidChangeNotification object:nil];
-    [ctr addObserver:self.tableView selector:@selector(reloadData) name:@"updPanier" object:nil];
-    [ctr addObserver:self.tableView selector:@selector(reloadEmptyDataSet) name:@"updPanier" object:nil];
+    [ctr addObserver:self selector:@selector(reloadTableViewData) name:@"updPanier" object:nil];
 }
 
 - (void) dealloc
@@ -408,6 +407,13 @@
 }
 
 #pragma mark - Table view data source
+
+- (void) reloadTableViewData
+{
+    [self.tableView setEditing:NO animated:YES];
+    [self.tableView reloadData];
+    [self.tableView reloadEmptyDataSet];
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
