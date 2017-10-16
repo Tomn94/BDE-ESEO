@@ -157,6 +157,11 @@
             break;
         }
     }
+    
+    int nbrElements = 0;
+    for (NSDictionary *selectedElement in selectionElements)
+        nbrElements += [selectedElement[@"countFor"] intValue];
+    
     if (!assez)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'avez pas sélectionné tous vos éléments principaux"
@@ -166,7 +171,7 @@
                                                   style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    else if ([selectionElements count] < [_data[@"nbSecoElem"] intValue])
+    else if (nbrElements < [_data[@"nbSecoElem"] intValue])
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'avez pas sélectionné tous vos éléments secondaires"
                                                                        message:[NSString stringWithFormat:@"Vous devez choisir %d élément%@ parmi ceux présentés pour ce menu.", [_data[@"nbSecoElem"] intValue], ([_data[@"nbSecoElem"] intValue] > 1) ? @"s" : @""]
@@ -331,8 +336,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                    {
                                        // cf newSandw:
                                        [selectionSandwiches replaceObjectAtIndex:indexPath.section
-                                                                      withObject:@{ @"element" : sandwich[@"idstr"],
-                                                                                    @"items"   : @[] }];
+                                                                      withObject:@{ @"element" : sandwich[@"idstr"] }];
                                        [self.tableView reloadData];
                                        
                                    } else {
