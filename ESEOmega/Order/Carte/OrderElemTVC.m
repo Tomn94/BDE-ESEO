@@ -357,7 +357,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         }
         else
         {
-            if ([selectionElements count] >= [_data[@"nbSecoElem"] intValue])
+            int nbrElements = 0;
+            for (NSDictionary *selectedElement in selectionElements)
+                nbrElements += [selectedElement[@"countFor"] intValue];
+            nbrElements += [element[@"countFor"] intValue];
+            
+            if (nbrElements > [_data[@"nbSecoElem"] intValue])
             {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous avez sélectionné trop d'éléments pour ce menu"
                                                                                message:[NSString stringWithFormat:@"Vous ne pouvez sélectionner que %d élément%@ maximum, désélectionnez-%@ ou choisissez un autre menu.", [_data[@"nbSecoElem"] intValue], ([_data[@"nbSecoElem"] intValue] > 1) ? @"s" : @"", ([_data[@"nbSecoElem"] intValue] > 1) ? @"en" : @"le"]
