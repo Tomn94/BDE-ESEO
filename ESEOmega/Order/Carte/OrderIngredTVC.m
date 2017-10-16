@@ -36,7 +36,7 @@
         text.textColor = [UIColor colorWithWhite:0.95 alpha:1];
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithCustomView:text],
                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                [[UIBarButtonItem alloc] initWithTitle:(_menu != -1) ? @"Ajouter au menu " : @"Ajouter au panier "
+                                [[UIBarButtonItem alloc] initWithTitle:(_menu != -1) ? @"Ajouter au menu" : @"Valider"
                                                                  style:UIBarButtonItemStyleDone
                                                                 target:self action:@selector(valider)]]];
         

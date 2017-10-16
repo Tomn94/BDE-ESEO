@@ -36,7 +36,7 @@
         text.textColor = [UIColor colorWithWhite:0.95 alpha:1];
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithCustomView:text],
                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                [[UIBarButtonItem alloc] initWithTitle:@"Ajouter au panier " style:UIBarButtonItemStyleDone
+                                [[UIBarButtonItem alloc] initWithTitle:@"Valider ce menu" style:UIBarButtonItemStyleDone
                                                                 target:self action:@selector(valider)]]];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newSandw:) name:@"elemMenuSelec" object:nil];
