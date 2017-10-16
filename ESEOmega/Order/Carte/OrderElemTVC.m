@@ -75,11 +75,9 @@
     NSArray *sandwichesAcceptes = [_data[@"mainElemStr"] componentsSeparatedByString:@"|"];
     for (NSDictionary *element in elems)
     {
-        if ([element[@"hasingredients"] intValue] == 0)
-        {
-            if ([element[@"outofmenu"] intValue] == 0)
-                [t_elements addObject:element];
-        }
+        if ([element[@"hasingredients"] intValue] == 0 &&
+            [element[@"outofmenu"] intValue] == 0)
+            [t_elements addObject:element];
         else if ([sandwichesAcceptes containsObject:element[@"idstr"]])
             [t_sandwiches addObject:element];
     }
@@ -322,13 +320,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * action)
                                {
-                                   OrderIngredTVC *detail = [[OrderIngredTVC alloc] initWithStyle:UITableViewStyleGrouped
-                                                                                          andMenu:indexPath.section];
-                                   [detail setData:sandwich];
-                                   NSDictionary *sel = selectionSandwiches[indexPath.section];
-                                   if ([sel[@"element"] isEqualToString:sandwich[@"idstr"]])
-                                       [detail preselect:sel[@"items"]];
-                                   [self.navigationController pushViewController:detail animated:YES];
+                                   if ([sandwich[@"hasingredients"] intValue] == 0)
+                                   {
+                                       // cf newSandw:
+                                       [selectionSandwiches replaceObjectAtIndex:indexPath.section
+                                                                      withObject:@{ @"element" : sandwich[@"idstr"],
+                                                                                    @"items"   : @[] }];
+                                       [self.tableView reloadData];
+                                       
+                                   } else {
+                                       OrderIngredTVC *detail = [[OrderIngredTVC alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                              andMenu:indexPath.section];
+                                       [detail setData:sandwich];
+                                       NSDictionary *sel = selectionSandwiches[indexPath.section];
+                                       if ([sel[@"element"] isEqualToString:sandwich[@"idstr"]])
+                                           [detail preselect:sel[@"items"]];
+                                       [self.navigationController pushViewController:detail animated:YES];
+                                   }
                                }]];
         }
         
@@ -342,7 +350,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     {
         NSDictionary *element = elements[indexPath.row];
         if ([selectionElements containsObject:element])
+        {
             [selectionElements removeObject:element];
+            [tableView reloadData];
+        }
         else
         {
             if ([selectionElements count] >= [_data[@"nbSecoElem"] intValue])
@@ -355,9 +366,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                 [self presentViewController:alert animated:YES completion:nil];
             }
             else
+            {
                 [selectionElements addObject:element];
+                [tableView reloadData];
+            }
         }
-        [tableView reloadData];
     }
     /*else if (indexPath.section > [_data[@"nbMainElem"] intValue])
     {
