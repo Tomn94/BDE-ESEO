@@ -310,7 +310,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         for (NSDictionary *sandwich in sandwiches)
         {
             NSString *title = @"";
-            if ([selectionSandwiches[indexPath.section][@"element"] isEqualToString:sandwich[@"idstr"]])
+            if ([sandwich[@"hasingredients"] intValue] > 0 &&
+                [selectionSandwiches[indexPath.section][@"element"] isEqualToString:sandwich[@"idstr"]])
                 title = @"Modifier : ";
             title = [title stringByAppendingString:sandwich[@"name"]];
             if ([sandwich[@"pricemore"] doubleValue] > 0.)
