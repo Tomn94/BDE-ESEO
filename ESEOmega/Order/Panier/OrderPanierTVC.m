@@ -216,7 +216,7 @@
                 context.localizedFallbackTitle = @"";
                 NSError *error = nil;
                 if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-                    [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                             localizedReason:@"Valide l'envoi de votre commande"
                                       reply:^(BOOL success, NSError *error)
                      {
@@ -226,11 +226,15 @@
                                                                      message:@"Une erreur est survenue lors de la validation de votre identité."
                                                               preferredStyle:UIAlertControllerStyleAlert];
                          else */if (success)
-                             [self sendPanier];
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self sendPanier];
+                             });
                          else
                          {
                              [[Data sharedData] setCafetCmdEnCours:NO];
-                             [self.tableView reloadData];
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self.tableView reloadData];
+                             });
 //                             [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
                          }
                          /*else NSLog(@"!success %@", error.localizedDescription);
