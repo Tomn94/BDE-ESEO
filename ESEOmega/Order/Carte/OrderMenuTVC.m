@@ -64,7 +64,12 @@
 {
     currentOrientation = [[UIDevice currentDevice] orientation];
     [self majFrameMessage];
-    CGFloat dec = 44 + self.navigationController.navigationBar.frame.size.height + ((iPAD) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height);
+    
+    CGFloat dec = 44 + self.navigationController.navigationBar.frame.size.height
+                     + ((iPAD) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height);
+    if (@available(iOS 11, *)) {
+        dec = 44;
+    }
     self.tableView.contentInset = UIEdgeInsetsMake(dec, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
