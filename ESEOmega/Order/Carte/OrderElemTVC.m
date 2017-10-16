@@ -282,13 +282,19 @@
     }
     else if (indexPath.section == [_data[@"nbMainElem"] intValue])
     {
-        cell.textLabel.text = elements[indexPath.row][@"name"];
+        NSDictionary *element = elements[indexPath.row];
+        NSString *title = element[@"name"];
+        int countFor = [element[@"countFor"] intValue];
+        if (countFor > 1) {
+            title = [title stringByAppendingString:[NSString stringWithFormat:@" (compte pour %d)", countFor]];
+        }
+        cell.textLabel.text = title;
         cell.textLabel.textColor = [UIColor blackColor];
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
-        if ([selectionElements containsObject:elements[indexPath.row]])
+        if ([selectionElements containsObject:element])
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        if ([elements[indexPath.row][@"pricemore"] doubleValue] != 0.)
-            cell.detailTextLabel.text = [[NSString stringWithFormat:@"+ %.2f €", [elements[indexPath.row][@"pricemore"] doubleValue]]
+        if ([element[@"pricemore"] doubleValue] != 0.)
+            cell.detailTextLabel.text = [[NSString stringWithFormat:@"+ %.2f €", [element[@"pricemore"] doubleValue]]
                                          stringByReplacingOccurrencesOfString:@"."
                                          withString:@","];
     }
