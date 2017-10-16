@@ -60,6 +60,9 @@ class API {
         /// Get available items to order
         case menus        = "orders/items"
         
+        /// Send validated cafet order
+        case sendOrder    = "orders"
+        
         /// Get available items to order
         case orderService = "apps/service"
         

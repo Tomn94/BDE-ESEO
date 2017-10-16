@@ -20,6 +20,7 @@
 //
 
 #import "OrderPanierTVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation OrderPanierTVC
 
@@ -283,12 +284,6 @@
         return;
     }
     
-    
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
-                                                                                   delegate:nil
-                                                                              delegateQueue:[NSOperationQueue mainQueue]];
-    
     NSError *error = nil;
     NSData *panierJSON = [NSJSONSerialization dataWithJSONObject:[[Data sharedData] cafetPanier]
                                                        options:kNilOptions
@@ -307,107 +302,14 @@
         [self.tableView reloadData];
         return;
     }
+    
+
     NSString *panier = [panierJSON base64EncodedStringWithOptions:0];
     NSString *instru = [instruct base64EncodedStringWithOptions:0];
-    NSString *body = [NSString stringWithFormat:@"token=%@&data=%@&instructions=%@",
-                      [Data encoderPourURL:[[Data sharedData] cafetToken]],
-                      [Data encoderPourURL:panier],
-                      (instru == nil) ? @"" : [Data encoderPourURL:instru]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:URL_CMD_SEND]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
-                                                       completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
-                                      {
-                                          [[Data sharedData] updLoadingActivity:NO];
-                                          UIAlertController *alert = nil;
-                                          
-                                          if (error == nil && data != nil)
-                                          {
-                                              NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                   options:kNilOptions
-                                                                                                     error:nil];
-                                              switch ([JSON[@"status"] intValue])
-                                              {
-                                                  case 1:
-                                                  {
-                                                      BOOL cbOK = JSON[@"data"][@"idcmd"] && [JSON[@"data"][@"idcmd"] integerValue] > 0 &&
-                                                                 [JSON[@"data"][@"price"] doubleValue] >= 0.5 &&
-                                                                 [JSON[@"data"][@"price"] doubleValue] <= 250.0 && 
-                                                                 [JSON[@"data"][@"lydia_enabled"] boolValue];
-                                                      alert = [UIAlertController alertControllerWithTitle:(cbOK) ? @"Commande validée !\nComment voulez-vous la payer ?" : @"Commande validée !"
-                                                                                                  message:@"Celle-ci est en cours de préparation et sera disponible après avoir payé.\nVous serez averti d'une notification (si activées) quand elle vous attendra au comptoir.\nBon appétit ! 👌🏼"
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      if (cbOK) {
-                                                          UIAlertAction *payNowAction = [UIAlertAction actionWithTitle:@"Payer immédiatement (Lydia 💳)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdValideLydia"
-                                                                                                                  object:nil userInfo:@{ @"idcmd": @([JSON[@"data"][@"idcmd"] integerValue]), @"catOrder" : @"CAFET" }];
-                                                              [[Data sharedData] updateJSON:@"cmds"];
-                                                          }];
-                                                          [alert addAction:payNowAction];
-                                                          [alert setPreferredAction:payNowAction];
-                                                      }
-                                                      
-                                                      [alert addAction:[UIAlertAction actionWithTitle:(cbOK) ? @"Payer plus tard au comptoir 💰" : @"Merci !"
-                                                                                                style:(cbOK) ? UIAlertActionStyleDefault : UIAlertActionStyleCancel
-                                                                                              handler:^(UIAlertAction * action) {
-                                                          [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdValide"
-                                                                                                              object:nil];
-                                                          [[Data sharedData] updateJSON:@"cmds"];
-                                                      }]];
-                                                      break;
-                                                  }
-                                                      
-                                                  case -1:
-                                                      alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Quelqu'un a déjà commandé avec votre identifiant temporaire de commande.\nMerci de venir nous voir au comptoir."
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      break;
-                                                      
-                                                  case -2:
-                                                      alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Votre commande n'est plus valide (plus de 10 minutes se sont écoulées).\nMerci de venir nous voir au comptoir."
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      break;
-                                                      
-                                                  case -3:
-                                                      alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Votre identifiant de commande est invalide.\nMerci de venir nous voir au comptoir."
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      break;
-                                                      
-                                                  case -4:
-                                                      alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                                  message:@"Impossible de décoder votre panier.\nMerci de venir nous voir au comptoir."
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      break;
-                                                      
-                                                  default:
-                                                      alert = [UIAlertController alertControllerWithTitle:@"Erreur inconnue"
-                                                                                                  message:@"Votre commande a sûrement été déjà validée.\nMerci de venir nous voir au comptoir."
-                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                      break;
-                                              }
-                                          }
-                                          else
-                                              alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                                          message:@"Impossible de se connecter au serveur\nSi le problème persiste, vous pouvez toujours venir commander au comptoir."
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                                          if (alert != nil)
-                                          {
-                                              if ([alert.actions count] < 1)
-                                              {
-                                                  [[Data sharedData] setCafetCmdEnCours:NO];
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"updPanier" object:nil];
-                                                  [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                              }
-                                              [self presentViewController:alert animated:YES completion:nil];
-                                              [self.tableView reloadData];
-                                          }
-                                      }];
-    [dataTask resume];
-    [[Data sharedData] updLoadingActivity:YES];
+    [OrderCartTVC sendCart:panier
+              instructions:instru
+            viewController:self];
 }
 
 #pragma mark - Table view data source

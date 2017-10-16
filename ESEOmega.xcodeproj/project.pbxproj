@@ -76,6 +76,7 @@
 		645C29781F637625001F79AC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29761F63760A001F79AC /* API.swift */; };
 		645C297A1F638792001F79AC /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29791F638792001F79AC /* Sticker.swift */; };
 		645C297D1F640D7F001F79AC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C297C1F640D7F001F79AC /* Utils.swift */; };
+		645F7E4D1F954DB9006F521B /* OrderCartTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7E4C1F954DB9006F521B /* OrderCartTVC.swift */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
 		647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsListTVC.swift */; };
@@ -317,6 +318,7 @@
 		645C29761F63760A001F79AC /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		645C29791F638792001F79AC /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		645C297C1F640D7F001F79AC /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		645F7E4C1F954DB9006F521B /* OrderCartTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCartTVC.swift; sourceTree = "<group>"; };
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 			children = (
 				64ED61091B6D251F00456B01 /* OrderPanierTVC.h */,
 				64ED610A1B6D251F00456B01 /* OrderPanierTVC.m */,
+				645F7E4C1F954DB9006F521B /* OrderCartTVC.swift */,
 				64B7B3781B86722700A0E296 /* OrderItemCell.h */,
 				64B7B3791B86722700A0E296 /* OrderItemCell.m */,
 				6482C3BB1BB33A7A008F8DF8 /* OrderConfirmCell.h */,
@@ -1271,6 +1274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645F7E4D1F954DB9006F521B /* OrderCartTVC.swift in Sources */,
 				64E93CF91C439F60005FC9CF /* EventsHistoryCell.m in Sources */,
 				64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */,
 				64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */,
