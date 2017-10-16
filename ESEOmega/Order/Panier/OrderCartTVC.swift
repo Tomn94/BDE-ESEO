@@ -56,12 +56,20 @@ class OrderCartTVC: UITableViewController {
             
             guard let result = try? JSONDecoder().decode(CafetSendOrderResult.self, from: data),
                   result.success else {
+                    
+                Data.shared().cafetCmdEnCours = false
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("updPanier"), object: nil)
+                    viewController.tableView.reloadData()
+                }
+                
                 API.handleFailure(data: data, mode: .presentFetchedMessage(viewController),
                                   defaultMessage: "Le serveur n'arrive pas à décoder votre panier (c'est un panier très compliqué !).\nVotre commande a peut-être été déjà validée.\nMerci de venir nous voir au comptoir.")
                 return
             }
             
-            let cbPaymentAvailable = Lydia.isValid(price: result.order.price)
+            let cbPaymentAvailable = result.order.lydia_enabled &&
+                                     Lydia.isValid(price: result.order.price)
             
             let alert = UIAlertController(title: cbPaymentAvailable
                                                    ? "Commande validée !\nComment voulez-vous la payer ?"
@@ -74,15 +82,17 @@ class OrderCartTVC: UITableViewController {
                 
                 NotificationCenter.default.post(name: Notification.Name("cmdValide"), object: nil)
             })
-            let payNowAction = UIAlertAction(title: "Payer immédiatement (Lydia 💳)",
-                                             style: .default) { _ in
-                
-                NotificationCenter.default.post(name: Notification.Name("cmdValideLydia"), object: nil,
-                                                userInfo: ["idcmd"    : result.order.idcmd,
-                                                           "catOrder" : "CAFET"])
+            if cbPaymentAvailable {
+                let payNowAction = UIAlertAction(title: "Payer immédiatement (Lydia 💳)",
+                                                 style: .default) { _ in
+                    
+                    NotificationCenter.default.post(name: Notification.Name("cmdValideLydia"), object: nil,
+                                                    userInfo: ["idcmd"    : result.order.idcmd,
+                                                               "catOrder" : "CAFET"])
+                }
+                alert.addAction(payNowAction)
+                alert.preferredAction = payNowAction
             }
-            alert.addAction(payNowAction)
-            alert.preferredAction = payNowAction
             viewController.present(alert, animated: true)
                         
         }, failure: { _, data in

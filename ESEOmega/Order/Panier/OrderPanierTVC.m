@@ -286,8 +286,8 @@
     
     NSError *error = nil;
     NSData *panierJSON = [NSJSONSerialization dataWithJSONObject:[[Data sharedData] cafetPanier]
-                                                       options:kNilOptions
-                                                         error:&error];
+                                                         options:kNilOptions
+                                                           error:&error];
     NSData *instruct   = [txtInstructions dataUsingEncoding:NSUTF8StringEncoding];
     if (error != nil)
     {
