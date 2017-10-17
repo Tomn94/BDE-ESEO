@@ -85,12 +85,12 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 ## Versions
 
 ### v5.0 · 19/10/2017
-> - Mise à jour de l'interface pour iOS 11
-> 
 > - La cafet est de retour !\
 > Rétablissement également des news, de la liste des salles, des familles, des Ingénews.\
 > Réécriture en Swift et utilisation de la nouvelle API BDE.\
 > Les événements, clubs et sponsors reviendront prochainement.
+> 
+> - Mise à jour de l'interface pour iOS 11
 > 
 > - Nouveau thème ESEOdin !\
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème et une icône d’app dans votre profil.
