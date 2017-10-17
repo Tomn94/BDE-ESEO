@@ -32,6 +32,20 @@
     
     [self rotateInsets];
     
+    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
+//    [ctr addObserver:self selector:@selector(rotateInsets) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [ctr addObserver:self selector:@selector(afficherMessageNotif:) name:@"showMessagePanier" object:nil];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     statut = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height), 20)];
     [statut setBackgroundColor:[UIColor colorWithRed:0.447 green:0.627 blue:0.000 alpha:1.000]];
     label  = [[UILabel alloc] initWithFrame:[statut bounds]];
@@ -44,14 +58,9 @@
     UITapGestureRecognizer *tapRecon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masquerMessage)];
     [statut addGestureRecognizer:tapRecon];
     
-    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-//    [ctr addObserver:self selector:@selector(rotateInsets) name:UIDeviceOrientationDidChangeNotification object:nil];
-    [ctr addObserver:self selector:@selector(afficherMessageNotif:) name:@"showMessagePanier" object:nil];
-}
-
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [statut setWindowLevel:UIWindowLevelStatusBar];
+    [statut makeKeyAndVisible];
+    [statut resignKeyWindow];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size
@@ -245,22 +254,6 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [self majFrameMessage];
     [label setText:[NSString stringWithFormat:@"Ajouté au panier : %@", nom]];
     
-    CGRect frame   = [statut frame];
-    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-        frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
-    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-        frame.origin.x = 0;
-    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-        frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
-    else
-        frame.origin.y = 0;
-    [statut setHidden:NO];
-    [statut setFrame:frame];
-    
-    [statut setWindowLevel:UIWindowLevelStatusBar];
-    [statut makeKeyAndVisible];
-    [statut resignKeyWindow];
-    
     CATransition *animation = [CATransition animation];
     [animation setDelegate:self];
     [animation setDuration:0.6f];
@@ -275,6 +268,21 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     else
         [animation setSubtype:kCATransitionFromBottom];
     [statut.layer addAnimation:animation forKey:NULL];
+    
+    CGRect frame = [statut frame];
+    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
+        frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
+    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
+        frame.origin.x = 0;
+    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
+        frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
+    else
+        frame.origin.y = 0;
+    [statut setFrame:frame];
+    
+    [statut setWindowLevel:UIWindowLevelStatusBar];
+    [statut makeKeyAndVisible];
+    [statut resignKeyWindow];
     
     timerMessage = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(masquerMessage) userInfo:nil repeats:NO];
     
@@ -296,7 +304,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (void) masquerMessage
 {
     [timerMessage invalidate];
-    CGRect frame   = [statut frame];
+    CGRect frame = [statut frame];
     if (currentOrientation == UIDeviceOrientationLandscapeLeft)
         frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     else if (currentOrientation == UIDeviceOrientationLandscapeRight)
@@ -307,8 +315,6 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         frame.origin.y = -20;
     [UIView animateWithDuration:0.6 animations:^{
         [statut setFrame:frame];
-    } completion:^(BOOL finished) {
-        [statut setHidden:YES];
     }];
 }
 
