@@ -295,7 +295,13 @@ class CafetOrderVC: UIViewController {
                                           style: .cancel))
             let payAction = UIAlertAction(title: "Payer immédiatement 💳",
                                           style: .default, handler: { _ in
-                self.payOrder()
+                if UI_USER_INTERFACE_IDIOM() == .pad {
+                    self.dismiss(animated: true) {
+                        self.payOrder()
+                    }
+                } else {
+                    self.payOrder()
+                }
             })
             alert.addAction(payAction)
             alert.preferredAction = payAction
