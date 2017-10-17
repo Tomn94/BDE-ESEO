@@ -49,6 +49,9 @@ struct NewsArticle: Codable, Equatable {
     /// User attribution
     let creator: String
     
+    /// We'll only display this article if true
+    let displayInApps: Bool
+    
     /// Illustration, club image… associated with the article
     let img: String?
     
