@@ -324,7 +324,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"C'est triste…\nVérifiez votre connexion et tirez pour rafraîchir.";
+    NSString *text = @"Les sponsors seront bientôt de retour,\nle BDE y travaille.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

@@ -965,7 +965,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (NSAttributedString *) descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"Vérifiez votre connexion et tirez pour rafraîchir.";
+    NSString *text = @"Les événements seront bientôt de retour,\nle BDE y travaille.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
