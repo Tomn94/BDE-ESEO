@@ -163,6 +163,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>L'accès à vos calendriers vous permet d'y ajouter des événements.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>L'accès à Face ID vous permet de valider votre commande de manière sécurisée.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>L'accès aux photos vous permet de choisir une photo de profil.</string>
 	<key>NSUserActivityTypes</key>
