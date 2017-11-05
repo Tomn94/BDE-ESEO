@@ -96,6 +96,15 @@ import Foundation
                                                           message: message,
                                                           preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                            if let subStatus = result["status"] as? Int,
+                               subStatus != 0, subStatus != 2, // not: cash or paid
+                               canOpenLydiaApp {
+                                let lydiaAction = UIAlertAction(title: "Ouvrir Lydia", style: .default) { _ in
+                                    openLydiaApp()
+                                }
+                                alert.addAction(lydiaAction)
+                                alert.preferredAction = lydiaAction
+                            }
                             vc?.present(alert, animated: true)
                         }
                         
@@ -255,6 +264,19 @@ import Foundation
                 vc?.present(alert, animated: true)
             }
         })
+    }
+    
+    
+    private static var canOpenLydiaApp: Bool {
+        
+        return UIApplication.shared.canOpenURL(Lydia.appURL)
+    }
+    
+    private static func openLydiaApp() {
+
+        if canOpenLydiaApp {
+            UIApplication.shared.openURL(Lydia.appURL)
+        }
     }
     
     
