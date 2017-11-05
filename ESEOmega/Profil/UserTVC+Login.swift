@@ -71,11 +71,11 @@ extension UserTVC {
             
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
-            }
                 
-            /* Allow Send button to be tapped again */
-            self.configureSendCell(mail: self.mailField.text, password: password)
-                                        
+                /* Allow Send button to be tapped again */
+                self.configureSendCell(mail: self.mailField.text, password: password)
+            }
+            
             guard let result = try? JSONDecoder().decode(LoginResult.self, from: data),
                   result.success else {
                 
@@ -86,10 +86,6 @@ extension UserTVC {
             
             /* Validated, save data */
             DataStore.connectUser(name: result.fullname, mail: cleanMail, token: result.token)
-            
-            /* Get user's orders
-               Since it's a tab, it's very probable they're currently on it, or right after */
-            Data.shared().updateJSON("cmds")
             
             /* Alert other views */
             NotificationCenter.default.post(name: .connectionStateChanged, object: nil)
@@ -270,7 +266,7 @@ extension UserTVC {
                                         
             /* Remove user's orders
                Since it's a tab, it's very probable they're currently on it, or right after */
-            Data.shared().updateJSON("cmds")
+            APIArchiver.removeCache(for: .orders)
             
             /* Display connection form and appropriate navigation bar buttons */
             self.animateChange()

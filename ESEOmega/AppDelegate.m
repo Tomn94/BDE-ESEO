@@ -340,14 +340,10 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
     if (index >= [tab.viewControllers count])
         index = [tab.viewControllers count] - 1;
     
-    if (index == 0)
-        [[Data sharedData] updateJSON:@"news"];
-    else if (index == 1)
+    if (index == 1)
         [[Data sharedData] updateJSON:@"events"];
     else if (index == 2)
         [[Data sharedData] updateJSON:@"clubs"];
-    else if (index == 3 && DataStore.isUserLogged)
-        [[Data sharedData] updateJSON:@"cmds"];
     else if (index == 4)
         [[Data sharedData] updateJSON:@"sponsors"];
     
