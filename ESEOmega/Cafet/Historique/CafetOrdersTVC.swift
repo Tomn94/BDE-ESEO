@@ -234,7 +234,7 @@ class CafetOrdersTVC: UITableViewController {
             let alert = UIAlertController(title: title,
                                           message: message,
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: updateAvailable ? "Cancel" : "OK", style: .cancel))
+            alert.addAction(UIAlertAction(title: updateAvailable ? "Annuler" : "OK", style: .cancel))
             if updateAvailable {
                 let updateAction = UIAlertAction(title: NEW_UPD_BT, style: .default, handler: { _ in
                     UIApplication.shared.openURL(URL(string: URL_APPSTORE)!)
