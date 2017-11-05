@@ -647,8 +647,8 @@
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action)
                                     {
-                                        [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
-                                                forType:catOrder];
+                                        [Lydia sendRequestObjCBridgeWithOrder:idCmd
+                                                                         type:catOrder];
                                     }];
         [alert addAction:payAction];
         [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
@@ -659,8 +659,8 @@
                                                                                            animated:YES completion:nil];
     }
     else
-        [self sendLydia:[NSString stringWithFormat:@"%ld", (long)idCmd]
-                forType:catOrder];
+        [Lydia sendRequestObjCBridgeWithOrder:idCmd
+                                         type:catOrder];
 }
 
 - (BOOL)            textField:(UITextField *)textField
@@ -671,92 +671,6 @@ shouldChangeCharactersInRange:(NSRange)range
     NSString  *result = [proposedNewString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.tempPhone = result;
     return YES;
-}
-
-- (void) sendLydia:(NSString *)idCmd
-           forType:(NSString *)catOrder
-{
-    [self lydiaUnavailable];
-    return;
-    if ([JNKeychain loadValueForKey:@"phone"] == nil)
-    {
-        NSString *num = self.tempPhone;
-        if ([num rangeOfString:@"^((\\+|00)33\\s?|0)[679](\\s?\\d{2}){4}$" options:NSRegularExpressionSearch].location != NSNotFound)
-        {
-            self.tempPhone = nil;
-            [JNKeychain saveValue:num forKey:@"phone"];
-        }
-        else
-        {
-            [self startLydia:[idCmd intValue]
-                     forType:catOrder];  // Redemande le numéro de téléphone
-            return;
-        }
-    }
-    
-    if (DataStore.isUserLogged)
-    {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Demande de paiement Lydia"
-                                                                       message:@"Veuillez patienter…"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                           animated:YES completion:nil];
-        
-        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
-                                                                                       delegate:nil
-                                                                                  delegateQueue:[NSOperationQueue mainQueue]];
-        
-        NSString *tel      = [[[JNKeychain loadValueForKey:@"phone"] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-        NSURL    *url      = [NSURL URLWithString:URL_CMD_LY_1];
-        NSString *login    = [JNKeychain loadValueForKey:@"login"];
-        NSString *pass     = [JNKeychain loadValueForKey:@"passw"];
-        NSString *body     = [NSString stringWithFormat:@"username=%@&password=%@&idcmd=%@&phone=%@&cat_order=%@&hash=%@&os=IOS",
-                              [Data encoderPourURL:login], [Data encoderPourURL:pass], [Data encoderPourURL:idCmd],
-                              [Data encoderPourURL:tel],
-                              [Data encoderPourURL:catOrder],
-                              [Data encoderPourURL:[Data hashed_string:[[[[[login stringByAppendingString:pass] stringByAppendingString:tel] stringByAppendingString:idCmd] stringByAppendingString:catOrder] stringByAppendingString:@"Paiement effectué !"]]]];
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [request setHTTPMethod:@"POST"];
-        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-        NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request
-                                                           completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
-                                          {
-                                              [alert dismissViewControllerAnimated:YES completion:^{
-                                                  if (error == nil && data != nil)
-                                                  {
-                                                      NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                           options:kNilOptions
-                                                                                                             error:nil];
-                                                      [self openLydia:JSON];
-                                                  }
-                                                  else
-                                                  {
-                                                      UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Erreur" message:@"Impossible d'envoyer la requête de paiement." preferredStyle:UIAlertControllerStyleAlert];
-                                                      [alert2 addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                                                 style:UIAlertActionStyleCancel
-                                                                                               handler:nil]];
-                                                      [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert2 animated:YES completion:Nil];
-                                                  }
-                                              }];
-                                          }];
-        [dataTask resume];
-    }
-    else
-    {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vous n'êtes pas connecté"
-                                                                       message:@"Impossible de passer une commande."
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                           animated:YES completion:nil];
-    }
 }
 
 - (void) openLydia:(NSDictionary *)JSON

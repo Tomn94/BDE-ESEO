@@ -66,6 +66,9 @@ class API {
         /// Get available items to order
         case orderService = "apps/service"
         
+        /// Begin Lydia payment for order
+        case lydiaAsk     = "lydia/ask"
+        
         /// Check Lydia payment status of a specific order
         case lydiaCheck   = "lydia/check"
         
