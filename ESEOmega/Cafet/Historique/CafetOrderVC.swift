@@ -285,7 +285,7 @@ class CafetOrderVC: UIViewController {
         
         if idLydia != -1 {
             Lydia.checkStatus(for: String(order.idcmd), type: .cafet,
-                              viewController: self)
+                              viewController: self, showRating: false)
             
         } else {
             let alert = UIAlertController(title: "Voulez-vous payer votre commande dès maintenant avec Lydia ?",

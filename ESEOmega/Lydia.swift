@@ -20,6 +20,7 @@
 //
 
 import Foundation
+import StoreKit
 
 @objc class Lydia: NSObject {
     
@@ -39,18 +40,21 @@ import Foundation
     }
     
     
-    @objc static func checkStatusObjCBridge(_ raw: [String : String]) {
+    @objc static func checkStatusObjCBridge(_ raw: [String : String],
+                                            showRating: Bool) {
         
         guard let order    = raw["id"],
               let category = raw["cat"],
               let type     = Category(rawValue: category)
             else { return }
         
-        Lydia.checkStatus(for: order, type: type, viewController: nil)
+        Lydia.checkStatus(for: order, type: type,
+                          viewController: nil, showRating: showRating)
     }
     
     static func checkStatus(for order: String, type: Category,
-                            viewController: UIViewController?) {
+                            viewController: UIViewController?,
+                            showRating: Bool) {
         
         var vc = viewController
         if vc == nil,
@@ -95,12 +99,19 @@ import Foundation
                             let alert = UIAlertController(title: "État du paiement Lydia",
                                                           message: message,
                                                           preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in
+                                if showRating, #available(iOS 10.3, *) {
+                                    SKStoreReviewController.requestReview()
+                                }
+                            })
                             if let subStatus = result["status"] as? Int,
                                subStatus != 0, subStatus != 2, // not: cash or paid
                                canOpenLydiaApp {
                                 let lydiaAction = UIAlertAction(title: "Ouvrir Lydia", style: .default) { _ in
                                     openLydiaApp()
+                                    if showRating, #available(iOS 10.3, *) {
+                                        SKStoreReviewController.requestReview()
+                                    }
                                 }
                                 alert.addAction(lydiaAction)
                                 alert.preferredAction = lydiaAction

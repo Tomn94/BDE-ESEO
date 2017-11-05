@@ -118,6 +118,10 @@
         [[Data sharedData] cafetPanierVider];
         [[Data sharedData] setCafetToken:@""];
         [[Data sharedData] setCafetDebut:0];
+        
+        if (@available(iOS 10.3, *)) {
+            [SKStoreReviewController requestReview];
+        }
     }];
 }
 
@@ -127,6 +131,7 @@
         [[Data sharedData] cafetPanierVider];
         [[Data sharedData] setCafetToken:@""];
         [[Data sharedData] setCafetDebut:0];
+        
         [Lydia startRequestObjCBridgeWithOrder:[n.userInfo[@"idcmd"] intValue]
                                           type:n.userInfo[@"catOrder"]];
     }];
