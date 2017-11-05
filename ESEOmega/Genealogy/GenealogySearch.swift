@@ -90,7 +90,7 @@ extension GenealogySearch: UISearchResultsUpdating {
                               locale:  .current).trimmingCharacters(in: .whitespaces)
         
         /* Don't overload servers, let's assume everyone has at least 3 letters in their name */
-        guard query.characters.count >= 3 else {
+        guard query.count >= 3 else {
             /* Make sure nothing is displayed */
             results.removeAll()
             shouldDisplayEmptyDataPane = false
