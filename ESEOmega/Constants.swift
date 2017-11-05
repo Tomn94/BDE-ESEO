@@ -21,16 +21,6 @@
 
 import Foundation
 
-enum Lydia {
-    static let minPrice = 0.5
-    static let maxPrice = 250.0
-    
-    /// Lydia API limits
-    static func isValid(price: Double) -> Bool {
-        return minPrice...maxPrice ~= price
-    }
-}
-
 // MARK: - Global notifications names within the app
 extension Notification.Name {
     

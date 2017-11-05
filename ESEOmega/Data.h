@@ -116,7 +116,6 @@
 - (void) sendLydia:(NSString *)idCmd
            forType:(NSString *)catOrder;
 - (void) openLydia:(NSDictionary *)JSON;
-- (void) checkLydia:(NSDictionary *)data;
 - (void) sendMail:(NSDictionary *)data
              inVC:(UIViewController *)vc;
 

@@ -284,8 +284,8 @@ class CafetOrderVC: UIViewController {
             else { return }
         
         if idLydia != -1 {
-            Data.shared().checkLydia(["id"  : String(order.idcmd),
-                                      "cat" : "CAFET"])
+            Lydia.checkStatus(for: String(order.idcmd), type: .cafet,
+                              viewController: self)
             
         } else {
             let alert = UIAlertController(title: "Voulez-vous payer votre commande dès maintenant avec Lydia ?",

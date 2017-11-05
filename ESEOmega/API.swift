@@ -66,6 +66,9 @@ class API {
         /// Get available items to order
         case orderService = "apps/service"
         
+        /// Check Lydia payment status of a specific order
+        case lydiaCheck   = "lydia/check"
+        
         /// List of IngeNews editions
         case ingenews     = "ingenews"
         

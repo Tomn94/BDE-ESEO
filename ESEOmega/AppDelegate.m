@@ -425,7 +425,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
                     [tab setSelectedIndex:3];
                 else if ([dict[@"cat"] isEqualToString:@"EVENT"])
                     [tab setSelectedIndex:1];
-                [[Data sharedData] checkLydia:dict];
+                [Lydia checkStatusObjCBridge:dict];
             }
         }
         else
