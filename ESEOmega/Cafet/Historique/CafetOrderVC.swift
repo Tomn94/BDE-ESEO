@@ -322,8 +322,8 @@ class CafetOrderVC: UIViewController {
             return
         }
         
-        Data.shared().startLydia(order.idcmd,
-                                 forType: "CAFET")
+        Lydia.startRequest(for: order.idcmd, type: .cafet,
+                           viewController: self)
     }
     
 }

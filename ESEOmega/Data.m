@@ -623,46 +623,6 @@
 
 #pragma mark - Lydia
 
-- (void) startLydia:(NSInteger)idCmd
-            forType:(NSString *)catOrder
-{
-    [self lydiaUnavailable];
-    return;
-    if ([JNKeychain loadValueForKey:@"phone"] == nil)
-    {
-        NSString *message = @"Votre numéro de téléphone portable est utilisé par Lydia afin de lier la commande à votre compte. Il n'est pas stocké sur nos serveurs.";
-        if (self.tempPhone != nil)
-            message = [message stringByAppendingString:@"\n\nRéessayez, numéro incorrect."];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Paiement par Lydia"
-                                                                       message:message
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
-         {
-             textField.placeholder  = @"0601234242";
-             textField.keyboardType = UIKeyboardTypePhonePad;
-             textField.delegate     = self;
-             textField.text         = self.tempPhone;
-         }];
-        UIAlertAction *payAction = [UIAlertAction actionWithTitle:@"Payer maintenant"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action)
-                                    {
-                                        [Lydia sendRequestObjCBridgeWithOrder:idCmd
-                                                                         type:catOrder];
-                                    }];
-        [alert addAction:payAction];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Annuler"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-        [alert setPreferredAction:payAction];
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                           animated:YES completion:nil];
-    }
-    else
-        [Lydia sendRequestObjCBridgeWithOrder:idCmd
-                                         type:catOrder];
-}
-
 - (BOOL)            textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
             replacementString:(NSString *)string
@@ -671,77 +631,6 @@ shouldChangeCharactersInRange:(NSRange)range
     NSString  *result = [proposedNewString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.tempPhone = result;
     return YES;
-}
-
-- (void) openLydia:(NSDictionary *)JSON
-{
-    [self lydiaUnavailable];
-    return;
-    if (JSON != nil && [JSON[@"status"] intValue] == 1 &&
-        JSON[@"data"][@"lydia_intent"] && ![JSON[@"data"][@"lydia_intent"] isEqualToString:@""] &&
-        JSON[@"data"][@"lydia_url"]    && ![JSON[@"data"][@"lydia_url"]    isEqualToString:@""])
-    {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Redirection vers le paiement en cours…"
-                                                                       message:@"L'app/site Lydia devrait s'ouvrir…"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                           animated:YES completion:nil];
-        self.alertRedir = alert;
-        
-        NSURL *appLydia = [NSURL URLWithString:JSON[@"data"][@"lydia_intent"]];
-        if ([[UIApplication sharedApplication] canOpenURL:appLydia])
-            [[UIApplication sharedApplication] openURL:appLydia];
-        else
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:JSON[@"data"][@"lydia_url"]]];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [alert dismissViewControllerAnimated:YES completion:nil];
-        });
-    }
-    else
-    {
-        NSString *cause = @"Demande de paiement annulée.\nRaison inconnue 😿";
-        if ([JSON[@"status"] intValue] == 1)
-            cause = @"Demande de paiement annulée.\nImpossible d'ouvrir l'app ou le site Lydia.";
-        else if (![JSON[@"cause"] isEqualToString:@""] && JSON[@"cause"] != nil)
-            cause = [@"Demande de paiement annulée.\nRaison :\n" stringByAppendingString:JSON[@"cause"]];
-    
-        switch ([JSON[@"status"] intValue])
-        {
-            case -2:
-                [JNKeychain deleteValueForKey:@"phone"];
-                break;
-                
-            case -4:
-                cause = [cause stringByAppendingString:@"\nSi votre mot de passe a été changé récemment, essayez de déconnecter votre compte de l'application puis de le reconnecter."];
-                break;
-        }
-        if ([JSON[@"status"] intValue] <= -8000)
-            cause = [cause stringByAppendingString:[NSString stringWithFormat:@"\nCode : %d", [JSON[@"status"] intValue]]];
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur"
-                                                                       message:cause
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert
-                                                                                           animated:YES completion:nil];
-    }
-}
-
-- (void) lydiaUnavailable
-{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Paiement via Lydia non disponible"
-                                                                   message:@"Le BDE et le développeur travaillent actuellement au rétablissement du service. Réessayez donc ultérieurement.\n\nEn attendant, vous pourrez aller payer cette commande au comptoir lorsque qu'elle sera prête !"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                              style:UIAlertActionStyleCancel
-                                            handler:nil]];
-    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Event

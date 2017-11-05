@@ -23,6 +23,8 @@ import Foundation
 
 @objc class Lydia: NSObject {
     
+    static let appURL = URL(string: "com.lydia-app://")!
+    
     static let minPrice = 0.5
     static let maxPrice = 250.0
     
@@ -35,6 +37,7 @@ import Foundation
     static func isValid(price: Double) -> Bool {
         return minPrice...maxPrice ~= price
     }
+    
     
     @objc static func checkStatusObjCBridge(_ raw: [String : String]) {
         
@@ -87,7 +90,7 @@ import Foundation
                             // Send ticket to user via mail
                             Data.shared().sendMail(["id"  : order,
                                                     "cat" : type.rawValue],
-                                                   inVC: vc!)
+                                                   inVC: vc)
                         } else {
                             let alert = UIAlertController(title: "État du paiement Lydia",
                                                           message: message,
@@ -123,29 +126,72 @@ import Foundation
     }
     
     
-    @objc static func sendRequestObjCBridge(order: Int, type: String) {
+    @objc static func startRequestObjCBridge(order: Int, type: String) {
         
-        guard let category = Category(rawValue: type) else { return }
+        guard let category = Category(rawValue: type)
+            else { return }
         
-        Lydia.sendRequest(for: String(order), type: category, viewController: nil)
+        Lydia.startRequest(for: order, type: category, viewController: nil)
     }
     
-    static func sendRequest(for order: String, type: Category,
-                            viewController: UIViewController?) {
+    static func startRequest(for order: Int, type: Category,
+                             viewController: UIViewController?) {
         
         var vc = viewController
         if vc == nil,
-            let window = UIApplication.shared.delegate?.window {
+           let window = UIApplication.shared.delegate?.window {
             vc = window?.rootViewController
         }
-        guard vc != nil,
-              let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard vc != nil else { return }
+        
+        guard JNKeychain.loadValue(forKey: KeychainKey.phone) == nil else {
+            Lydia.sendRequest(for: order, type: type, viewController: vc)
+            return
+        }
+        
+        var message = "Votre numéro de téléphone portable est utilisé par Lydia afin de lier la commande à votre compte. Il n'est pas stocké sur nos serveurs."
+        if Data.shared().tempPhone != nil {
+            message += "\n\nRéessayez, numéro incorrect."
+        }
+        
+        let alert = UIAlertController(title: "Paiement par Lydia",
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder  = "0601234242"
+            textField.keyboardType = .phonePad
+            textField.delegate     = Data.shared()
+            textField.text         = Data.shared().tempPhone
+        }
+        
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel))
+        let confirmAction = UIAlertAction(title: "Payer maintenant", style: .default) { _ in
+            Lydia.sendRequest(for: order, type: type, viewController: vc)
+        }
+        alert.addAction(confirmAction)
+        alert.preferredAction = confirmAction
+        
+        vc!.present(alert, animated: true)
+    }
+    
+    
+    private static func sendRequest(for order: Int, type: Category,
+                                    viewController: UIViewController?) {
+        
+        var vc = viewController
+        if vc == nil,
+           let window = UIApplication.shared.delegate?.window {
+            vc = window?.rootViewController
+        }
+        
+        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
             
             let alert = UIAlertController(title: "Vous n'êtes pas connecté",
                                           message: "Impossible de payer une commande Lydia.",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            vc!.present(alert, animated: true)
+            vc?.present(alert, animated: true)
             return
         }
         
@@ -157,9 +203,7 @@ import Foundation
                             options: String.CompareOptions.regularExpression) != nil else {
                             
                 // Ask phone number again
-                if let idcmd = Int(order) {
-                    Data.shared().startLydia(idcmd, forType: type.rawValue)
-                }
+                Lydia.startRequest(for: order, type: type, viewController: vc)
                 return;
             }
                 
@@ -176,9 +220,9 @@ import Foundation
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(30)) { [weak alert] in
             alert?.dismiss(animated: true)
         }
-        vc!.present(alert, animated: true)
+        vc?.present(alert, animated: true)
         
-        API.request(.lydiaAsk, post: ["idcmd"     : order,
+        API.request(.lydiaAsk, post: ["idcmd"     : String(order),
                                       "cat_order" : type.rawValue,
                                       "phone"     : phoneB64,
                                       "os"        : "IOS"],
@@ -190,7 +234,7 @@ import Foundation
                 if let raw  = try? JSONSerialization.jsonObject(with: data),
                    let json = raw as? [String : Any] {
                     
-                    Data.shared().openLydia(json)
+                    Lydia.openLydia(requestResponse: json, viewController: vc)
                 } else {
                     let alert = UIAlertController(title: "Erreur paiement Lydia",
                                                   message: "Impossible d'interpréter la requête de paiement.\nSi le problème persiste, parlez-en à un membre du BDE.",
@@ -211,6 +255,59 @@ import Foundation
                 vc?.present(alert, animated: true)
             }
         })
+    }
+    
+    
+    private static func openLydia(requestResponse json: [String : Any],
+                                  viewController: UIViewController?) {
+        
+        var vc = viewController
+        if vc == nil,
+           let window = UIApplication.shared.delegate?.window {
+            vc = window?.rootViewController
+        }
+        
+        var errorMessage = json["cause"] as? String ?? "Raison inconnue 😿"
+        
+        if let status = json["status"] as? Int {
+            if status == 1 {
+                errorMessage = "Impossible d'ouvrir l'app ou le site Lydia."
+                if let result = json["data"] as? [String : Any],
+                   let intent = result["lydia_intent"] as? String,
+                   let url    = result["lydia_url"]    as? String,
+                   intent != "", url != "" {
+                    
+                    let alert = UIAlertController(title: "Demande de paiement Lydia",
+                                                  message: "Veuillez patienter…",
+                                                  preferredStyle: .alert)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak alert] in
+                        alert?.dismiss(animated: true)
+                    }
+                    vc?.present(alert, animated: true)
+                    
+                    Data.shared().alertRedir = alert
+                    
+                    if let appLydia = URL(string: intent),
+                       UIApplication.shared.canOpenURL(appLydia) {
+                        UIApplication.shared.openURL(appLydia)
+                    } else if let siteLydia = URL(string: url) {
+                        UIApplication.shared.openURL(siteLydia)
+                    }
+                    
+                    return
+                }
+            } else if status == -2 {
+                JNKeychain.deleteValue(forKey: KeychainKey.phone)
+            } else if status <= -8000 {  // Lydia error
+                errorMessage += "\nCode erreur : \(status)"
+            }
+        }
+        
+        let alert = UIAlertController(title: "Erreur Lydia",
+                                      message: "Demande de paiement annulée.\n" + errorMessage,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        vc?.present(alert, animated: true)
     }
     
 }

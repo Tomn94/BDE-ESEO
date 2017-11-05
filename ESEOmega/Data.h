@@ -111,9 +111,6 @@
 - (void) cafetPanierSupprimerAt:(NSInteger)index;
 - (void) cafetPanierVider;
 
-- (void) startLydia:(NSInteger)idCmd
-            forType:(NSString *)catOrder;
-- (void) openLydia:(NSDictionary *)JSON;
 - (void) sendMail:(NSDictionary *)data
              inVC:(UIViewController *)vc;
 
