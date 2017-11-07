@@ -84,7 +84,7 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 ## Versions
 
-### v5.1 · 06/11/2017
+### v5.1 · 07/11/2017
 
 > - Lydia est de retour pour payer à la cafet !
 > - Support de l'iPhone X
