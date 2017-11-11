@@ -182,7 +182,9 @@ class API {
                                         delegateQueue: nil)  // create new queue
         let dataTask = defaultSession.dataTask(with: request) { data, _, error in
             
+            #if os(iOS)
             Utils.requiresActivityIndicator(false)
+            #endif
             
             guard let d = data, error == nil else {
                 failure?(error, data)
@@ -193,11 +195,14 @@ class API {
         }
         
         /* Fire! */
+        #if os(iOS)
         Utils.requiresActivityIndicator(true)
+        #endif
         dataTask.resume()
     }
     
     
+#if os(iOS)
     enum HandleFailureMode {
         /// Only get error info (default)
         case onlyFetchMessage
@@ -233,5 +238,6 @@ class API {
         
         return result
     }
+#endif
 
 }

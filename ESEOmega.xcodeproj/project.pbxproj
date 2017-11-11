@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
+		6403BA8A1FB79C120063A65A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29761F63760A001F79AC /* API.swift */; };
+		6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
+		6403BA8D1FB79CAD0063A65A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
 		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
 		641EDF281FB780790047900C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF261FB780790047900C /* Interface.storyboard */; };
 		641EDF2A1FB780790047900C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF291FB780790047900C /* Assets.xcassets */; };
@@ -1417,7 +1420,10 @@
 			files = (
 				641EDF381FB780790047900C /* ExtensionDelegate.swift in Sources */,
 				641EDF361FB780790047900C /* CafetInterfaceController.swift in Sources */,
+				6403BA8D1FB79CAD0063A65A /* Room.swift in Sources */,
+				6403BA8A1FB79C120063A65A /* API.swift in Sources */,
 				641EDF481FB786230047900C /* RoomsInterfaceController.swift in Sources */,
+				6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
