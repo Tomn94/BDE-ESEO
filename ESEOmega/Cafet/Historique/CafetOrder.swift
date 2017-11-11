@@ -23,7 +23,7 @@ import UIKit
 import Foundation
 
 /// Describes an order requested by the user at the school cafétéria
-struct CafetOrder: Codable {
+struct CafetOrder: Equatable, Codable {
     
     /// Unique ID
     let idcmd: Int
@@ -112,6 +112,10 @@ struct CafetOrder: Codable {
         case notPaidYet  = 0
         /// Paid using Lydia or at the counter, before order is `Status.done`
         case alreadyPaid = 1
+    }
+    
+    static func == (left: CafetOrder, right: CafetOrder) -> Bool {
+        return left.idcmd == right.idcmd && left.status == right.status
     }
     
 }

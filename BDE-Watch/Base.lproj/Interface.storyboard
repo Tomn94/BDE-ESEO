@@ -19,7 +19,7 @@
                                 <tableRow identifier="watchCafetCell" id="tg5-qF-ExA" customClass="CafetRowController" customModule="BDE_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="lFm-8t-4s3">
                                         <items>
-                                            <group width="1" alignment="left" spacing="8" id="1IR-gW-MAf">
+                                            <group width="1" alignment="left" spacing="10" id="1IR-gW-MAf">
                                                 <items>
                                                     <imageView width="42" height="42" alignment="left" image="cafetPreparing" id="V8f-Sl-arR"/>
                                                     <group width="1" alignment="left" layout="vertical" id="4MM-q7-OqQ">
@@ -91,4 +91,5 @@
             <point key="canvasLocation" x="366" y="282"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.0" green="0.53333333329999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

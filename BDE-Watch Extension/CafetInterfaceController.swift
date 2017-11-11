@@ -42,6 +42,9 @@ class CafetInterfaceController: WKInterfaceController {
     /// Timer triggering regular updates
     var updateTimer: Timer?
     
+    /// Copy of all orders displayed on-screen
+    var displayedOrders = [CafetOrder]()
+    
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -108,10 +111,15 @@ class CafetInterfaceController: WKInterfaceController {
             }
         }
         
-        table.setNumberOfRows(sortedOrders.count,
+        /* Don't refresh if data is the same */
+        guard sortedOrders != displayedOrders
+            else { return }
+        displayedOrders = sortedOrders
+        
+        table.setNumberOfRows(displayedOrders.count,
                               withRowType: CafetInterfaceController.rowIdentifier)
         
-        for (index, order) in sortedOrders.enumerated() {
+        for (index, order) in displayedOrders.enumerated() {
             
             let row = table.rowController(at: index) as! CafetRowController
             
@@ -169,6 +177,5 @@ class CafetRowController: NSObject {
     @IBOutlet var number: WKInterfaceLabel!
     @IBOutlet var price: WKInterfaceLabel!
     @IBOutlet var content: WKInterfaceLabel!
-    
     
 }
