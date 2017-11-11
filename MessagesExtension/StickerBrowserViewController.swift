@@ -130,14 +130,29 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     /// Save sticker on disk
     func save(imageNamed imageName: String, data: Data) -> URL? {
         
-        guard let cacheURL = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask,
-                                                          appropriateFor: nil, create: true)
+        let fileManager = FileManager.default
+        // Get cache folder given by OS
+        guard let cacheURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask,
+                                                  appropriateFor: nil, create: true)
             else { return nil }
         
-        let fileURL = cacheURL.appendingPathComponent(folder,
-                                                      isDirectory: true).appendingPathComponent(imageName)
-        
+        let folderURL = cacheURL.appendingPathComponent(folder, isDirectory: true)
         do {
+            // Get sub-folder, create if doesn't exist
+            try fileManager.createDirectory(at: folderURL,
+                                            withIntermediateDirectories: true)
+            
+            let fileURL = folderURL.appendingPathComponent(imageName)
+            if fileManager.fileExists(atPath: fileURL.absoluteString) {
+                // If sticker already exists, we'll replace the file
+                do {
+                    try fileManager.removeItem(at: fileURL)
+                } catch {
+                    return fileURL  // Old file kept
+                }
+            }
+            
+            // Finally save sticker
             try data.write(to: fileURL, options: [.atomicWrite])
             return fileURL
         } catch {
@@ -173,6 +188,24 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
         for file in remainingFiles {
             try? fileManager.removeItem(atPath: cacheURL.appendingPathComponent(file).path)
         }
+    }
+    
+    func debugCache() {
+        
+        let keyName = "debuggedStickersV511"
+        guard !UserDefaults.standard.bool(forKey: keyName)
+            else { return }
+        
+        let fileManager = FileManager.default
+        guard let cacheURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask,
+                                                  appropriateFor: nil, create: true)
+            else { return }
+        
+        let folderURL = cacheURL.appendingPathComponent(folder, isDirectory: true)
+        do {
+            try fileManager.removeItem(at: folderURL)
+            UserDefaults.standard.set(true, forKey: keyName)
+        } catch {}
     }
     
 }
