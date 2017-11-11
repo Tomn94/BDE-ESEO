@@ -133,6 +133,7 @@ class CafetInterfaceController: WKInterfaceController {
             let row = table.rowController(at: index) as! CafetRowController
             
             row.number.setText(order.number)
+            row.number.setTextColor(order.status.color)
             
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
