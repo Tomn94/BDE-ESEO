@@ -20,14 +20,10 @@
 //
 
 import WatchKit
-import Foundation
-
 
 /// Presents a list of rooms in ESEO Angers
 class RoomsInterfaceController: WKInterfaceController {
     
-    /// UserDefaults cache key
-    static let cacheKey      = "watchRooms"
     /// Storyboard cell ID
     static let rowIdentifier = "watchRoomCell"
     
@@ -46,7 +42,7 @@ class RoomsInterfaceController: WKInterfaceController {
     
     private func loadCache() {
         
-        guard let roomData    = UserDefaults.standard.data(forKey: RoomsInterfaceController.cacheKey),
+        guard let roomData    = UserDefaults.standard.data(forKey: UserDefaultsKey.watchRooms),
               let cachedRooms = try? JSONDecoder().decode([Room].self, from: roomData)
             else { return }
         
@@ -63,7 +59,7 @@ class RoomsInterfaceController: WKInterfaceController {
             
             if let roomData = try? JSONEncoder().encode(result.rooms) {
                 /* Save result in cache */
-                UserDefaults.standard.set(roomData, forKey: RoomsInterfaceController.cacheKey)
+                UserDefaults.standard.set(roomData, forKey: UserDefaultsKey.watchRooms)
             }
             self.load(rooms: result.rooms)
         })

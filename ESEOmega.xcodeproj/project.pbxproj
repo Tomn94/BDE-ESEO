@@ -51,6 +51,7 @@
 		64339B601F16EE2800EDA97D /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 64339AFE1F16EBB700EDA97D /* UIView+WebCacheOperation.m */; };
 		643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */; };
 		643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */; };
+		64433E7C1FB7AD9B00106F7D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF71F60C7C200BA97BA /* Constants.swift */; };
 		64493F181E465811009C995B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64493F171E465811009C995B /* DataStore.swift */; };
 		644D36481E923D5E0047EDDA /* App-Icon-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 644D36361E923D5E0047EDDA /* App-Icon-0@2x.png */; };
 		644D36491E923D5E0047EDDA /* App-Icon-0@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 644D36371E923D5E0047EDDA /* App-Icon-0@2x~ipad.png */; };
@@ -1424,6 +1425,7 @@
 				6403BA8A1FB79C120063A65A /* API.swift in Sources */,
 				641EDF481FB786230047900C /* RoomsInterfaceController.swift in Sources */,
 				6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */,
+				64433E7C1FB7AD9B00106F7D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

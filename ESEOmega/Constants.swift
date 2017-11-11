@@ -72,6 +72,12 @@ enum UserDefaultsKey {
     /// Server response cached for fast reload
     static let stickers       = "stickers"
     
+    
+    // MARK: WatchExtension
+    
+    /// Server response cached for fast reload
+    static let watchRooms     = "watchRooms"
+    
 }
 
 
