@@ -24,7 +24,10 @@ import Foundation
 
 
 class CafetInterfaceController: WKInterfaceController {
-
+    
+    @IBOutlet var table: WKInterfaceTable!
+    
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -41,4 +44,15 @@ class CafetInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+
+class CafetRowController: NSObject {
+    
+    @IBOutlet var icon: WKInterfaceImage!
+    @IBOutlet var number: WKInterfaceLabel!
+    @IBOutlet var price: WKInterfaceLabel!
+    @IBOutlet var content: WKInterfaceLabel!
+    
+    
 }

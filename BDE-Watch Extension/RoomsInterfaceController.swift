@@ -24,7 +24,10 @@ import Foundation
 
 
 class RoomsInterfaceController: WKInterfaceController {
-
+    
+    @IBOutlet var table: WKInterfaceTable!
+    
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -42,3 +45,12 @@ class RoomsInterfaceController: WKInterfaceController {
     }
 
 }
+
+
+class RoomRowController: NSObject {
+    
+    @IBOutlet var title: WKInterfaceLabel!
+    @IBOutlet var subtitle: WKInterfaceLabel!
+    
+}
+

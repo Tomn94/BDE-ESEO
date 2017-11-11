@@ -16,7 +16,7 @@
                     <items>
                         <table alignment="left" id="0G0-t9-fXB">
                             <items>
-                                <tableRow identifier="watchCafetCell" id="tg5-qF-ExA">
+                                <tableRow identifier="watchCafetCell" id="tg5-qF-ExA" customClass="CafetRowController" customModule="BDE_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="lFm-8t-4s3">
                                         <items>
                                             <group width="1" alignment="left" spacing="8" id="1IR-gW-MAf">
@@ -39,11 +39,18 @@
                                             </label>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="content" destination="IyW-HC-24P" id="ReH-Y7-G2m"/>
+                                        <outlet property="icon" destination="V8f-Sl-arR" id="TdG-5h-dxI"/>
+                                        <outlet property="number" destination="xHF-E1-J3u" id="wyi-jp-rHM"/>
+                                        <outlet property="price" destination="bAO-Vs-Syi" id="W4K-4M-zUn"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
                     <connections>
+                        <outlet property="table" destination="0G0-t9-fXB" id="QcG-C2-q43"/>
                         <segue destination="625-u7-vMC" kind="relationship" relationship="nextPage" id="t02-U2-8Gn"/>
                     </connections>
                 </controller>
@@ -56,7 +63,7 @@
                     <items>
                         <table alignment="left" id="CPu-je-Htr">
                             <items>
-                                <tableRow identifier="watchRoomCell" id="Til-tr-AbI">
+                                <tableRow identifier="watchRoomCell" id="Til-tr-AbI" customClass="RoomRowController" customModule="BDE_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="2CB-RV-BMy">
                                         <items>
                                             <label alignment="left" text="Afrique" minimumScaleFactor="0.59999999999999998" id="gao-I3-wQC">
@@ -67,10 +74,17 @@
                                             </label>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="subtitle" destination="4A5-BR-xpx" id="gzq-Ik-gZh"/>
+                                        <outlet property="title" destination="gao-I3-wQC" id="eYN-UF-df5"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
+                    <connections>
+                        <outlet property="table" destination="CPu-je-Htr" id="NVW-9K-Ypn"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="366" y="282"/>
