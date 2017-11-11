@@ -97,7 +97,15 @@ class CafetInterfaceController: WKInterfaceController {
             sortedOrders += notPaid
         }
         for key in sortedKeys where key != .notPaid {
-            sortedOrders += groupedOrdersByStatus[key]!
+            let orders = groupedOrdersByStatus[key]!
+            if key != .done {
+                sortedOrders += orders
+            } else {
+                let notLongAgo = Date().addingTimeInterval(-86400)  // 24h ago
+                sortedOrders += orders.filter { order in
+                    order.datetime > notLongAgo
+                }
+            }
         }
         
         table.setNumberOfRows(sortedOrders.count,
@@ -116,7 +124,6 @@ class CafetInterfaceController: WKInterfaceController {
             
             row.content.setText(order.resume.replacingOccurrences(of: "<br>", with: ", "))
             
-            let color = order.status.color
             switch order.status
             {
             case .preparing:
@@ -136,11 +143,6 @@ class CafetInterfaceController: WKInterfaceController {
     
     
     private func startUpdates() {
-        
-        guard !ProcessInfo.processInfo.isLowPowerModeEnabled else {
-            stopUpdates()
-            return
-        }
         
         updateTimer = Timer.scheduledTimer(timeInterval: CafetInterfaceController.updateInterval,
                                            target: self, selector: .triggerUpdate,
