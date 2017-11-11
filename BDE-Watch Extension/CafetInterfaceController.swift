@@ -30,7 +30,8 @@ fileprivate extension Selector {
 class CafetInterfaceController: WKInterfaceController {
     
     /// Storyboard cell ID
-    static let rowIdentifier = "watchCafetCell"
+    static let rowIdentifier            = "watchCafetCell"
+    static let rowIdentifierPlaceholder = "watchCafetCellPlaceholder"
     
     /// Time between two remote data fetch call
     static let updateInterval: TimeInterval = 5
@@ -82,6 +83,9 @@ class CafetInterfaceController: WKInterfaceController {
                 else { return }
             
             self.load(orders: result.orders)
+                        
+        }, failure: { _, _ in
+            self.setPlaceholder(using: "Impossible de récupérer vos commandes")
         })
     }
     
@@ -120,6 +124,11 @@ class CafetInterfaceController: WKInterfaceController {
             else { return }
         displayedOrders = sortedOrders
         
+        guard !displayedOrders.isEmpty else {
+            setPlaceholder(using: "Vous n'avez aucune commande.\nUtilisez votre iPhone pour commander à la cafet.")
+            return
+        }
+        
         table.setNumberOfRows(displayedOrders.count,
                               withRowType: CafetInterfaceController.rowIdentifier)
         
@@ -154,6 +163,14 @@ class CafetInterfaceController: WKInterfaceController {
         
     }
     
+    private func setPlaceholder(using text: String) {
+        
+        table.setNumberOfRows(1,
+                              withRowType: CafetInterfaceController.rowIdentifierPlaceholder)
+        let row = table.rowController(at: 0) as! PlaceholderRowController
+        row.placeholderLabel.setText(text)
+    }
+    
     
     private func startUpdates() {
         
@@ -182,5 +199,11 @@ class CafetRowController: NSObject {
     @IBOutlet var number: WKInterfaceLabel!
     @IBOutlet var price: WKInterfaceLabel!
     @IBOutlet var content: WKInterfaceLabel!
+    
+}
+
+class PlaceholderRowController: NSObject {
+    
+    @IBOutlet var placeholderLabel: WKInterfaceLabel!
     
 }

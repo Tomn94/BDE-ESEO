@@ -25,7 +25,8 @@ import WatchKit
 class RoomsInterfaceController: WKInterfaceController {
     
     /// Storyboard cell ID
-    static let rowIdentifier = "watchRoomCell"
+    static let rowIdentifier            = "watchRoomCell"
+    static let rowIdentifierPlaceholder = "watchRoomCellPlaceholder"
     
     
     /// Table view
@@ -62,12 +63,22 @@ class RoomsInterfaceController: WKInterfaceController {
                 UserDefaults.standard.set(roomData, forKey: UserDefaultsKey.watchRooms)
             }
             self.load(rooms: result.rooms)
+            
+        }, failure: { _, _ in
+            if self.table.numberOfRows == 0 {  // don't show if we have cache
+                self.setPlaceholder(using: "Aucune salle trouvée.\nVérifiez votre connexion.")
+            }
         })
     }
     
     private func load(rooms: [Room]) {
         
         let sortedRooms = rooms.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        
+        guard !sortedRooms.isEmpty else {
+            setPlaceholder(using: "Aucune salle trouvée.\nVérifiez que l'ESEO existe encore 🤷‍♂️")
+            return
+        }
         
         table.setNumberOfRows(sortedRooms.count,
                               withRowType: RoomsInterfaceController.rowIdentifier)
@@ -94,6 +105,14 @@ class RoomsInterfaceController: WKInterfaceController {
             row.roomTitle.setText(room.name)
             row.subtitle.setText(subtitle)
         }
+    }
+    
+    private func setPlaceholder(using text: String) {
+        
+        table.setNumberOfRows(1,
+                              withRowType: RoomsInterfaceController.rowIdentifierPlaceholder)
+        let row = table.rowController(at: 0) as! PlaceholderRowController
+        row.placeholderLabel.setText(text)
     }
 
 }

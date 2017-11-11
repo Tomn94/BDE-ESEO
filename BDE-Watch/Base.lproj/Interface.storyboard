@@ -47,6 +47,17 @@
                                         <outlet property="price" destination="bAO-Vs-Syi" id="W4K-4M-zUn"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="watchCafetCellPlaceholder" selectable="NO" id="1BS-Bq-Bdd" customClass="PlaceholderRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.90000000000000002" alignment="left" id="NPZ-YZ-i6u">
+                                        <items>
+                                            <label width="1" height="1" alignment="left" text="Impossible de récupérer vos commandes" textAlignment="center" numberOfLines="0" id="D5t-Nm-voq"/>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="placeholderLabel" destination="D5t-Nm-voq" id="1lI-jC-bR9"/>
+                                    </connections>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
@@ -78,6 +89,17 @@
                                     <connections>
                                         <outlet property="roomTitle" destination="gao-I3-wQC" id="sgC-1o-6iV"/>
                                         <outlet property="subtitle" destination="4A5-BR-xpx" id="gzq-Ik-gZh"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="watchRoomCellPlaceholder" selectable="NO" id="V7T-4S-OWE" customClass="PlaceholderRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.90000000000000002" alignment="left" id="0Cn-1o-fAx">
+                                        <items>
+                                            <label width="1" height="1" alignment="left" text="Impossible de récupérer vos commandes" textAlignment="center" numberOfLines="0" id="mgW-W5-kbR"/>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="placeholderLabel" destination="mgW-W5-kbR" id="wRS-9Z-uN6"/>
                                     </connections>
                                 </tableRow>
                             </items>
