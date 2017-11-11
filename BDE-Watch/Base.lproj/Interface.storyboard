@@ -16,7 +16,7 @@
                     <items>
                         <table alignment="left" id="0G0-t9-fXB">
                             <items>
-                                <tableRow identifier="watchCafetCell" id="tg5-qF-ExA" customClass="CafetRowController" customModule="BDE_Watch_Extension">
+                                <tableRow identifier="watchCafetCell" selectable="NO" id="tg5-qF-ExA" customClass="CafetRowController" customModule="BDE_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="lFm-8t-4s3">
                                         <items>
                                             <group width="1" alignment="left" spacing="10" id="1IR-gW-MAf">
@@ -75,7 +75,7 @@
                     <items>
                         <table alignment="left" id="CPu-je-Htr">
                             <items>
-                                <tableRow identifier="watchRoomCell" id="Til-tr-AbI" customClass="RoomRowController" customModule="BDE_Watch_Extension">
+                                <tableRow identifier="watchRoomCell" selectable="NO" id="Til-tr-AbI" customClass="RoomRowController" customModule="BDE_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="2CB-RV-BMy">
                                         <items>
                                             <label alignment="left" text="Afrique" minimumScaleFactor="0.59999999999999998" id="gao-I3-wQC">
