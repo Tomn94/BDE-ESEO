@@ -75,8 +75,8 @@
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="roomTitle" destination="gao-I3-wQC" id="sgC-1o-6iV"/>
                                         <outlet property="subtitle" destination="4A5-BR-xpx" id="gzq-Ik-gZh"/>
-                                        <outlet property="title" destination="gao-I3-wQC" id="eYN-UF-df5"/>
                                     </connections>
                                 </tableRow>
                             </items>

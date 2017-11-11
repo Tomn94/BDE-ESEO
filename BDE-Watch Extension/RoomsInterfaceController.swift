@@ -23,33 +23,90 @@ import WatchKit
 import Foundation
 
 
+/// Presents a list of rooms in ESEO Angers
 class RoomsInterfaceController: WKInterfaceController {
     
+    /// UserDefaults cache key
+    static let cacheKey      = "watchRooms"
+    /// Storyboard cell ID
+    static let rowIdentifier = "watchRoomCell"
+    
+    
+    /// Table view
     @IBOutlet var table: WKInterfaceTable!
     
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
+        loadCache()
+        loadRemote()
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
+    
+    private func loadCache() {
+        
+        guard let roomData    = UserDefaults.standard.data(forKey: RoomsInterfaceController.cacheKey),
+              let cachedRooms = try? JSONDecoder().decode([Room].self, from: roomData)
+            else { return }
+        
+        load(rooms: cachedRooms)
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
+    private func loadRemote() {
+        
+        API.request(.rooms, completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(RoomsResult.self, from: data),
+                  result.success
+                else { return }
+            
+            if let roomData = try? JSONEncoder().encode(result.rooms) {
+                /* Save result in cache */
+                UserDefaults.standard.set(roomData, forKey: RoomsInterfaceController.cacheKey)
+            }
+            self.load(rooms: result.rooms)
+        })
+    }
+    
+    private func load(rooms: [Room]) {
+        
+        let sortedRooms = rooms.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        
+        table.setNumberOfRows(sortedRooms.count,
+                              withRowType: RoomsInterfaceController.rowIdentifier)
+        
+        for (index, room) in sortedRooms.enumerated() {
+            
+            let row = table.rowController(at: index) as! RoomRowController
+            
+            var subtitle = ""
+            if let number = room.number, number != "" {
+                subtitle += number + " · "
+            }
+            subtitle += "Bât " + room.building + " · "
+            if room.floor < 0 {
+                subtitle += "Étage \(room.floor)"
+            } else if room.floor == 0 {
+                subtitle += "RdC"
+            } else if room.floor == 1 {
+                subtitle += "1er"
+            } else {
+                subtitle += "\(room.floor)e"
+            }
+            
+            row.roomTitle.setText(room.name)
+            row.subtitle.setText(subtitle)
+        }
     }
 
 }
 
 
+/// Describes a cell in the list of rooms
 class RoomRowController: NSObject {
     
-    @IBOutlet var title: WKInterfaceLabel!
+    @IBOutlet var roomTitle: WKInterfaceLabel!
     @IBOutlet var subtitle: WKInterfaceLabel!
     
 }
