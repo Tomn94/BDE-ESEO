@@ -20,28 +20,116 @@
 //
 
 import WatchKit
-import Foundation
 
-
+/// Displays a list of the user's orders
 class CafetInterfaceController: WKInterfaceController {
     
+    /// Storyboard cell ID
+    static let rowIdentifier = "watchCafetCell"
+    
+    
+    /// Table view
     @IBOutlet var table: WKInterfaceTable!
     
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
+        loadRemote()
     }
     
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        startUpdates()
     }
     
     override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+        
+        stopUpdates()
+    }
+    
+    
+    private func loadRemote() {
+        
+        let token = ""
+        
+        API.request(.orders, get: ["all": "1"], authentication: token,
+                    completed: { data in
+            
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = CafetOrder.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            guard let result = try? decoder.decode(CafetOrdersResult.self, from: data),
+                  result.success
+                else { return }
+            
+            self.load(orders: result.orders)
+        })
+    }
+    
+    private func load(orders: [CafetOrder]) {
+        
+        let groupedOrdersByStatus = Dictionary(grouping: orders,
+                                               by: { order in order.status })
+        
+        var sortedOrders = [CafetOrder]()
+        let sortedKeys = Array(groupedOrdersByStatus.keys).sorted {
+            $0.rawValue < $1.rawValue
+        }
+        if let notPaid = groupedOrdersByStatus[.notPaid] {
+            // Added first since their rawValue is 3 (> 0, 1, 2)
+            // but we need them on top
+            sortedOrders += notPaid
+        }
+        for key in sortedKeys where key != .notPaid {
+            sortedOrders += groupedOrdersByStatus[key]!
+        }
+        
+        table.setNumberOfRows(sortedOrders.count,
+                              withRowType: CafetInterfaceController.rowIdentifier)
+        
+        for (index, order) in sortedOrders.enumerated() {
+            
+            let row = table.rowController(at: index) as! CafetRowController
+            
+            row.number.setText(order.number)
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale      = Locale(identifier: "fr_FR")
+            row.price.setText(formatter.string(from: NSNumber(value: order.price)))
+            
+            row.content.setText(order.resume.replacingOccurrences(of: "<br>", with: ", "))
+            
+            let color = order.status.color
+            switch order.status
+            {
+            case .preparing:
+                row.icon.setImage(#imageLiteral(resourceName: "cafetPreparing"))
+                
+            case .ready:
+                row.icon.setImage(#imageLiteral(resourceName: "cafetReady"))
+                
+            case .done:
+                row.icon.setImage(#imageLiteral(resourceName: "cafetDone"))
+                
+            case .notPaid:
+                row.icon.setImage(#imageLiteral(resourceName: "cafetNotPaid"))
+            }
+        }
+    }
+    
+    
+    private func startUpdates() {
+        
+    }
+    
+    private func stopUpdates() {
+        
     }
 
 }

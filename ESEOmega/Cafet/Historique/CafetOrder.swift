@@ -19,6 +19,7 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
+import UIKit
 import Foundation
 
 /// Describes an order requested by the user at the school cafétéria
@@ -32,6 +33,11 @@ struct CafetOrder: Codable {
     
     /// Modulo applied on `idcmd`, usually written after `strcmd`
     let modcmd: Int
+    
+    /// Order number: strcmd + modcmd
+    var number: String {
+        return String(format: "%@%03d", strcmd, modcmd)
+    }
     
     /// Cooking status
     let status: Status

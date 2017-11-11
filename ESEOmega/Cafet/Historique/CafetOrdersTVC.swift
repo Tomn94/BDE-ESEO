@@ -674,7 +674,7 @@ extension CafetOrdersTVC {
         formatter.numberStyle = .currency
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
-        cell.numLabel.text    = String(format: "%@%03d", order.strcmd, order.modcmd)
+        cell.numLabel.text    = order.number
         
         return cell
     }
