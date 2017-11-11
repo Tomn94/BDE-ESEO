@@ -115,10 +115,6 @@ class CafetInterfaceController: WKInterfaceController {
             }
         }
         
-        if !displayedOrders.isEmpty {
-            WKInterfaceDevice().play(.notification)
-        }
-        
         /* Don't refresh if data is the same */
         guard sortedOrders != displayedOrders
             else { return }
@@ -161,6 +157,9 @@ class CafetInterfaceController: WKInterfaceController {
             }
         }
         
+        if !displayedOrders.isEmpty {
+            WKInterfaceDevice().play(.click)
+        }
     }
     
     private func setPlaceholder(using text: String) {
