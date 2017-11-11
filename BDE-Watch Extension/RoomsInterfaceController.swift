@@ -36,7 +36,7 @@ class RoomsInterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         loadCache()
-        loadRemote()
+        fetchRemote()
     }
     
     
@@ -49,7 +49,7 @@ class RoomsInterfaceController: WKInterfaceController {
         load(rooms: cachedRooms)
     }
     
-    private func loadRemote() {
+    private func fetchRemote() {
         
         API.request(.rooms, completed: { data in
             

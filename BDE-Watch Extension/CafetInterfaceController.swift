@@ -21,21 +21,32 @@
 
 import WatchKit
 
+fileprivate extension Selector {
+    /// Timer for regular updates on order status
+    static let triggerUpdate = #selector(CafetInterfaceController.triggerUpdate)
+}
+
 /// Displays a list of the user's orders
 class CafetInterfaceController: WKInterfaceController {
     
     /// Storyboard cell ID
     static let rowIdentifier = "watchCafetCell"
     
+    /// Time between two remote data fetch call
+    static let updateInterval: TimeInterval = 5
+    
     
     /// Table view
     @IBOutlet var table: WKInterfaceTable!
+    
+    /// Timer triggering regular updates
+    var updateTimer: Timer?
     
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        loadRemote()
+        fetchRemote()
     }
     
     override func willActivate() {
@@ -51,7 +62,7 @@ class CafetInterfaceController: WKInterfaceController {
     }
     
     
-    private func loadRemote() {
+    private func fetchRemote() {
         
         let token = ""
         
@@ -126,10 +137,25 @@ class CafetInterfaceController: WKInterfaceController {
     
     private func startUpdates() {
         
+        guard !ProcessInfo.processInfo.isLowPowerModeEnabled else {
+            stopUpdates()
+            return
+        }
+        
+        updateTimer = Timer.scheduledTimer(timeInterval: CafetInterfaceController.updateInterval,
+                                           target: self, selector: .triggerUpdate,
+                                           userInfo: nil, repeats: true)
     }
     
     private func stopUpdates() {
         
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+    
+    @objc func triggerUpdate() {
+        
+        fetchRemote()
     }
 
 }
