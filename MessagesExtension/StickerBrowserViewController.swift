@@ -40,7 +40,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     func getStickersFromCache() {
         
         guard let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
-              let cachedStickers = try? JSONDecoder().decode([Sticker].self, from: cache)
+              let cachedStickers = try? JSONDecoder().decode(StickersResult.self, from: cache)
             else { return }
         
         let fileManager = FileManager.default
@@ -53,7 +53,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
                                             withIntermediateDirectories: true,
                                             attributes: nil)
                 
-            for cachedSticker in cachedStickers {
+            for cachedSticker in cachedStickers.stickers {
                 
                 if let imageName = cachedSticker.img.pathComponents.last {
                     let fileURL = cacheURL.appendingPathComponent(imageName)
