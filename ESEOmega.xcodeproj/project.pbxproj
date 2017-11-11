@@ -10,6 +10,13 @@
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
 		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
+		641EDF281FB780790047900C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF261FB780790047900C /* Interface.storyboard */; };
+		641EDF2A1FB780790047900C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF291FB780790047900C /* Assets.xcassets */; };
+		641EDF311FB780790047900C /* BDE-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 641EDF301FB780790047900C /* BDE-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		641EDF361FB780790047900C /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641EDF351FB780790047900C /* InterfaceController.swift */; };
+		641EDF381FB780790047900C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641EDF371FB780790047900C /* ExtensionDelegate.swift */; };
+		641EDF3A1FB780790047900C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF391FB780790047900C /* Assets.xcassets */; };
+		641EDF3E1FB780790047900C /* BDE-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 641EDF241FB780790047900C /* BDE-Watch.app */; };
 		6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */; };
 		6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425D8361BACB2BE00F15BDD /* EventAlertView.xib */; };
 		6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D8391BACB7F700F15BDD /* EventAlertView.m */; };
@@ -162,6 +169,20 @@
 			remoteGlobalIDString = 64F93EA01B5EA97900EE5C72;
 			remoteInfo = ESEOmega;
 		};
+		641EDF321FB780790047900C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 641EDF2F1FB780790047900C;
+			remoteInfo = "BDE-Watch Extension";
+		};
+		641EDF3C1FB780790047900C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 641EDF231FB780790047900C;
+			remoteInfo = "BDE-Watch";
+		};
 		64A85B271D9CCF6A00020D18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
@@ -193,6 +214,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		641EDF441FB780790047900C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				641EDF311FB780790047900C /* BDE-Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		641EDF461FB780790047900C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				641EDF3E1FB780790047900C /* BDE-Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		64EEB90B1D9BAE25003678E2 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,6 +266,15 @@
 		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
 		6418FFA01F939DEE0044206B /* CafetOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrderVC.swift; sourceTree = "<group>"; };
+		641EDF241FB780790047900C /* BDE-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		641EDF271FB780790047900C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		641EDF291FB780790047900C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		641EDF2B1FB780790047900C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		641EDF301FB780790047900C /* BDE-Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BDE-Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		641EDF351FB780790047900C /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		641EDF371FB780790047900C /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		641EDF391FB780790047900C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		641EDF3B1FB780790047900C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		641F06E61D7D7A8D0027477D /* BDE ESEO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE ESEO.entitlements"; sourceTree = "<group>"; };
 		6425D8321BACB22000F15BDD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		6425D8331BACB22000F15BDD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
@@ -448,6 +500,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		641EDF2D1FB780790047900C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		64EEB8F41D9BAE25003678E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +547,27 @@
 				642E47DA1F5F65E2002CC48E /* RoomsTVC.swift */,
 			);
 			path = Rooms;
+			sourceTree = "<group>";
+		};
+		641EDF251FB780790047900C /* BDE-Watch */ = {
+			isa = PBXGroup;
+			children = (
+				641EDF261FB780790047900C /* Interface.storyboard */,
+				641EDF291FB780790047900C /* Assets.xcassets */,
+				641EDF2B1FB780790047900C /* Info.plist */,
+			);
+			path = "BDE-Watch";
+			sourceTree = "<group>";
+		};
+		641EDF341FB780790047900C /* BDE-Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				641EDF351FB780790047900C /* InterfaceController.swift */,
+				641EDF371FB780790047900C /* ExtensionDelegate.swift */,
+				641EDF391FB780790047900C /* Assets.xcassets */,
+				641EDF3B1FB780790047900C /* Info.plist */,
+			);
+			path = "BDE-Watch Extension";
 			sourceTree = "<group>";
 		};
 		6425D8351BACB22E00F15BDD /* CustomiOSAlertView */ = {
@@ -873,6 +953,8 @@
 				64FDD9521D95C33800A3ED8F /* NotificationService */,
 				64EEB8EF1D9BAE25003678E2 /* Stickers ESEO */,
 				64EEB8FD1D9BAE25003678E2 /* MessagesExtension */,
+				641EDF251FB780790047900C /* BDE-Watch */,
+				641EDF341FB780790047900C /* BDE-Watch Extension */,
 				64F93EA21B5EA97900EE5C72 /* Products */,
 				64B7ED3F1D803CBF004D2C63 /* Frameworks */,
 			);
@@ -887,6 +969,8 @@
 				64FDD9511D95C33800A3ED8F /* NotificationService.appex */,
 				64EEB8EE1D9BAE25003678E2 /* Stickers ESEO.app */,
 				64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */,
+				641EDF241FB780790047900C /* BDE-Watch.app */,
+				641EDF301FB780790047900C /* BDE-Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1001,6 +1085,40 @@
 			productReference = 64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		641EDF231FB780790047900C /* BDE-Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 641EDF451FB780790047900C /* Build configuration list for PBXNativeTarget "BDE-Watch" */;
+			buildPhases = (
+				641EDF221FB780790047900C /* Resources */,
+				641EDF441FB780790047900C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				641EDF331FB780790047900C /* PBXTargetDependency */,
+			);
+			name = "BDE-Watch";
+			productName = "BDE-Watch";
+			productReference = 641EDF241FB780790047900C /* BDE-Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		641EDF2F1FB780790047900C /* BDE-Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 641EDF431FB780790047900C /* Build configuration list for PBXNativeTarget "BDE-Watch Extension" */;
+			buildPhases = (
+				641EDF2C1FB780790047900C /* Sources */,
+				641EDF2D1FB780790047900C /* Frameworks */,
+				641EDF2E1FB780790047900C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BDE-Watch Extension";
+			productName = "BDE-Watch Extension";
+			productReference = 641EDF301FB780790047900C /* BDE-Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64EEB90C1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "Stickers ESEO" */;
@@ -1043,12 +1161,14 @@
 				64F93E9E1B5EA97900EE5C72 /* Frameworks */,
 				64F93E9F1B5EA97900EE5C72 /* Resources */,
 				64FDD95C1D95C33800A3ED8F /* Embed App Extensions */,
+				641EDF461FB780790047900C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				64A85B281D9CCF6A00020D18 /* PBXTargetDependency */,
 				64FDD9571D95C33800A3ED8F /* PBXTargetDependency */,
+				641EDF3D1FB780790047900C /* PBXTargetDependency */,
 			);
 			name = ESEOmega;
 			productName = ESEOmega;
@@ -1096,13 +1216,22 @@
 		64F93E991B5EA97900EE5C72 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Tomn;
 				TargetAttributes = {
 					64000B9D1B60063100C16830 = {
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 64F93EA01B5EA97900EE5C72;
+					};
+					641EDF231FB780790047900C = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					641EDF2F1FB780790047900C = {
+						CreatedOnToolsVersion = 9.1;
+						DevelopmentTeam = 7HW87TV8LC;
+						ProvisioningStyle = Automatic;
 					};
 					64EEB8ED1D9BAE25003678E2 = {
 						CreatedOnToolsVersion = 8.0;
@@ -1163,6 +1292,8 @@
 				64FDD9501D95C33800A3ED8F /* NotificationService */,
 				64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */,
 				64EEB8F61D9BAE25003678E2 /* MessagesExtension */,
+				641EDF231FB780790047900C /* BDE-Watch */,
+				641EDF2F1FB780790047900C /* BDE-Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1172,6 +1303,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		641EDF221FB780790047900C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				641EDF2A1FB780790047900C /* Assets.xcassets in Resources */,
+				641EDF281FB780790047900C /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		641EDF2E1FB780790047900C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				641EDF3A1FB780790047900C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,6 +1404,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		641EDF2C1FB780790047900C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				641EDF381FB780790047900C /* ExtensionDelegate.swift in Sources */,
+				641EDF361FB780790047900C /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1397,6 +1554,16 @@
 			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
 			targetProxy = 64000BA31B60063100C16830 /* PBXContainerItemProxy */;
 		};
+		641EDF331FB780790047900C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 641EDF2F1FB780790047900C /* BDE-Watch Extension */;
+			targetProxy = 641EDF321FB780790047900C /* PBXContainerItemProxy */;
+		};
+		641EDF3D1FB780790047900C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 641EDF231FB780790047900C /* BDE-Watch */;
+			targetProxy = 641EDF3C1FB780790047900C /* PBXContainerItemProxy */;
+		};
 		64A85B281D9CCF6A00020D18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
@@ -1420,6 +1587,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		641EDF261FB780790047900C /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				641EDF271FB780790047900C /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		64EEB9001D9BAE25003678E2 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1462,6 +1637,108 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = ESEOmega;
 				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		641EDF3F1FB780790047900C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = BDE_Watch_Extension;
+				INFOPLIST_FILE = "BDE-Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Debug;
+		};
+		641EDF401FB780790047900C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = BDE_Watch_Extension;
+				INFOPLIST_FILE = "BDE-Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Release;
+		};
+		641EDF411FB780790047900C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "BDE-Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Debug;
+		};
+		641EDF421FB780790047900C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "BDE-Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Release;
 		};
@@ -1781,6 +2058,24 @@
 			buildConfigurations = (
 				64000BA61B60063100C16830 /* Debug */,
 				64000BA71B60063100C16830 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		641EDF431FB780790047900C /* Build configuration list for PBXNativeTarget "BDE-Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				641EDF411FB780790047900C /* Debug */,
+				641EDF421FB780790047900C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		641EDF451FB780790047900C /* Build configuration list for PBXNativeTarget "BDE-Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				641EDF3F1FB780790047900C /* Debug */,
+				641EDF401FB780790047900C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
