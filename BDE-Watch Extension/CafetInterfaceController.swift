@@ -68,7 +68,10 @@ class CafetInterfaceController: WKInterfaceController {
     
     private func fetchRemote() {
         
-        let token = ""
+        guard let token = Keychain.string(for: .token) else {
+            setPlaceholder(using: "Connectez-vous à votre compte ESEO sur iPhone pour afficher vos commandes")
+            return
+        }
         
         API.request(.orders, get: ["all": "1"], authentication: token,
                     completed: { data in
