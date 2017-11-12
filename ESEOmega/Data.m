@@ -661,6 +661,7 @@ shouldChangeCharactersInRange:(NSRange)range
     if (mailAddress != nil)
     {
         [self send:mailAddress with:data in:vc];
+        return;
     }
     /* Otherwise, we ask the mail address as before */
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Entrez votre mail pour recevoir votre place"
