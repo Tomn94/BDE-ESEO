@@ -46,7 +46,13 @@
 {
     [super viewDidAppear:animated];
     
-    statut = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height), 20)];
+    CGFloat topInset = 0;
+    if (@available(iOS 11.0, *)) {
+        topInset = self.view.safeAreaInsets.top;
+    }
+    statut = [[UIWindow alloc] initWithFrame:CGRectMake(0, topInset, MIN(self.view.bounds.size.width,
+                                                                         self.view.bounds.size.height),
+                                                        20)];
     [statut setBackgroundColor:[UIColor colorWithRed:0.447 green:0.627 blue:0.000 alpha:1.000]];
     label  = [[UILabel alloc] initWithFrame:[statut bounds]];
     [label setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -61,6 +67,8 @@
     [statut setWindowLevel:UIWindowLevelStatusBar];
     [statut makeKeyAndVisible];
     [statut resignKeyWindow];
+    
+    [statut setAlpha:0];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size
@@ -72,15 +80,17 @@
 - (void) rotateInsets
 {
     currentOrientation = [[UIDevice currentDevice] orientation];
-    [self majFrameMessage];
+    [self masquerMessageQuick];
     
-    CGFloat dec = 44 + self.navigationController.navigationBar.frame.size.height
-                     + ((iPAD) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height);
+    CGFloat toolbarHeight = 44;
     if (@available(iOS 11, *)) {
-        dec = 44;
+        [self setAdditionalSafeAreaInsets:UIEdgeInsetsMake(toolbarHeight, 0, 0, 0)];
+    } else {
+        CGFloat dec = toolbarHeight + self.navigationController.navigationBar.frame.size.height
+                      + ((iPAD) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height);
+        self.tableView.contentInset = UIEdgeInsetsMake(dec, 0, 0, 0);
+        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     }
-    self.tableView.contentInset = UIEdgeInsetsMake(dec, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
 #pragma mark - Actions
@@ -269,30 +279,17 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         [animation setSubtype:kCATransitionFromBottom];
     [statut.layer addAnimation:animation forKey:NULL];
     
-    CGRect frame = [statut frame];
-    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-        frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
-    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-        frame.origin.x = 0;
-    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-        frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
-    else
-    {
-        CGFloat topInset = 0;
-        if (@available(iOS 11.0, *)) {
-            topInset = self.navigationController.view.safeAreaInsets.top - 14;
-        }
-        frame.origin.y = topInset;
-    }
-    [statut setFrame:frame];
+    [statut setAlpha:1];
     
     [statut setWindowLevel:UIWindowLevelStatusBar];
     [statut makeKeyAndVisible];
     [statut resignKeyWindow];
     
-    timerMessage = [NSTimer scheduledTimerWithTimeInterval:2. target:self selector:@selector(masquerMessage) userInfo:nil repeats:NO];
+    timerMessage = [NSTimer scheduledTimerWithTimeInterval:2 target:self
+                                                  selector:@selector(masquerMessage)
+                                                  userInfo:nil repeats:NO];
     
-    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
+    if (@available(iOS 10.0, *)) {
         UINotificationFeedbackGenerator *generator = [UINotificationFeedbackGenerator new];
         [generator prepare];
         [generator notificationOccurred:UINotificationFeedbackTypeSuccess];
@@ -311,64 +308,59 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     [timerMessage invalidate];
     
-    BOOL animatedForiPhoneX = FALSE;
-    if (@available(iOS 11.0, *)) {
-        if (self.view.safeAreaInsets.top != 0) {
-            CATransition *animation = [CATransition animation];
-            [animation setDuration:0.6f];
-            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [animation setType:kCATransitionFade];
-            [statut.layer addAnimation:animation forKey:NULL];
-            animatedForiPhoneX = TRUE;
-        }
-    }
-    
-    CGRect frame = [statut frame];
+    CATransition *animation = [CATransition animation];
+    [animation setDuration:0.6f];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [animation setType:@"cube"];
     if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-        frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        [animation setSubtype:kCATransitionFromLeft];
     else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-        frame.origin.x = -20;
+        [animation setSubtype:kCATransitionFromRight];
     else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-        frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        [animation setSubtype:kCATransitionFromBottom];
     else
-        frame.origin.y = -20;
-    [statut setFrame:frame];
+        [animation setSubtype:kCATransitionFromTop];
+    [statut.layer addAnimation:animation forKey:NULL];
     
-    if (!animatedForiPhoneX)
-    {
-        [UIView animateWithDuration:0.6 animations:^{
-            [statut setFrame:frame];
-        }];
-    }
+    [statut setAlpha:0];
+}
+
+- (void) masquerMessageQuick
+{
+    [timerMessage invalidate];
+    [UIView animateWithDuration:0.2 animations:^{
+        [statut setAlpha:0];
+    }];
 }
 
 - (void) majFrameMessage
 {
-    CGFloat min = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    CGFloat max = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    CGSize size = self.view.bounds.size;
+    CGFloat min = MIN(size.width, size.height);
+    CGFloat max = MAX(size.width, size.height);
     CGFloat topInset = 0;
     if (@available(iOS 11.0, *)) {
-        topInset = self.navigationController.view.safeAreaInsets.top - 14;
+        topInset = self.view.safeAreaInsets.top;
     }
     
     if (currentOrientation == UIDeviceOrientationLandscapeLeft)
     {
-        [statut setFrame:CGRectMake(min, topInset, 20, max)];
+        [statut setFrame:CGRectMake(min - 20 - topInset, 0, 20, max)];
         [label setTransform:CGAffineTransformMakeRotation(M_PI_2)];
     }
     else if (currentOrientation == UIDeviceOrientationLandscapeRight)
     {
-        [statut setFrame:CGRectMake(-20, topInset, 20, max)];
+        [statut setFrame:CGRectMake(topInset, 0, 20, max)];
         [label setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
     }
     else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
     {
-        [statut setFrame:CGRectMake(0, max, min, 20)];
+        [statut setFrame:CGRectMake(0, max - 20 - topInset, min, 20)];
         [label setTransform:CGAffineTransformMakeRotation(M_PI)];
     }
-    else // Landscape left
+    else // Portrait
     {
-        [statut setFrame:CGRectMake(0, -20, min, 20)];
+        [statut setFrame:CGRectMake(0, topInset, min, 20)];
         [label setTransform:CGAffineTransformIdentity];
     }
     [label setFrame:[statut bounds]];
