@@ -50,9 +50,7 @@
     if (@available(iOS 11.0, *)) {
         topInset = self.view.safeAreaInsets.top;
     }
-    statut = [[UIWindow alloc] initWithFrame:CGRectMake(0, topInset, MIN(self.view.bounds.size.width,
-                                                                         self.view.bounds.size.height),
-                                                        20)];
+    statut = [[UIView alloc] initWithFrame:CGRectMake(0, topInset, self.view.bounds.size.width, 20)];
     [statut setBackgroundColor:[UIColor colorWithRed:0.447 green:0.627 blue:0.000 alpha:1.000]];
     label  = [[UILabel alloc] initWithFrame:[statut bounds]];
     [label setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -64,9 +62,7 @@
     UITapGestureRecognizer *tapRecon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masquerMessage)];
     [statut addGestureRecognizer:tapRecon];
     
-    [statut setWindowLevel:UIWindowLevelStatusBar];
-    [statut makeKeyAndVisible];
-    [statut resignKeyWindow];
+    [self.pvcHolder addSubview:statut];
     
     [statut setAlpha:0];
 }
@@ -79,7 +75,6 @@
 
 - (void) rotateInsets
 {
-    currentOrientation = [[UIDevice currentDevice] orientation];
     [self masquerMessageQuick];
     
     CGFloat toolbarHeight = 44;
@@ -269,21 +264,10 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [animation setDuration:0.6f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [animation setType:@"cube"];
-    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-        [animation setSubtype:kCATransitionFromRight];
-    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-        [animation setSubtype:kCATransitionFromLeft];
-    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-        [animation setSubtype:kCATransitionFromTop];
-    else
-        [animation setSubtype:kCATransitionFromBottom];
+    [animation setSubtype:kCATransitionFromBottom];
     [statut.layer addAnimation:animation forKey:NULL];
     
     [statut setAlpha:1];
-    
-    [statut setWindowLevel:UIWindowLevelStatusBar];
-    [statut makeKeyAndVisible];
-    [statut resignKeyWindow];
     
     timerMessage = [NSTimer scheduledTimerWithTimeInterval:2 target:self
                                                   selector:@selector(masquerMessage)
@@ -312,14 +296,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     [animation setDuration:0.6f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [animation setType:@"cube"];
-    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-        [animation setSubtype:kCATransitionFromLeft];
-    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-        [animation setSubtype:kCATransitionFromRight];
-    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-        [animation setSubtype:kCATransitionFromBottom];
-    else
-        [animation setSubtype:kCATransitionFromTop];
+    [animation setSubtype:kCATransitionFromTop];
     [statut.layer addAnimation:animation forKey:NULL];
     
     [statut setAlpha:0];
@@ -335,34 +312,12 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 
 - (void) majFrameMessage
 {
-    CGSize size = self.view.bounds.size;
-    CGFloat min = MIN(size.width, size.height);
-    CGFloat max = MAX(size.width, size.height);
     CGFloat topInset = 0;
     if (@available(iOS 11.0, *)) {
         topInset = self.view.safeAreaInsets.top;
     }
     
-    if (currentOrientation == UIDeviceOrientationLandscapeLeft)
-    {
-        [statut setFrame:CGRectMake(min - 20 - topInset, 0, 20, max)];
-        [label setTransform:CGAffineTransformMakeRotation(M_PI_2)];
-    }
-    else if (currentOrientation == UIDeviceOrientationLandscapeRight)
-    {
-        [statut setFrame:CGRectMake(topInset, 0, 20, max)];
-        [label setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
-    }
-    else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
-    {
-        [statut setFrame:CGRectMake(0, max - 20 - topInset, min, 20)];
-        [label setTransform:CGAffineTransformMakeRotation(M_PI)];
-    }
-    else // Portrait
-    {
-        [statut setFrame:CGRectMake(0, topInset, min, 20)];
-        [label setTransform:CGAffineTransformIdentity];
-    }
+    [statut setFrame:CGRectMake(0, topInset, self.view.bounds.size.width, 20)];
     [label setFrame:[statut bounds]];
 }
 

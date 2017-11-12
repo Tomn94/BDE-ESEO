@@ -32,11 +32,12 @@
 @interface OrderMenuTVC : UITableViewController <CAAnimationDelegate>
 {
     NSArray *data;
-    UIWindow *statut;
+    UIView  *statut;
     UILabel *label;
     NSTimer *timerMessage;
-    UIDeviceOrientation currentOrientation;
 }
+
+@property (nonatomic, weak) UIView *pvcHolder;
 
 - (void) rotateInsets;
 - (void) choseMenu:(NSDictionary *)menu;

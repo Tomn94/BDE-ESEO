@@ -39,6 +39,7 @@
     
     UIViewController *vc1 = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderMenu"];
     UIViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderPanier"];
+    [(OrderMenuTVC *)vc1 setPvcHolder:self.view];
     viewControllers = @[vc1, vc2];
     
     [self setViewControllers:@[vc1]
