@@ -127,7 +127,7 @@
 
 + (void) registeriOSPush:(id<UNUserNotificationCenterDelegate>)delegate
 {
-    if ([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}])
+    if (@available(iOS 10.0, *))
     {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = delegate;
