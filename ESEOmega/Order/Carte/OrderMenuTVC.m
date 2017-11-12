@@ -30,22 +30,6 @@
     data = [[Data sharedData] cafetData];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self rotateInsets];
-    
-    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
-//    [ctr addObserver:self selector:@selector(rotateInsets) name:UIDeviceOrientationDidChangeNotification object:nil];
-    [ctr addObserver:self selector:@selector(afficherMessageNotif:) name:@"showMessagePanier" object:nil];
-}
-
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
     CGFloat topInset = 0;
     if (@available(iOS 11.0, *)) {
         topInset = self.view.safeAreaInsets.top;
@@ -61,10 +45,20 @@
     [statut addSubview:label];
     UITapGestureRecognizer *tapRecon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masquerMessage)];
     [statut addGestureRecognizer:tapRecon];
-    
     [self.pvcHolder addSubview:statut];
     
     [statut setAlpha:0];
+    
+    [self rotateInsets];
+    
+    NSNotificationCenter *ctr = [NSNotificationCenter defaultCenter];
+//    [ctr addObserver:self selector:@selector(rotateInsets) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [ctr addObserver:self selector:@selector(afficherMessageNotif:) name:@"showMessagePanier" object:nil];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size
