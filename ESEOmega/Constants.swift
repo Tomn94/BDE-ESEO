@@ -81,24 +81,6 @@ enum UserDefaultsKey {
 }
 
 
-/// Common keys to get or set values in Keychain
-enum KeychainKey {
-    
-    /// Name of the logged user (e.g. `Thomas NAUDET`)
-    static let name  = "uname"
-    
-    /// Email address of the logged user (e.g. `prenom.nom@reseau.eseo.fr`)
-    static let mail  = "mail"
-    
-    /// Token needed for API requests requiring login
-    static let token = "token"
-    
-    /// Name of the logged user (e.g. `Thomas 06 01 02 03 04`)
-    static let phone = "phone"
-    
-}
-
-
 /// Types used for NSUserActivity/Handoff
 enum ActivityType {
     

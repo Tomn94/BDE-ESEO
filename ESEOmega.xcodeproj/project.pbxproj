@@ -13,6 +13,7 @@
 		6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
 		6403BA8D1FB79CAD0063A65A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
 		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
+		641E43511FB7D1E0006063A6 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641E43501FB7D1E0006063A6 /* Keychain.swift */; };
 		641EDF281FB780790047900C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF261FB780790047900C /* Interface.storyboard */; };
 		641EDF2A1FB780790047900C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 641EDF291FB780790047900C /* Assets.xcassets */; };
 		641EDF311FB780790047900C /* BDE-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 641EDF301FB780790047900C /* BDE-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -272,6 +273,7 @@
 		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
 		6418FFA01F939DEE0044206B /* CafetOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrderVC.swift; sourceTree = "<group>"; };
+		641E43501FB7D1E0006063A6 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		641EDF241FB780790047900C /* BDE-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		641EDF271FB780790047900C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		641EDF291FB780790047900C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -996,6 +998,7 @@
 				6469B05E1FAF458500290E6D /* Lydia.swift */,
 				645C29761F63760A001F79AC /* API.swift */,
 				640200051F6490EF009668DB /* APIArchiver.swift */,
+				641E43501FB7D1E0006063A6 /* Keychain.swift */,
 				64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */,
 				64F8ADFF1E408ACF00489198 /* ThemeManager.swift */,
 				64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */,
@@ -1482,6 +1485,7 @@
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,
 				64339B5A1F16EE2800EDA97D /* UIImage+GIF.m in Sources */,
 				64339B5C1F16EE2800EDA97D /* UIImage+WebP.m in Sources */,
+				641E43511FB7D1E0006063A6 /* Keychain.swift in Sources */,
 				64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */,
 				649F503E1B65271B00F56263 /* ClubsMasterCell.m in Sources */,
 				64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */,

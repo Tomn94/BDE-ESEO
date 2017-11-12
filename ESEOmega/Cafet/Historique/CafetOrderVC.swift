@@ -239,8 +239,8 @@ class CafetOrderVC: UIViewController {
     
     @objc func fetchDetailedOrder() {
         
-        guard let order = self.order,
-              let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let order     = self.order,
+              let userToken = Keychain.string(for: .token)
             else { return }
         
         let defaultMessage = "Détails de la commande indisponibles"

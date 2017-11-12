@@ -257,7 +257,7 @@ class CafetOrdersTVC: UITableViewController {
     /// Step 2
     func checkTime() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let token = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
@@ -304,7 +304,7 @@ class CafetOrdersTVC: UITableViewController {
     
     func startShopping(with token: String) {
         
-        guard let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let userToken = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
@@ -443,7 +443,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchRemote() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         API.request(.orders, get: ["all": "1"], authentication: token,
@@ -505,7 +505,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchService() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         let unavailableStatus = "Cafétéria en ligne non disponible"

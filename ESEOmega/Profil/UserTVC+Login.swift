@@ -203,7 +203,7 @@ extension UserTVC {
             
             /* Sync the device push token with the server to allow future push */
             if hasPushEnabled &&
-               JNKeychain.loadValue(forKey: KeychainKey.token) != nil {
+               Keychain.hasValue(for: .token) {
                 Data.sendPushToken()
             }
             
