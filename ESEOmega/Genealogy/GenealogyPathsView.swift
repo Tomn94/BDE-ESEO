@@ -82,28 +82,45 @@ class GenealogyPathsView: UIView {
                    Then do the sum of each X from brothers found */
                 var xBottomBaricenter: CGFloat = 0
                 var nbrBrotherWithChildren = 0  // Incest
+                var drawSimple = false
                 for (brotherIndex, brother) in brothers.enumerated() {
+                    let intersection = Set(brother.childIDs ?? []).intersection(Set(children))
                     /* The brother has children in common with current student */
-                    if !Set(brother.childIDs ?? []).intersection(Set(children)).isEmpty {
+                    if !intersection.isEmpty {
                         xBottomBaricenter += xFrom(index: brotherIndex,
                                                    nbrItems: brothers.count,
                                                    width: width)
                         nbrBrotherWithChildren += 1
+                        
+                        // They don't have strictly the same children
+                        if intersection.count != children.count {
+                            drawSimple = true
+                        }
                     }
                 }
                 
-                /* And do the average */
-                if nbrBrotherWithChildren > 0 {
-                    xBottomBaricenter /= CGFloat(nbrBrotherWithChildren)
-                } else { // Fallback to the center of the current student label if no common children
-                    xBottomBaricenter  = x
-                }
-                let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
+                // Draw joined line if multiple people on the same line have the same children
+                let drawAverage = nbrBrotherWithChildren > 0
+                // Draw straight vertical line if people on the same line don't have exactly the same children
+                // Or they have different children
+                drawSimple = drawSimple || !drawAverage
                 
-                /* And draw on the view */
-                drawLink(from: CGPoint(x: center.x,
-                                       y: center.y + (minLabelHeight / 2) + topMargin - 1),
-                         to: bottomBaricenter)
+                /* Joined curved line */
+                if drawAverage {
+                    xBottomBaricenter   /= CGFloat(nbrBrotherWithChildren)
+                    let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
+                    drawLink(from: CGPoint(x: center.x,
+                                           y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                             to: bottomBaricenter)
+                }
+                
+                /* Fallback to the center of the current student label if no common children */
+                if drawSimple {
+                    let bottomBaricenter = CGPoint(x: x, y: height)
+                    drawLink(from: CGPoint(x: center.x,
+                                           y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                             to: bottomBaricenter)
+                }
             }
         }
     }
