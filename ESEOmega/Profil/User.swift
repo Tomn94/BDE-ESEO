@@ -1,5 +1,5 @@
 //
-//  APITests.swift
+//  User.swift
 //  BDE-ESEO
 //
 //  Created by Thomas Naudet on 26/05/2018.
@@ -19,46 +19,24 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-import XCTest
+import Foundation
 
-class ESEOmegaTests: XCTestCase {
+/// Describes a Login JSON response from API
+struct LoginResult: APIResult, Decodable {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    /// `API.ErrorResult.Error.ui` value if user entered wrong password
+    static let wrongPasswordErrorCode = 7
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
     
-    func testAPIUserLogin() {
-        
-    }
+    let success: Bool
     
-    func testAPINews() {
-        
-    }
+    /// Id of the student (e.g. "thomas.naudet")
+    let ID: String
     
-    func testAPIOrders() {
-        
-    }
+    /// Name of the student (e.g. "Thomas NAUDET")
+    let fullname: String
     
-    func testAPIIngenews() {
-        
-    }
-    
-    func testAPIRooms() {
-        
-    }
-    
-    func testAPIFamily() {
-        
-    }
-    
-    func testAPIStickers() {
-        
-    }
+    /// API connection token granted
+    let token: String
     
 }

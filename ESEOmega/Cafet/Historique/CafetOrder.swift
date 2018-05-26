@@ -19,7 +19,7 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-import Foundation
+import UIKit
 
 /// Describes an order requested by the user at the school cafétéria
 struct CafetOrder: Codable {

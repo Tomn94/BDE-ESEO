@@ -21,27 +21,6 @@
 
 import UIKit
 
-/// Describes a Login JSON response from API
-struct LoginResult: APIResult, Decodable {
-    
-    /// `API.ErrorResult.Error.ui` value if user entered wrong password
-    static let wrongPasswordErrorCode = 7
-    
-    
-    let success: Bool
-    
-    /// Id of the student (e.g. "thomas.naudet")
-    let ID: String
-    
-    /// Name of the student (e.g. "Thomas NAUDET")
-    let fullname: String
-    
-    /// API connection token granted
-    let token: String
-    
-}
-
-
 extension UserTVC {
     
     // MARK: - Login
