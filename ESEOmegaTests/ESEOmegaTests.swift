@@ -35,6 +35,35 @@ class ESEOmegaTests: XCTestCase {
     
     func testAPIUserLogin() {
         
+        let expectation = XCTestExpectation(description: "Try to connect to Portail BDE (with wrong credentials)")
+        
+        /* Feel free to add a test with correct credentials,
+           but create a mock account for this purpose, otherwise you'll have to write your password below */
+        API.request(.userLogin, get: ["email"    : "thomas.naudet@reseau.eseo.fr",
+                                      "password" : "clubCheval"],
+                    completed: { data in
+                        
+                        // Check we have data
+                        do {
+                            /*let result = */try JSONDecoder().decode(LoginResult.self, from: data)
+                            // Test this and other fields XCTAssertTrue(result.success)
+                        } catch {
+                            // Check it was the wrong password
+                            let error = API.handleFailure(data: data)
+                            XCTAssertEqual(error.code, LoginResult.wrongPasswordErrorCode,
+                                           "Error number should be wrong password one")
+                        }
+                        
+                        expectation.fulfill()
+                        
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                    + (error?.localizedDescription ?? "?")
+                    + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20) // Outlook may take some time to validate account
     }
     
     func testAPINews() {
