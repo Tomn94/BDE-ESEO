@@ -59,6 +59,7 @@
 		644D36571E923D5E0047EDDA /* App-Icon-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 644D36451E923D5E0047EDDA /* App-Icon-5@2x.png */; };
 		644D36581E923D5E0047EDDA /* App-Icon-5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 644D36461E923D5E0047EDDA /* App-Icon-5@2x~ipad.png */; };
 		644D36591E923D5E0047EDDA /* App-Icon-5@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 644D36471E923D5E0047EDDA /* App-Icon-5@3x.png */; };
+		64508FCD20B9AB0B00EE8A19 /* ESEOmegaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64508FCC20B9AB0B00EE8A19 /* ESEOmegaTests.swift */; };
 		64582C301BD6A9F50007C104 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C251BD6A9F50007C104 /* JTSAnimatedGIFUtility.m */; };
 		64582C311BD6A9F50007C104 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C271BD6A9F50007C104 /* JTSImageInfo.m */; };
 		64582C321BD6A9F50007C104 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64582C291BD6A9F50007C104 /* JTSImageViewController.m */; };
@@ -144,7 +145,6 @@
 		64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EA81B5EA97900EE5C72 /* AppDelegate.m */; };
 		64F93EB21B5EA97900EE5C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB01B5EA97900EE5C72 /* Main.storyboard */; };
 		64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB31B5EA97900EE5C72 /* Assets.xcassets */; };
-		64F93EC21B5EA97900EE5C72 /* ESEOmegaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EC11B5EA97900EE5C72 /* ESEOmegaTests.m */; };
 		64FDD9541D95C33800A3ED8F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FDD9531D95C33800A3ED8F /* NotificationService.swift */; };
 		64FDD9581D95C33800A3ED8F /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64FDD9511D95C33800A3ED8F /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		64FFB9BA1F60EB9900986F1C /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
@@ -155,6 +155,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		64000BA31B60063100C16830 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64F93EA01B5EA97900EE5C72;
+			remoteInfo = ESEOmega;
+		};
+		64508FCF20B9AB0B00EE8A19 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
 			proxyType = 1;
@@ -174,13 +181,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 64EEB8F61D9BAE25003678E2;
 			remoteInfo = MessagesExtension;
-		};
-		64F93EBE1B5EA97900EE5C72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 64F93E991B5EA97900EE5C72 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 64F93EA01B5EA97900EE5C72;
-			remoteInfo = ESEOmega;
 		};
 		64FDD9561D95C33800A3ED8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -297,6 +297,9 @@
 		644D36451E923D5E0047EDDA /* App-Icon-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@2x.png"; path = "App Icons/App-Icon-5@2x.png"; sourceTree = "<group>"; };
 		644D36461E923D5E0047EDDA /* App-Icon-5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@2x~ipad.png"; path = "App Icons/App-Icon-5@2x~ipad.png"; sourceTree = "<group>"; };
 		644D36471E923D5E0047EDDA /* App-Icon-5@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@3x.png"; path = "App Icons/App-Icon-5@3x.png"; sourceTree = "<group>"; };
+		64508FCA20B9AB0B00EE8A19 /* ESEOmegaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64508FCC20B9AB0B00EE8A19 /* ESEOmegaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESEOmegaTests.swift; sourceTree = "<group>"; };
+		64508FCE20B9AB0B00EE8A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64582C241BD6A9F50007C104 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
 		64582C251BD6A9F50007C104 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
 		64582C261BD6A9F50007C104 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -425,9 +428,6 @@
 		64F93EB11B5EA97900EE5C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64F93EB31B5EA97900EE5C72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64F93EB81B5EA97900EE5C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64F93EBD1B5EA97900EE5C72 /* ESEOmegaTests.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaTests.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		64F93EC11B5EA97900EE5C72 /* ESEOmegaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESEOmegaTests.m; sourceTree = "<group>"; };
-		64F93EC31B5EA97900EE5C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64F93ECC1B5EA97900EE5C72 /* ESEOmegaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESEOmegaUITests.m; sourceTree = "<group>"; };
 		64F93ECE1B5EA97900EE5C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64FDD9511D95C33800A3ED8F /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -446,6 +446,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		64508FC720B9AB0B00EE8A19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		64EEB8F41D9BAE25003678E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -455,13 +462,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		64F93E9E1B5EA97900EE5C72 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		64F93EBA1B5EA97900EE5C72 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -548,6 +548,15 @@
 				64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */,
 			);
 			name = "App Icons";
+			sourceTree = "<group>";
+		};
+		64508FCB20B9AB0B00EE8A19 /* ESEOmegaTests */ = {
+			isa = PBXGroup;
+			children = (
+				64508FCC20B9AB0B00EE8A19 /* ESEOmegaTests.swift */,
+				64508FCE20B9AB0B00EE8A19 /* Info.plist */,
+			);
+			path = ESEOmegaTests;
 			sourceTree = "<group>";
 		};
 		64582C231BD6A9F50007C104 /* JTSImageViewController */ = {
@@ -866,7 +875,7 @@
 			isa = PBXGroup;
 			children = (
 				64F93EA31B5EA97900EE5C72 /* ESEOmega */,
-				64F93EC01B5EA97900EE5C72 /* ESEOmegaTests */,
+				64508FCB20B9AB0B00EE8A19 /* ESEOmegaTests */,
 				64F93ECB1B5EA97900EE5C72 /* ESEOmegaUITests */,
 				64FDD9521D95C33800A3ED8F /* NotificationService */,
 				64EEB8EF1D9BAE25003678E2 /* Stickers ESEO */,
@@ -880,11 +889,11 @@
 			isa = PBXGroup;
 			children = (
 				64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */,
-				64F93EBD1B5EA97900EE5C72 /* ESEOmegaTests.bundle */,
 				64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */,
 				64FDD9511D95C33800A3ED8F /* NotificationService.appex */,
 				64EEB8EE1D9BAE25003678E2 /* Stickers ESEO.app */,
 				64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */,
+				64508FCA20B9AB0B00EE8A19 /* ESEOmegaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -950,15 +959,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		64F93EC01B5EA97900EE5C72 /* ESEOmegaTests */ = {
-			isa = PBXGroup;
-			children = (
-				64F93EC11B5EA97900EE5C72 /* ESEOmegaTests.m */,
-				64F93EC31B5EA97900EE5C72 /* Info.plist */,
-			);
-			path = ESEOmegaTests;
-			sourceTree = "<group>";
-		};
 		64F93ECB1B5EA97900EE5C72 /* ESEOmegaUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +997,24 @@
 			productName = ESEOmegaUITests;
 			productReference = 64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */;
 			productType = "com.apple.product-type.bundle";
+		};
+		64508FC920B9AB0B00EE8A19 /* ESEOmegaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64508FD120B9AB0B00EE8A19 /* Build configuration list for PBXNativeTarget "ESEOmegaTests" */;
+			buildPhases = (
+				64508FC620B9AB0B00EE8A19 /* Sources */,
+				64508FC720B9AB0B00EE8A19 /* Frameworks */,
+				64508FC820B9AB0B00EE8A19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64508FD020B9AB0B00EE8A19 /* PBXTargetDependency */,
+			);
+			name = ESEOmegaTests;
+			productName = ESEOmegaTests;
+			productReference = 64508FCA20B9AB0B00EE8A19 /* ESEOmegaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */ = {
 			isa = PBXNativeTarget;
@@ -1052,24 +1070,6 @@
 			productReference = 64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */;
 			productType = "com.apple.product-type.application";
 		};
-		64F93EBC1B5EA97900EE5C72 /* ESEOmegaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 64F93ED41B5EA97900EE5C72 /* Build configuration list for PBXNativeTarget "ESEOmegaTests" */;
-			buildPhases = (
-				64F93EB91B5EA97900EE5C72 /* Sources */,
-				64F93EBA1B5EA97900EE5C72 /* Frameworks */,
-				64F93EBB1B5EA97900EE5C72 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				64F93EBF1B5EA97900EE5C72 /* PBXTargetDependency */,
-			);
-			name = ESEOmegaTests;
-			productName = ESEOmegaTests;
-			productReference = 64F93EBD1B5EA97900EE5C72 /* ESEOmegaTests.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 		64FDD9501D95C33800A3ED8F /* NotificationService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64FDD95B1D95C33800A3ED8F /* Build configuration list for PBXNativeTarget "NotificationService" */;
@@ -1093,12 +1093,18 @@
 		64F93E991B5EA97900EE5C72 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Tomn;
 				TargetAttributes = {
 					64000B9D1B60063100C16830 = {
 						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 64F93EA01B5EA97900EE5C72;
+					};
+					64508FC920B9AB0B00EE8A19 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 7HW87TV8LC;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 64F93EA01B5EA97900EE5C72;
 					};
 					64EEB8ED1D9BAE25003678E2 = {
@@ -1129,10 +1135,6 @@
 							};
 						};
 					};
-					64F93EBC1B5EA97900EE5C72 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 64F93EA01B5EA97900EE5C72;
-					};
 					64FDD9501D95C33800A3ED8F = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7HW87TV8LC;
@@ -1155,7 +1157,7 @@
 			projectRoot = "";
 			targets = (
 				64F93EA01B5EA97900EE5C72 /* ESEOmega */,
-				64F93EBC1B5EA97900EE5C72 /* ESEOmegaTests */,
+				64508FC920B9AB0B00EE8A19 /* ESEOmegaTests */,
 				64000B9D1B60063100C16830 /* ESEOmegaUITests */,
 				64FDD9501D95C33800A3ED8F /* NotificationService */,
 				64EEB8ED1D9BAE25003678E2 /* Stickers ESEO */,
@@ -1166,6 +1168,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		64000B9C1B60063100C16830 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64508FC820B9AB0B00EE8A19 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1232,13 +1241,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		64F93EBB1B5EA97900EE5C72 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		64FDD94F1D95C33800A3ED8F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1253,6 +1255,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64508FC620B9AB0B00EE8A19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64508FCD20B9AB0B00EE8A19 /* ESEOmegaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1369,14 +1379,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		64F93EB91B5EA97900EE5C72 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				64F93EC21B5EA97900EE5C72 /* ESEOmegaTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		64FDD94D1D95C33800A3ED8F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1393,6 +1395,11 @@
 			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
 			targetProxy = 64000BA31B60063100C16830 /* PBXContainerItemProxy */;
 		};
+		64508FD020B9AB0B00EE8A19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
+			targetProxy = 64508FCF20B9AB0B00EE8A19 /* PBXContainerItemProxy */;
+		};
 		64A85B281D9CCF6A00020D18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
@@ -1402,11 +1409,6 @@
 			isa = PBXTargetDependency;
 			target = 64EEB8F61D9BAE25003678E2 /* MessagesExtension */;
 			targetProxy = 64EEB8F91D9BAE25003678E2 /* PBXContainerItemProxy */;
-		};
-		64F93EBF1B5EA97900EE5C72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 64F93EA01B5EA97900EE5C72 /* ESEOmega */;
-			targetProxy = 64F93EBE1B5EA97900EE5C72 /* PBXContainerItemProxy */;
 		};
 		64FDD9571D95C33800A3ED8F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1458,6 +1460,55 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = ESEOmega;
 				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		64508FD220B9AB0B00EE8A19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.eseomega.ESEOmegaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BDE ESEO.app/BDE ESEO";
+			};
+			name = Debug;
+		};
+		64508FD320B9AB0B00EE8A19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.eseomega.ESEOmegaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BDE ESEO.app/BDE ESEO";
 			};
 			name = Release;
 		};
@@ -1704,30 +1755,6 @@
 			};
 			name = Release;
 		};
-		64F93ED51B5EA97900EE5C72 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmegaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ESEOmega.app/ESEOmega";
-			};
-			name = Debug;
-		};
-		64F93ED61B5EA97900EE5C72 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmegaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ESEOmega.app/ESEOmega";
-			};
-			name = Release;
-		};
 		64FDD9591D95C33800A3ED8F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1782,6 +1809,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		64508FD120B9AB0B00EE8A19 /* Build configuration list for PBXNativeTarget "ESEOmegaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64508FD220B9AB0B00EE8A19 /* Debug */,
+				64508FD320B9AB0B00EE8A19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		64EEB90A1D9BAE25003678E2 /* Build configuration list for PBXNativeTarget "MessagesExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1814,15 +1850,6 @@
 			buildConfigurations = (
 				64F93ED21B5EA97900EE5C72 /* Debug */,
 				64F93ED31B5EA97900EE5C72 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		64F93ED41B5EA97900EE5C72 /* Build configuration list for PBXNativeTarget "ESEOmegaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				64F93ED51B5EA97900EE5C72 /* Debug */,
-				64F93ED61B5EA97900EE5C72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
