@@ -24,7 +24,7 @@ import Messages
 
 class StickerBrowserViewController: MSStickerBrowserViewController {
     
-    private let folder = "stickers"
+    private let folder = "cachedStickers"
     
     var stickers = [RawSticker]()
     
@@ -39,19 +39,20 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     /// Fetch cached stickers
     func getStickersFromCache() {
         
-        guard let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
-              let cachedStickers = try? JSONDecoder().decode([Sticker].self, from: cache)
-            else { return }
-        
         let fileManager = FileManager.default
         do {
             let cacheURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask,
                                                   appropriateFor: nil,
                                                   create: true).appendingPathComponent(folder,
                                                                                        isDirectory: true)
+            // Create cache folder anyway
             try fileManager.createDirectory(at: cacheURL,
                                             withIntermediateDirectories: true,
                                             attributes: nil)
+            
+            guard let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
+                  let cachedStickers = try? JSONDecoder().decode([Sticker].self, from: cache)
+                else { return }
                 
             for cachedSticker in cachedStickers {
                 
@@ -131,11 +132,12 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     func save(imageNamed imageName: String, data: Data) -> URL? {
         
         guard let cacheURL = try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask,
-                                                          appropriateFor: nil, create: true)
+                                                          appropriateFor: nil,
+                                                          create: true).appendingPathComponent(folder,
+                                                                                               isDirectory: true)
             else { return nil }
         
-        let fileURL = cacheURL.appendingPathComponent(folder,
-                                                      isDirectory: true).appendingPathComponent(imageName)
+        let fileURL = cacheURL.appendingPathComponent(imageName, isDirectory: false)
         
         do {
             try data.write(to: fileURL, options: [.atomicWrite])
