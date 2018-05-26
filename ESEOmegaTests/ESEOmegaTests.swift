@@ -68,22 +68,203 @@ class ESEOmegaTests: XCTestCase {
     
     func testAPINews() {
         
+        let expectation = XCTestExpectation(description: "Try to get news article list")
+        
+        API.request(.news, get: ["maxInPage" : "10"],
+                    completed: { data in
+            
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = NewsArticle.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            do {
+                let result = try decoder.decode(NewsResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertEqual(result.page, 1)
+                XCTAssertEqual(result.news.count, 10)
+                
+                result.news.forEach { article in
+                    XCTAssertNotEqual(article.title, "")
+                    XCTAssertNotEqual(article.preview, "")
+                }
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            expectation.fulfill()
+            
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [expectation], timeout: 10)
+    }
+    
+    func testAPIEvents() {
+        // TODO
+    }
+    
+    func testAPIClubs() {
+        // TODO
+    }
+    
+    func testAPISponsors() {
+        // TODO
     }
     
     func testAPIOrders() {
-        
+        // TODO
+        // TODO test images exist at URI_CAFET https://portail.bdeeseo.fr/modules/lacommande/assets/
+    }
+    
+    func testAppStoreVersion() {
+        // TODO
     }
     
     func testAPIIngenews() {
         
+        let expectation = XCTestExpectation(description: "Try to get document list")
+        
+        API.request(.ingenews, completed: { data in
+                        
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = IngeNews.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            do {
+                let result = try decoder.decode(IngeNewsResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertGreaterThan(result.files.count, 0)
+                
+                result.files.forEach { file in
+                    XCTAssertNotEqual(file.name, "")
+                    XCTAssertNotEqual(file.url.absoluteString, "")
+                    XCTAssert(file.preview != nil)
+                    XCTAssertNotEqual(file.preview!.absoluteString, "")
+                }
+                
+                let imgData  = try? Data(contentsOf: result.files.first!.url)  // Data(contentsOf: url) is blocking
+                let fileData = try? Data(contentsOf: result.files.first!.preview!)
+                XCTAssert(imgData != nil)
+                XCTAssert(fileData != nil)
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            expectation.fulfill()
+                        
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [expectation], timeout: 20)  // files and images to download
     }
     
     func testAPIRooms() {
         
+        let expectation = XCTestExpectation(description: "Try to get room list")
+        
+        API.request(.rooms, completed: { data in
+            
+            do {
+                let result = try JSONDecoder().decode(RoomsResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertGreaterThan(result.rooms.count, 1)
+                
+                result.rooms.forEach { room in
+                    XCTAssertNotEqual(room.name, "")
+                    XCTAssertNotEqual(room.building, "")
+                    XCTAssertGreaterThan(room.floor, -5)
+                    XCTAssertLessThan(room.floor, 10)
+                }
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            expectation.fulfill()
+            
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [expectation], timeout: 10)
     }
     
     func testAPIFamily() {
         
+        let userExpectation   = XCTestExpectation(description: "Try to get a student search result")
+        let familyExpectation = XCTestExpectation(description: "Try to get a family")
+        
+        let alex       = "Alexandre JULIEN"
+        let alexFamily = 23
+        API.request(.familySearch, get: ["name" : alex], completed: { data in
+            
+            do {
+                let result = try JSONDecoder().decode(StudentSearchResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertEqual(result.users.count, 1)
+                XCTAssertEqual(result.users.first!.familyID, alexFamily)
+                XCTAssertNotEqual(result.users.first!.fullname, "")
+                XCTAssertNotEqual(result.users.first!.promo, "")
+                XCTAssertGreaterThanOrEqual(result.users.first!.rank, 0)
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            userExpectation.fulfill()
+            
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            userExpectation.fulfill()
+        }, noCache: true)
+        
+        API.request(.family, appendPath: String(alexFamily), completed: { data in
+            
+            do {
+                let result = try JSONDecoder().decode(FamilyResult.self,from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertGreaterThan(result.familyMembers.count, 1)
+                XCTAssertTrue(result.familyMembers.contains { familyMember in
+                    familyMember.fullname == String(alex)
+                })
+                
+                result.familyMembers.forEach { familyMember in
+                    XCTAssertEqual(familyMember.familyID, alexFamily)
+                    XCTAssertNotEqual(familyMember.fullname, "")
+                    XCTAssertNotEqual(familyMember.promo, "")
+                    XCTAssertGreaterThanOrEqual(familyMember.rank, 0)
+                    if (familyMember.fullname == alex) {
+                        XCTAssert(familyMember.childIDs != nil)
+                        XCTAssertGreaterThanOrEqual(familyMember.childIDs!.count, 2)
+                    }
+                }
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            familyExpectation.fulfill()
+            
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            familyExpectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [userExpectation, familyExpectation], timeout: 10)
     }
     
     func testAPIStickers() {
@@ -119,6 +300,18 @@ class ESEOmegaTests: XCTestCase {
         }, noCache: true)
         
         wait(for: [expectation], timeout: 20) // Multiple stickers to fetch
+    }
+    
+    func testPushSubscribe() {
+        // TODO
+    }
+    
+    func testPushUnsubscribe() {
+        // TODO
+    }
+    
+    func testAppAvailability() {
+        // TODO
     }
     
 }
