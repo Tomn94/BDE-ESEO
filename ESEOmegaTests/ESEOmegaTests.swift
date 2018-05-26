@@ -45,7 +45,7 @@ class ESEOmegaTests: XCTestCase {
                         
                         // Check we have data
                         do {
-                            /*let result = */try JSONDecoder().decode(LoginResult.self, from: data)
+                            let _/*result*/ = try JSONDecoder().decode(LoginResult.self, from: data)
                             // Test this and other fields XCTAssertTrue(result.success)
                         } catch {
                             // Check it was the wrong password
@@ -61,7 +61,7 @@ class ESEOmegaTests: XCTestCase {
                     + (error?.localizedDescription ?? "?")
                     + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
             expectation.fulfill()
-        })
+        }, noCache: true)
         
         wait(for: [expectation], timeout: 20) // Outlook may take some time to validate account
     }
@@ -88,6 +88,37 @@ class ESEOmegaTests: XCTestCase {
     
     func testAPIStickers() {
         
+        let expectation = XCTestExpectation(description: "Try to get iMessage stickers")
+        
+        API.request(.stickers, completed: { data in
+            
+            do {
+                let result = try JSONDecoder().decode(StickersResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertGreaterThan(result.stickers.count, 0)
+                
+                for sticker in result.stickers {
+                    XCTAssertGreaterThanOrEqual(sticker.id, 0)
+                    XCTAssertNotEqual(sticker.name, "")
+                    XCTAssertNotEqual(sticker.img.absoluteString, "")
+                    
+                    let data = try? Data(contentsOf: sticker.img) // Data(contentsOf: url) is blocking
+                    XCTAssert(data != nil)
+                }
+                
+            } catch {
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            expectation.fulfill()
+
+        }, failure: { error, data in
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [expectation], timeout: 20) // Multiple stickers to fetch
     }
     
 }
