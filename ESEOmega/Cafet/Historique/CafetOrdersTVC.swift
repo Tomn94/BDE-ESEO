@@ -219,7 +219,9 @@ class CafetOrdersTVC: UITableViewController {
                 
                 if storeVersion.compare(appVersion, options: .numeric) != .orderedDescending {
                     
-                    self.checkTime()
+                    DispatchQueue.main.async {
+                        self.checkTime()
+                    }
                     return
                     
                 } else {
