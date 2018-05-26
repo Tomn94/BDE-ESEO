@@ -114,7 +114,7 @@ extension GenealogySearch: UISearchResultsUpdating {
                 else { return }
             
             /* Store sorted alphabetically */
-            self.results = result.students.sorted {
+            self.results = result.users.sorted {
                 $0.fullname.localizedStandardCompare($1.fullname) == .orderedAscending
             }
             

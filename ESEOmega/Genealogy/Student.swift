@@ -80,6 +80,6 @@ struct StudentSearchResult: APIResult, Decodable {
     let success: Bool
     
     /// List of Students corresponding to query
-    let students: [FamilyMember]
+    let users: [FamilyMember]
     
 }
