@@ -60,7 +60,7 @@
 #define URL_UNPUSH   @"https://api.bdeeseo.fr/push/unregister"
 #define URL_GP       @"https://api.bdeeseo.fr/gantier/scores"
 #define URL_GP_STATE @"https://api.bdeeseo.fr/gantier/state"
-#define URL_APP_STAT @"https://api.bdeeseo.fr/info/status"
+#define URL_APP_STAT @"https://api.bdeeseo.fr/apps/status"
 
 #define URL_ACTIVITY @"https://bdeeseo.fr"
 #define URL_ACT_NEWS @"https://bdeeseo.fr/news"
