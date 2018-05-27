@@ -20,6 +20,7 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 fileprivate extension Selector {
     /// Timer for regular updates on order status
@@ -46,19 +47,47 @@ class CafetInterfaceController: WKInterfaceController {
     /// Copy of all orders displayed on-screen
     var displayedOrders = [CafetOrder]()
     
+    /// Connectivity session with iPhone to fetch API token
+    var session: WCSession?
     
+    
+    // MARK: - Init
+    
+    /// Called at app start
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        fetchRemote()
+        setPlaceholder(using: "Chargement…")
+        
+        if Keychain.hasValue(for: .token) {
+            /* We already have fetched the API token from iPhone, use it */
+            
+            // Fetch first batch of orders
+            fetchRemote()
+            
+        } else {
+            /* Start connectivity with iPhone to get token */
+            session = WCSession.default
+            session?.delegate = self
+            session?.activate()
+        }
     }
     
+    /// Called just before appearing (horizontal swipe), begin updating content
     override func willActivate() {
         super.willActivate()
         
-        startUpdates()
+        if Keychain.hasValue(for: .token) {
+            // Start auto-updating
+            startUpdates()
+        }
+        
+        /* Broadcast Handoff */
+        let handoffInfo = ActivityType.cafet
+        updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
     }
     
+    /// Called when view disappeared (swipe out)
     override func didDeactivate() {
         super.didDeactivate()
         
@@ -66,6 +95,9 @@ class CafetInterfaceController: WKInterfaceController {
     }
     
     
+    // MARK: - Content
+    
+    /// Fetch orders
     private func fetchRemote() {
         
         guard let token = Keychain.string(for: .token) else {
@@ -85,13 +117,16 @@ class CafetInterfaceController: WKInterfaceController {
                   result.success
                 else { return }
             
-            self.load(orders: result.orders)
+            DispatchQueue.main.async {
+                self.load(orders: result.orders)
+            }
                         
         }, failure: { _, _ in
             self.setPlaceholder(using: "Impossible de récupérer vos commandes")
         })
     }
     
+    /// Display fetched orders
     private func load(orders: [CafetOrder]) {
         
         let groupedOrdersByStatus = Dictionary(grouping: orders,
@@ -166,15 +201,21 @@ class CafetInterfaceController: WKInterfaceController {
         }
     }
     
+    /// Display message instead of content
     private func setPlaceholder(using text: String) {
         
-        table.setNumberOfRows(1,
-                              withRowType: CafetInterfaceController.rowIdentifierPlaceholder)
-        let row = table.rowController(at: 0) as! PlaceholderRowController
-        row.placeholderLabel.setText(text)
+        DispatchQueue.main.async {
+            self.table.setNumberOfRows(1,
+                                       withRowType: CafetInterfaceController.rowIdentifierPlaceholder)
+            let row = self.table.rowController(at: 0) as! PlaceholderRowController
+            row.placeholderLabel.setText(text)
+        }
     }
     
     
+    // MARK: - Timer Updates
+    
+    /// Begin regular data updates
     private func startUpdates() {
         
         updateTimer = Timer.scheduledTimer(timeInterval: CafetInterfaceController.updateInterval,
@@ -182,12 +223,14 @@ class CafetInterfaceController: WKInterfaceController {
                                            userInfo: nil, repeats: true)
     }
     
+    /// Stop automatic orders updates
     private func stopUpdates() {
         
         updateTimer?.invalidate()
         updateTimer = nil
     }
     
+    /// Called when a regular update is requested
     @objc func triggerUpdate() {
         
         fetchRemote()
@@ -196,6 +239,58 @@ class CafetInterfaceController: WKInterfaceController {
 }
 
 
+// MARK: - Session Delegate
+extension CafetInterfaceController: WCSessionDelegate {
+    
+    /// Called when connectivity session activation completed
+    ///
+    /// - Parameters:
+    ///   - session: Connectivity session with iPhone
+    ///   - activationState: Current state of the session
+    ///   - error: Eventual error when activating
+    func session(_ session: WCSession,
+                 activationDidCompleteWith activationState: WCSessionActivationState,
+                 error: Error?) {
+        
+        guard error == nil else {
+            setPlaceholder(using: "Impossible de récupérer vos identifiants ESEO sur votre iPhone")
+            return
+        }
+        
+        // Connection established, begin communication with iPhone
+        requestAPIToken()
+    }
+    
+    func requestAPIToken() {
+        
+        session?.sendMessage(["get" : "token"],
+                             replyHandler: { response in
+        
+            // Called when Apple Watch receives a message from connectivity with iPhone
+            if let token = response["token"] as? String {
+            
+                // Save token
+                Keychain.save(value: token, for: .token)
+                
+                // Fetch first batch of orders
+                self.fetchRemote()
+                
+                // Start auto-updating
+                self.startUpdates()
+                
+            } else {
+                self.setPlaceholder(using: "Impossible de déchiffrer vos identifiants ESEO sur votre iPhone")
+            }
+                                
+        }, errorHandler: { _ in
+            self.setPlaceholder(using: "Erreur lors de la récupération de vos identifiants ESEO sur votre iPhone")
+        })
+    }
+    
+}
+
+
+// MARK: - Row Controllers
 class CafetRowController: NSObject {
     
     @IBOutlet var icon: WKInterfaceImage!
