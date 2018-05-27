@@ -12,6 +12,15 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.eseomega.ESEOmega.news</string>
+		<string>com.eseomega.ESEOmega.article</string>
+		<string>com.eseomega.ESEOmega.events</string>
+		<string>com.eseomega.ESEOmega.clubs</string>
+		<string>com.eseomega.ESEOmega.cafet</string>
+		<string>com.eseomega.ESEOmega.sponsors</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
