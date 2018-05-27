@@ -77,10 +77,8 @@ class CafetInterfaceController: WKInterfaceController {
     override func willActivate() {
         super.willActivate()
         
-        if Keychain.hasValue(for: .token) {
-            // Start auto-updating
-            startUpdates()
-        }
+        // Start auto-updating
+        startUpdates()
         
         /* Broadcast Handoff */
         let handoffInfo = ActivityType.cafet
@@ -233,7 +231,11 @@ class CafetInterfaceController: WKInterfaceController {
     /// Called when a regular update is requested
     @objc func triggerUpdate() {
         
-        fetchRemote()
+        if Keychain.hasValue(for: .token) {
+            fetchRemote()
+        } else {
+            requestAPIToken()
+        }
     }
 
 }
@@ -261,7 +263,12 @@ extension CafetInterfaceController: WCSessionDelegate {
         requestAPIToken()
     }
     
+    /// Get token from iPhone to be able to communicate with API
     func requestAPIToken() {
+        
+        guard session?.activationState == .activated else {
+            return
+        }
         
         session?.sendMessage(["get" : "token"],
                              replyHandler: { response in
@@ -273,11 +280,8 @@ extension CafetInterfaceController: WCSessionDelegate {
                 // Save token
                 Keychain.save(value: token, for: .token)
                 
-                // Fetch first batch of orders
+                // Instantly get list of orders (don't wait for auto-update loop)
                 self.fetchRemote()
-                
-                // Start auto-updating
-                self.startUpdates()
                 
             } else {
                 self.setPlaceholder(using: "Connectez-vous à votre compte ESEO sur iPhone pour afficher vos commandes")
