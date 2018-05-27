@@ -34,18 +34,13 @@ import WatchConnectivity
     /// Actual WatchConnectivity session
     let session = WCSession.default
     
-    /// Session validity must be checked before using it
-    var isSessionPossible: Bool {
+    /// Session validity must be checked before using it and sending messages
+    var isSessionValid: Bool {
         
         guard WCSession.isSupported() else {
             return false
         }
-        return session.isPaired && session.isWatchAppInstalled
-    }
-    
-    /// Session validity must be checked before sending messages
-    var isSessionValid: Bool {
-        return isSessionPossible && session.isReachable
+        return WCSession.isSupported() && session.isPaired && session.isWatchAppInstalled && session.isReachable
     }
     
     
@@ -53,7 +48,7 @@ import WatchConnectivity
     @objc func startSession() {
         
         // Check that's an iPhone with Apple Watch support
-        guard isSessionPossible else {
+        guard WCSession.isSupported() else {
             return
         }
         
