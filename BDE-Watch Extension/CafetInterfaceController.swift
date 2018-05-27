@@ -47,7 +47,7 @@ class CafetInterfaceController: WKInterfaceController {
     /// Copy of all orders displayed on-screen
     var displayedOrders = [CafetOrder]()
     
-    /// Connectivity session with iPhone to fetch API token
+    /// Eventual connectivity session with iPhone to fetch API token
     var session: WCSession?
     
     
@@ -267,7 +267,8 @@ extension CafetInterfaceController: WCSessionDelegate {
                              replyHandler: { response in
         
             // Called when Apple Watch receives a message from connectivity with iPhone
-            if let token = response["token"] as? String {
+            if let token = response["token"] as? String,
+               token != "" {
             
                 // Save token
                 Keychain.save(value: token, for: .token)
@@ -279,7 +280,7 @@ extension CafetInterfaceController: WCSessionDelegate {
                 self.startUpdates()
                 
             } else {
-                self.setPlaceholder(using: "Impossible de déchiffrer vos identifiants ESEO sur votre iPhone")
+                self.setPlaceholder(using: "Connectez-vous à votre compte ESEO sur iPhone pour afficher vos commandes")
             }
                                 
         }, errorHandler: { _ in

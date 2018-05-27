@@ -96,6 +96,7 @@
 		6469B05F1FAF458500290E6D /* Lydia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6469B05E1FAF458500290E6D /* Lydia.swift */; };
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
+		647DE7B420BAE9EE00F8919F /* ConnectivityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B320BAE9EE00F8919F /* ConnectivityHandler.swift */; };
 		647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsListTVC.swift */; };
 		647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */; };
 		647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */; };
@@ -388,6 +389,7 @@
 		6473AEBF1DBA337C00381F98 /* elec.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = elec.caf; sourceTree = "<group>"; };
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
+		647DE7B320BAE9EE00F8919F /* ConnectivityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityHandler.swift; sourceTree = "<group>"; };
 		647F6BF11F64B311006FA132 /* NewsListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTVC.swift; sourceTree = "<group>"; };
 		647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksToolbar.swift; sourceTree = "<group>"; };
 		647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleVC.swift; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 				6430D2721B63FF5E00F5C7F5 /* TabBarController.h */,
 				6430D2731B63FF5E00F5C7F5 /* TabBarController.m */,
 				642E47DC1F5F7EBC002CC48E /* DismissSegue.swift */,
+				647DE7B320BAE9EE00F8919F /* ConnectivityHandler.swift */,
 				64F84CFB1F632F5F0064F696 /* CreditsTVC.swift */,
 				64E273481B72444B00A84E68 /* Game */,
 				6487C2EB1B5EF81300DC3B77 /* News */,
@@ -1489,6 +1492,7 @@
 				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
 				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				64F84CFC1F632F5F0064F696 /* CreditsTVC.swift in Sources */,
+				647DE7B420BAE9EE00F8919F /* ConnectivityHandler.swift in Sources */,
 				64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */,
 				64F8AE001E408ACF00489198 /* ThemeManager.swift in Sources */,
 				6430D2701B63DC8C00F5C7F5 /* EventsTVC.m in Sources */,
@@ -1978,7 +1982,7 @@
 					"iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"",
 				);
 				INFOPLIST_FILE = ESEOmega/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";
@@ -2006,7 +2010,7 @@
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"";
 				INFOPLIST_FILE = ESEOmega/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
 				PRODUCT_NAME = "BDE ESEO";

@@ -49,6 +49,9 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     if (DataStore.isUserLogged)
         [Data registeriOSPush:self];
     
+    /* APPLE WATCH */
+    [ConnectivityHandler.sharedHandler startSession];
+    
     // OPENED APP FROM NOTIFICATION
     if (![NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}])
     {
