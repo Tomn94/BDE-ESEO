@@ -143,8 +143,8 @@
         [[Data sharedData] setCafetCmdEnCours:NO];
         [[Data sharedData] setCafetToken:@""];
         [[Data sharedData] setCafetDebut:0];
-        [[Data sharedData] startLydia:[n.userInfo[@"idcmd"] intValue]
-                              forType:n.userInfo[@"catOrder"]];
+        [Lydia startRequestObjCBridgeWithOrder:[n.userInfo[@"idcmd"] intValue]
+                                          type:n.userInfo[@"catOrder"]];
     }];
 }
 

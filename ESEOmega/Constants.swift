@@ -21,16 +21,6 @@
 
 import Foundation
 
-enum Lydia {
-    static let minPrice = 0.5
-    static let maxPrice = 250.0
-    
-    /// Lydia API limits
-    static func isValid(price: Double) -> Bool {
-        return minPrice...maxPrice ~= price
-    }
-}
-
 // MARK: - Global notifications names within the app
 extension Notification.Name {
     
@@ -82,23 +72,11 @@ enum UserDefaultsKey {
     /// Server response cached for fast reload
     static let stickers       = "stickers"
     
-}
-
-
-/// Common keys to get or set values in Keychain
-enum KeychainKey {
     
-    /// Name of the logged user (e.g. `Thomas NAUDET`)
-    static let name  = "uname"
+    // MARK: WatchExtension
     
-    /// Email address of the logged user (e.g. `prenom.nom@reseau.eseo.fr`)
-    static let mail  = "mail"
-    
-    /// Token needed for API requests requiring login
-    static let token = "token"
-    
-    /// Name of the logged user (e.g. `Thomas 06 01 02 03 04`)
-    static let phone = "phone"
+    /// Server response cached for fast reload
+    static let watchRooms     = "watchRooms"
     
 }
 

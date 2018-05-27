@@ -421,7 +421,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
         /* Say hello to the user if we have their name */
-        if let username = JNKeychain.loadValue(forKey: KeychainKey.name) as? String {
+        if let username = Keychain.string(for: .name) {
             
             let welcomeString = "Bonjour\n" + username
             

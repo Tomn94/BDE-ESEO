@@ -20,6 +20,7 @@
 //
 
 #import "OrderPVC.h"
+#import "BDE_ESEO-Swift.h"
 
 @implementation OrderPVC
 
@@ -117,6 +118,10 @@
         [[Data sharedData] cafetPanierVider];
         [[Data sharedData] setCafetToken:@""];
         [[Data sharedData] setCafetDebut:0];
+        
+        if (@available(iOS 10.3, *)) {
+            [SKStoreReviewController requestReview];
+        }
     }];
 }
 
@@ -126,8 +131,9 @@
         [[Data sharedData] cafetPanierVider];
         [[Data sharedData] setCafetToken:@""];
         [[Data sharedData] setCafetDebut:0];
-        [[Data sharedData] startLydia:[n.userInfo[@"idcmd"] intValue]
-                              forType:n.userInfo[@"catOrder"]];
+        
+        [Lydia startRequestObjCBridgeWithOrder:[n.userInfo[@"idcmd"] intValue]
+                                          type:n.userInfo[@"catOrder"]];
     }];
 }
 

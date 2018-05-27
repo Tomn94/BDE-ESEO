@@ -66,6 +66,11 @@ class APIArchiver {
         return cache.data(forKey: apiPath.rawValue)
     }
     
+    static func removeCache(for apiPath: API.Path) {
+        
+        cache.remove(forKey: apiPath.rawValue)
+    }
+    
     static func clearCache() {
         
         cache.clear()

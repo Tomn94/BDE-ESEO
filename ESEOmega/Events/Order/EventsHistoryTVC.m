@@ -523,8 +523,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void) commandeValidee:(NSNotification *)n
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        [[Data sharedData] startLydia:[n.userInfo[@"idcmd"] intValue]
-                              forType:n.userInfo[@"catOrder"]];
+        [Lydia startRequestObjCBridgeWithOrder:[n.userInfo[@"idcmd"] intValue]
+                                          type:n.userInfo[@"catOrder"]];
     }];
 }
 

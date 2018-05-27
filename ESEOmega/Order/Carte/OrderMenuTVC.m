@@ -42,7 +42,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -277,7 +277,13 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
     else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)
         frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) - 20;
     else
-        frame.origin.y = 0;
+    {
+        CGFloat topInset = 0;
+        if (@available(iOS 11.0, *)) {
+            topInset = self.navigationController.view.safeAreaInsets.top - 14;
+        }
+        frame.origin.y = topInset;
+    }
     [statut setFrame:frame];
     
     [statut setWindowLevel:UIWindowLevelStatusBar];
@@ -304,6 +310,19 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 - (void) masquerMessage
 {
     [timerMessage invalidate];
+    
+    BOOL animatedForiPhoneX = FALSE;
+    if (@available(iOS 11.0, *)) {
+        if (self.view.safeAreaInsets.top != 0) {
+            CATransition *animation = [CATransition animation];
+            [animation setDuration:0.6f];
+            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+            [animation setType:kCATransitionFade];
+            [statut.layer addAnimation:animation forKey:NULL];
+            animatedForiPhoneX = TRUE;
+        }
+    }
+    
     CGRect frame = [statut frame];
     if (currentOrientation == UIDeviceOrientationLandscapeLeft)
         frame.origin.x = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
@@ -313,24 +332,33 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
         frame.origin.y = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     else
         frame.origin.y = -20;
-    [UIView animateWithDuration:0.6 animations:^{
-        [statut setFrame:frame];
-    }];
+    [statut setFrame:frame];
+    
+    if (!animatedForiPhoneX)
+    {
+        [UIView animateWithDuration:0.6 animations:^{
+            [statut setFrame:frame];
+        }];
+    }
 }
 
 - (void) majFrameMessage
 {
     CGFloat min = MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     CGFloat max = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    CGFloat topInset = 0;
+    if (@available(iOS 11.0, *)) {
+        topInset = self.navigationController.view.safeAreaInsets.top - 14;
+    }
     
     if (currentOrientation == UIDeviceOrientationLandscapeLeft)
     {
-        [statut setFrame:CGRectMake(min, 0, 20, max)];
+        [statut setFrame:CGRectMake(min, topInset, 20, max)];
         [label setTransform:CGAffineTransformMakeRotation(M_PI_2)];
     }
     else if (currentOrientation == UIDeviceOrientationLandscapeRight)
     {
-        [statut setFrame:CGRectMake(-20, 0, 20, max)];
+        [statut setFrame:CGRectMake(-20, topInset, 20, max)];
         [label setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
     }
     else if (iPAD && currentOrientation == UIDeviceOrientationPortraitUpsideDown)

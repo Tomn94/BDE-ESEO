@@ -74,6 +74,7 @@ class MessagesViewController: MSMessagesAppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        stickerBrowserViewController.debugCache()
         stickerBrowserViewController.getStickersFromCache()
         stickerBrowserViewController.getStickersFromServer()
     }

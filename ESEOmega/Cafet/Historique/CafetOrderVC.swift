@@ -239,8 +239,8 @@ class CafetOrderVC: UIViewController {
     
     @objc func fetchDetailedOrder() {
         
-        guard let order = self.order,
-              let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let order     = self.order,
+              let userToken = Keychain.string(for: .token)
             else { return }
         
         let defaultMessage = "Détails de la commande indisponibles"
@@ -284,8 +284,8 @@ class CafetOrderVC: UIViewController {
             else { return }
         
         if idLydia != -1 {
-            Data.shared().checkLydia(["id"  : String(order.idcmd),
-                                      "cat" : "CAFET"])
+            Lydia.checkStatus(for: String(order.idcmd), type: .cafet,
+                              viewController: self, showRating: false)
             
         } else {
             let alert = UIAlertController(title: "Voulez-vous payer votre commande dès maintenant avec Lydia ?",
@@ -322,8 +322,8 @@ class CafetOrderVC: UIViewController {
             return
         }
         
-        Data.shared().startLydia(order.idcmd,
-                                 forType: "CAFET")
+        Lydia.startRequest(for: order.idcmd, type: .cafet,
+                           viewController: self)
     }
     
 }

@@ -236,7 +236,7 @@ class CafetOrdersTVC: UITableViewController {
             let alert = UIAlertController(title: title,
                                           message: message,
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: updateAvailable ? "Cancel" : "OK", style: .cancel))
+            alert.addAction(UIAlertAction(title: updateAvailable ? "Annuler" : "OK", style: .cancel))
             if updateAvailable {
                 let updateAction = UIAlertAction(title: NEW_UPD_BT, style: .default, handler: { _ in
                     UIApplication.shared.openURL(URL(string: URL_APPSTORE)!)
@@ -259,7 +259,7 @@ class CafetOrdersTVC: UITableViewController {
     /// Step 2
     func checkTime() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let token = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
@@ -306,7 +306,7 @@ class CafetOrdersTVC: UITableViewController {
     
     func startShopping(with token: String) {
         
-        guard let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let userToken = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
@@ -445,7 +445,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchRemote() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         API.request(.orders, get: ["all": "1"], authentication: token,
@@ -507,7 +507,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchService() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         let unavailableStatus = "Cafétéria en ligne non disponible"
@@ -676,7 +676,7 @@ extension CafetOrdersTVC {
         formatter.numberStyle = .currency
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
-        cell.numLabel.text    = String(format: "%@%03d", order.strcmd, order.modcmd)
+        cell.numLabel.text    = order.number
         
         return cell
     }

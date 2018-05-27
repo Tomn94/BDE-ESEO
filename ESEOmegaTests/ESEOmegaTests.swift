@@ -125,6 +125,10 @@ class ESEOmegaTests: XCTestCase {
         // TODO
     }
     
+    func testLydia() {
+        // TODO
+    }
+    
     func testAPIIngenews() {
         
         let expectation = XCTestExpectation(description: "Try to get document list")

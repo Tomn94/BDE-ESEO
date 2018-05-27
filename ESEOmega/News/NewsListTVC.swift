@@ -295,7 +295,7 @@ extension NewsListTVC: APIViewer {
            Sort by date. */
         news = (news.filter { oldArticle in
                    !data.contains(oldArticle)
-               } + data).sorted { $0.date > $1.date }
+               } + data).filter { $0.displayInApps }.sorted { $0.date > $1.date }
         
         DispatchQueue.main.async {
             

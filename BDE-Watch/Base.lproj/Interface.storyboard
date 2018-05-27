@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13529" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13507"/>
+    </dependencies>
+    <scenes>
+        <!--Cafet-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller title="Cafet" id="AgC-eL-Hgc" customClass="CafetInterfaceController" customModule="BDE_Watch_Extension">
+                    <items>
+                        <table alignment="left" id="0G0-t9-fXB">
+                            <items>
+                                <tableRow identifier="watchCafetCell" selectable="NO" id="tg5-qF-ExA" customClass="CafetRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="lFm-8t-4s3">
+                                        <items>
+                                            <group width="1" alignment="left" spacing="10" id="1IR-gW-MAf">
+                                                <items>
+                                                    <imageView width="42" height="42" alignment="left" image="cafetPreparing" id="V8f-Sl-arR"/>
+                                                    <group width="1" alignment="left" layout="vertical" id="4MM-q7-OqQ">
+                                                        <items>
+                                                            <label alignment="left" text="OMN463" id="xHF-E1-J3u">
+                                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                            </label>
+                                                            <label alignment="left" text="3,60 €" id="bAO-Vs-Syi">
+                                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                            <label alignment="left" text="Sandwich Froid (Tomates, Fromage de Chèvre, Gruyère Rapé, Mayo)" numberOfLines="5" id="IyW-HC-24P">
+                                                <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                            </label>
+                                        </items>
+                                        <edgeInsets key="margins" left="7" right="7" top="7" bottom="7"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="content" destination="IyW-HC-24P" id="ReH-Y7-G2m"/>
+                                        <outlet property="icon" destination="V8f-Sl-arR" id="TdG-5h-dxI"/>
+                                        <outlet property="number" destination="xHF-E1-J3u" id="wyi-jp-rHM"/>
+                                        <outlet property="price" destination="bAO-Vs-Syi" id="W4K-4M-zUn"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="watchCafetCellPlaceholder" selectable="NO" id="1BS-Bq-Bdd" customClass="PlaceholderRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.90000000000000002" alignment="left" id="NPZ-YZ-i6u">
+                                        <items>
+                                            <label width="1" height="1" alignment="left" text="Impossible de récupérer vos commandes" textAlignment="center" numberOfLines="0" id="D5t-Nm-voq"/>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="placeholderLabel" destination="D5t-Nm-voq" id="1lI-jC-bR9"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="0G0-t9-fXB" id="QcG-C2-q43"/>
+                        <segue destination="625-u7-vMC" kind="relationship" relationship="nextPage" id="t02-U2-8Gn"/>
+                    </connections>
+                </controller>
+            </objects>
+        </scene>
+        <!--Salles-->
+        <scene sceneID="y3f-FF-Jcw">
+            <objects>
+                <controller title="Salles" id="625-u7-vMC" customClass="RoomsInterfaceController" customModule="BDE_Watch_Extension">
+                    <items>
+                        <table alignment="left" id="CPu-je-Htr">
+                            <items>
+                                <tableRow identifier="watchRoomCell" selectable="NO" id="Til-tr-AbI" customClass="RoomRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="2CB-RV-BMy">
+                                        <items>
+                                            <label alignment="left" text="Afrique" minimumScaleFactor="0.59999999999999998" id="gao-I3-wQC">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label alignment="left" text="B110 · Bât. B · 1er " minimumScaleFactor="0.69999999999999996" id="4A5-BR-xpx">
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="roomTitle" destination="gao-I3-wQC" id="sgC-1o-6iV"/>
+                                        <outlet property="subtitle" destination="4A5-BR-xpx" id="gzq-Ik-gZh"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="watchRoomCellPlaceholder" selectable="NO" id="V7T-4S-OWE" customClass="PlaceholderRowController" customModule="BDE_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.90000000000000002" alignment="left" id="0Cn-1o-fAx">
+                                        <items>
+                                            <label width="1" height="1" alignment="left" text="Impossible de récupérer vos commandes" textAlignment="center" numberOfLines="0" id="mgW-W5-kbR"/>
+                                        </items>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="placeholderLabel" destination="mgW-W5-kbR" id="wRS-9Z-uN6"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="CPu-je-Htr" id="NVW-9K-Ypn"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="366" y="282"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.0" green="0.53333333329999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>

@@ -66,6 +66,12 @@ class API {
         /// Get available items to order
         case orderService = "apps/service"
         
+        /// Begin Lydia payment for order
+        case lydiaAsk     = "lydia/ask"
+        
+        /// Check Lydia payment status of a specific order
+        case lydiaCheck   = "lydia/check"
+        
         /// List of IngeNews editions
         case ingenews     = "ingenews"
         
@@ -176,7 +182,9 @@ class API {
                                         delegateQueue: nil)  // create new queue
         let dataTask = defaultSession.dataTask(with: request) { data, _, error in
             
+            #if os(iOS)
             Utils.requiresActivityIndicator(false)
+            #endif
             
             guard let d = data, error == nil else {
                 failure?(error, data)
@@ -187,7 +195,9 @@ class API {
         }
         
         /* Fire! */
+        #if os(iOS)
         Utils.requiresActivityIndicator(true)
+        #endif
         dataTask.resume()
     }
     
@@ -195,8 +205,10 @@ class API {
     enum HandleFailureMode {
         /// Only get error info (default)
         case onlyFetchMessage
+        #if os(iOS)
         /// Present alert from decoded error info
         case presentFetchedMessage(UIViewController)
+        #endif
     }
     
     /// Tries to analyse bad API response data to at least get an error message.
@@ -214,6 +226,7 @@ class API {
             result = APIError(message: cause, code: error.uid)
         }
         
+        #if os(iOS)
         if case let .presentFetchedMessage(parentVC) = mode {
             
             let alert = UIAlertController(title: "Erreur",
@@ -224,6 +237,7 @@ class API {
                 parentVC.present(alert, animated: true)
             }
         }
+        #endif
         
         return result
     }

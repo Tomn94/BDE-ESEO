@@ -36,12 +36,8 @@
     [self ajouterTap];
     
     [Data checkAvailability];
-    [[Data sharedData] updateJSON:@"news"];
     [[Data sharedData] updateJSON:@"events"];
     [[Data sharedData] updateJSON:@"clubs"];
-    if (DataStore.isUserLogged)
-        [[Data sharedData] updateJSON:@"cmds"];
-    [[Data sharedData] updateJSON:@"service"];
     [[Data sharedData] updateJSON:@"sponsors"];
     
     NSDateComponents *comps = [NSDateComponents new];

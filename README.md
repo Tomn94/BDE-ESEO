@@ -1,6 +1,6 @@
 # Bureau des Étudiants du Groupe ESEO
 
-[![Version](https://img.shields.io/badge/version-5.0-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-5.1-green.svg)](https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=GitHub&mt=8)
 [![Code](https://img.shields.io/badge/code-Objective--C%20+%20Swift-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas%20NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -84,13 +84,19 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 ## Versions
 
-### v5.0 · 19/10/2017
-> - Mise à jour de l'interface pour iOS 11
-> 
+### v5.1 · 07/11/2017
+
+> - Lydia est de retour pour payer à la cafet !
+> - Support de l'iPhone X
+> - Donnez une note à l'app sans la quitter
+
+### v5.0 · 18/10/2017
 > - La cafet est de retour !\
 > Rétablissement également des news, de la liste des salles, des familles, des Ingénews.\
 > Réécriture en Swift et utilisation de la nouvelle API BDE.\
 > Les événements, clubs et sponsors reviendront prochainement.
+> 
+> - Mise à jour de l'interface pour iOS 11
 > 
 > - Nouveau thème ESEOdin !\
 > Mettez-vous aux couleurs de votre BDE en choisissant un thème et une icône d’app dans votre profil.
