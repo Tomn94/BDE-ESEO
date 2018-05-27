@@ -24,7 +24,7 @@ import UIKit
 /// Describes a Login JSON response from API
 struct LoginResult: APIResult, Decodable {
     
-    /// `API.ErrorResult.Error.ui` value if user entered wrong password
+    /// `API.ErrorResult.Error.uid` value if user entered wrong password
     static let wrongPasswordErrorCode = 7
     
     

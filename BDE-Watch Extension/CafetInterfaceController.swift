@@ -112,8 +112,16 @@ class CafetInterfaceController: WKInterfaceController {
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             guard let result = try? decoder.decode(CafetOrdersResult.self, from: data),
-                  result.success
-                else { return }
+                  result.success else {
+                
+                // In case token is not valid anymore
+                let error = API.handleFailure(data: data)
+                if error.code == CafetOrdersResult.wrongTokenErrorCode {
+                    Keychain.deleteValue(for: .token)
+                    self.setPlaceholder(using: "Reconnectez-vous à votre compte ESEO sur iPhone pour afficher vos commandes")
+                }
+                return
+            }
             
             DispatchQueue.main.async {
                 self.load(orders: result.orders)

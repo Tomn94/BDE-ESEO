@@ -134,6 +134,10 @@ struct CafetServiceResult: APIResult, Decodable {
 /// Describes a CafetOrder list JSON response from API
 struct CafetOrdersResult: APIResult, Decodable {
     
+    /// `API.ErrorResult.Error.uid` value if wrong token was given
+    static let wrongTokenErrorCode = 13
+    
+    
     let success: Bool
     
     let orders: [CafetOrder]
