@@ -23,17 +23,12 @@ import Foundation
 
 class Keychain {
     
-    private static let accessGroup = "com.eseomega.ESEOmega.KeyGroup"
-    
-    
     static func hasValue(for key: KeychainKey) -> Bool {
-        return JNKeychain.loadValue(forKey: key.rawValue,
-                                    forAccessGroup: Keychain.accessGroup) != nil
+        return JNKeychain.loadValue(forKey: key.rawValue) != nil
     }
     
     static func value(for key: KeychainKey) -> Any? {
-        return JNKeychain.loadValue(forKey: key.rawValue,
-                                    forAccessGroup: Keychain.accessGroup)
+        return JNKeychain.loadValue(forKey: key.rawValue)
     }
     
     static func string(for key: KeychainKey) -> String? {
@@ -41,13 +36,11 @@ class Keychain {
     }
     
     static func save(value: Any, for key: KeychainKey) {
-        JNKeychain.saveValue(value, forKey: key.rawValue,
-                             forAccessGroup: Keychain.accessGroup)
+        JNKeychain.saveValue(value, forKey: key.rawValue)
     }
     
     static func deleteValue(for key: KeychainKey) {
-        JNKeychain.deleteValue(forKey: key.rawValue,
-                               forAccessGroup: Keychain.accessGroup)
+        JNKeychain.deleteValue(forKey: key.rawValue)
     }
     
 }

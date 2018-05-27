@@ -13,9 +13,5 @@
 		<string>webcredentials:bdeeseo.fr</string>
 		<string>activitycontinuation:bdeeseo.fr</string>
 	</array>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)com.eseomega.ESEOmega.KeyGroup</string>
-	</array>
 </dict>
 </plist>

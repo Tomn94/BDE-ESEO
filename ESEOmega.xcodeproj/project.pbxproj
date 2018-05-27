@@ -276,7 +276,6 @@
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
 		6418FFA01F939DEE0044206B /* CafetOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrderVC.swift; sourceTree = "<group>"; };
 		641E434E1FB7C776006063A6 /* BDE-Watch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BDE-Watch-Bridging-Header.h"; sourceTree = "<group>"; };
-		641E434F1FB7C998006063A6 /* BDE-Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BDE-Watch Extension.entitlements"; sourceTree = "<group>"; };
 		641E43501FB7D1E0006063A6 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		641EDF241FB780790047900C /* BDE-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		641EDF271FB780790047900C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -575,7 +574,6 @@
 		641EDF341FB780790047900C /* BDE-Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				641E434F1FB7C998006063A6 /* BDE-Watch Extension.entitlements */,
 				641E434E1FB7C776006063A6 /* BDE-Watch-Bridging-Header.h */,
 				641EDF351FB780790047900C /* CafetInterfaceController.swift */,
 				641EDF471FB786230047900C /* RoomsInterfaceController.swift */,
@@ -1252,7 +1250,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1277,7 +1275,7 @@
 								enabled = 0;
 							};
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1736,7 +1734,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "BDE-Watch Extension/BDE-Watch Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1764,7 +1761,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "BDE-Watch Extension/BDE-Watch Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7HW87TV8LC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
