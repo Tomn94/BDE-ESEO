@@ -124,11 +124,16 @@ class Genealogy: UITableViewController {
         
         var tree: [[FamilyMember]] = []
         
-        /* 1: Split students by rank */
+        /* 1: Split students by rank and Weight them */
         // Prepare: sort students by rank
         let students = members.sorted { $0.rank < $1.rank }
         var currentRank = 0
         var currentRankMembers: [FamilyMember]?
+        
+        // Attribute weight to each student to later sort the whole tree
+        var studentWeight = [StudentID : Int]()
+        var firstRankWeights = [Int]()
+        
         // Allocate each rank
         for student in students {
             if currentRank == student.rank {
@@ -136,7 +141,7 @@ class Genealogy: UITableViewController {
                 if currentRankMembers == nil {
                     currentRankMembers = [student]
                 } else {
-                    currentRankMembers?.append(student)
+                    currentRankMembers!.append(student)
                 }
             } else {
                 // If changed rank, save previous and start a new one
@@ -145,6 +150,29 @@ class Genealogy: UITableViewController {
                 }
                 currentRank = student.rank
                 currentRankMembers = [student]
+            }
+            
+            if currentRank == 0 {
+                // For first rank, weight is decreasing the more children the student has
+                // Checks we don't have the same weight twice, otherwise children could then have the same too.
+                // If it's the case, we must decrease with a counter, otherwise we might interfer with the previous substraction and then find again the same weight.
+                // PLEASE Check changes with Alessandro MOSCA, Alexandre JULIEN and Thibaud AUBERT
+                var counter = 0
+                var weight  = 1000
+                repeat {
+                    weight   = 1000 - (student.childIDs?.count ?? 0) - counter
+                    counter += 1
+                } while firstRankWeights.contains(weight)
+                firstRankWeights.append(weight)
+                studentWeight[student.ID] = weight
+                
+            } else {
+                // For other ranks, compute parents weight for each member
+                var weight = 0
+                for parentID in student.parentIDs ?? [] {
+                    weight += studentWeight[parentID] ?? 0
+                }
+                studentWeight[student.ID] = weight == 0 ? 1 : weight
             }
         }
         // Fill last rank
@@ -155,23 +183,8 @@ class Genealogy: UITableViewController {
         /* 2: Order ranks by same parent and parent position */
         for (index, rank) in tree.enumerated() {
             // We'll order children according to each parent from current rank
-            for student in rank {
-                // Let's order children to be under this parent
-                if let children = student.childIDs,
-                   !children.isEmpty && index < tree.count - 1 {
-                    tree[index+1].sort { student1, _ in
-                        return children.contains(student1.ID)
-                    }
-                    
-                    // Fix for some relations: 2 students on a row have each one, one child
-                    if tree[index+1].count == 2 &&
-                       tree[index+1][0].parentIDs?.first != tree[index][0].ID &&
-                       tree[index+1][1].parentIDs?.first != tree[index][1].ID {
-                        tree[index+1].sort { _, student2 in
-                            return children.contains(student2.ID)
-                        }
-                    }
-                }
+            tree[index] = rank.sorted { student1, student2 in
+                studentWeight[student1.ID] ?? 0 < studentWeight[student2.ID] ?? 0
             }
         }
         
