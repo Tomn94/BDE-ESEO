@@ -118,7 +118,7 @@ class ESEOmegaTests: XCTestCase {
     
     func testAPIOrders() {
         // TODO
-        // TODO test images exist at URI_CAFET https://portail.bdeeseo.fr/modules/lacommande/assets/
+        // TODO test images exist under "imgUrl" key
     }
     
     func testAppStoreVersion() {

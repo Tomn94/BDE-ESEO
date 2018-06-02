@@ -50,7 +50,6 @@
 #define URL_CMD_LY_1 @"https://api.bdeeseo.fr/lydia/ask"
 #define URL_CMD_LY_2 @"https://api.bdeeseo.fr/lydia/check"
 #define URL_SERVICE  @"https://api.bdeeseo.fr/info/service?%d"
-#define URI_CAFET    @"https://portail.bdeeseo.fr/modules/lacommande/assets/"
 #define URL_EVENT_CM @"https://api.bdeeseo.fr/event/list?%d"
 #define URL_EVENT_NE @"https://api.bdeeseo.fr/event/prepare"
 #define URL_EVENT_DT @"https://api.bdeeseo.fr/event/items"
