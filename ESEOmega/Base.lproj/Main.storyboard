@@ -573,7 +573,7 @@ Bâtiment : F. Rolland</string>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2un-D0-LF5">
                                             <rect key="frame" x="-12" y="-7" width="399" height="155"/>
-                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sono ESEO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRq-vo-pm7">
                                             <rect key="frame" x="18" y="81" width="339" height="24"/>
@@ -588,7 +588,7 @@ Bâtiment : F. Rolland</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="Rrs-5J-DR1" firstAttribute="leading" secondItem="4FT-8Z-gmo" secondAttribute="leadingMargin" constant="10" id="131-ST-Vjx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Rrs-5J-DR1" secondAttribute="bottom" constant="10" id="4IH-Um-DFV"/>

@@ -35,6 +35,7 @@ class ClubsListTVC: UITableViewController {
         loadFromCache()
         fetchRemote()
         
+        self.tableView.backgroundColor = .groupTableViewBackground
         if #available(iOS 10.0, *) {
             tableView.prefetchDataSource = self
         }
@@ -214,10 +215,8 @@ extension ClubsListTVC: APIViewer {
         
         DispatchQueue.main.async {
             if self.clubs.isEmpty {
-                self.tableView.backgroundColor = .groupTableViewBackground
                 self.tableView.tableFooterView = UITableViewHeaderFooterView()
             } else {
-                self.tableView.backgroundColor = .white
                 self.tableView.tableFooterView = nil
             }
             self.tableView.reloadData()
