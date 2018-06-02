@@ -129,7 +129,7 @@ class ESEOmegaTests: XCTestCase {
                     XCTAssertNotEqual(club.description, "")
                     XCTAssertNotEqual(club.contacts, "")
                     
-                    XCTAssertGreaterThan(club.users.count, 1)
+                    XCTAssertGreaterThanOrEqual(club.users.count, 0)
                     club.users.forEach { user in
                         XCTAssertNotEqual(user.user, "")
                         XCTAssertNotEqual(user.fullname, "")

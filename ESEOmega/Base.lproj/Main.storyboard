@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -197,10 +197,10 @@
             </objects>
             <point key="canvasLocation" x="1623" y="2256"/>
         </scene>
-        <!--Clubs DetailTVC-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="KQW-x0-tZi">
             <objects>
-                <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubsDetailTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubDetailTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ln4-AE-9it">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,6 +233,8 @@
                         <connections>
                             <outlet property="dataSource" destination="cXh-5d-QRi" id="NoH-cn-enS"/>
                             <outlet property="delegate" destination="cXh-5d-QRi" id="ulL-nq-lh2"/>
+                            <outlet property="emptyDataSetDelegate" destination="cXh-5d-QRi" id="nxu-qu-TZd"/>
+                            <outlet property="emptyDataSetSource" destination="cXh-5d-QRi" id="11N-86-9TC"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="RYI-PE-xoe">
@@ -553,11 +555,11 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="4382" y="169"/>
         </scene>
-        <!--Vie associative-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="kej-Tk-Ugi">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsMasterTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsListTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -604,13 +606,15 @@ Bâtiment : F. Rolland</string>
                                     <outlet property="detailLabel" destination="Rrs-5J-DR1" id="1cd-Ww-JJS"/>
                                     <outlet property="imgView" destination="2un-D0-LF5" id="Yww-zj-OX1"/>
                                     <outlet property="titreLabel" destination="lRq-vo-pm7" id="8jP-zl-RSc"/>
-                                    <segue destination="wZa-VF-6Df" kind="showDetail" trigger="accessoryAction" id="mMl-75-8h7"/>
+                                    <segue destination="wZa-VF-6Df" kind="showDetail" identifier="clubSelectionSegue" trigger="accessoryAction" id="mMl-75-8h7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="T14-F4-loi" id="RLZ-O1-syV"/>
                             <outlet property="delegate" destination="T14-F4-loi" id="crq-83-gnU"/>
+                            <outlet property="emptyDataSetDelegate" destination="T14-F4-loi" id="57O-Ts-Ruz"/>
+                            <outlet property="emptyDataSetSource" destination="T14-F4-loi" id="AY1-M1-hOg"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Vie associative" id="1Je-4A-Baz">
@@ -624,7 +628,7 @@ Bâtiment : F. Rolland</string>
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh:" destination="T14-F4-loi" eventType="valueChanged" id="yDl-NH-j9U"/>
+                            <action selector="refresh" destination="T14-F4-loi" eventType="valueChanged" id="G7Q-Rc-rDA"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>
@@ -650,7 +654,7 @@ Bâtiment : F. Rolland</string>
         <!--Clubs-->
         <scene sceneID="ehT-z5-H8a">
             <objects>
-                <splitViewController id="v30-u5-2ae" customClass="ClubsSplitVC" sceneMemberID="viewController">
+                <splitViewController id="v30-u5-2ae" customClass="ClubsSplit" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Clubs" image="clubs" selectedImage="clubsSel" id="4Qh-Qb-hjp"/>
                     <connections>
                         <segue destination="PJx-tp-jgP" kind="relationship" relationship="masterViewController" id="vjM-wS-15r"/>
@@ -1147,7 +1151,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lkv-Aq-dDA"/>
+        <segue reference="JkH-fa-vWF"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>

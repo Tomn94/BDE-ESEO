@@ -106,8 +106,11 @@
 		6473AEC01DBA337C00381F98 /* elec.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6473AEBF1DBA337C00381F98 /* elec.caf */; };
 		6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6479F2F81B6D126C0004C867 /* OrderPVC.m */; };
 		647DE7B420BAE9EE00F8919F /* ConnectivityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B320BAE9EE00F8919F /* ConnectivityHandler.swift */; };
+		647DE7B620C2CD6800F8919F /* ClubsSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B520C2CD6800F8919F /* ClubsSplit.swift */; };
+		647DE7B820C2CEA900F8919F /* ClubDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B720C2CEA900F8919F /* ClubDetailTVC.swift */; };
 		647DE7BA20C2CF5F00F8919F /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B920C2CF5F00F8919F /* Club.swift */; };
 		647DE7BB20C2D85000F8919F /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7B920C2CF5F00F8919F /* Club.swift */; };
+		647DE7BD20C2D97100F8919F /* ClubsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DE7BC20C2D97100F8919F /* ClubsListTVC.swift */; };
 		647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF11F64B311006FA132 /* NewsListTVC.swift */; };
 		647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */; };
 		647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */; };
@@ -407,7 +410,10 @@
 		6479F2F71B6D126C0004C867 /* OrderPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPVC.h; sourceTree = "<group>"; };
 		6479F2F81B6D126C0004C867 /* OrderPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPVC.m; sourceTree = "<group>"; };
 		647DE7B320BAE9EE00F8919F /* ConnectivityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityHandler.swift; sourceTree = "<group>"; };
+		647DE7B520C2CD6800F8919F /* ClubsSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsSplit.swift; sourceTree = "<group>"; };
+		647DE7B720C2CEA900F8919F /* ClubDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetailTVC.swift; sourceTree = "<group>"; };
 		647DE7B920C2CF5F00F8919F /* Club.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Club.swift; sourceTree = "<group>"; };
+		647DE7BC20C2D97100F8919F /* ClubsListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsListTVC.swift; sourceTree = "<group>"; };
 		647F6BF11F64B311006FA132 /* NewsListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTVC.swift; sourceTree = "<group>"; };
 		647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksToolbar.swift; sourceTree = "<group>"; };
 		647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleVC.swift; sourceTree = "<group>"; };
@@ -826,6 +832,9 @@
 			isa = PBXGroup;
 			children = (
 				647DE7B920C2CF5F00F8919F /* Club.swift */,
+				647DE7B520C2CD6800F8919F /* ClubsSplit.swift */,
+				647DE7BC20C2D97100F8919F /* ClubsListTVC.swift */,
+				647DE7B720C2CEA900F8919F /* ClubDetailTVC.swift */,
 				64AD83BF1B6012BD00AD4C25 /* ClubsSplitVC.h */,
 				64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */,
 				649F503F1B6536C900F56263 /* Master */,
@@ -1527,6 +1536,7 @@
 				647F6BFA1F65E508006FA132 /* NewsSplit.swift in Sources */,
 				64339B561F16EE2800EDA97D /* SDWebImageDownloaderOperation.m in Sources */,
 				64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */,
+				647DE7B820C2CEA900F8919F /* ClubDetailTVC.swift in Sources */,
 				64339B581F16EE2800EDA97D /* SDWebImagePrefetcher.m in Sources */,
 				64ED610B1B6D251F00456B01 /* OrderPanierTVC.m in Sources */,
 				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
@@ -1539,6 +1549,7 @@
 				64339B551F16EE2800EDA97D /* SDWebImageDownloader.m in Sources */,
 				645BFFF61F60C7B100BA97BA /* Utils.swift in Sources */,
 				649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */,
+				647DE7BD20C2D97100F8919F /* ClubsListTVC.swift in Sources */,
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,
 				64339B5A1F16EE2800EDA97D /* UIImage+GIF.m in Sources */,
@@ -1585,6 +1596,7 @@
 				6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */,
 				64FFB9BA1F60EB9900986F1C /* PrivateConstants.swift in Sources */,
 				64493F181E465811009C995B /* DataStore.swift in Sources */,
+				647DE7B620C2CD6800F8919F /* ClubsSplit.swift in Sources */,
 				6458529A1DC722A3008AF43C /* Student.swift in Sources */,
 				6488AA531B72C299000E2660 /* LoseScreen.m in Sources */,
 				647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */,
