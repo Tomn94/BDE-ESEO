@@ -57,7 +57,7 @@ class ESEOmegaTests: XCTestCase {
                         expectation.fulfill()
                         
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                     + (error?.localizedDescription ?? "?")
                     + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -97,7 +97,7 @@ class ESEOmegaTests: XCTestCase {
             expectation.fulfill()
             
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -144,7 +144,7 @@ class ESEOmegaTests: XCTestCase {
             expectation.fulfill()
             
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -206,7 +206,7 @@ class ESEOmegaTests: XCTestCase {
             expectation.fulfill()
                         
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -241,7 +241,7 @@ class ESEOmegaTests: XCTestCase {
             expectation.fulfill()
             
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -276,7 +276,7 @@ class ESEOmegaTests: XCTestCase {
             userExpectation.fulfill()
             
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -311,7 +311,7 @@ class ESEOmegaTests: XCTestCase {
             familyExpectation.fulfill()
             
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -348,7 +348,7 @@ class ESEOmegaTests: XCTestCase {
             expectation.fulfill()
 
         }, failure: { error, data in
-            print(error)
+            print(error as Any)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
