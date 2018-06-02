@@ -62,6 +62,26 @@ struct Club: Codable, Equatable {
     /// List of club members
     let users: [ClubMember]
     
+    
+    /// Returns is this club is most likely the Students’ Union
+    var isBDE: Bool {
+        return name.localizedLowercase.contains("bde") || subtitle.localizedLowercase.contains("bde")
+    }
+    
+    /// Returns is this club is most likely from Paris
+    var isFromParis: Bool {
+        return name.localizedLowercase.contains("paris") || subtitle.localizedLowercase.contains("paris")
+    }
+    
+    /// Returns is this club is most likely from Angers
+    var isNotParisNorDijon: Bool {
+        return !name.localizedLowercase.contains("paris")
+            && !name.localizedLowercase.contains("dijon")
+            && !subtitle.localizedLowercase.contains("paris")
+            && !subtitle.localizedLowercase.contains("dijon")
+    }
+    
+    
     static func == (left: Club, right: Club) -> Bool {
         return left.ID == right.ID
     }

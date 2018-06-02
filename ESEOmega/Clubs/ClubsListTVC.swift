@@ -172,7 +172,22 @@ extension ClubsListTVC: APIViewer {
         
         let atLaunch = clubs.isEmpty
         // Sort by name
-        clubs = data.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        clubs = data.sorted {
+            if $0.isBDE {
+                if !$1.isBDE {
+                    // All BDE are on top of the list
+                    return true
+                }
+                if !$0.isNotParisNorDijon && !$1.isNotParisNorDijon {
+                    // Show Paris on top of Dijon
+                    return $0.isFromParis
+                }
+                // Show Angers on top of Paris
+                return $0.isNotParisNorDijon
+            }
+            // Otherwise alphabetically
+            return $0.name.localizedStandardCompare($1.name) == .orderedAscending
+        }
         
         DispatchQueue.main.async {
             
