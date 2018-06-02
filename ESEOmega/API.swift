@@ -36,8 +36,6 @@ class API {
     static private let url     = "https://api.bdeeseo.fr/"
     static private let version = "1"
     
-    static let assetsURL = "https://portail.bdeeseo.fr/modules/lacommande/assets/"
-    
     
     /// Available API endpoints
     enum Path: String {

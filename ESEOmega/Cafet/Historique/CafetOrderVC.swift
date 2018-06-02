@@ -200,7 +200,7 @@ class CafetOrderVC: UIViewController {
         
         /* Image */
         if let imgURL = order.imgurl, imgURL != "" {
-            bandeau.sd_setImage(with: URL(string: API.assetsURL + imgURL),
+            bandeau.sd_setImage(with: URL(string: imgURL),
                                 placeholderImage: #imageLiteral(resourceName: "placeholder"),
                                 completed: { image, error, cacheType, url in
                 
