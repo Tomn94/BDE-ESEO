@@ -97,6 +97,10 @@ enum ActivityType {
                                       title: "News Article BDE ESEO",
                                       url: URL(string: baseURL + "news")!)
     
+    static let clubs = ActivityInfo(type: "com.eseomega.ESEOmega.clubs",
+                                    title: "Clubs & BDE ESEO",
+                                    url: URL(string: baseURL + "clubs")!)
+    
     static let cafet = ActivityInfo(type: "com.eseomega.ESEOmega.cafet",
                                     title: "Cafet BDE ESEO",
                                     url: URL(string: baseURL)!)

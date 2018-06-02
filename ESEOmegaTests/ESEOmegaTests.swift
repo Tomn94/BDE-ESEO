@@ -57,6 +57,7 @@ class ESEOmegaTests: XCTestCase {
                         expectation.fulfill()
                         
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                     + (error?.localizedDescription ?? "?")
                     + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -90,11 +91,13 @@ class ESEOmegaTests: XCTestCase {
                 }
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             expectation.fulfill()
             
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -109,7 +112,46 @@ class ESEOmegaTests: XCTestCase {
     }
     
     func testAPIClubs() {
-        // TODO
+        
+        let expectation = XCTestExpectation(description: "Try to get clubs list")
+        
+        API.request(.clubs, get: ["maxInPage" : String(1000), "display" : String(1)],
+                    completed: { data in
+            
+            do {
+                let result = try JSONDecoder().decode(ClubsResult.self, from: data)
+                XCTAssertTrue(result.success)
+                XCTAssertGreaterThan(result.clubs.count, 1)
+                
+                result.clubs.forEach { club in
+                    XCTAssertNotEqual(club.name, "")
+                    XCTAssertNotEqual(club.subtitle, "")
+                    XCTAssertNotEqual(club.description, "")
+                    XCTAssertNotEqual(club.contacts, "")
+                    
+                    XCTAssertGreaterThan(club.users.count, 1)
+                    club.users.forEach { user in
+                        XCTAssertNotEqual(user.user, "")
+                        XCTAssertNotEqual(user.fullname, "")
+                        XCTAssertNotEqual(user.role, "")
+                    }
+                }
+                
+            } catch {
+                print(error)
+                XCTFail("Unable to decode result:\n" + error.localizedDescription)
+            }
+            expectation.fulfill()
+            
+        }, failure: { error, data in
+            print(error)
+            XCTFail("Unable to connect to API: \n\terror:\n"
+                + (error?.localizedDescription ?? "?")
+                + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
+            expectation.fulfill()
+        }, noCache: true)
+        
+        wait(for: [expectation], timeout: 10)
     }
     
     func testAPISponsors() {
@@ -158,11 +200,13 @@ class ESEOmegaTests: XCTestCase {
                 XCTAssert(fileData != nil)
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             expectation.fulfill()
                         
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -191,11 +235,13 @@ class ESEOmegaTests: XCTestCase {
                 }
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             expectation.fulfill()
             
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -224,11 +270,13 @@ class ESEOmegaTests: XCTestCase {
                 XCTAssertGreaterThanOrEqual(result.users.first!.rank, 0)
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             userExpectation.fulfill()
             
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -257,11 +305,13 @@ class ESEOmegaTests: XCTestCase {
                 }
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             familyExpectation.fulfill()
             
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))
@@ -292,11 +342,13 @@ class ESEOmegaTests: XCTestCase {
                 }
                 
             } catch {
+                print(error)
                 XCTFail("Unable to decode result:\n" + error.localizedDescription)
             }
             expectation.fulfill()
 
         }, failure: { error, data in
+            print(error)
             XCTFail("Unable to connect to API: \n\terror:\n"
                 + (error?.localizedDescription ?? "?")
                 + "\n\tdata:\n" + (data == nil ? "?" : (String(data: data!, encoding: .utf8) ?? "?")))

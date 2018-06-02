@@ -34,10 +34,10 @@ struct ClubMember: Codable {
 
 
 /// Describes a Club/BDE/… and its attributes
-struct Club: Codable {
+struct Club: Codable, Equatable {
     
     /// Unique identifier for the club
-    let ID: Int
+    let ID: String
     
     /// Name of the club (BDE)
     let name: String
@@ -49,7 +49,10 @@ struct Club: Codable {
     let description: String
     
     /// Image of the club
-    let img: URL?
+    /// Feel free to use URL instead of String,
+    /// but we'll be using this for now since the one who recoded doesn't provide images
+    /// (JSONDecoder dislikes empty URLs)
+    let img: String
     
     /// JSON-like structure containing links
     /// Yeah it's a string because the one who recoded it forgot to make it a JSON array
@@ -58,6 +61,10 @@ struct Club: Codable {
     
     /// List of club members
     let users: [ClubMember]
+    
+    static func == (left: Club, right: Club) -> Bool {
+        return left.ID == right.ID
+    }
     
 }
 

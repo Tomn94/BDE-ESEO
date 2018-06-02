@@ -48,6 +48,9 @@ class API {
         /// Get news articles
         case news         = "news"
         
+        /// Get clubs list
+        case clubs        = "clubs"
+        
         /// Get cafet order history
         case orders       = "me/orders"
         
