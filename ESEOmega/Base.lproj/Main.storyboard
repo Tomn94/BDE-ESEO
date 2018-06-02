@@ -962,13 +962,11 @@ Bâtiment : F. Rolland</string>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="genealogy" id="p8E-j9-lhg">
-                                <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <segue destination="jjo-OM-Bq7" kind="presentation" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="ingenews" id="rqC-m9-Uef">
-                                <inset key="imageInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <segue destination="lbS-rr-gnB" kind="presentation" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
                                 </connections>
@@ -1151,7 +1149,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JkH-fa-vWF"/>
+        <segue reference="hZX-Yt-D3E"/>
         <segue reference="mMl-75-8h7"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
