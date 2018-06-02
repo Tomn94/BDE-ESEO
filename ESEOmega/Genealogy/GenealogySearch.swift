@@ -51,9 +51,11 @@ extension GenealogySearch {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
                                                  for: indexPath)
 
-        let student = results[indexPath.row]
-        cell.textLabel?.text = student.fullname
-        cell.detailTextLabel?.text = "Promotion " + student.promo
+        if indexPath.row < results.count {
+            let student = results[indexPath.row]
+            cell.textLabel?.text = student.fullname
+            cell.detailTextLabel?.text = "Promotion " + student.promo
+        }
 
         return cell
     }
