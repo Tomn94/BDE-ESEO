@@ -63,4 +63,8 @@ extension UINavigationController {
         return .lightContent
     }
     
+    open override var childViewControllerForStatusBarStyle: UIViewController? {
+        return nil
+    }
+    
 }
