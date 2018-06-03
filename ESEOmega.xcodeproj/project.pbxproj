@@ -799,11 +799,11 @@
 		648F1E4F1B62ED8C008AC8D5 /* Profil */ = {
 			isa = PBXGroup;
 			children = (
+				6497243520B9B0AD00596A79 /* User.swift */,
 				6459F9AB1E36861500C6812D /* UserTVC.swift */,
 				64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */,
 				64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */,
 				64AC81491E490E6C00C1AB8E /* UserTV.swift */,
-				6497243520B9B0AD00596A79 /* User.swift */,
 			);
 			path = Profil;
 			sourceTree = "<group>";

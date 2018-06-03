@@ -394,8 +394,10 @@ extension ClubDetailTVC {
             cell.imageView?.image = nil
             cell.selectionStyle   = .none
         }
+        
         cell.textLabel?.font       = UIFont.preferredFont(forTextStyle: .body)
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .caption2)
+        cell.selectionStyle        = .default
 
         switch indexPath.section {
         case 0:  // Membres
@@ -412,7 +414,6 @@ extension ClubDetailTVC {
             cell.imageView?.image       = #imageLiteral(resourceName: "clubMember")
             /*cell.imageView?.sd_setImage(with: URL(string: member.img),
                                         placeholderImage: #imageLiteral(resourceName: "placeholder2"))*/
-            cell.selectionStyle         = .none
             if member.user == club.prez,
                let textDescriptor   = cell.textLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold),
                let detailDescriptor = cell.detailTextLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold) {
@@ -434,8 +435,6 @@ extension ClubDetailTVC {
             cell.detailTextLabel?.text  = date
             cell.imageView?.contentMode = .center
             cell.imageView?.image       = #imageLiteral(resourceName: "news")
-            cell.selectionStyle         = .default
-            
             
         case 2:  // Événements associés
             fallthrough
@@ -455,8 +454,6 @@ extension ClubDetailTVC {
             cell.detailTextLabel?.text  = date
             cell.imageView?.contentMode = .center
             cell.imageView?.image       = #imageLiteral(resourceName: "events")
-            cell.selectionStyle         = .default
-            
         }
 
         return cell
@@ -474,7 +471,11 @@ extension ClubDetailTVC {
         let index = indexPath.row
         switch indexPath.section {
         case 0:  // Membres
-            return
+            guard let club = club,
+                  index < club.users.count else { return }
+            
+            let member = club.users[index]
+            Data.shared().mail(member.user + "@" + User.mailDomain, currentVC: self)
             
         case 1:  // Articles associés
             guard let relatedNews = relatedNews,

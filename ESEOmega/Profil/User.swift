@@ -21,6 +21,14 @@
 
 import Foundation
 
+struct User {
+    
+    /// Default domain name for mail addresses (used in autocomplete and placeholders)
+    static let mailDomain = "reseau.eseo.fr"
+
+}
+
+
 /// Describes a Login JSON response from API
 struct LoginResult: APIResult, Decodable {
     
