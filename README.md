@@ -20,7 +20,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > Tout au long de l'année, profitez de toute la vie associative de l'ESEO en un seul endroit.
 > 
 > NEWS
-> - Toute l'actualité de l'ESEO en un seul endroit, accédez facilement à la newsletter du dimanche
+> - Toute l'actualité de l'ESEO, accédez facilement à la newsletter du dimanche
 > - Les notifications vous permettent de ne rien manquer !
 > - Accédez aux éditions du journal Ingénews
 > 
@@ -45,14 +45,12 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 > - Consultez le plan du campus à Angers
 > - Retrouvez également tous les liens vers le portail, campus, mails, …
 > 
-> Disponible sur iPhone & iPad  
-> Créée par SheepDevs  
-> Ω
+> Disponible sur iPhone, iPad & Apple Watch  
 
 
 ## Licence
 
-    Copyright © 2015-2017 Thomas NAUDET
+    Copyright © 2015-2018 Thomas NAUDET
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -70,7 +68,37 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 ## Informations techniques
 
-Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO) pour fonctionner.
+Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour fonctionner.
+
+#### BDE fraîchement élu ? Comment ajouter un logo
+> - Ajouter son thème :
+>   - Dans `ThemeManager.swift` :
+>      - Ajouter le thème avec `case nomBDE = NUMÉRO_UNIQUE` dans `enum Theme`
+>      - Ajouter ses couleurs dans `var themeValue` :  
+>       `case .nomBDE: return (bars: COULEUR_1, barButtons: COULEUR_2, window: GÉNÉRALEMENT_COMME_COULEUR_1)`
+>      - Ajouter son nom visible par l'utilisateur dans le sélecteur de thème dans `var name` :  
+>       `case .nomBDE: return "NOM BDE"`
+>      - Rendre le thème disponible en l'ajoutant à la fin de la liste `static var themes`
+> 
+> - Ajouter son icône :
+>   - Créer 3 icônes PNG RGB non-transparent et les nommer ainsi, avec `*` le `NUMÉRO_UNIQUE` du thème (cf Ajouter son thème) :
+> 	   - 120×120px : `App-Icon-*@2x.png`> 	   - 152×152px : `App-Icon-*@2x~ipad.png`> 	   - 180×180px : `App-Icon-*@3x.png`
+>   - Les placer dans `ESEOmega/App Icons`
+>   - Ouvrir `ESEOmega/Info.plist`
+>     - Sous la clef `Icon files (iOS 5)`/`CFBundleIcons` puis `CFBundleAlternateIcons`, copier un BDE existant, coller
+>     - Renommer ce BDE, et sous sa clef `CFBundleIconFiles`, modifier l'`Item 0` avec le numéro des noms de fichiers précédents `App-Icon-*`
+>     - Faire la même opération dans `CFBundleIcons~ipad` (copier la clef renommée au nom du BDE, coller dans `CFBundleAlternateIcons`)
+> 
+> - Ajouter son sticker iMessage :
+>   - Côté serveur sur l'[API Serveur BDE](https://gitlab.com/bdeeseo/Portail), ajouter son logo format PNG RGB transparent 300×300px dans le dossier (susceptible de changer) :  
+>     `/api/v1/stickers/img/`
+>   - Éditer `/api/v1/stickers/stickers.json` et rajouter :  
+>     ``` {
+		"id": NUMÉRO_UNIQUE_INCRÉMENTAL,  
+		"name": "NOM BDE",  
+		"img": "https://api.bdeeseo.fr/stickers/img/VOTRE_IMAGE.png"  
+	},
+>     ```
 
 #### Clarifications connexion
 > Un utilisateur peut se connecter grâce à son compte ESEO pour débloquer plusieurs fonctionnalités dont la commande à la cafet, l'achat de places et la réception de notifications.  
@@ -83,6 +111,20 @@ Nécessite une [API Serveur BDE](https://github.com/Tomn94/Portail-Vie-Asso-ESEO
 
 
 ## Versions
+
+### v6.0 · 06/2018
+
+> - Nouvelle app sur Apple Watch !  
+>   Jetez un coup d'œil à vos commandes cafet et trouvez une salle.  
+>   Et bientôt plus !
+> - Nouveau thème et icône AVÉSEO !
+> - Nouveau sticker AVÉSEO pour iMessage et correctifs
+> - Retour de la liste des clubs
+> - Mise à jour des liens 3D Touch vers le Portail/Campus ESEO
+> - Améliorations pour iPhone X
+> - Correction d'arbres de famille complexes
+> 
+> 3 ans après la création de cette app, ceci sera certainement la dernière mise à jour de ma part :)
 
 ### v5.1 · 07/11/2017
 
