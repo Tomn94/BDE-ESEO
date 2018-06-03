@@ -24,11 +24,27 @@ import Foundation
 /// Describes a Member of a Club
 struct ClubMember: Codable {
     
+    /// Id of the student (e.g. "thomas.naudet")
     let user: StudentID
     
+    /// Name of the student (e.g. "Thomas NAUDET")
     let fullname: String
     
+    /// Role in the club (e.g. "Responsable Com")
     let role: String
+    
+    /// Whether the user is from the Board.
+    /// It could be useful to use this in addition to comparing `self.user == club.prez`.
+    var hasResponsibilities: Bool {
+        var role = self.role.localizedLowercase
+        if let roleWithoutAccents = role.applyingTransform(.stripDiacritics, reverse: false) {
+            role = roleWithoutAccents
+        }
+        return role.contains("president")  ||
+               role.contains("vice-pre")   || role.contains("vice pre")  || role.starts(with: "VP") || role.starts(with: "V-P") ||
+               role.contains("secretaire") || role.contains("tresorier") ||
+               role.contains("resp")       || role.contains("chargé")
+    }
     
 }
 
@@ -188,7 +204,7 @@ struct Club: Codable, Equatable {
             if role.contains("president") || user == self.prez {
                 return 1
             }
-            if role.contains("vice-pre") || role.contains("vice pre") || role.starts(with: "VP") {
+            if role.contains("vice-pre") || role.contains("vice pre") || role.starts(with: "VP") || role.starts(with: "V-P") {
                 return 2
             }
             if role.contains("secretaire") {

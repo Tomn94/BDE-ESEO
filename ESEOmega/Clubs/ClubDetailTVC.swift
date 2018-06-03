@@ -414,7 +414,7 @@ extension ClubDetailTVC {
             cell.imageView?.image       = #imageLiteral(resourceName: "clubMember")
             /*cell.imageView?.sd_setImage(with: URL(string: member.img),
                                         placeholderImage: #imageLiteral(resourceName: "placeholder2"))*/
-            if member.user == club.prez,
+            if member.user == club.prez || member.hasResponsibilities,
                let textDescriptor   = cell.textLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold),
                let detailDescriptor = cell.detailTextLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold) {
                 cell.textLabel?.font       = UIFont(descriptor: textDescriptor, size: 0)
@@ -445,6 +445,7 @@ extension ClubDetailTVC {
                 return cell
             }
             
+            // TODO
             // let event = relatedEvents[index]
             // NB: we might want to hide time with `dateFormatter.timeStyle = .none`
             //     when the event lasts all day
@@ -493,6 +494,7 @@ extension ClubDetailTVC {
             guard let relatedEvents = relatedEvents,
                   index < relatedEvents.count else { return }
             
+            // TODO
             // let event = relatedEvents[index]
         }
     }
