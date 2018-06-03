@@ -212,15 +212,8 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     /// Fetch related news & events
     func getAssociatedData() {
         
-    }
-    
-    @IBAction func refresh() {
         
-        // Refresh remote image
-        loadPic()
         
-        // Fetch other remote data
-        getAssociatedData()
     }
     
     
