@@ -120,6 +120,7 @@ Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour foncti
 > - Nouveau thème et icône AVÉSEO !
 > - Nouveau sticker AVÉSEO pour iMessage et correctifs
 > - Retour de la liste des clubs
+> - Contactez les membres des clubs
 > - Mise à jour des liens 3D Touch vers le Portail/Campus ESEO
 > - Améliorations pour iPhone X
 > - Correction d'arbres de famille complexes
