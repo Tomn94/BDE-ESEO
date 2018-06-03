@@ -35,6 +35,9 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     /// during the Peek action. Reused by `previewActionItems` handlers.
     static var peekParent: UIViewController? = nil
     
+    /// Maximum number of related news and events fetched
+    static var maxRelatedItems = 30
+    
     private let reuseIdentifier = "clubsDetailCell"
     
     let descriptionLabel = UILabel()
@@ -213,8 +216,38 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     /// Fetch related news & events
     func getAssociatedData() {
         
+        guard let clubID = club?.ID
+            else { return }
         
+        API.request(.news, get: ["club"      : clubID,
+                                 "maxInPage" : String(ClubDetailTVC.maxRelatedItems)],
+                    completed: { data in
+                        
+                        DispatchQueue.main.async {
+                            self.refreshControl?.endRefreshing()
+                        }
+                        
+                        let decoder = JSONDecoder()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = NewsArticle.dateFormat
+                        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                        
+                        guard let result = try? decoder.decode(NewsResult.self, from: data),
+                              result.success
+                            else { return }
+                        
+                        self.relatedNews = result.news.filter { $0.displayInApps }.sorted { $0.date > $1.date }
+                        DispatchQueue.main.async {
+                            self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                        }
+                        
+        }, failure: { _, _ in
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
+        })
         
+        // TODO: Do the same for events
     }
     
     
