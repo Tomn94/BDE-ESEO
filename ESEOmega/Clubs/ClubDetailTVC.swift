@@ -84,11 +84,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureBanner(with: #imageLiteral(resourceName: "placeholder"),           // uses the long-version method
-                        blurRadius: 12,     // to avoid offsetBase being reset
-                        blurTintColor: UIColor(white: 0, alpha: 0.5),
-                        saturationFactor: 1)
-        
         /* Description */
         descriptionLabel.textAlignment = .center
         descriptionLabel.font = .systemFont(ofSize: 15)
@@ -98,7 +93,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         descriptionLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: .showImage)
         descriptionLabel.addGestureRecognizer(tap)
-        contentView.addSubview(descriptionLabel)
         
         /* Toolbar */
         toolbar.autoresizingMask = .flexibleWidth
@@ -107,7 +101,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         toolbar.isTranslucent = true
         toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         toolbar.layer.backgroundColor = UIColor(white: 0, alpha: 0.42).cgColor
-        contentView.addSubview(toolbar)
         
         tableView.backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9725490196, blue: 0.9725490196, alpha: 1)
         
@@ -157,7 +150,7 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         descriptionLabel.frame = CGRect(x: topViewBounds.origin.x + 10,
                                         y: topViewBounds.origin.y - 15,
                                         width:  topViewBounds.size.width - 20,
-                                        height: topViewBounds.size.height);
+                                        height: topViewBounds.size.height)
     }
     
     
@@ -276,18 +269,19 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     
     func loadPic() {
         
-        guard let club = club
-            else { return }
-        
         removePic()
-        configureBanner(with: #imageLiteral(resourceName: "placeholder"),           // uses the long-version method
-                        blurRadius: 12,     // to avoid offsetBase being reset
-                        blurTintColor: UIColor(white: 0, alpha: 0.5),
-                        saturationFactor: 1)
         
-        if let url = URL(string: club.img) {
+        if let club = club,
+           let url = URL(string: club.img) {
             configureBanner(with: url)
+        } else {
+            configureBanner(with: #imageLiteral(resourceName: "placeholder"),           // uses the long-version method
+                            blurRadius: 12,     // to avoid offsetBase being reset
+                            blurTintColor: UIColor(white: 0, alpha: 0.5),
+                            saturationFactor: 1)
         }
+        
+        setPicLayout()
     }
     
     /// Removes any previous top banner with picture.
@@ -320,6 +314,18 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                         blurRadius: 12,     // to avoid offsetBase being reset
                         blurTintColor: UIColor(white: 0, alpha: 0.5),
                         saturationFactor: 1)
+        setPicLayout()
+    }
+    
+    /// Finish layout setup (reset at each configureBanner)
+    func setPicLayout() {
+        
+        descriptionLabel.removeFromSuperview()
+        toolbar.removeFromSuperview()
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(toolbar)
+        
+        tableView.setNeedsLayout()
     }
     
     /// Update icons color when theme changed
