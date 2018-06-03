@@ -198,7 +198,7 @@
     /* Handoff */
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.clubs"];
     activity.title = @"Clubs & BDE ESEO";
-    activity.webpageURL = [NSURL URLWithString:URL_ACT_CLUB];
+//    activity.webpageURL = [NSURL URLWithString:URL_ACT_CLUB];
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;
     activity.eligibleForPublicIndexing = YES;
@@ -213,7 +213,7 @@
                                                                                    delegate:nil
                                                                               delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_CLB_MORE,
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%d%d"/*URL_CLB_MORE*/,
                                        [_infos[@"id"] intValue], (int)arc4random_uniform(9999)]];
     
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL:url
@@ -564,7 +564,7 @@ didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
                 [alert dismissViewControllerAnimated:YES completion:nil];
             });
             
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_NWS_MORE,
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%d%d"/*URL_NWS_MORE*/,
                                                [_infos[@"related"][nbrNews - indexPath.row - 1][@"id"] intValue], // Reverse chronological order
                                                (int)arc4random_uniform(9999)]];
             

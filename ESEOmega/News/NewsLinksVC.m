@@ -44,7 +44,7 @@
 
 - (void) loadLinks
 {
-    NSArray *clubs = [[Data sharedData] clubs][@"clubs"];
+    NSArray *clubs = @[];
     
     titles = [NSMutableArray array];
     links  = [NSMutableArray array];

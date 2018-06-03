@@ -350,7 +350,7 @@ extension ClubsListTVC: UIViewControllerPreviewingDelegate {
 }
 
 
-// MARK: - Mail Compose VC Delegate
+// MARK: - Mail Compose VC Delegate (required for 3D Touch action on ClubDetailTVC)
 extension ClubsListTVC: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController,

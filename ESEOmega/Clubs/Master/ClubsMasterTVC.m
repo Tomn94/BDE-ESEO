@@ -106,7 +106,7 @@
 
 - (void) loadClubs
 {
-    clubs = [[Data sharedData] clubs][@"clubs"];
+    clubs = @[];
     
     if (_delegate && [clubs count] > 0 && iPAD && [NSDate timeIntervalSinceReferenceDate] - [[Data sharedData] launchTime] < 30)
         [_delegate selectedClub:clubs[0]];
