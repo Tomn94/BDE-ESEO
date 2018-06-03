@@ -244,6 +244,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BQq-OG-5xN">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="cXh-5d-QRi" eventType="valueChanged" id="gUW-Ph-JK1"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCQ-hW-ESw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -606,7 +613,7 @@ Bâtiment : F. Rolland</string>
                                     <outlet property="detailLabel" destination="Rrs-5J-DR1" id="1cd-Ww-JJS"/>
                                     <outlet property="imgView" destination="2un-D0-LF5" id="Yww-zj-OX1"/>
                                     <outlet property="titreLabel" destination="lRq-vo-pm7" id="8jP-zl-RSc"/>
-                                    <segue destination="wZa-VF-6Df" kind="showDetail" identifier="clubSelectionSegue" trigger="accessoryAction" id="mMl-75-8h7"/>
+                                    <segue destination="wZa-VF-6Df" kind="showDetail" identifier="clubSelectionSegue" id="Sw7-7B-Dky"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1150,7 +1157,7 @@ Bâtiment : F. Rolland</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="atX-fy-DGZ"/>
-        <segue reference="mMl-75-8h7"/>
+        <segue reference="Sw7-7B-Dky"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
 </document>

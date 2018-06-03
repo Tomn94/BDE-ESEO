@@ -293,17 +293,6 @@ extension ClubsListTVC: UITableViewDataSourcePrefetching {
 }
 
 
-// MARK: - Table View Controller Delegate
-extension ClubsListTVC {
-    
-    override func tableView(_ tableView: UITableView,
-                            didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
-}
-
-
 // MARK: - Scroll View Delegate
 extension ClubsListTVC {
     
