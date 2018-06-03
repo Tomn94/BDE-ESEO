@@ -139,13 +139,13 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        loadPic()
+        
         userActivity?.becomeCurrent()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        loadPic()
         
         let topViewBounds = contentView.bounds
         toolbar.frame = CGRect(x: 0, y: topViewBounds.size.height - 44,
@@ -360,11 +360,13 @@ extension ClubDetailTVC {
             cell.imageView?.image = nil
             cell.selectionStyle   = .none
         }
+        cell.textLabel?.font       = UIFont.preferredFont(forTextStyle: .body)
+        cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .caption2)
 
         switch indexPath.section {
         case 0:  // Membres
             guard let club = club,
-                  index >= club.users.count else {
+                  index < club.users.count else {
                 fillCellWithPlaceholder("Information non disponible")
                 return cell
             }
@@ -373,14 +375,20 @@ extension ClubDetailTVC {
             cell.textLabel?.text        = member.fullname
             cell.detailTextLabel?.text  = member.role
             cell.imageView?.contentMode = .scaleAspectFit
-            cell.imageView?.image       = nil
+            cell.imageView?.image       = #imageLiteral(resourceName: "clubMember")
             /*cell.imageView?.sd_setImage(with: URL(string: member.img),
                                         placeholderImage: #imageLiteral(resourceName: "placeholder2"))*/
             cell.selectionStyle         = .none
+            if member.user == club.prez,
+               let textDescriptor   = cell.textLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold),
+               let detailDescriptor = cell.detailTextLabel?.font.fontDescriptor.withSymbolicTraits(.traitBold) {
+                cell.textLabel?.font       = UIFont(descriptor: textDescriptor, size: 0)
+                cell.detailTextLabel?.font = UIFont(descriptor: detailDescriptor, size: 0)
+            }
             
         case 1:  // Articles associés
             guard let relatedNews = relatedNews,
-                  index >= relatedNews.count else {
+                  index < relatedNews.count else {
                 fillCellWithPlaceholder("Aucun article lié au club")
                 return cell
             }
@@ -399,7 +407,7 @@ extension ClubDetailTVC {
             fallthrough
         default:
             guard let relatedEvents = relatedEvents,
-                  index >= relatedEvents.count else {
+                  index < relatedEvents.count else {
                 fillCellWithPlaceholder("Aucun événement lié au club")
                 return cell
             }
@@ -436,7 +444,7 @@ extension ClubDetailTVC {
             
         case 1:  // Articles associés
             guard let relatedNews = relatedNews,
-                  index >= relatedNews.count else { return }
+                  index < relatedNews.count else { return }
             
             let article = relatedNews[index]
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -448,7 +456,7 @@ extension ClubDetailTVC {
             fallthrough
         default:
             guard let relatedEvents = relatedEvents,
-                  index >= relatedEvents.count else { return }
+                  index < relatedEvents.count else { return }
             
             // let event = relatedEvents[index]
         }
