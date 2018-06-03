@@ -112,6 +112,7 @@ class ClubDetailTVC: JAQBlurryTableViewController {
             tableView.prefetchDataSource = self
         }
         if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
             navigationController?.navigationBar.prefersLargeTitles = true
             refreshControl?.tintColor = .white
         } else {
