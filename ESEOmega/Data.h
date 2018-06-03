@@ -36,20 +36,8 @@
 #define URL_APPSTORE @"https://itunes.apple.com/app/apple-store/id966385182?pt=104224803&ct=updCafet&mt=8"
 
 #define URL_JSONS    @"https://api.bdeeseo.fr/%@?%d"
-#define URL_NEWS     @"https://api.bdeeseo.fr/news?height=%d&ptr=%d&uzless=%d"
-#define URL_NEWS_LNK @"https://bdeeseo.fr/news/%d"
-#define URL_NWS_MORE @"https://api.bdeeseo.fr/news/%d?%d"
 #define URL_EVN_MORE @"https://api.bdeeseo.fr/events/%d?%d"
 #define URL_EVN_SIGN @"https://api.bdeeseo.fr/events/signup/%d"
-#define URL_CLB_MORE @"https://api.bdeeseo.fr/clubs/%d?%d"
-#define URL_CMDS     @"https://api.bdeeseo.fr/order/list?%d"
-#define URL_1CMD     @"https://api.bdeeseo.fr/order/resume"
-#define URL_CMD_NEW  @"https://api.bdeeseo.fr/order/prepare"
-#define URL_CMD_DATA @"https://api.bdeeseo.fr/order/items"
-#define URL_CMD_SEND @"https://api.bdeeseo.fr/order/send"
-#define URL_CMD_LY_1 @"https://api.bdeeseo.fr/lydia/ask"
-#define URL_CMD_LY_2 @"https://api.bdeeseo.fr/lydia/check"
-#define URL_SERVICE  @"https://api.bdeeseo.fr/info/service?%d"
 #define URL_EVENT_CM @"https://api.bdeeseo.fr/event/list?%d"
 #define URL_EVENT_NE @"https://api.bdeeseo.fr/event/prepare"
 #define URL_EVENT_DT @"https://api.bdeeseo.fr/event/items"
@@ -61,24 +49,20 @@
 #define URL_GP_STATE @"https://api.bdeeseo.fr/gantier/state"
 #define URL_APP_STAT @"https://api.bdeeseo.fr/apps/status"
 
-#define URL_ACTIVITY @"https://bdeeseo.fr"
-#define URL_ACT_NEWS @"https://bdeeseo.fr/news"
 #define URL_ACT_EVNT @"https://bdeeseo.fr/events"
-#define URL_ACT_CLUB @"https://bdeeseo.fr/clubs"
 #define URL_ACT_SPON @"https://bdeeseo.fr/sponsors"
 
 #define MAX_ORDER_TIME 582
 
+/**
+ DEPRECATED: Use Swift DataStore instead
+ */
 @interface Data : NSObject <UITextFieldDelegate, UNUserNotificationCenterDelegate>
 
 + (Data *) sharedData;
 
 @property (strong, nonatomic) NSDictionary *events;
 @property (strong, nonatomic) NSDictionary *eventsCmds;
-@property (strong, nonatomic) NSDictionary *clubs;
-@property (strong, nonatomic) NSDictionary *cmds;
-@property (strong, nonatomic) NSDictionary *service;
-@property (strong, nonatomic) NSDictionary *menus;
 @property (strong, nonatomic) NSDictionary *sponsors;
 @property (strong, nonatomic) NSMutableDictionary *lastCheck;
 @property (nonatomic) NSTimeInterval launchTime;
@@ -99,7 +83,6 @@
 + (void) delPushToken;
 + (UIImage *) scaleAndCropImage:(UIImage *)sourceImage toSize:(CGSize)targetSize retina:(BOOL)retina;
 + (UIImage *) scaleAndCropImage:(UIImage *)sourceImage toSize:(CGSize)targetSize retina:(BOOL)retina fit:(BOOL)fit;
-+ (BOOL) isiPad;
 + (void) checkAvailability;
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname;
