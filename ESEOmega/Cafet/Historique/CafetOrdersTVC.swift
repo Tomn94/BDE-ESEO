@@ -265,7 +265,11 @@ class CafetOrdersTVC: UITableViewController {
         }
         
         let timeZone = TimeZone.current
-        guard timeZone.identifier == "Europe/Paris" else {
+        let utc      = timeZone.abbreviation(for: Date())
+        guard timeZone.identifier == "Europe/Paris" ||
+              // iOS 11 bugfix below. Because sometimes `timeZone.identifier` is `Etc/GMT-2` instead.
+              // We should verify Daylight Saving Time, but sometimes it doesn't work as well…
+              utc == "UTC+1" || utc == "UTC+2" else {
             let alert = UIAlertController(title: "Erreur 🌍",
                                           message: "L'accès à la cafet ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !",
                                           preferredStyle: .alert)
