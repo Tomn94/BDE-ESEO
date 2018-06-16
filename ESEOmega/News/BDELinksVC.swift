@@ -41,6 +41,9 @@ class BDELinksVC: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         tableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+        
+        loadFromCache()
+        fetchRemote()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +52,6 @@ class BDELinksVC: UITableViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
         }
-        
-        loadLinks()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -72,32 +73,53 @@ class BDELinksVC: UITableViewController {
         }
     }
     
-    /// Load table view data from cache
-    func loadLinks() {
+}
+
+
+// MARK: - API Viewer
+extension BDELinksVC: APIViewer {
+    
+    typealias T = [Club]
+    
+    
+    func loadFromCache() {
         
-        defer {
-            if shortcuts.isEmpty {
-                tableView.backgroundColor = .groupTableViewBackground
-                tableView.tableFooterView = UIView()
-                tableView.alwaysBounceVertical = false
-            } else {
-                tableView.backgroundColor = .white
-                tableView.tableFooterView = nil
-                tableView.alwaysBounceVertical = true
-            }
-            tableView.reloadData()
+        guard let data   = APIArchiver.getCache(for: .clubs),
+              let result = try? JSONDecoder().decode([Club].self, from: data) else {
+                reloadData()
+                return
         }
         
-        guard let data      = APIArchiver.getCache(for: .clubs),
-              let result    = try? JSONDecoder().decode([Club].self, from: data),
-              let bdeAngers = result.filter({ $0.isBDE && $0.isNotParisNorDijon }).first else {
-                bde       = nil
-                shortcuts = []
-                return
+        self.loadData(result)
+    }
+    
+    func fetchRemote() {
+        
+        API.request(.clubs, get: ["maxInPage" : String(1000), "display" : String(1)],
+                    completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(ClubsResult.self, from: data),
+                  result.success
+                else { return }
+            
+            self.loadData(result.clubs)
+            APIArchiver.save(data: result.clubs, for: .clubs)
+        })
+    }
+    
+    func loadData(_ data: [Club]) {
+        
+        // Get data
+        bde       = nil
+        shortcuts = []
+        guard let bdeAngers = data.filter({ $0.isBDE && $0.isNotParisNorDijon }).first else {
+            reloadData()
+            return
         }
         bde = bdeAngers
         let contacts = bdeAngers.contacts
         
+        // Set up links
         if let web   = contacts.web, URL(string: web) != nil,
            let index = ClubContactInfo.contactModes.index(of: \ClubContactInfo.web) {
             shortcuts.append((type:  \ClubContactInfo.web,
@@ -163,7 +185,26 @@ class BDELinksVC: UITableViewController {
                               data:  tel,
                               img:   ClubContactInfo.contactImgs[index]))
         }
+        
+        reloadData()
     }
+    
+    func reloadData() {
+        
+        DispatchQueue.main.async {
+            if self.shortcuts.isEmpty {
+                self.tableView.backgroundColor = .groupTableViewBackground
+                self.tableView.tableFooterView = UIView()
+                self.tableView.alwaysBounceVertical = false
+            } else {
+                self.tableView.backgroundColor = .white
+                self.tableView.tableFooterView = nil
+                self.tableView.alwaysBounceVertical = true
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
 }
 
 
