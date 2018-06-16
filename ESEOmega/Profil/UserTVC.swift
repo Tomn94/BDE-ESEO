@@ -219,9 +219,6 @@ class UserTVC: JAQBlurryTableViewController {
         /* Allow inner selection and ensure the view is always visible (scrollable to) */
         self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableMargin + optionsTable.frame.height
         self.tableView.emptyDataSetView.tapGesture.cancelsTouchesInView = false
-        if DataStore.isUserLogged {
-            self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44) + 80
-        }
         optionsTable.reloadData()
     }
     

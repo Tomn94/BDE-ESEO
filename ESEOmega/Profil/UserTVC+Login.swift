@@ -185,9 +185,20 @@ extension UserTVC {
                Keychain.hasValue(for: .token) {
                 Data.sendPushToken()
             }
+             
+            /* Reset typed data if the user already wants to Disconnect */
+            self.mailField.text = ""
+            self.passField.text = ""
             
-            /* Close the whole profile panel */
-            self.close()
+            /* Update whole profile panel */
+            self.animateChange()
+            self.tableView.reloadData()
+            self.loadUI()
+            self.titleImageView.removeFromSuperview()
+            self.blurImageView.removeFromSuperview()
+            self.contentView.removeFromSuperview()
+            self.tableView.tableHeaderView = nil
+            self.refreshEmptyDataSet()
         }))
         
         DispatchQueue.main.async {
