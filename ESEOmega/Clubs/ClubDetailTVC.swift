@@ -75,6 +75,7 @@ extension ClubContactInfo {
             return
         }
     }
+    
 }
 
 
@@ -207,6 +208,14 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                                         height: topViewBounds.size.height)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { _ in
+            self.loadPic()
+        })
+    }
+    
     
     // MARK: - Action
     
@@ -305,8 +314,11 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         imageViewer?.show(from: self, transition: .fromOriginalPosition)
     }
     
-    func loadPic() {
+    @objc func loadPic() {
         
+        if #available(iOS 11, *) {
+            tableView.contentOffset = CGPoint(x: 0, y: -tableView.safeAreaInsets.top)
+        }
         removePic()
         
         if let club = club,
@@ -523,6 +535,11 @@ extension ClubDetailTVC {
         let index = indexPath.row
         switch indexPath.section {
         case 0:  // Membres
+            guard MFMailComposeViewController.canSendMail() else {
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+            
             guard let club = club,
                   index < club.users.count else { return }
             
