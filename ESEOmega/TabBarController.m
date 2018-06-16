@@ -168,8 +168,8 @@ shouldSelectViewController:(UIViewController *)viewController
     {
         NSArray *vcs = [(UISplitViewController *)viewController viewControllers];
         UIViewController *vc = [(UINavigationController *)[vcs lastObject] viewControllers][0];
-        if ([vc isKindOfClass:[ClubsDetailTVC class]])
-            [(ClubsDetailTVC *)vc loadClub];
+        if ([vc isKindOfClass:[ClubDetailTVC class]])
+            [(ClubDetailTVC *)vc loadPic];
     }
     
     // 2e tap

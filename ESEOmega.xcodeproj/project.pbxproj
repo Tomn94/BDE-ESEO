@@ -136,9 +136,6 @@
 		64A271F31B645A350001063A /* CommandesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A271F21B645A350001063A /* CommandesCell.m */; };
 		64A85B291D9CCF7800020D18 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AC81491E490E6C00C1AB8E /* UserTV.swift */; };
-		64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */; };
-		64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C31B60133900AD4C25 /* ClubsMasterTVC.m */; };
-		64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */; };
 		64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */; };
 		64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D21B60230500AD4C25 /* SponsorsCell.m */; };
 		64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */; };
@@ -442,13 +439,6 @@
 		64A271F11B645A350001063A /* CommandesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesCell.h; sourceTree = "<group>"; };
 		64A271F21B645A350001063A /* CommandesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesCell.m; sourceTree = "<group>"; };
 		64AC81491E490E6C00C1AB8E /* UserTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTV.swift; sourceTree = "<group>"; };
-		64AD83BF1B6012BD00AD4C25 /* ClubsSplitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubsSplitVC.h; sourceTree = "<group>"; };
-		64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubsSplitVC.m; sourceTree = "<group>"; };
-		64AD83C21B60133900AD4C25 /* ClubsMasterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubsMasterTVC.h; sourceTree = "<group>"; };
-		64AD83C31B60133900AD4C25 /* ClubsMasterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubsMasterTVC.m; sourceTree = "<group>"; };
-		64AD83C51B60135B00AD4C25 /* ClubsDetailTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubsDetailTVC.h; sourceTree = "<group>"; };
-		64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubsDetailTVC.m; sourceTree = "<group>"; };
-		64AD83C81B6013A600AD4C25 /* ClubsSelectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClubsSelectionDelegate.h; sourceTree = "<group>"; };
 		64AD83CE1B601E0F00AD4C25 /* SponsorsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsorsTVC.h; sourceTree = "<group>"; };
 		64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsTVC.m; sourceTree = "<group>"; };
 		64AD83D11B60230500AD4C25 /* SponsorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsorsCell.h; sourceTree = "<group>"; };
@@ -815,30 +805,15 @@
 			name = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
-		649F503F1B6536C900F56263 /* Master */ = {
-			isa = PBXGroup;
-			children = (
-				64AD83C21B60133900AD4C25 /* ClubsMasterTVC.h */,
-				64AD83C31B60133900AD4C25 /* ClubsMasterTVC.m */,
-				649F503C1B65271B00F56263 /* ClubsMasterCell.h */,
-				649F503D1B65271B00F56263 /* ClubsMasterCell.m */,
-			);
-			path = Master;
-			sourceTree = "<group>";
-		};
 		64AD83C91B6013B100AD4C25 /* Clubs */ = {
 			isa = PBXGroup;
 			children = (
 				647DE7B920C2CF5F00F8919F /* Club.swift */,
 				647DE7B520C2CD6800F8919F /* ClubsSplit.swift */,
 				647DE7BC20C2D97100F8919F /* ClubsListTVC.swift */,
+				649F503C1B65271B00F56263 /* ClubsMasterCell.h */,
+				649F503D1B65271B00F56263 /* ClubsMasterCell.m */,
 				647DE7B720C2CEA900F8919F /* ClubDetailTVC.swift */,
-				64AD83BF1B6012BD00AD4C25 /* ClubsSplitVC.h */,
-				64AD83C01B6012BD00AD4C25 /* ClubsSplitVC.m */,
-				649F503F1B6536C900F56263 /* Master */,
-				64AD83C51B60135B00AD4C25 /* ClubsDetailTVC.h */,
-				64AD83C61B60135B00AD4C25 /* ClubsDetailTVC.m */,
-				64AD83C81B6013A600AD4C25 /* ClubsSelectionDelegate.h */,
 			);
 			path = Clubs;
 			sourceTree = "<group>";
@@ -1529,7 +1504,6 @@
 				6430D2741B63FF5E00F5C7F5 /* TabBarController.m in Sources */,
 				645BFFF81F60C7C200BA97BA /* Constants.swift in Sources */,
 				64F84CFE1F633CBD0064F696 /* NewsArticle.swift in Sources */,
-				64AD83C41B60133900AD4C25 /* ClubsMasterTVC.m in Sources */,
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
 				647F6BFA1F65E508006FA132 /* NewsSplit.swift in Sources */,
 				64339B561F16EE2800EDA97D /* SDWebImageDownloaderOperation.m in Sources */,
@@ -1562,7 +1536,6 @@
 				64582C331BD6A9F50007C104 /* JTSSimpleImageDownloader.m in Sources */,
 				642BEC971F13B0480043701B /* IngeNews.swift in Sources */,
 				647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */,
-				64AD83C11B6012BD00AD4C25 /* ClubsSplitVC.m in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
 				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
 				648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */,
@@ -1580,7 +1553,6 @@
 				648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
-				64AD83C71B60135B00AD4C25 /* ClubsDetailTVC.m in Sources */,
 				64F93EA61B5EA97900EE5C72 /* main.m in Sources */,
 				64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */,
 				64A271F31B645A350001063A /* CommandesCell.m in Sources */,
