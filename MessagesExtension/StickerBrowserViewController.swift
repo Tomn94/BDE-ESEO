@@ -191,24 +191,6 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
         }
     }
     
-    func debugCache() {
-        
-        let keyName = "debuggedStickersV511"
-        guard !UserDefaults.standard.bool(forKey: keyName)
-            else { return }
-        
-        let fileManager = FileManager.default
-        guard let cacheURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask,
-                                                  appropriateFor: nil, create: true)
-            else { return }
-        
-        let folderURL = cacheURL.appendingPathComponent(folder, isDirectory: true)
-        do {
-            try fileManager.removeItem(at: folderURL)
-            UserDefaults.standard.set(true, forKey: keyName)
-        } catch {}
-    }
-    
 }
 
 
