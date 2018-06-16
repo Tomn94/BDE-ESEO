@@ -86,7 +86,7 @@ Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour foncti
 >   - Les placer dans `ESEOmega/App Icons`
 >   - Ouvrir `ESEOmega/Info.plist`
 >     - Sous la clef `Icon files (iOS 5)`/`CFBundleIcons` puis `CFBundleAlternateIcons`, copier un BDE existant, coller
->     - Renommer ce BDE, et sous sa clef `CFBundleIconFiles`, modifier l'`Item 0` avec le numéro des noms de fichiers précédents `App-Icon-*`
+>     - Renommer ce BDE selon le nom choisi dans `var name`, et sous sa clef `CFBundleIconFiles`, modifier l'`Item 0` avec le numéro des noms de fichiers précédents `App-Icon-*`
 >     - Faire la même opération dans `CFBundleIcons~ipad` (copier la clef renommée au nom du BDE, coller dans `CFBundleAlternateIcons`)
 > 
 > - Ajouter son sticker iMessage :

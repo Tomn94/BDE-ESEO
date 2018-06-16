@@ -10,6 +10,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AVÉSEO</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-7</string>
+				</array>
+			</dict>
 			<key>BDEl'dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -65,6 +72,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AVÉSEO</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-7</string>
+				</array>
+			</dict>
 			<key>BDEl'dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>

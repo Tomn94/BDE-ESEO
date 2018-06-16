@@ -149,6 +149,9 @@
 		64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */; };
 		64D768371B87B43300C09215 /* OrderElemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D768361B87B43300C09215 /* OrderElemTVC.m */; };
 		64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 64DE993F1C9EBC6E00751204 /* bellum.mp3 */; };
+		64DF777C20D5CCAD0056C91B /* App-Icon-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64DF777920D5CCAC0056C91B /* App-Icon-7@2x.png */; };
+		64DF777D20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 64DF777A20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png */; };
+		64DF777E20D5CCAD0056C91B /* App-Icon-7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64DF777B20D5CCAD0056C91B /* App-Icon-7@3x.png */; };
 		64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E054A31B8620EB00C35F35 /* OrderMenuCell.m */; };
 		64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0D2611BEAA4C9003A623C /* TUSafariActivity.m */; };
 		64E273441B723E8000A84E68 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E273431B723E8000A84E68 /* GameScene.m */; };
@@ -462,6 +465,9 @@
 		64D768351B87B43300C09215 /* OrderElemTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderElemTVC.h; sourceTree = "<group>"; };
 		64D768361B87B43300C09215 /* OrderElemTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderElemTVC.m; sourceTree = "<group>"; };
 		64DE993F1C9EBC6E00751204 /* bellum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bellum.mp3; sourceTree = "<group>"; };
+		64DF777920D5CCAC0056C91B /* App-Icon-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-7@2x.png"; sourceTree = "<group>"; };
+		64DF777A20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-7@2x~ipad.png"; sourceTree = "<group>"; };
+		64DF777B20D5CCAD0056C91B /* App-Icon-7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-7@3x.png"; sourceTree = "<group>"; };
 		64E054A21B8620EB00C35F35 /* OrderMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMenuCell.h; sourceTree = "<group>"; };
 		64E054A31B8620EB00C35F35 /* OrderMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMenuCell.m; sourceTree = "<group>"; };
 		64E0D2601BEAA4C9003A623C /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
@@ -655,6 +661,9 @@
 				64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */,
 				64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */,
 				64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */,
+				64DF777920D5CCAC0056C91B /* App-Icon-7@2x.png */,
+				64DF777A20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png */,
+				64DF777B20D5CCAD0056C91B /* App-Icon-7@3x.png */,
 			);
 			path = "App Icons";
 			sourceTree = "<group>";
@@ -1390,10 +1399,12 @@
 				644D36481E923D5E0047EDDA /* App-Icon-0@2x.png in Resources */,
 				644D36501E923D5E0047EDDA /* App-Icon-2@3x.png in Resources */,
 				644D36581E923D5E0047EDDA /* App-Icon-5@2x~ipad.png in Resources */,
+				64DF777E20D5CCAD0056C91B /* App-Icon-7@3x.png in Resources */,
 				644D364C1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
 				64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */,
 				640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */,
+				64DF777C20D5CCAD0056C91B /* App-Icon-7@2x.png in Resources */,
 				644D36541E923D5E0047EDDA /* App-Icon-4@2x.png in Resources */,
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				644D36551E923D5E0047EDDA /* App-Icon-4@2x~ipad.png in Resources */,
@@ -1409,6 +1420,7 @@
 				64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */,
 				64900CDA1F54DCCB00E2F09D /* App-Icon-6@3x.png in Resources */,
 				644D364A1E923D5E0047EDDA /* App-Icon-0@3x.png in Resources */,
+				64DF777D20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png in Resources */,
 				644D364B1E923D5E0047EDDA /* App-Icon-1@2x.png in Resources */,
 				64DE99401C9EBC6E00751204 /* bellum.mp3 in Resources */,
 				644D36561E923D5E0047EDDA /* App-Icon-4@3x.png in Resources */,
