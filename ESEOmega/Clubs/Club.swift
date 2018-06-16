@@ -20,6 +20,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Describes a Member of a Club
 struct ClubMember: Codable {
@@ -95,52 +96,6 @@ struct ClubContactInfo: Codable {
     static let contactImgs   = [#imageLiteral(resourceName: "web"), #imageLiteral(resourceName: "fb"), #imageLiteral(resourceName: "twitter"),
                                 #imageLiteral(resourceName: "youtube"), #imageLiteral(resourceName: "snap"), #imageLiteral(resourceName: "instagram"),
                                 #imageLiteral(resourceName: "linkedin"), #imageLiteral(resourceName: "mail"), #imageLiteral(resourceName: "tel")]
-    
-    /// Call this to open website/social network/… and do the appropriate action
-    ///
-    /// - Parameters:
-    ///   - contactMode: Selected contact mode
-    ///   - viewController: View controller on top of which to present a web/mail/… view controller
-    func handle(_ contactMode: KeyPath<ClubContactInfo, String?>,
-                in viewController: UIViewController) {
-        
-        switch contactMode {
-        case \ClubContactInfo.web:
-            Data.shared().openURL(web, currentVC: viewController)
-        case \ClubContactInfo.fb:
-            Data.shared().openURL(fb, currentVC: viewController)
-        case \ClubContactInfo.twitter:
-            // Check if URL, otherwise @username
-            if let profileURL = twitter,
-               URL(string: profileURL) != nil {
-                Data.shared().openURL(profileURL, currentVC: viewController)
-            } else {
-                Data.shared().twitter(twitter, currentVC: viewController)
-            }
-        case \ClubContactInfo.youtube:
-            Data.shared().openURL(youtube, currentVC: viewController)
-        case \ClubContactInfo.snap:
-            Data.shared().snapchat(snap, currentVC: viewController)
-        case \ClubContactInfo.instagram:
-            // Check if URL, otherwise username
-            if let profileURL = instagram,
-               URL(string: profileURL) != nil {
-                Data.shared().openURL(profileURL, currentVC: viewController)
-            } else {
-                Data.shared().instagram(instagram, currentVC: viewController)
-            }
-        case \ClubContactInfo.linkedIn:
-            Data.shared().openURL(linkedIn, currentVC: viewController)
-        case \ClubContactInfo.mail:
-            if let vc = viewController as? UIViewController & MFMailComposeViewControllerDelegate {
-                Data.shared().mail(mail, currentVC: vc)
-            }
-        case \ClubContactInfo.tel:
-            Data.shared().tel(tel, currentVC: viewController)
-        default:
-            return
-        }
-    }
 }
 
 
@@ -165,16 +120,21 @@ struct Club: Codable, Equatable {
     /// (JSONDecoder dislikes empty URLs)
     let img: String
     
-    /// JSON-like structure containing links
-    /// Yeah it's a string because the one who recoded it forgot to make it a JSON array
-    /// Feel free to correct this with `ClubContactInfo` when the server is fixed
-    let contacts: String
+    /// Containing links and usernames on social networks
+    let contacts: ClubContactInfo
     
     /// List of club members
     var users: [ClubMember]
     
     /// ID of the president of the club
     let prez: StudentID
+    
+    
+    /// Links struct variables and JSON keys
+    private enum CodingKeys: String, CodingKey {
+        case contacts = "contacts_json"
+        case ID, name, subtitle, description, img, users, prez
+    }
     
     
     /// Returns is this club is most likely the Students’ Union
@@ -194,6 +154,7 @@ struct Club: Codable, Equatable {
             && !subtitle.localizedLowercase.contains("paris")
             && !subtitle.localizedLowercase.contains("dijon")
     }
+    
     
     /// Sort users by decreasing responsibilities
     mutating func sortClubMembers() {

@@ -696,11 +696,12 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) twitter:(NSString *)username
        currentVC:(UIViewController *)vc
 {
-    NSURL *twitter = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", username]];
+    NSString *nickname = [username stringByReplacingOccurrencesOfString:@"@" withString:@""];
+    NSURL *twitter = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", nickname]];
     if ([[UIApplication sharedApplication] canOpenURL:twitter])
         [[UIApplication sharedApplication] openURL:twitter];
     else
-        [self openURL:[NSString stringWithFormat:@"https://twitter.com/%@", username] currentVC:vc];
+        [self openURL:[NSString stringWithFormat:@"https://twitter.com/%@", nickname] currentVC:vc];
 }
 /*
 - (void) youtube:(NSString *)username

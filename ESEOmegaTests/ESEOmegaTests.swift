@@ -127,7 +127,9 @@ class ESEOmegaTests: XCTestCase {
                     XCTAssertNotEqual(club.name, "")
                     XCTAssertNotEqual(club.subtitle, "")
                     XCTAssertNotEqual(club.description, "")
-                    XCTAssertNotEqual(club.contacts, "")
+                    XCTAssert(club.contacts.web      != "" || club.contacts.fb   != "" || club.contacts.twitter   != "" ||
+                              club.contacts.youtube  != "" || club.contacts.snap != "" || club.contacts.instagram != "" ||
+                              club.contacts.linkedIn != "" || club.contacts.mail != "" || club.contacts.tel       != "", club.name)
                     
                     XCTAssertGreaterThanOrEqual(club.users.count, 0)
                     club.users.forEach { user in

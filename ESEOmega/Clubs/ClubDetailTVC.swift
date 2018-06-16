@@ -21,6 +21,64 @@
 
 import UIKit
 
+// MARK: - ClubContactInfo UI-related extension
+extension ClubContactInfo {
+    
+    /// Call this to open website/social network/… and do the appropriate action
+    ///
+    /// - Parameters:
+    ///   - contactMode: Selected contact mode
+    ///   - viewController: View controller on top of which to present a web/mail/… view controller
+    func handle(_ contactMode: KeyPath<ClubContactInfo, String?>,
+                in viewController: UIViewController) {
+        
+        switch contactMode {
+        case \ClubContactInfo.web:
+            Data.shared().openURL(web, currentVC: viewController)
+        case \ClubContactInfo.fb:
+            Data.shared().openURL(fb, currentVC: viewController)
+        case \ClubContactInfo.twitter:
+            // Check if URL, otherwise @username
+            if let profileURL = twitter,
+               URL(string: profileURL) != nil {
+                Data.shared().openURL(profileURL, currentVC: viewController)
+            } else {
+                Data.shared().twitter(twitter, currentVC: viewController)
+            }
+        case \ClubContactInfo.youtube:
+            Data.shared().openURL(youtube, currentVC: viewController)
+        case \ClubContactInfo.snap:
+            // Check if URL, otherwise username
+            if let profileURL = snap,
+               URL(string: profileURL) != nil {
+                Data.shared().openURL(profileURL, currentVC: viewController)
+            } else {
+                Data.shared().snapchat(snap, currentVC: viewController)
+            }
+        case \ClubContactInfo.instagram:
+            // Check if URL, otherwise username
+            if let profileURL = instagram,
+               URL(string: profileURL) != nil {
+                Data.shared().openURL(profileURL, currentVC: viewController)
+            } else {
+                Data.shared().instagram(instagram, currentVC: viewController)
+            }
+        case \ClubContactInfo.linkedIn:
+            Data.shared().openURL(linkedIn, currentVC: viewController)
+        case \ClubContactInfo.mail:
+            if let vc = viewController as? UIViewController & MFMailComposeViewControllerDelegate {
+                Data.shared().mail(mail, currentVC: vc)
+            }
+        case \ClubContactInfo.tel:
+            Data.shared().tel(tel, currentVC: viewController)
+        default:
+            return
+        }
+    }
+}
+
+
+// MARK: - View Controller
 fileprivate extension Selector {
     static let rotatePic   = #selector(ClubDetailTVC.rotatePic)
     static let updateTheme = #selector(ClubDetailTVC.updateTheme)
@@ -29,6 +87,7 @@ fileprivate extension Selector {
 }
 
 
+/// Presents detailed info about a club
 class ClubDetailTVC: JAQBlurryTableViewController {
     
     /// Where the parent (ClubsListTVC) of a 3D-Touched ClubDetailTVC is stored,
@@ -40,16 +99,15 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     
     private let reuseIdentifier = "clubsDetailCell"
     
+    /// Club details text
     let descriptionLabel = UILabel()
     
+    /// Club contact options
     let toolbar = UIToolbar()
     
     
     /// Displayed club
     var club: Club?
-    
-    /// JSON-decoded from `club` stored here
-    var contactInfo: ClubContactInfo?
     
     /// News associated to this club
     var relatedNews: [NewsArticle]?
@@ -61,18 +119,15 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     /// 3D Touch
     override var previewActionItems: [UIPreviewActionItem] {
         
-        guard let contactInfo = contactInfo
-            else { return [] }
-        
         var items = [UIPreviewAction]()
         for (contactIndex, contactMode) in ClubContactInfo.contactModes.enumerated() {
-            if let availableContactInfo = contactInfo[keyPath: contactMode],
+            if let availableContactInfo = club?.contacts[keyPath: contactMode],
                 availableContactInfo    != "" {
                 items.append(UIPreviewAction(title: ClubContactInfo.contactTitles[contactIndex],
                                              style: .default,
                                              handler: { _, _ in
                                                  if let vc = ClubDetailTVC.peekParent ?? UIApplication.shared.delegate?.window??.rootViewController {
-                                                     contactInfo.handle(contactMode, in: vc)
+                                                     self.club?.contacts.handle(contactMode, in: vc)
                                                  }
                                              }))
             }
@@ -176,31 +231,21 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         loadPic()
         
         /* Toolbar */
-        if let data = club.contacts.data(using: .utf8),
-            let contactInfo = try? JSONDecoder().decode(ClubContactInfo.self, from: data) {
-            
-            self.contactInfo = contactInfo
-            
-            var items = [UIBarButtonItem]()
-            for (contactIndex, contactMode) in ClubContactInfo.contactModes.enumerated() {
-                if let availableContactInfo = contactInfo[keyPath: contactMode],
-                   availableContactInfo    != "" {
-                    items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                                 target: nil, action: nil))
-                    let item = UIBarButtonItem(image: ClubContactInfo.contactImgs[contactIndex],
-                                               style: .plain, target: self, action: .contact)
-                    item.tag = contactIndex  // will be used to get back contact mode
-                    items.append(item)
-                }
+        var items = [UIBarButtonItem]()
+        for (contactIndex, contactMode) in ClubContactInfo.contactModes.enumerated() {
+            if let availableContactInfo = club.contacts[keyPath: contactMode],
+               availableContactInfo    != "" {
+                items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                             target: nil, action: nil))
+                let item = UIBarButtonItem(image: ClubContactInfo.contactImgs[contactIndex],
+                                           style: .plain, target: self, action: .contact)
+                item.tag = contactIndex  // will be used to get back contact mode
+                items.append(item)
             }
-            items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                         target: nil, action: nil))
-            toolbar.items = items
-            
-        } else {
-            self.contactInfo = nil
-            toolbar.items = []
         }
+        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                     target: nil, action: nil))
+        toolbar.items = items
         
         /* Fetch other remote data */
         getAssociatedData()
@@ -339,8 +384,8 @@ class ClubDetailTVC: JAQBlurryTableViewController {
             else { return }
         
         let associatedContactMode = item.tag
-        contactInfo?.handle(ClubContactInfo.contactModes[associatedContactMode],
-                            in: self)
+        club?.contacts.handle(ClubContactInfo.contactModes[associatedContactMode],
+                              in: self)
     }
     
 }
