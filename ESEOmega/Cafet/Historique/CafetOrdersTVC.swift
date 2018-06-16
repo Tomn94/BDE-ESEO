@@ -206,7 +206,7 @@ class CafetOrdersTVC: UITableViewController {
             Utils.requiresActivityIndicator(false)
             
             var title   = "Erreur"
-            var message = "Impossible de vérifier si l'application est à jour"
+            var message = "Impossible de vérifier si l'application est à jour pour commander."
             var updateAvailable = false
             
             if error == nil && data != nil,
