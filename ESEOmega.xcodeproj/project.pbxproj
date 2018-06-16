@@ -119,12 +119,12 @@
 		6488AA501B728CEE000E2660 /* ka1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA4F1B728CDC000E2660 /* ka1.ttf */; };
 		6488AA531B72C299000E2660 /* LoseScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6488AA521B72C299000E2660 /* LoseScreen.m */; };
 		6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */; };
+		648A394420D57BFC0001D023 /* BDELinksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A394320D57BFC0001D023 /* BDELinksVC.swift */; };
 		648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */; };
 		648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A55D31F8A994A003424D5 /* CafetOrder.swift */; };
 		64900CDA1F54DCCB00E2F09D /* App-Icon-6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */; };
 		64900CDB1F54DCCE00E2F09D /* App-Icon-6@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */; };
 		64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */; };
-		64934AFD1B750FC00040E6C5 /* NewsLinksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */; };
 		6497243620B9B0AD00596A79 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6497243520B9B0AD00596A79 /* User.swift */; };
 		6497243720B9B0B500596A79 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6497243520B9B0AD00596A79 /* User.swift */; };
 		6497243820B9B14100596A79 /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
@@ -424,13 +424,12 @@
 		6488AA511B72C299000E2660 /* LoseScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScreen.h; sourceTree = "<group>"; };
 		6488AA521B72C299000E2660 /* LoseScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScreen.m; sourceTree = "<group>"; };
 		6488AA541B72C8C8000E2660 /* PerfectDOSVGA437.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PerfectDOSVGA437.ttf; sourceTree = "<group>"; };
+		648A394320D57BFC0001D023 /* BDELinksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDELinksVC.swift; sourceTree = "<group>"; };
 		648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrdersTVC.swift; sourceTree = "<group>"; };
 		648A55D31F8A994A003424D5 /* CafetOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrder.swift; sourceTree = "<group>"; };
 		64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x.png"; path = "App Icons/App-Icon-6@2x.png"; sourceTree = "<group>"; };
 		64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x~ipad.png"; path = "App Icons/App-Icon-6@2x~ipad.png"; sourceTree = "<group>"; };
 		64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@3x.png"; path = "App Icons/App-Icon-6@3x.png"; sourceTree = "<group>"; };
-		64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLinksVC.h; sourceTree = "<group>"; };
-		64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLinksVC.m; sourceTree = "<group>"; };
 		6497243520B9B0AD00596A79 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		649D9D401C44423A00FDF2A8 /* EventsOrderTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsOrderTVC.h; sourceTree = "<group>"; };
 		649D9D411C44423A00FDF2A8 /* EventsOrderTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsOrderTVC.m; sourceTree = "<group>"; };
@@ -790,8 +789,7 @@
 				647F6BF11F64B311006FA132 /* NewsListTVC.swift */,
 				647F6BF71F65ACF8006FA132 /* NewsArticleVC.swift */,
 				647F6BF31F64C4E2006FA132 /* LinksToolbar.swift */,
-				64934AFB1B750FC00040E6C5 /* NewsLinksVC.h */,
-				64934AFC1B750FC00040E6C5 /* NewsLinksVC.m */,
+				648A394320D57BFC0001D023 /* BDELinksVC.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1542,6 +1540,7 @@
 				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
 				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				64F84CFC1F632F5F0064F696 /* CreditsTVC.swift in Sources */,
+				648A394420D57BFC0001D023 /* BDELinksVC.swift in Sources */,
 				647DE7B420BAE9EE00F8919F /* ConnectivityHandler.swift in Sources */,
 				64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */,
 				64F8AE001E408ACF00489198 /* ThemeManager.swift in Sources */,
@@ -1615,7 +1614,6 @@
 				64339B5F1F16EE2800EDA97D /* UIView+WebCache.m in Sources */,
 				64339B541F16EE2800EDA97D /* SDWebImageDecoder.m in Sources */,
 				64ED61111B6D7A4D00456B01 /* Data.m in Sources */,
-				64934AFD1B750FC00040E6C5 /* NewsLinksVC.m in Sources */,
 				6469B05F1FAF458500290E6D /* Lydia.swift in Sources */,
 				64FFB9BF1F60F04300986F1C /* UserTVC+Login.swift in Sources */,
 			);

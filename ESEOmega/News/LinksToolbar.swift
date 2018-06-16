@@ -148,10 +148,10 @@ class LinksToolbar: UIView {
     
     @objc func showBDEMenu() {
         
-        let pop = NewsLinksVC()
-        pop.popoverPresentationController?.barButtonItem = bdeLink
+        let pop = BDELinksVC()
+        pop.modalPresentationStyle = .popover
         pop.popoverPresentationController?.delegate = self
-    
+        pop.popoverPresentationController?.barButtonItem = bdeLink
         viewController?.present(pop, animated: true)
     }
 
@@ -161,8 +161,7 @@ class LinksToolbar: UIView {
 // MARK: - Tool Bar Delegate
 extension LinksToolbar: UIToolbarDelegate {
     
-    func position(for bar: UIBarPositioning) -> UIBarPosition {
-        
+    func position(for bar: UIBarPositioning) -> UIBarPosition {        
         return .top
     }
     
@@ -173,7 +172,6 @@ extension LinksToolbar: UIToolbarDelegate {
 extension LinksToolbar: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        
         return .none
     }
     
