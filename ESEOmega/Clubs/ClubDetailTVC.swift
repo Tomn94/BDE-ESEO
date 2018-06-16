@@ -88,6 +88,8 @@ fileprivate extension Selector {
 
 
 /// Presents detailed info about a club
+/// TODO: Replace JAQBlurryTableViewController that uses a subview in a table view, which is deprecated.
+///       It would be better to use a table view header instead.
 class ClubDetailTVC: JAQBlurryTableViewController {
     
     /// Where the parent (ClubsListTVC) of a 3D-Touched ClubDetailTVC is stored,
@@ -165,9 +167,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
             navigationController?.navigationBar.prefersLargeTitles = true
-            refreshControl?.tintColor = .white
-        } else {
-            refreshControl?.tintColor = UINavigationBar.appearance().barTintColor ?? .blue
         }
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
@@ -261,10 +260,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                                  "maxInPage" : String(ClubDetailTVC.maxRelatedItems)],
                     completed: { data in
                         
-                        DispatchQueue.main.async {
-                            self.refreshControl?.endRefreshing()
-                        }
-                        
                         let decoder = JSONDecoder()
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = NewsArticle.dateFormat
@@ -277,12 +272,9 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                         self.relatedNews = result.news.filter { $0.displayInApps }.sorted { $0.date > $1.date }
                         DispatchQueue.main.async {
                             self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                            self.rotatePic()  // debug untappable header
                         }
                         
-        }, failure: { _, _ in
-            DispatchQueue.main.async {
-                self.refreshControl?.endRefreshing()
-            }
         })
         
         // TODO: Do the same for events
@@ -295,7 +287,8 @@ class ClubDetailTVC: JAQBlurryTableViewController {
     @objc func showClubImage() {
         
         // Get image
-        guard let imageView = titleImageView,
+        guard club?.img != "",
+              let imageView = titleImageView,
               let image     = imageView.image
             else { return }
         
@@ -326,12 +319,15 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                             saturationFactor: 1)
         }
         
-        setPicLayout()
+        setHeaderLayout()
     }
     
     /// Removes any previous top banner with picture.
     /// And resets scroll offset for any future banner.
     func removePic() {
+        
+        guard titleImageView != nil, blurImageView != nil, contentView != nil // already gone
+            else { return }
         
         titleImageView.removeFromSuperview()
         blurImageView.removeFromSuperview()
@@ -359,16 +355,20 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                         blurRadius: 12,     // to avoid offsetBase being reset
                         blurTintColor: UIColor(white: 0, alpha: 0.5),
                         saturationFactor: 1)
-        setPicLayout()
+        setHeaderLayout()
     }
     
     /// Finish layout setup (reset at each configureBanner)
-    func setPicLayout() {
+    func setHeaderLayout() {
         
         descriptionLabel.removeFromSuperview()
         toolbar.removeFromSuperview()
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(toolbar)
+        
+        titleImageView.isUserInteractionEnabled = true
+        blurImageView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
         
         tableView.setNeedsLayout()
     }
