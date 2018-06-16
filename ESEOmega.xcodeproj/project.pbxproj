@@ -362,24 +362,24 @@
 		643B898F1C28CFEF00B3A568 /* IngeNews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IngeNews.storyboard; sourceTree = "<group>"; };
 		643DC59E1DCC75AE00212DA5 /* GenealogyPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenealogyPathsView.swift; sourceTree = "<group>"; };
 		64493F171E465811009C995B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
-		644D36361E923D5E0047EDDA /* App-Icon-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-0@2x.png"; path = "App Icons/App-Icon-0@2x.png"; sourceTree = "<group>"; };
-		644D36371E923D5E0047EDDA /* App-Icon-0@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-0@2x~ipad.png"; path = "App Icons/App-Icon-0@2x~ipad.png"; sourceTree = "<group>"; };
-		644D36381E923D5E0047EDDA /* App-Icon-0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-0@3x.png"; path = "App Icons/App-Icon-0@3x.png"; sourceTree = "<group>"; };
-		644D36391E923D5E0047EDDA /* App-Icon-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-1@2x.png"; path = "App Icons/App-Icon-1@2x.png"; sourceTree = "<group>"; };
-		644D363A1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-1@2x~ipad.png"; path = "App Icons/App-Icon-1@2x~ipad.png"; sourceTree = "<group>"; };
-		644D363B1E923D5E0047EDDA /* App-Icon-1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-1@3x.png"; path = "App Icons/App-Icon-1@3x.png"; sourceTree = "<group>"; };
-		644D363C1E923D5E0047EDDA /* App-Icon-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-2@2x.png"; path = "App Icons/App-Icon-2@2x.png"; sourceTree = "<group>"; };
-		644D363D1E923D5E0047EDDA /* App-Icon-2@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-2@2x~ipad.png"; path = "App Icons/App-Icon-2@2x~ipad.png"; sourceTree = "<group>"; };
-		644D363E1E923D5E0047EDDA /* App-Icon-2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-2@3x.png"; path = "App Icons/App-Icon-2@3x.png"; sourceTree = "<group>"; };
-		644D363F1E923D5E0047EDDA /* App-Icon-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-3@2x.png"; path = "App Icons/App-Icon-3@2x.png"; sourceTree = "<group>"; };
-		644D36401E923D5E0047EDDA /* App-Icon-3@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-3@2x~ipad.png"; path = "App Icons/App-Icon-3@2x~ipad.png"; sourceTree = "<group>"; };
-		644D36411E923D5E0047EDDA /* App-Icon-3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-3@3x.png"; path = "App Icons/App-Icon-3@3x.png"; sourceTree = "<group>"; };
-		644D36421E923D5E0047EDDA /* App-Icon-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-4@2x.png"; path = "App Icons/App-Icon-4@2x.png"; sourceTree = "<group>"; };
-		644D36431E923D5E0047EDDA /* App-Icon-4@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-4@2x~ipad.png"; path = "App Icons/App-Icon-4@2x~ipad.png"; sourceTree = "<group>"; };
-		644D36441E923D5E0047EDDA /* App-Icon-4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-4@3x.png"; path = "App Icons/App-Icon-4@3x.png"; sourceTree = "<group>"; };
-		644D36451E923D5E0047EDDA /* App-Icon-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@2x.png"; path = "App Icons/App-Icon-5@2x.png"; sourceTree = "<group>"; };
-		644D36461E923D5E0047EDDA /* App-Icon-5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@2x~ipad.png"; path = "App Icons/App-Icon-5@2x~ipad.png"; sourceTree = "<group>"; };
-		644D36471E923D5E0047EDDA /* App-Icon-5@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-5@3x.png"; path = "App Icons/App-Icon-5@3x.png"; sourceTree = "<group>"; };
+		644D36361E923D5E0047EDDA /* App-Icon-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-0@2x.png"; sourceTree = "<group>"; };
+		644D36371E923D5E0047EDDA /* App-Icon-0@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-0@2x~ipad.png"; sourceTree = "<group>"; };
+		644D36381E923D5E0047EDDA /* App-Icon-0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-0@3x.png"; sourceTree = "<group>"; };
+		644D36391E923D5E0047EDDA /* App-Icon-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-1@2x.png"; sourceTree = "<group>"; };
+		644D363A1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-1@2x~ipad.png"; sourceTree = "<group>"; };
+		644D363B1E923D5E0047EDDA /* App-Icon-1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-1@3x.png"; sourceTree = "<group>"; };
+		644D363C1E923D5E0047EDDA /* App-Icon-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-2@2x.png"; sourceTree = "<group>"; };
+		644D363D1E923D5E0047EDDA /* App-Icon-2@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-2@2x~ipad.png"; sourceTree = "<group>"; };
+		644D363E1E923D5E0047EDDA /* App-Icon-2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-2@3x.png"; sourceTree = "<group>"; };
+		644D363F1E923D5E0047EDDA /* App-Icon-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-3@2x.png"; sourceTree = "<group>"; };
+		644D36401E923D5E0047EDDA /* App-Icon-3@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-3@2x~ipad.png"; sourceTree = "<group>"; };
+		644D36411E923D5E0047EDDA /* App-Icon-3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-3@3x.png"; sourceTree = "<group>"; };
+		644D36421E923D5E0047EDDA /* App-Icon-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-4@2x.png"; sourceTree = "<group>"; };
+		644D36431E923D5E0047EDDA /* App-Icon-4@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-4@2x~ipad.png"; sourceTree = "<group>"; };
+		644D36441E923D5E0047EDDA /* App-Icon-4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-4@3x.png"; sourceTree = "<group>"; };
+		644D36451E923D5E0047EDDA /* App-Icon-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-5@2x.png"; sourceTree = "<group>"; };
+		644D36461E923D5E0047EDDA /* App-Icon-5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-5@2x~ipad.png"; sourceTree = "<group>"; };
+		644D36471E923D5E0047EDDA /* App-Icon-5@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-5@3x.png"; sourceTree = "<group>"; };
 		64508FCA20B9AB0B00EE8A19 /* ESEOmegaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64508FCC20B9AB0B00EE8A19 /* ESEOmegaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESEOmegaTests.swift; sourceTree = "<group>"; };
 		64508FCE20B9AB0B00EE8A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -427,9 +427,9 @@
 		648A394320D57BFC0001D023 /* BDELinksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDELinksVC.swift; sourceTree = "<group>"; };
 		648A55D11F8A8EBE003424D5 /* CafetOrdersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrdersTVC.swift; sourceTree = "<group>"; };
 		648A55D31F8A994A003424D5 /* CafetOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafetOrder.swift; sourceTree = "<group>"; };
-		64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x.png"; path = "App Icons/App-Icon-6@2x.png"; sourceTree = "<group>"; };
-		64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@2x~ipad.png"; path = "App Icons/App-Icon-6@2x~ipad.png"; sourceTree = "<group>"; };
-		64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Icon-6@3x.png"; path = "App Icons/App-Icon-6@3x.png"; sourceTree = "<group>"; };
+		64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-6@2x.png"; sourceTree = "<group>"; };
+		64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-6@2x~ipad.png"; sourceTree = "<group>"; };
+		64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-6@3x.png"; sourceTree = "<group>"; };
 		6497243520B9B0AD00596A79 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		649D9D401C44423A00FDF2A8 /* EventsOrderTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsOrderTVC.h; sourceTree = "<group>"; };
 		649D9D411C44423A00FDF2A8 /* EventsOrderTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsOrderTVC.m; sourceTree = "<group>"; };
@@ -666,7 +666,7 @@
 				64900CD81F54D9C200E2F09D /* App-Icon-6@2x~ipad.png */,
 				64900CD91F54D9C200E2F09D /* App-Icon-6@3x.png */,
 			);
-			name = "App Icons";
+			path = "App Icons";
 			sourceTree = "<group>";
 		};
 		64508FCB20B9AB0B00EE8A19 /* ESEOmegaTests */ = {
