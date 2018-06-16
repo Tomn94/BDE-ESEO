@@ -84,7 +84,7 @@ extension BDELinksVC: APIViewer {
     
     func loadFromCache() {
         
-        guard let data   = APIArchiver.getCache(for: .clubs),
+        guard let data   = APIArchiver.getCache(for: .clubsCache),
               let result = try? JSONDecoder().decode([Club].self, from: data) else {
                 reloadData()
                 return
@@ -103,7 +103,7 @@ extension BDELinksVC: APIViewer {
                 else { return }
             
             self.loadData(result.clubs)
-            APIArchiver.save(data: result.clubs, for: .clubs)
+            APIArchiver.save(data: result.clubs, for: .clubsCache)
         })
     }
     

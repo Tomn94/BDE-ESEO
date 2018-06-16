@@ -48,6 +48,9 @@ class API {
         
         /// Get clubs list
         case clubs        = "clubs"
+        /// Same as `clubs` but to be used with `APIArchiver` instead of `clubs`.
+        /// Why? Because I only found this solution to fix a weirdass problem
+        case clubsCache   = "clubsCache"
         
         /// Get cafet order history
         case orders       = "me/orders"
