@@ -237,7 +237,7 @@ extension Genealogy {
             
             /* Highlight requested student */
             if let q = query, q == student {
-                nameBox.font = UIFont.boldSystemFont(ofSize: 12)
+                nameBox.font = UIFont.preferredFont(forTextStyle: .caption1).bold()
                 var hue: CGFloat = 0;   var saturation: CGFloat = 0
                 var brightness: CGFloat = 0; var alpha: CGFloat = 0
                 if self.tableView.tintColor.getHue(&hue, saturation: &saturation,
@@ -250,7 +250,7 @@ extension Genealogy {
                     nameBox.backgroundColor = self.tableView.tintColor
                 }
             } else {
-                nameBox.font = UIFont.systemFont(ofSize: 12)
+                nameBox.font = UIFont.preferredFont(forTextStyle: .caption1)
                 nameBox.backgroundColor = self.tableView.tintColor
             }
             

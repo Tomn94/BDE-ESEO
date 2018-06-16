@@ -634,8 +634,8 @@ extension CafetOrdersTVC {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 79, bottom: 0, right: 0)
         }
         
-        cell.nomLabel.font       = UIFont.systemFont(ofSize: 16)
-        cell.prixLabel.font      = UIFont.systemFont(ofSize: 16)
+        cell.nomLabel.font       = UIFont.preferredFont(forTextStyle: .callout)
+        cell.prixLabel.font      = UIFont.preferredFont(forTextStyle: .callout)
         cell.dateLabel.textColor = .darkGray
         cell.numLabel.textColor  = .darkGray
         
@@ -646,8 +646,8 @@ extension CafetOrdersTVC {
             cell.imgView.image = #imageLiteral(resourceName: "cafetPreparing")
                 
         case .ready:
-            cell.nomLabel.font  = UIFont.boldSystemFont(ofSize: 16)
-            cell.prixLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            cell.nomLabel.font  = UIFont.preferredFont(forTextStyle: .callout).bold()
+            cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
             cell.imgView.image  = #imageLiteral(resourceName: "cafetReady")
                 
         case .done:
@@ -656,8 +656,8 @@ extension CafetOrdersTVC {
             cell.imgView.image       = #imageLiteral(resourceName: "cafetDone")
             
         case .notPaid:
-            cell.nomLabel.font  = UIFont.boldSystemFont(ofSize: 16)
-            cell.prixLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            cell.nomLabel.font  = UIFont.preferredFont(forTextStyle: .callout).bold()
+            cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
             cell.imgView.image  = #imageLiteral(resourceName: "cafetNotPaid")
         }
         

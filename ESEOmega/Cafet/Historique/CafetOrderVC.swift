@@ -186,9 +186,9 @@ class CafetOrderVC: UIViewController {
         }
 
         let attrStr = NSMutableAttributedString(string: instructions,
-                                                attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                                                attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline)])
         if addedInstructions {
-            attrStr.setAttributes([.font : UIFont.boldSystemFont(ofSize: 15)],
+            attrStr.setAttributes([.font : UIFont.preferredFont(forTextStyle: .subheadline).bold()],
                                   range: NSMakeRange(resume.count + 2, 13))
         }
         detailLabel.attributedText = attrStr
