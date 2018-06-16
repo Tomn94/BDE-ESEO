@@ -178,7 +178,7 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                                                name: .themeChanged, object: nil)
         
         /* Handoff */
-        let info = ActivityType.news
+        let info = ActivityType.clubs
         let activity = NSUserActivity(activityType: info.type)
         activity.title = info.title
         activity.webpageURL = info.url
