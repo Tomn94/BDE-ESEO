@@ -320,7 +320,7 @@ extension BDELinksVC: DZNEmptyDataSetSource {
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
-        let text = "Vérifiez votre connexion et rafraîchissez l'onglet Clubs."
+        let text = "Vérifiez votre connexion\nou rendez-vous dans l'onglet Clubs."
         
         return NSAttributedString(string: text,
                                   attributes: [.font : UIFont.preferredFont(forTextStyle: .footnote),
