@@ -70,12 +70,18 @@
     [ctr addObserver:self selector:@selector(timeout) name:@"retourAppCafetFin" object:nil];
     
     /* Handoff */
+    // TODO: Customize activity with selected meal, etc.
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.order"];
     activity.title = @"Commander à la cafet";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_ORDR];
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;
     activity.eligibleForPublicIndexing = YES;
+    if (@available(iOS 12, *)) {
+        activity.eligibleForPrediction = YES;
+        activity.suggestedInvocationPhrase = activity.title;
+        activity.persistentIdentifier = @"com.eseomega.ESEOmega.order";
+    }
     self.userActivity = activity;
 }
 

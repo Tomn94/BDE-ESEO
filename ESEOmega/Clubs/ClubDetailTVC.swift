@@ -178,6 +178,8 @@ class ClubDetailTVC: JAQBlurryTableViewController {
                                                name: .themeChanged, object: nil)
         
         /* Handoff */
+        // Uses the default Club List activity, instead of the select club
+        // TODO: Use selected club
         let info = ActivityType.clubs
         let activity = NSUserActivity(activityType: info.type)
         activity.title = info.title
@@ -185,6 +187,10 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
+        if #available(iOS 12, *) {
+            activity.isEligibleForPrediction = false
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+        }
         self.userActivity = activity
     }
     

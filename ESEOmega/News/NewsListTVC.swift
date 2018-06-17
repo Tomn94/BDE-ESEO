@@ -91,6 +91,11 @@ class NewsListTVC: UITableViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
+        if #available(iOS 12, *) {
+            activity.isEligibleForPrediction = true
+            activity.suggestedInvocationPhrase = "Affiche les news ESEO"
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+        }
         self.userActivity = activity
     }
     

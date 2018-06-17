@@ -71,6 +71,11 @@
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;
     activity.eligibleForPublicIndexing = YES;
+    if (@available(iOS 12, *)) {
+        activity.eligibleForPrediction = YES;
+        activity.suggestedInvocationPhrase = @"Affiche les événements à l'ESEO";
+        activity.persistentIdentifier = @"com.eseomega.ESEOmega.events";
+    }
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
 }

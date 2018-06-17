@@ -72,6 +72,10 @@
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;
     activity.eligibleForPublicIndexing = YES;
+    if (@available(iOS 12, *)) {
+        activity.eligibleForPrediction = NO;
+        activity.persistentIdentifier = @"com.eseomega.ESEOmega.sponsors";
+    }
     self.userActivity = activity;
     [self.userActivity becomeCurrent];
 }

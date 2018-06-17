@@ -105,6 +105,11 @@ class NewsArticleVC: UIViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
+        if #available(iOS 12, *) {
+            activity.isEligibleForPrediction = false
+            let date = DateFormatter.localizedString(from: article.date, dateStyle: .full, timeStyle: .full)
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(date)
+        }
         self.userActivity = activity
         
         if let url = article.getURL() {

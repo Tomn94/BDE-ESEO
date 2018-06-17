@@ -90,6 +90,12 @@ class CafetOrdersTVC: UITableViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
+        if #available(iOS 12, *) {
+            activity.isEligibleForPrediction = true
+            activity.suggestedInvocationPhrase = "Où en est ma commande ?"
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+            INVoiceShortcutCenter.shared.setShortcutSuggestions([INShortcut(userActivity: activity)])
+        }
         self.userActivity = activity
         
         NotificationCenter.default.addObserver(self, selector: .toggleUpdates,

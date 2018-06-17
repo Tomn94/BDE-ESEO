@@ -79,6 +79,11 @@ class RoomsTVC: UITableViewController {
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
+        if #available(iOS 12, *) {
+            activity.isEligibleForPrediction = true
+            activity.suggestedInvocationPhrase = "Affiche les salles de l'ESEO"
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+        }
         self.userActivity = activity
     }
     
