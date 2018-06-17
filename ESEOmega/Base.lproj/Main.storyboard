@@ -958,17 +958,17 @@ Bâtiment : F. Rolland</string>
                         <leftBarButtonItems>
                             <barButtonItem image="salles" id="nXm-KZ-PMr">
                                 <connections>
-                                    <segue destination="PqK-1x-Igr" kind="presentation" modalPresentationStyle="formSheet" id="uMb-kv-8EL"/>
+                                    <segue destination="PqK-1x-Igr" kind="presentation" identifier="showRooms" modalPresentationStyle="formSheet" id="uMb-kv-8EL"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="genealogy" id="p8E-j9-lhg">
                                 <connections>
-                                    <segue destination="jjo-OM-Bq7" kind="presentation" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
+                                    <segue destination="jjo-OM-Bq7" kind="presentation" identifier="showFamilies" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="ingenews" id="rqC-m9-Uef">
                                 <connections>
-                                    <segue destination="lbS-rr-gnB" kind="presentation" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
+                                    <segue destination="lbS-rr-gnB" kind="presentation" identifier="showIngenews" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>

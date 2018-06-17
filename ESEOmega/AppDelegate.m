@@ -449,6 +449,8 @@ continueUserActivity:(NSUserActivity *)userActivity
   restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
+    if ([Data sharedData].cafetCmdEnCours)
+        return YES;
     if (tab.presentedViewController != nil) {
         [tab dismissViewControllerAnimated:true completion:nil];
     }
@@ -465,6 +467,20 @@ continueUserActivity:(NSUserActivity *)userActivity
         [detail continueReadingWithUserInfo:userActivity.userInfo];
         [newsSplit showDetailViewController:detail sender:nil];
     }
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.rooms"])
+    {
+        [tab setSelectedIndex:0];
+        
+        NewsSplit *newsSplit = tab.viewControllers.firstObject;
+        [newsSplit.master performSegueWithIdentifier:@"showRooms" sender:newsSplit.master];
+    }
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.families"])
+    {
+        [tab setSelectedIndex:0];
+        
+        NewsSplit *newsSplit = tab.viewControllers.firstObject;
+        [newsSplit.master performSegueWithIdentifier:@"showFamilies" sender:newsSplit.master];
+    }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.clubs"])
@@ -475,13 +491,10 @@ continueUserActivity:(NSUserActivity *)userActivity
     {
         [tab setSelectedIndex:3];
         
-        if (![Data sharedData].cafetCmdEnCours)
-        {
-            UINavigationController *navVC =   tab.viewControllers.firstObject;
-            CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
-            if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
-                [ordersVC order];
-        }
+        UINavigationController *navVC =   tab.viewControllers.firstObject;
+        CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
+        if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
+            [ordersVC order];
     }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.sponsors"])
         [tab setSelectedIndex:4];
