@@ -110,6 +110,17 @@ Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour foncti
 > Conformément à la loi relative à l'informatique, aux fichiers et aux libertés du 6 janvier 1978, vous disposez à tout moment d'un droit individuel d'opposition, d'accès, de modification, de rectification et de suppression des données qui vous concernent en nous contactant (par exemple en utilisant le bouton Contact dans l’application).
 
 
+## TODO
+- Réimplémenter les events et les sponsors
+- Réimplémenter les notifications push
+- Pouvoir définir des repas favoris
+- Pouvoir commander un repas favori depuis l'Apple Watch et Siri Watch Face 
+- Améliorer la prise en charge de Siri :
+	- Où se trouve la salle Langevin ?
+	- Commander mon repas favori à la cafet
+- Ne plus utiliser la classe `Data` dépréciée, la remplacer par `DataStore`
+
+
 ## Versions
 
 ### v6.0 · 06/2018
