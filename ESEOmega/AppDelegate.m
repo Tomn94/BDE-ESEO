@@ -116,8 +116,11 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.cafet"])
     {
         [tab setSelectedIndex:3];
-        NSNotification *notif = [NSNotification notificationWithName:@"btnCommanderCafet" object:nil];
-        [[NSNotificationCenter defaultCenter] performSelector:@selector(postNotification:) withObject:notif afterDelay:0.5];
+        
+        UINavigationController *navVC =   tab.viewControllers[3];
+        CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
+        if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
+            [ordersVC order];
     }
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];
@@ -491,7 +494,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     {
         [tab setSelectedIndex:3];
         
-        UINavigationController *navVC =   tab.viewControllers.firstObject;
+        UINavigationController *navVC =   tab.viewControllers[3];
         CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
         if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
             [ordersVC order];
