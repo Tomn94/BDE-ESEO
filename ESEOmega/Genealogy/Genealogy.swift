@@ -65,6 +65,9 @@ class Genealogy: UITableViewController {
             self.tableView.tableHeaderView = search.searchBar
         }
         
+        // Directly show user's family at launch
+        loadUserFamily()
+        
         /* Handoff */
         let info = ActivityType.families
         let activity = NSUserActivity(activityType: info.type)
@@ -90,14 +93,44 @@ class Genealogy: UITableViewController {
         self.tableView.reloadData()
     }
     
-    /**
-     Get family for student previously searched
-     - Parameter student: The student whose family is requested by its ID number
-     */
-    func setUpFamily(for student: FamilyMember) {
+    /// Display user family according to stored username.
+    /// First result is used, so it might not work for people with the same name.
+    func loadUserFamily() {
+        
+        guard let username = Keychain.string(for: .name)
+            else { return }
+        
+        /* Ask students results */
+        API.request(.familySearch, get: ["name" : username], completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(StudentSearchResult.self,
+                                                         from: data),
+                  result.success
+                else { return }
+            
+            /* Select first exact match */
+            guard let familyMember = result.users.sorted(by: { user, _ in
+                user.fullname.localizedStandardCompare(username) == .orderedAscending
+            }).first else { return }
+            
+            DispatchQueue.main.async {
+                self.setUpFamily(for: familyMember,
+                                 dismissSearch: false)
+            }
+        })
+    }
+    
+    /// Get family for student previously searched
+    ///
+    /// - Parameters:
+    ///   - student: The student whose family is requested by its ID number
+    ///   - dismissSearch: Wether search results view controller should be dismissed first
+    func setUpFamily(for student: FamilyMember, dismissSearch: Bool = true) {
         
         /* Dismiss search */
-        search.isActive = false
+        if dismissSearch {
+            search.isActive = false
+        }
         
         loadingIndicator.startAnimating()
         
