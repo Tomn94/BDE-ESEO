@@ -88,6 +88,8 @@ enum ActivityType {
     
     static let baseURL = "https://bdeeseo.fr/"
     
+    static let cafetDisplayURL = "https://portail.bdeeseo.fr/modules/lacommande/displayCafet/"
+    
     
     static let news = ActivityInfo(type: "com.eseomega.ESEOmega.news",
                                    title: "Liste des news",
@@ -103,10 +105,18 @@ enum ActivityType {
     
     static let cafet = ActivityInfo(type: "com.eseomega.ESEOmega.cafet",
                                     title: "Liste de mes commandes à la cafet",
-                                    url: URL(string: baseURL)!)
+                                    url: URL(string: cafetDisplayURL)!)
     
     static let order = ActivityInfo(type: "com.eseomega.ESEOmega.order",
                                     title: "Commander à la cafet",
-                                    url: URL(string: "https://portail.bdeeseo.fr/modules/lacommande/displayCafet/")!)
+                                    url: URL(string: cafetDisplayURL)!)
+    
+    static let rooms = ActivityInfo(type: "com.eseomega.ESEOmega.rooms",
+                                    title: "Liste des salles",
+                                    url: URL(string: baseURL + "rooms")!)
+    
+    static let families = ActivityInfo(type: "com.eseomega.ESEOmega.families",
+                                       title: "Familles & parrainages",
+                                       url: URL(string: baseURL + "families")!)
     
 }

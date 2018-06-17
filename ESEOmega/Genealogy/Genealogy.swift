@@ -64,6 +64,22 @@ class Genealogy: UITableViewController {
             search.searchBar.sizeToFit()
             self.tableView.tableHeaderView = search.searchBar
         }
+        
+        /* Handoff */
+        let info = ActivityType.families
+        let activity = NSUserActivity(activityType: info.type)
+        activity.title = info.title
+        activity.webpageURL = info.url
+        activity.isEligibleForSearch = true
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPublicIndexing = true
+        self.userActivity = activity
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        userActivity?.becomeCurrent()
     }
     
     /// Redraw connections when orientation changes
