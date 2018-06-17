@@ -82,7 +82,19 @@ class CafetInterfaceController: WKInterfaceController {
         
         /* Broadcast Handoff */
         let handoffInfo = ActivityType.cafet
-        updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
+        if #available(watchOS 5, *) {
+            let activity = NSUserActivity(activityType: handoffInfo.type)
+            activity.title = info.title
+            activity.webpageURL = info.url
+            activity.isEligibleForSearch = true
+            activity.isEligibleForHandoff = true
+            activity.isEligibleForPublicIndexing = true
+            activity.isEligibleForPrediction = true
+            activity.suggestedInvocationPhrase = "Où en est ma commande ?"
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+        } else {
+            updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
+        }
     }
     
     /// Called when view disappeared (swipe out)

@@ -45,7 +45,19 @@ class RoomsInterfaceController: WKInterfaceController {
         
         /* Broadcast Handoff */
         let handoffInfo = ActivityType.rooms
-        updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
+        if #available(watchOS 5, *) {
+            let activity = NSUserActivity(activityType: handoffInfo.type)
+            activity.title = info.title
+            activity.webpageURL = info.url
+            activity.isEligibleForSearch = true
+            activity.isEligibleForHandoff = true
+            activity.isEligibleForPublicIndexing = true
+            activity.isEligibleForPrediction = true
+            activity.suggestedInvocationPhrase = "Affiche les salles de l'ESEO"
+            activity.persistentIdentifier = NSUserActivityPersistentIdentifier(info.type)
+        } else {
+            updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
+        }
     }
     
     
