@@ -40,6 +40,14 @@ class RoomsInterfaceController: WKInterfaceController {
         fetchRemote()
     }
     
+    override func willActivate() {
+        super.willActivate()
+        
+        /* Broadcast Handoff */
+        let handoffInfo = ActivityType.rooms
+        updateUserActivity(handoffInfo.type, userInfo: nil, webpageURL: handoffInfo.url)
+    }
+    
     
     private func loadCache() {
         
