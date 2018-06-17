@@ -471,6 +471,18 @@ continueUserActivity:(NSUserActivity *)userActivity
         [tab setSelectedIndex:2];
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.cafet"])
         [tab setSelectedIndex:3];
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.order"])
+    {
+        [tab setSelectedIndex:3];
+        
+        if (![Data sharedData].cafetCmdEnCours)
+        {
+            UINavigationController *navVC =   tab.viewControllers.firstObject;
+            CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
+            if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
+                [ordersVC order];
+        }
+    }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.sponsors"])
         [tab setSelectedIndex:4];
     

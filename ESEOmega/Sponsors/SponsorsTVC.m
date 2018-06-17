@@ -67,7 +67,7 @@
     
     // Handoff
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.sponsors"];
-    activity.title = @"Partenaires BDE ESEO";
+    activity.title = @"Liste des partenaires";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_SPON];
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;

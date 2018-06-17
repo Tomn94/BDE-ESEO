@@ -66,7 +66,7 @@
     
     // Handoff
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.events"];
-    activity.title = @"Événements BDE ESEO";
+    activity.title = @"Liste des événements";
     activity.webpageURL = [NSURL URLWithString:URL_ACT_EVNT];
     activity.eligibleForSearch = YES;
     activity.eligibleForHandoff = YES;

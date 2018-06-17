@@ -171,7 +171,7 @@ class CafetOrdersTVC: UITableViewController {
         fetchRemote()
     }
     
-    @IBAction func order() {
+    @IBAction @objc func order() {
         
         guard DataStore.isUserLogged else {
             let alert = UIAlertController(title: "Connectez-vous !",

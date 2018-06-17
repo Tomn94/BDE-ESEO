@@ -49,6 +49,7 @@
 #define URL_GP_STATE @"https://api.bdeeseo.fr/gantier/state"
 #define URL_APP_STAT @"https://api.bdeeseo.fr/apps/status"
 
+#define URL_ACT_ORDR @"https://portail.bdeeseo.fr/modules/lacommande/displayCafet/"
 #define URL_ACT_EVNT @"https://bdeeseo.fr/events"
 #define URL_ACT_SPON @"https://bdeeseo.fr/sponsors"
 

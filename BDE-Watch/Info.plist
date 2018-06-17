@@ -28,6 +28,7 @@
 		<string>com.eseomega.ESEOmega.clubs</string>
 		<string>com.eseomega.ESEOmega.cafet</string>
 		<string>com.eseomega.ESEOmega.sponsors</string>
+		<string>com.eseomega.ESEOmega.order</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

@@ -90,19 +90,23 @@ enum ActivityType {
     
     
     static let news = ActivityInfo(type: "com.eseomega.ESEOmega.news",
-                                   title: "News BDE ESEO",
+                                   title: "Liste des news",
                                    url: URL(string: baseURL + "news")!)
     
     static let article = ActivityInfo(type: "com.eseomega.ESEOmega.article",
-                                      title: "News Article BDE ESEO",
+                                      title: "Actualité",
                                       url: URL(string: baseURL + "news")!)
     
     static let clubs = ActivityInfo(type: "com.eseomega.ESEOmega.clubs",
-                                    title: "Clubs & BDE ESEO",
+                                    title: "BDE & liste des clubs",
                                     url: URL(string: baseURL + "clubs")!)
     
     static let cafet = ActivityInfo(type: "com.eseomega.ESEOmega.cafet",
-                                    title: "Cafet BDE ESEO",
+                                    title: "Liste de mes commandes à la cafet",
                                     url: URL(string: baseURL)!)
+    
+    static let order = ActivityInfo(type: "com.eseomega.ESEOmega.order",
+                                    title: "Commander à la cafet",
+                                    url: URL(string: "https://portail.bdeeseo.fr/modules/lacommande/displayCafet/")!)
     
 }
