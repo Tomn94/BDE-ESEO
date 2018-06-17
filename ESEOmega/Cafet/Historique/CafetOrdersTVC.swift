@@ -20,6 +20,7 @@
 //
 
 import UIKit
+import Intents
 
 class CustomHeaderView: UIView {
     

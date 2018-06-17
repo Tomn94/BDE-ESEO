@@ -81,6 +81,26 @@
         activity.eligibleForPrediction = YES;
         activity.suggestedInvocationPhrase = activity.title;
         activity.persistentIdentifier = @"com.eseomega.ESEOmega.order";
+        
+        /* Customize prediction for this activity */
+        INShortcut *shortcut = [[INShortcut alloc] initWithUserActivity:activity];
+        INDefaultCardTemplate *cardTemplate = [[INDefaultCardTemplate alloc] initWithTitle:activity.title];
+        
+        INRelevantShortcut *schoolRelevantShortcut = [[INRelevantShortcut alloc] initWithShortcut:shortcut];
+        schoolRelevantShortcut.watchTemplate = cardTemplate;
+        INDailyRoutineRelevanceProvider *schoolRelevance = [[INDailyRoutineRelevanceProvider alloc] initWithSituation:INDailyRoutineSituationSchool];
+        schoolRelevantShortcut.relevanceProviders = @[schoolRelevance];
+        
+        INRelevantShortcut *workRelevantShortcut = [[INRelevantShortcut alloc] initWithShortcut:shortcut];
+        workRelevantShortcut.watchTemplate = cardTemplate;
+        INDailyRoutineRelevanceProvider *workRelevance = [[INDailyRoutineRelevanceProvider alloc] initWithSituation:INDailyRoutineSituationWork];
+        workRelevantShortcut.relevanceProviders = @[workRelevance];
+        
+        // Using INLocationRelevanceProvider would be great, but we need user's location access
+        [[INRelevantShortcutStore defaultStore] setRelevantShortcuts:@[schoolRelevantShortcut,
+                                                                       workRelevantShortcut]
+                                                   completionHandler:nil];
+        [[INVoiceShortcutCenter sharedCenter] setShortcutSuggestions:@[shortcut]];
     }
     self.userActivity = activity;
 }
