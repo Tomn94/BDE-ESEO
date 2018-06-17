@@ -77,7 +77,7 @@ class RoomsTVC: UITableViewController {
         activity.title = info.title
         activity.webpageURL = info.url
         activity.isEligibleForSearch = true
-        activity.isEligibleForSearch = true
+        activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
         self.userActivity = activity
     }
