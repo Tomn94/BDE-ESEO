@@ -113,7 +113,7 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
             completionHandler:(void (^)(BOOL))completionHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
-    if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.cafet"])
+    if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.order"])
     {
         [tab setSelectedIndex:3];
         

@@ -209,7 +209,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Commander</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.eseomega.ESEOmega.cafet</string>
+			<string>com.eseomega.ESEOmega.order</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
