@@ -379,6 +379,34 @@ Paquet de chips</string>
             </objects>
             <point key="canvasLocation" x="2452" y="1466"/>
         </scene>
+        <!--ShortcutsVC-->
+        <scene sceneID="8lO-nS-MMe">
+            <objects>
+                <tableViewController id="uDd-ex-elx" customClass="ShortcutsVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2pa-J4-XeC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Xh6-CK-Eju">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xh6-CK-Eju" id="7ZK-H9-MDK">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uDd-ex-elx" id="V8s-Zb-Brt"/>
+                            <outlet property="delegate" destination="uDd-ex-elx" id="6HE-9N-PFz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tBQ-Eg-az2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3180" y="1466"/>
+        </scene>
         <!--Empty Data Set Delegate-->
         <scene sceneID="PXp-Jw-w15">
             <objects>
@@ -775,6 +803,14 @@ Bâtiment : F. Rolland</string>
                                     <action selector="order" destination="1LM-i4-dgy" id="0Kl-cL-m6K"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="" id="AYe-u1-Q5w">
+                                <connections>
+                                    <action selector="order" destination="1LM-i4-dgy" id="oTi-1D-dTw"/>
+                                    <segue destination="uDd-ex-elx" kind="popoverPresentation" popoverAnchorBarButtonItem="AYe-u1-Q5w" id="phO-d2-GZG">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem id="rSv-Al-Asb">
                                 <view key="customView" contentMode="scaleToFill" id="Rx9-uM-bdd">
                                     <rect key="frame" x="52.5" y="22" width="0.0" height="0.0"/>
@@ -1149,7 +1185,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hZX-Yt-D3E"/>
+        <segue reference="Lkv-Aq-dDA"/>
         <segue reference="Sw7-7B-Dky"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
