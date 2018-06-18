@@ -120,12 +120,20 @@ Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour foncti
 > - Nouveau thème et icône AVÉSEO !
 > - Nouveau sticker AVÉSEO pour iMessage et correctifs
 > - Retour de la liste des clubs
-> - Contactez les membres des clubs
-> - Mise à jour des liens 3D Touch vers le Portail/Campus ESEO
-> - Améliorations pour iPhone X
+> - Contactez les membres des clubs en tapant sur leur nom
+> - La famille de l'utilisateur connecté est automatiquement chargée
 > - Correction d'arbres de famille complexes
+> - Mise à jour des liens 3D Touch vers le Portail/Campus ESEO/cafet
+> - Améliorations d'UI, notamment pour iPhone X
+> - Optimisations d'Handoff et préparation pour Siri
+> - Hack du continuum espace-temps pour commander à la cafet avec iOS 11
 > 
-> 3 ans après la création de cette app, ceci sera certainement la dernière mise à jour de ma part :)
+> 3 ans après la création de cette app, ceci est une des dernières mises à jour de ma part :)  
+> ~ Thomas
+
+###### Promotional Text
+> Jetez un coup d'œil à vos commandes cafet et trouvez les salles de l'école sur Apple Watch !  
+> Le thème, l'icône et le sticker AVÉSEO sont arrivés !
 
 ### v5.1 · 07/11/2017
 
