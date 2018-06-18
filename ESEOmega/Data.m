@@ -716,6 +716,11 @@ shouldChangeCharactersInRange:(NSRange)range
         userActivity.eligibleForSearch = YES;
         userActivity.eligibleForHandoff = YES;
         userActivity.eligibleForPublicIndexing = YES;
+        if (@available(iOS 12, *)) {
+            userActivity.eligibleForPrediction = YES;
+            userActivity.suggestedInvocationPhrase = defaultWebsiteTitle;
+            userActivity.persistentIdentifier = url;
+        }
         safari.userActivity = userActivity;
         [userActivity becomeCurrent];
     }
