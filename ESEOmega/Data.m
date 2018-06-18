@@ -676,6 +676,20 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) openURL:(NSString *)url
        currentVC:(UIViewController *)vc
 {
+    [self openURL:url currentVC:vc title:nil];
+}
+
+/**
+ Common function to Open URL. Configures a customized Safari View Controller.
+
+ @param url Website to visit
+ @param vc Parent view controller presenting Safari View Controller
+ @param defaultWebsiteTitle Provide a title if you want to support Handoff/Siri Shortcuts, otherwise leave nil
+ */
+- (void) openURL:(NSString *)url
+       currentVC:(UIViewController *)vc
+           title:(NSString *)defaultWebsiteTitle
+{
     if ([[url substringToIndex:6] isEqualToString:@"mailto"])
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
@@ -690,6 +704,22 @@ shouldChangeCharactersInRange:(NSRange)range
         safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
         safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
     }
+    
+    /* Update Handoff/Siri Shortcuts */
+    // SFSafariViewController already broadcasts Handoff, but is inhibited by the app's own Handoff suggestions.
+    // Currently used for Campus/Portail/Mails ESEO quick links.
+    if (defaultWebsiteTitle != nil && ![defaultWebsiteTitle isEqualToString:@""])
+    {
+        NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+        userActivity.title = defaultWebsiteTitle;
+        userActivity.webpageURL = cleanURL;
+        userActivity.eligibleForSearch = YES;
+        userActivity.eligibleForHandoff = YES;
+        userActivity.eligibleForPublicIndexing = YES;
+        safari.userActivity = userActivity;
+        [userActivity becomeCurrent];
+    }
+    
     [vc presentViewController:safari animated:YES completion:nil];
 }
 

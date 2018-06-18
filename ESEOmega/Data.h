@@ -99,6 +99,9 @@
 
 - (void) openURL:(NSString *)url
        currentVC:(UIViewController *)vc;
+- (void) openURL:(NSString *)url
+       currentVC:(UIViewController *)vc
+           title:(NSString *)defaultWebsiteTitle;
 - (void) twitter:(NSString *)username
        currentVC:(UIViewController *)vc;
 - (void) snapchat:(NSString *)username
