@@ -126,10 +126,12 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
         [tab setSelectedIndex:1];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.portail"])
         [[Data sharedData] openURL:[LinksToolbar portalQuickLink]
-                         currentVC:tab];
+                         currentVC:tab
+                             title:@"Portail ESEO"];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.campus"])
         [[Data sharedData] openURL:[LinksToolbar campusQuickLink]
-                         currentVC:tab];
+                         currentVC:tab
+                             title:@"Campus ESEO"];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.salles"]) {
         BOOL dontReopen = NO;
         UIViewController *vc = self.window.rootViewController.presentedViewController;

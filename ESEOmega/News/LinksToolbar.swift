@@ -30,20 +30,26 @@ fileprivate extension Selector {
 
 class LinksToolbar: UIView {
     
-    typealias QuickLink = (image: UIImage, url: String)
+    /// Describes a shortcut to a website. Provide a title if you want to support Handoff/Siri Shortcuts
+    typealias QuickLink = (image: UIImage, url: String, title: String?)
     
     @objc static let portalQuickLink = "https://reseaueseo.sharepoint.com"
     @objc static let campusQuickLink = "https://campus-reseaueseo.msappproxy.net"
     static let quickLinks: [QuickLink] = [QuickLink(image: #imageLiteral(resourceName: "eseoMails"),
-                                                    url: "https://outlook.office365.com"),
+                                                    url: "https://outlook.office365.com",
+                                                    title: "Mails ESEO"),
                                           QuickLink(image: #imageLiteral(resourceName: "eseo"),
-                                                    url: "https://eseo.fr"),
+                                                    url: "https://eseo.fr",
+                                                    title: nil),
                                           QuickLink(image: #imageLiteral(resourceName: "eseoPortail"),
-                                                    url: LinksToolbar.portalQuickLink),
+                                                    url: LinksToolbar.portalQuickLink,
+                                                    title: "Portail ESEO"),
                                           QuickLink(image: #imageLiteral(resourceName: "eseoCampus"),
-                                                    url: LinksToolbar.campusQuickLink),
+                                                    url: LinksToolbar.campusQuickLink,
+                                                    title: "Campus ESEO"),
                                           QuickLink(image: #imageLiteral(resourceName: "dreamspark"),
-                                                    url: "https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin")]
+                                                    url: "https://moncompte.eseo.fr/authentificationMSDNA.aspx?action=signin",
+                                                    title: nil)]
     
     private let toolbar = UIToolbar()
     
@@ -142,8 +148,10 @@ class LinksToolbar: UIView {
             return
         }
         
-        Data.shared().openURL(LinksToolbar.quickLinks[index].url,
-                              currentVC: viewController)
+        let link = LinksToolbar.quickLinks[index]
+        Data.shared().openURL(link.url,
+                              currentVC: viewController,
+                              title: link.title)
     }
     
     @objc func showBDEMenu() {
