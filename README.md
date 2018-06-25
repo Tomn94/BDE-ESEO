@@ -112,7 +112,7 @@ Nécessite une [API Serveur BDE](https://gitlab.com/bdeeseo/Portail) pour foncti
 
 ## Versions
 
-### v6.0 · 06/2018
+### v6.0 · 21/06/2018
 
 > - Nouvelle app sur Apple Watch !  
 >   Jetez un coup d'œil à vos commandes cafet et trouvez une salle.  

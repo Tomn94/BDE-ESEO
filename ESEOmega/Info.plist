@@ -156,7 +156,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>6.0</string>
+	<string>6.0.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>twitter</string>
