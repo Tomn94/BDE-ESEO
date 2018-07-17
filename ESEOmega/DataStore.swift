@@ -37,14 +37,14 @@ import Foundation
     ///   - token: Connection token to API
     static func connectUser(name: String, mail: String, token: String) {
         
-        JNKeychain.saveValue(name,  forKey: KeychainKey.name)
-        JNKeychain.saveValue(mail,  forKey: KeychainKey.mail)
-        JNKeychain.saveValue(token, forKey: KeychainKey.token)
+        Keychain.save(value: name,  for: .name)
+        Keychain.save(value: mail,  for: .mail)
+        Keychain.save(value: token, for: .token)
     }
     
     /// Returns whether the user is currently logged
     @objc static var isUserLogged: Bool {
-        return JNKeychain.loadValue(forKey: KeychainKey.token) != nil
+        return Keychain.hasValue(for: .token)
     }
     
     /// Marks the user as disconnected in the app.
@@ -53,9 +53,9 @@ import Foundation
         
         Data.delPushToken()
         
-        JNKeychain.deleteValue(forKey: KeychainKey.name)
-        JNKeychain.deleteValue(forKey: KeychainKey.mail)
-        JNKeychain.deleteValue(forKey: KeychainKey.token)
+        Keychain.deleteValue(for: .name)
+        Keychain.deleteValue(for: .mail)
+        Keychain.deleteValue(for: .token)
     }
     
 }

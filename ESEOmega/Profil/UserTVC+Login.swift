@@ -21,27 +21,6 @@
 
 import UIKit
 
-/// Describes a Login JSON response from API
-struct LoginResult: APIResult, Decodable {
-    
-    /// `API.ErrorResult.Error.ui` value if user entered wrong password
-    static let wrongPasswordErrorCode = 7
-    
-    
-    let success: Bool
-    
-    /// Id of the student (e.g. "thomas.naudet")
-    let ID: String
-    
-    /// Name of the student (e.g. "Thomas NAUDET")
-    let fullname: String
-    
-    /// API connection token granted
-    let token: String
-    
-}
-
-
 extension UserTVC {
     
     // MARK: - Login
@@ -203,12 +182,23 @@ extension UserTVC {
             
             /* Sync the device push token with the server to allow future push */
             if hasPushEnabled &&
-               JNKeychain.loadValue(forKey: KeychainKey.token) != nil {
+               Keychain.hasValue(for: .token) {
                 Data.sendPushToken()
             }
+             
+            /* Reset typed data if the user already wants to Disconnect */
+            self.mailField.text = ""
+            self.passField.text = ""
             
-            /* Close the whole profile panel */
-            self.close()
+            /* Update whole profile panel */
+            self.animateChange()
+            self.tableView.reloadData()
+            self.loadUI()
+            self.titleImageView.removeFromSuperview()
+            self.blurImageView.removeFromSuperview()
+            self.contentView.removeFromSuperview()
+            self.tableView.tableHeaderView = nil
+            self.refreshEmptyDataSet()
         }))
         
         DispatchQueue.main.async {

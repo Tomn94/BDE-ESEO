@@ -51,9 +51,11 @@ extension GenealogySearch {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
                                                  for: indexPath)
 
-        let student = results[indexPath.row]
-        cell.textLabel?.text = student.fullname
-        cell.detailTextLabel?.text = "Promotion " + student.promo
+        if indexPath.row < results.count {
+            let student = results[indexPath.row]
+            cell.textLabel?.text = student.fullname
+            cell.detailTextLabel?.text = "Promotion " + student.promo
+        }
 
         return cell
     }
@@ -114,7 +116,7 @@ extension GenealogySearch: UISearchResultsUpdating {
                 else { return }
             
             /* Store sorted alphabetically */
-            self.results = result.students.sorted {
+            self.results = result.users.sorted {
                 $0.fullname.localizedStandardCompare($1.fullname) == .orderedAscending
             }
             

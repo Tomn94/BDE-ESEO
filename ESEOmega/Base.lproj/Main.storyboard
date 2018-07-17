@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,14 +35,14 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wc0-Ky-eT3">
                                             <rect key="frame" x="16" y="13" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Wh-SM-9B9">
                                             <rect key="frame" x="16" y="35.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -123,9 +123,9 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cis-YV-jro">
                                             <rect key="frame" x="122" y="166" width="243" height="32"/>
-                                            <string key="text">http://………
-4 rue des pruniers</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <string key="text">bdeeseo.fr
+10 boulevard Jeanneteau</string>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -134,7 +134,7 @@
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                         </textView>
@@ -197,10 +197,10 @@
             </objects>
             <point key="canvasLocation" x="1623" y="2256"/>
         </scene>
-        <!--Clubs DetailTVC-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="KQW-x0-tZi">
             <objects>
-                <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubsDetailTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="clubsDetailTVC" id="cXh-5d-QRi" customClass="ClubDetailTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ln4-AE-9it">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,15 +215,15 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOh-1N-lBN">
                                             <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hgl-pA-9i2">
                                             <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -233,6 +233,8 @@
                         <connections>
                             <outlet property="dataSource" destination="cXh-5d-QRi" id="NoH-cn-enS"/>
                             <outlet property="delegate" destination="cXh-5d-QRi" id="ulL-nq-lh2"/>
+                            <outlet property="emptyDataSetDelegate" destination="cXh-5d-QRi" id="nxu-qu-TZd"/>
+                            <outlet property="emptyDataSetSource" destination="cXh-5d-QRi" id="11N-86-9TC"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="RYI-PE-xoe">
@@ -308,7 +310,7 @@
     – Verre Coca
 
 Paquet de chips</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -400,7 +402,7 @@ Paquet de chips</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="aS7-Yt-V4G"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -447,7 +449,7 @@ Paquet de chips</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Y5s-ph-f8h"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -553,11 +555,11 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="4382" y="169"/>
         </scene>
-        <!--Vie associative-->
+        <!--Empty Data Set Delegate-->
         <scene sceneID="kej-Tk-Ugi">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsMasterTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="T14-F4-loi" customClass="ClubsListTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="l85-pL-zs6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -571,7 +573,7 @@ Bâtiment : F. Rolland</string>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2un-D0-LF5">
                                             <rect key="frame" x="-12" y="-7" width="399" height="155"/>
-                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sono ESEO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRq-vo-pm7">
                                             <rect key="frame" x="18" y="81" width="339" height="24"/>
@@ -581,12 +583,12 @@ Bâtiment : F. Rolland</string>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrs-5J-DR1">
                                             <rect key="frame" x="18" y="107" width="339" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="Rrs-5J-DR1" firstAttribute="leading" secondItem="4FT-8Z-gmo" secondAttribute="leadingMargin" constant="10" id="131-ST-Vjx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Rrs-5J-DR1" secondAttribute="bottom" constant="10" id="4IH-Um-DFV"/>
@@ -604,13 +606,15 @@ Bâtiment : F. Rolland</string>
                                     <outlet property="detailLabel" destination="Rrs-5J-DR1" id="1cd-Ww-JJS"/>
                                     <outlet property="imgView" destination="2un-D0-LF5" id="Yww-zj-OX1"/>
                                     <outlet property="titreLabel" destination="lRq-vo-pm7" id="8jP-zl-RSc"/>
-                                    <segue destination="wZa-VF-6Df" kind="showDetail" trigger="accessoryAction" id="mMl-75-8h7"/>
+                                    <segue destination="wZa-VF-6Df" kind="showDetail" identifier="clubSelectionSegue" id="Sw7-7B-Dky"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="T14-F4-loi" id="RLZ-O1-syV"/>
                             <outlet property="delegate" destination="T14-F4-loi" id="crq-83-gnU"/>
+                            <outlet property="emptyDataSetDelegate" destination="T14-F4-loi" id="57O-Ts-Ruz"/>
+                            <outlet property="emptyDataSetSource" destination="T14-F4-loi" id="AY1-M1-hOg"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Vie associative" id="1Je-4A-Baz">
@@ -624,7 +628,7 @@ Bâtiment : F. Rolland</string>
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh:" destination="T14-F4-loi" eventType="valueChanged" id="yDl-NH-j9U"/>
+                            <action selector="refresh" destination="T14-F4-loi" eventType="valueChanged" id="G7Q-Rc-rDA"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>
@@ -650,7 +654,7 @@ Bâtiment : F. Rolland</string>
         <!--Clubs-->
         <scene sceneID="ehT-z5-H8a">
             <objects>
-                <splitViewController id="v30-u5-2ae" customClass="ClubsSplitVC" sceneMemberID="viewController">
+                <splitViewController id="v30-u5-2ae" customClass="ClubsSplit" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Clubs" image="clubs" selectedImage="clubsSel" id="4Qh-Qb-hjp"/>
                     <connections>
                         <segue destination="PJx-tp-jgP" kind="relationship" relationship="masterViewController" id="vjM-wS-15r"/>
@@ -701,19 +705,19 @@ Bâtiment : F. Rolland</string>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="21 janvier 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-oQ-fbt">
                                             <rect key="frame" x="71" y="34" width="79" height="14"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="3,99 €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oa2-Oc-56c">
                                             <rect key="frame" x="152" y="13" width="184" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="GUY042" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB4-Na-c2j">
                                             <rect key="frame" x="160" y="34" width="176" height="14"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -727,7 +731,7 @@ Bâtiment : F. Rolland</string>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="Sandwich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXG-Qz-QWp">
                                             <rect key="frame" x="71" y="13" width="71" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -893,7 +897,7 @@ Bâtiment : F. Rolland</string>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charger les anciens articles…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17q-cl-Lv2">
                                             <rect key="frame" x="15" y="11" width="310" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.53333333329999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -925,14 +929,14 @@ Bâtiment : F. Rolland</string>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TCT-IX-hrN">
                                             <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nXJ-mV-K1B">
                                             <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <color key="textColor" red="0.62745098039215685" green="0.62745098039215685" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -954,19 +958,17 @@ Bâtiment : F. Rolland</string>
                         <leftBarButtonItems>
                             <barButtonItem image="salles" id="nXm-KZ-PMr">
                                 <connections>
-                                    <segue destination="PqK-1x-Igr" kind="presentation" modalPresentationStyle="formSheet" id="uMb-kv-8EL"/>
+                                    <segue destination="PqK-1x-Igr" kind="presentation" identifier="showRooms" modalPresentationStyle="formSheet" id="uMb-kv-8EL"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="genealogy" id="p8E-j9-lhg">
-                                <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <segue destination="jjo-OM-Bq7" kind="presentation" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
+                                    <segue destination="jjo-OM-Bq7" kind="presentation" identifier="showFamilies" modalPresentationStyle="formSheet" id="q6W-rg-cjm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="ingenews" id="rqC-m9-Uef">
-                                <inset key="imageInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <segue destination="lbS-rr-gnB" kind="presentation" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
+                                    <segue destination="lbS-rr-gnB" kind="presentation" identifier="showIngenews" modalPresentationStyle="formSheet" id="QWY-27-S1D"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -1147,8 +1149,8 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lkv-Aq-dDA"/>
-        <segue reference="mMl-75-8h7"/>
+        <segue reference="hZX-Yt-D3E"/>
+        <segue reference="Sw7-7B-Dky"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>
 </document>

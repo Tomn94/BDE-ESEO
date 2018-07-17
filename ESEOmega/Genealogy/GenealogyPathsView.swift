@@ -31,7 +31,14 @@ class GenealogyPathsView: UIView {
     
     var currentRank: Int?
     
-    
+
+    /// PLEASE check drawings have no missing paths using:
+    ///     - Alexandre JULIEN
+    ///     - Thomas HEYLENS
+    ///     - Alessandro MOSCA
+    ///     - Thibaud AUBERT
+    ///     - Thomas PREVOST
+    /// Feel free to add names here with relevant cases
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -80,30 +87,75 @@ class GenealogyPathsView: UIView {
                !children.isEmpty {
                 /* Analyze brothers to see which ones have the same children
                    Then do the sum of each X from brothers found */
-                var xBottomBaricenter: CGFloat = 0
+                var xBottomBaricenter: CGFloat = x
                 var nbrBrotherWithChildren = 0  // Incest
-                for (brotherIndex, brother) in brothers.enumerated() {
+                var brothersForLonelyChildren = [StudentID : [Int]]() // See Alexandre JULIEN, Alessandro MOSCA, Thibaud AUBERT
+                for (brotherIndex, brother) in brothers.enumerated() where brotherIndex != index {
+                    
+                    let intersection = Set(brother.childIDs ?? []).intersection(Set(children))
                     /* The brother has children in common with current student */
-                    if !Set(brother.childIDs ?? []).intersection(Set(children)).isEmpty {
-                        xBottomBaricenter += xFrom(index: brotherIndex,
-                                                   nbrItems: brothers.count,
-                                                   width: width)
-                        nbrBrotherWithChildren += 1
+                    if !intersection.isEmpty {
+                        
+                        // They don't have strictly the same children
+                        if intersection.count != children.count {
+                            let remainingChildren = Array(Set(children).subtracting(intersection))
+                            remainingChildren.forEach { child in
+                                if brothersForLonelyChildren[child] == nil {
+                                    brothersForLonelyChildren[child] = []
+                                }
+                                brothersForLonelyChildren[child]!.append(brotherIndex)
+                            }
+                        } else {
+                            // Same children
+                            xBottomBaricenter += xFrom(index: brotherIndex,
+                                                       nbrItems: brothers.count,
+                                                       width: width)
+                            nbrBrotherWithChildren += 1
+                        }
                     }
                 }
                 
-                /* And do the average */
+                // Draw joined line if multiple people on the same line have the same children
                 if nbrBrotherWithChildren > 0 {
-                    xBottomBaricenter /= CGFloat(nbrBrotherWithChildren)
-                } else { // Fallback to the center of the current student label if no common children
-                    xBottomBaricenter  = x
+                    /* Joined curved line */
+                    xBottomBaricenter   /= CGFloat(nbrBrotherWithChildren) + 1
+                    let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
+                    drawLink(from: CGPoint(x: center.x,
+                                           y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                             to: bottomBaricenter)
+                    
+                // Draw a straight line if children belonging only to this person remain
+                } else if children.count > brothersForLonelyChildren.count {
+                    /* Draw straight vertical line
+                       if people on the same line don't have exactly the same children,
+                       or have no common children */
+                    let bottomBaricenter = CGPoint(x: x, y: height)
+                    drawLink(from: CGPoint(x: center.x,
+                                           y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                             to: bottomBaricenter)
                 }
-                let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
                 
-                /* And draw on the view */
-                drawLink(from: CGPoint(x: center.x,
-                                       y: center.y + (minLabelHeight / 2) + topMargin - 1),
-                         to: bottomBaricenter)
+                // If some people have different children
+                if brothersForLonelyChildren.count > 0 {
+                    
+                    // Iterate through all brother this person has other children in common
+                    for (_, brotherIndexes) in brothersForLonelyChildren {
+                        
+                        /* Joined curved line */
+                        var xBottomBaricenter: CGFloat = x
+                        for brotherIndex in brotherIndexes {
+                            xBottomBaricenter += xFrom(index: brotherIndex,
+                                                       nbrItems: brothers.count,
+                                                       width: width)
+                        }
+                        xBottomBaricenter /= CGFloat(brotherIndexes.count) + 1
+                        
+                        let bottomBaricenter = CGPoint(x: xBottomBaricenter, y: height)
+                        drawLink(from: CGPoint(x: center.x,
+                                               y: center.y + (minLabelHeight / 2) + topMargin - 1),
+                                 to: bottomBaricenter)
+                    }
+                }
             }
         }
     }

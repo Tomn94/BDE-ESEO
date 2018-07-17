@@ -57,10 +57,14 @@ import UIKit
         /// Un thème légendaire
         case eseodin    = 6
         
+        /// Un grand thème
+        case aveseo     = 7
+        
        
         // MARK: Themes associated attributes
         
-        /// Defines which attribute types a theme has
+        /// Defines which attribute types a theme has:
+        /// Navigation Bar background, Navigation Bar icons, Alert button titles
         typealias ThemeValue = (bars: UIColor, barButtons: UIColor, window: UIColor)
         
         /// Describes each attribute value for every theme
@@ -73,10 +77,12 @@ import UIKit
             case .eseomega:   return (bars: #colorLiteral(red: 0, green: 0.647, blue: 1, alpha: 1), barButtons: #colorLiteral(red: 0.806, green: 0.959, blue: 1, alpha: 1), window: #colorLiteral(red: 0.078, green: 0.707, blue: 1, alpha: 1))
             case .eseoasis:   return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
             case .eseodin:    return (bars: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1), barButtons: #colorLiteral(red: 0.68, green: 0.8986666667, blue: 1, alpha: 1), window: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1))
+            case .aveseo:     return (bars: #colorLiteral(red: 0.6705882353, green: 0.137254902, blue: 0.1568627451, alpha: 1), barButtons: #colorLiteral(red: 1, green: 0.8392156863, blue: 0.8392156863, alpha: 1), window: #colorLiteral(red: 0.6705882353, green: 0.137254902, blue: 0.1568627451, alpha: 1))
             }
         }
         
-        /// String describing each theme
+        /// String describing each theme.
+        /// Visible in the UI, and used by Info.plist.
         var name: String {
             switch self {
             case .common:     return "Par défaut"
@@ -86,6 +92,7 @@ import UIKit
             case .eseomega:   return "ESEOmega"
             case .eseoasis:   return "ESEOasis"
             case .eseodin:    return "ESEOdin"
+            case .aveseo:     return "AVÉSEO"
             }
         }
     }
@@ -98,7 +105,8 @@ import UIKit
                 .bdeldorado,
                 .eseomega,
                 .eseoasis,
-                .eseodin]
+                .eseodin,
+                .aveseo]
     }
     
     

@@ -63,4 +63,25 @@ extension UINavigationController {
         return .lightContent
     }
     
+    open override var childViewControllerForStatusBarStyle: UIViewController? {
+        return nil
+    }
+    
+}
+
+extension UIFont {
+    
+    func withTraits(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(traits)
+        return UIFont(descriptor: descriptor ?? fontDescriptor, size: 0) // keep size
+    }
+    
+    func bold() -> UIFont {
+        return withTraits(traits: .traitBold)
+    }
+    
+    func italic() -> UIFont {
+        return withTraits(traits: .traitItalic)
+    }
+    
 }

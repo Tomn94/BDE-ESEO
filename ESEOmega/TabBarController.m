@@ -168,8 +168,8 @@ shouldSelectViewController:(UIViewController *)viewController
     {
         NSArray *vcs = [(UISplitViewController *)viewController viewControllers];
         UIViewController *vc = [(UINavigationController *)[vcs lastObject] viewControllers][0];
-        if ([vc isKindOfClass:[ClubsDetailTVC class]])
-            [(ClubsDetailTVC *)vc loadClub];
+        if ([vc isKindOfClass:[ClubDetailTVC class]])
+            [(ClubDetailTVC *)vc loadPic];
     }
     
     // 2e tap
@@ -192,9 +192,9 @@ shouldSelectViewController:(UIViewController *)viewController
                 break;
                 
             case 2:
-                if ([viewController isKindOfClass:[ClubsSplitVC class]])
+                if ([viewController isKindOfClass:[ClubsSplit class]])
                 {
-                    ClubsSplitVC *split = (ClubsSplitVC *)viewController;
+                    ClubsSplit *split = (ClubsSplit *)viewController;
                     if (split.collapsed)
                         [(UINavigationController *)split.viewControllers[0] popToRootViewControllerAnimated:YES];
                 }

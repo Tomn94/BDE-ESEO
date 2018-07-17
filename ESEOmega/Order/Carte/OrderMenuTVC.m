@@ -122,7 +122,7 @@
     cell.nom.text = donnees[@"name"];
     cell.detail.text = donnees[@"briefText"];
     cell.prix.text = [[NSString stringWithFormat:@"À partir de %.2f €", [donnees[@"firstPrice"] doubleValue]] stringByReplacingOccurrencesOfString:@"." withString:@","];
-    [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", URI_CAFET, donnees[@"imgUrl"]]]
+    [cell.back sd_setImageWithURL:[NSURL URLWithString:donnees[@"imgUrl"]]
                  placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     

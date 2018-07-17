@@ -88,7 +88,7 @@ class CafetOrdersTVC: UITableViewController {
         activity.title = info.title
         activity.webpageURL = info.url
         activity.isEligibleForSearch = true
-        activity.isEligibleForSearch = true
+        activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
         self.userActivity = activity
         
@@ -171,7 +171,7 @@ class CafetOrdersTVC: UITableViewController {
         fetchRemote()
     }
     
-    @IBAction func order() {
+    @IBAction @objc func order() {
         
         guard DataStore.isUserLogged else {
             let alert = UIAlertController(title: "Connectez-vous !",
@@ -206,7 +206,7 @@ class CafetOrdersTVC: UITableViewController {
             Utils.requiresActivityIndicator(false)
             
             var title   = "Erreur"
-            var message = "Impossible de vérifier si l'application est à jour"
+            var message = "Impossible de vérifier si l'application est à jour pour commander."
             var updateAvailable = false
             
             if error == nil && data != nil,
@@ -219,7 +219,9 @@ class CafetOrdersTVC: UITableViewController {
                 
                 if storeVersion.compare(appVersion, options: .numeric) != .orderedDescending {
                     
-                    self.checkTime()
+                    DispatchQueue.main.async {
+                        self.checkTime()
+                    }
                     return
                     
                 } else {
@@ -257,13 +259,17 @@ class CafetOrdersTVC: UITableViewController {
     /// Step 2
     func checkTime() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let token = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
         
         let timeZone = TimeZone.current
-        guard timeZone.identifier == "Europe/Paris" else {
+        let utc      = timeZone.abbreviation(for: Date())
+        guard timeZone.identifier == "Europe/Paris" ||
+              // iOS 11 bugfix below. Because sometimes `timeZone.identifier` is `Etc/GMT-2` instead.
+              // We should verify Daylight Saving Time, but sometimes it doesn't work as well…
+              utc == "UTC+1" || utc == "UTC+2" else {
             let alert = UIAlertController(title: "Erreur 🌍",
                                           message: "L'accès à la cafet ne peut se faire depuis un autre pays que la France.\nEnvoyez-nous une carte postale !",
                                           preferredStyle: .alert)
@@ -304,7 +310,7 @@ class CafetOrdersTVC: UITableViewController {
     
     func startShopping(with token: String) {
         
-        guard let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let userToken = Keychain.string(for: .token) else {
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
             return
         }
@@ -443,7 +449,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchRemote() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         API.request(.orders, get: ["all": "1"], authentication: token,
@@ -505,7 +511,7 @@ extension CafetOrdersTVC: APIViewer {
     
     func fetchService() {
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let token = Keychain.string(for: .token)
             else { return }
         
         let unavailableStatus = "Cafétéria en ligne non disponible"
@@ -628,8 +634,8 @@ extension CafetOrdersTVC {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 79, bottom: 0, right: 0)
         }
         
-        cell.nomLabel.font       = UIFont.systemFont(ofSize: 16)
-        cell.prixLabel.font      = UIFont.systemFont(ofSize: 16)
+        cell.nomLabel.font       = UIFont.preferredFont(forTextStyle: .callout)
+        cell.prixLabel.font      = UIFont.preferredFont(forTextStyle: .callout)
         cell.dateLabel.textColor = .darkGray
         cell.numLabel.textColor  = .darkGray
         
@@ -640,8 +646,8 @@ extension CafetOrdersTVC {
             cell.imgView.image = #imageLiteral(resourceName: "cafetPreparing")
                 
         case .ready:
-            cell.nomLabel.font  = UIFont.boldSystemFont(ofSize: 16)
-            cell.prixLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            cell.nomLabel.font  = UIFont.preferredFont(forTextStyle: .callout).bold()
+            cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
             cell.imgView.image  = #imageLiteral(resourceName: "cafetReady")
                 
         case .done:
@@ -650,8 +656,8 @@ extension CafetOrdersTVC {
             cell.imgView.image       = #imageLiteral(resourceName: "cafetDone")
             
         case .notPaid:
-            cell.nomLabel.font  = UIFont.boldSystemFont(ofSize: 16)
-            cell.prixLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            cell.nomLabel.font  = UIFont.preferredFont(forTextStyle: .callout).bold()
+            cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
             cell.imgView.image  = #imageLiteral(resourceName: "cafetNotPaid")
         }
         
@@ -674,7 +680,7 @@ extension CafetOrdersTVC {
         formatter.numberStyle = .currency
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
-        cell.numLabel.text    = String(format: "%@%03d", order.strcmd, order.modcmd)
+        cell.numLabel.text    = order.number
         
         return cell
     }

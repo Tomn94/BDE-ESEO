@@ -72,23 +72,11 @@ enum UserDefaultsKey {
     /// Server response cached for fast reload
     static let stickers       = "stickers"
     
-}
-
-
-/// Common keys to get or set values in Keychain
-enum KeychainKey {
     
-    /// Name of the logged user (e.g. `Thomas NAUDET`)
-    static let name  = "uname"
+    // MARK: WatchExtension
     
-    /// Email address of the logged user (e.g. `prenom.nom@reseau.eseo.fr`)
-    static let mail  = "mail"
-    
-    /// Token needed for API requests requiring login
-    static let token = "token"
-    
-    /// Name of the logged user (e.g. `Thomas 06 01 02 03 04`)
-    static let phone = "phone"
+    /// Server response cached for fast reload
+    static let watchRooms     = "watchRooms"
     
 }
 
@@ -100,17 +88,35 @@ enum ActivityType {
     
     static let baseURL = "https://bdeeseo.fr/"
     
+    static let cafetDisplayURL = "https://portail.bdeeseo.fr/modules/lacommande/displayCafet/"
+    
     
     static let news = ActivityInfo(type: "com.eseomega.ESEOmega.news",
-                                   title: "News BDE ESEO",
+                                   title: "Liste des news",
                                    url: URL(string: baseURL + "news")!)
     
     static let article = ActivityInfo(type: "com.eseomega.ESEOmega.article",
-                                      title: "News Article BDE ESEO",
+                                      title: "Actualité",
                                       url: URL(string: baseURL + "news")!)
     
+    static let clubs = ActivityInfo(type: "com.eseomega.ESEOmega.clubs",
+                                    title: "BDE & liste des clubs",
+                                    url: URL(string: baseURL + "clubs")!)
+    
     static let cafet = ActivityInfo(type: "com.eseomega.ESEOmega.cafet",
-                                    title: "Cafet BDE ESEO",
-                                    url: URL(string: baseURL)!)
+                                    title: "Liste de mes commandes à la cafet",
+                                    url: URL(string: cafetDisplayURL)!)
+    
+    static let order = ActivityInfo(type: "com.eseomega.ESEOmega.order",
+                                    title: "Commander à la cafet",
+                                    url: URL(string: cafetDisplayURL)!)
+    
+    static let rooms = ActivityInfo(type: "com.eseomega.ESEOmega.rooms",
+                                    title: "Liste des salles",
+                                    url: URL(string: baseURL + "rooms")!)
+    
+    static let families = ActivityInfo(type: "com.eseomega.ESEOmega.families",
+                                       title: "Familles & parrainages",
+                                       url: URL(string: baseURL + "families")!)
     
 }

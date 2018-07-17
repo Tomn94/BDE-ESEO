@@ -27,7 +27,7 @@ fileprivate extension Selector {
 
 class NewsSplit: UISplitViewController {
     
-    var master: UIViewController?
+    @objc var master: UIViewController?
     
     var creditsItem: UIBarButtonItem!
     

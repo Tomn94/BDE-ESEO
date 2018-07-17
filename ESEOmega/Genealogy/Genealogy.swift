@@ -64,6 +64,25 @@ class Genealogy: UITableViewController {
             search.searchBar.sizeToFit()
             self.tableView.tableHeaderView = search.searchBar
         }
+        
+        // Directly show user's family at launch
+        loadUserFamily()
+        
+        /* Handoff */
+        let info = ActivityType.families
+        let activity = NSUserActivity(activityType: info.type)
+        activity.title = info.title
+        activity.webpageURL = info.url
+        activity.isEligibleForSearch = true
+        activity.isEligibleForHandoff = true
+        activity.isEligibleForPublicIndexing = true
+        self.userActivity = activity
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        userActivity?.becomeCurrent()
     }
     
     /// Redraw connections when orientation changes
@@ -74,14 +93,44 @@ class Genealogy: UITableViewController {
         self.tableView.reloadData()
     }
     
-    /**
-     Get family for student previously searched
-     - Parameter student: The student whose family is requested by its ID number
-     */
-    func setUpFamily(for student: FamilyMember) {
+    /// Display user family according to stored username.
+    /// First result is used, so it might not work for people with the same name.
+    func loadUserFamily() {
+        
+        guard let username = Keychain.string(for: .name)
+            else { return }
+        
+        /* Ask students results */
+        API.request(.familySearch, get: ["name" : username], completed: { data in
+            
+            guard let result = try? JSONDecoder().decode(StudentSearchResult.self,
+                                                         from: data),
+                  result.success
+                else { return }
+            
+            /* Select first exact match */
+            guard let familyMember = result.users.sorted(by: { user, _ in
+                user.fullname.localizedStandardCompare(username) == .orderedAscending
+            }).first else { return }
+            
+            DispatchQueue.main.async {
+                self.setUpFamily(for: familyMember,
+                                 dismissSearch: false)
+            }
+        })
+    }
+    
+    /// Get family for student previously searched
+    ///
+    /// - Parameters:
+    ///   - student: The student whose family is requested by its ID number
+    ///   - dismissSearch: Wether search results view controller should be dismissed first
+    func setUpFamily(for student: FamilyMember, dismissSearch: Bool = true) {
         
         /* Dismiss search */
-        search.isActive = false
+        if dismissSearch {
+            search.isActive = false
+        }
         
         loadingIndicator.startAnimating()
         
@@ -124,11 +173,16 @@ class Genealogy: UITableViewController {
         
         var tree: [[FamilyMember]] = []
         
-        /* 1: Split students by rank */
+        /* 1: Split students by rank and Weight them */
         // Prepare: sort students by rank
         let students = members.sorted { $0.rank < $1.rank }
         var currentRank = 0
         var currentRankMembers: [FamilyMember]?
+        
+        // Attribute weight to each student to later sort the whole tree
+        var studentWeight = [StudentID : Int]()
+        var firstRankWeights = [Int]()
+        
         // Allocate each rank
         for student in students {
             if currentRank == student.rank {
@@ -136,7 +190,7 @@ class Genealogy: UITableViewController {
                 if currentRankMembers == nil {
                     currentRankMembers = [student]
                 } else {
-                    currentRankMembers?.append(student)
+                    currentRankMembers!.append(student)
                 }
             } else {
                 // If changed rank, save previous and start a new one
@@ -145,6 +199,29 @@ class Genealogy: UITableViewController {
                 }
                 currentRank = student.rank
                 currentRankMembers = [student]
+            }
+            
+            if currentRank == 0 {
+                // For first rank, weight is decreasing the more children the student has
+                // Checks we don't have the same weight twice, otherwise children could then have the same too.
+                // If it's the case, we must decrease with a counter, otherwise we might interfer with the previous substraction and then find again the same weight.
+                // PLEASE Check changes with Alessandro MOSCA, Alexandre JULIEN and Thibaud AUBERT
+                var counter = 0
+                var weight  = 1000
+                repeat {
+                    weight   = 1000 - (student.childIDs?.count ?? 0) - counter
+                    counter += 1
+                } while firstRankWeights.contains(weight)
+                firstRankWeights.append(weight)
+                studentWeight[student.ID] = weight
+                
+            } else {
+                // For other ranks, compute parents weight for each member
+                var weight = 0
+                for parentID in student.parentIDs ?? [] {
+                    weight += studentWeight[parentID] ?? 0
+                }
+                studentWeight[student.ID] = weight == 0 ? 1 : weight
             }
         }
         // Fill last rank
@@ -155,23 +232,8 @@ class Genealogy: UITableViewController {
         /* 2: Order ranks by same parent and parent position */
         for (index, rank) in tree.enumerated() {
             // We'll order children according to each parent from current rank
-            for student in rank {
-                // Let's order children to be under this parent
-                if let children = student.childIDs,
-                   !children.isEmpty && index < tree.count - 1 {
-                    tree[index+1].sort { student1, _ in
-                        return children.contains(student1.ID)
-                    }
-                    
-                    // Fix for some relations: 2 students on a row have each one, one child
-                    if tree[index+1].count == 2 &&
-                       tree[index+1][0].parentIDs?.first != tree[index][0].ID &&
-                       tree[index+1][1].parentIDs?.first != tree[index][1].ID {
-                        tree[index+1].sort { _, student2 in
-                            return children.contains(student2.ID)
-                        }
-                    }
-                }
+            tree[index] = rank.sorted { student1, student2 in
+                studentWeight[student1.ID] ?? 0 < studentWeight[student2.ID] ?? 0
             }
         }
         
@@ -224,7 +286,7 @@ extension Genealogy {
             
             /* Highlight requested student */
             if let q = query, q == student {
-                nameBox.font = UIFont.boldSystemFont(ofSize: 12)
+                nameBox.font = UIFont.preferredFont(forTextStyle: .caption1).bold()
                 var hue: CGFloat = 0;   var saturation: CGFloat = 0
                 var brightness: CGFloat = 0; var alpha: CGFloat = 0
                 if self.tableView.tintColor.getHue(&hue, saturation: &saturation,
@@ -237,7 +299,7 @@ extension Genealogy {
                     nameBox.backgroundColor = self.tableView.tintColor
                 }
             } else {
-                nameBox.font = UIFont.systemFont(ofSize: 12)
+                nameBox.font = UIFont.preferredFont(forTextStyle: .caption1)
                 nameBox.backgroundColor = self.tableView.tintColor
             }
             

@@ -96,7 +96,7 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         guard self.userTVC != nil else { return }
         
         /* Display a different message when there's no phone registered */
-        guard let phoneNumber = JNKeychain.loadValue(forKey: KeychainKey.phone) as? String else {
+        guard let phoneNumber = Keychain.string(for: .phone) else {
             let alert = UIAlertController(title: "Aucun numéro de téléphone renseigné",
                                           message: "Un numéro de téléphone portable est demandé par Lydia afin de lier les commandes cafet/event à votre compte, également lorsque vous vous inscrivez à un événement gratuit hors Lydia.\nIl n'est pas stocké sur nos serveurs sauf dans 2e cas.",
                                           preferredStyle: .actionSheet)
@@ -115,7 +115,7 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
         alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
             
             /* Delete stored value, and remove the phone number from the view */
-            JNKeychain.deleteValue(forKey: KeychainKey.phone)
+            Keychain.deleteValue(for: .phone)
             self.reloadDataAnimated()
         }))
         
@@ -227,7 +227,7 @@ class UserTVDataSource: NSObject, UITableViewDataSource {
         case 0:
             /* Cell number for Lydia and events */
             cell?.textLabel?.text = "Identifiant Lydia"
-            if let phone = JNKeychain.loadValue(forKey: KeychainKey.phone) as? String {
+            if let phone = Keychain.string(for: .phone) {
                 cell?.detailTextLabel?.text = phone
             } else {
                 cell?.detailTextLabel?.text = "Aucun"

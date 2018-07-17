@@ -186,9 +186,9 @@ class CafetOrderVC: UIViewController {
         }
 
         let attrStr = NSMutableAttributedString(string: instructions,
-                                                attributes: [.font : UIFont.systemFont(ofSize: 15)])
+                                                attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline)])
         if addedInstructions {
-            attrStr.setAttributes([.font : UIFont.boldSystemFont(ofSize: 15)],
+            attrStr.setAttributes([.font : UIFont.preferredFont(forTextStyle: .subheadline).bold()],
                                   range: NSMakeRange(resume.count + 2, 13))
         }
         detailLabel.attributedText = attrStr
@@ -200,7 +200,7 @@ class CafetOrderVC: UIViewController {
         
         /* Image */
         if let imgURL = order.imgurl, imgURL != "" {
-            bandeau.sd_setImage(with: URL(string: API.assetsURL + imgURL),
+            bandeau.sd_setImage(with: URL(string: imgURL),
                                 placeholderImage: #imageLiteral(resourceName: "placeholder"),
                                 completed: { image, error, cacheType, url in
                 
@@ -239,8 +239,8 @@ class CafetOrderVC: UIViewController {
     
     @objc func fetchDetailedOrder() {
         
-        guard let order = self.order,
-              let userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+        guard let order     = self.order,
+              let userToken = Keychain.string(for: .token)
             else { return }
         
         let defaultMessage = "Détails de la commande indisponibles"

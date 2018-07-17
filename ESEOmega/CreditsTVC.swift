@@ -52,8 +52,7 @@ class CreditsTVC: UITableViewController {
     
     func contact() {
         
-        Data.shared().mail("tom" + "n72@gm"
-                           + "ail.com", currentVC: self)
+        Data.shared().mail(["ail.com", "n72@gm", "tom"].reversed().joined(), currentVC: self)
     }
     
     @objc func close() {
@@ -94,10 +93,7 @@ extension CreditsTVC: DZNEmptyDataSetSource {
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
         let text = """
-© Thomas NAUDET pour ESEOmega
-Collection Été 2015 - Hiver 2016
-Hiver 2016 - 2017 pour ESEOasis
-Été 2017 pour ESEOdin
+© Thomas NAUDET ESEOmega 2015-2018
 Une question, un problème ? ↓
 """
         
@@ -109,8 +105,8 @@ Une question, un problème ? ↓
                                                   .foregroundColor : UIColor.lightGray])
         
         let boldAttr = [NSAttributedStringKey.font : UIFont(descriptor: boldSubheadDescriptor, size: 0)]
-        mas.setAttributes(boldAttr, range: NSMakeRange(2,  13))
-        mas.setAttributes(boldAttr, range: NSMakeRange(117, 29))
+        mas.setAttributes(boldAttr, range: NSMakeRange(2,  13))               // my name
+        mas.setAttributes(boldAttr, range: NSMakeRange(text.count - 29, 29))  // question?
         
         return mas
     }

@@ -69,6 +69,22 @@
     [ctr addObserver:self selector:@selector(fermerForcer) name:@"cmdValide" object:nil];
     [ctr addObserver:self selector:@selector(fermerForcerLydia:) name:@"cmdValideLydia" object:nil];
     [ctr addObserver:self selector:@selector(timeout) name:@"retourAppCafetFin" object:nil];
+    
+    /* Handoff */
+    NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.eseomega.ESEOmega.order"];
+    activity.title = @"Commander à la cafet";
+    activity.webpageURL = [NSURL URLWithString:URL_ACT_ORDR];
+    activity.eligibleForSearch = YES;
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForPublicIndexing = YES;
+    self.userActivity = activity;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.userActivity becomeCurrent];
 }
 
 - (void) timeout

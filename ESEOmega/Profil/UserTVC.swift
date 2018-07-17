@@ -40,9 +40,6 @@ class UserTVC: JAQBlurryTableViewController {
     
     // MARK: - Constants
     
-    /// Default domain name for mail addresses (used in autocomplete and placeholders)
-    static let mailDomain = "reseau.eseo.fr"
-    
     /// Some indications on how to fill the mail field. "@reseau.eseo.fr" is automatically added
     static let mailPlaceholders = ["tyrion.lannister", "john.snow", "arya.stark", "walter.white", "jesse.pinkman", "ron.swanson", "abed.nadir", "kenny.mccormick", "mulder.fox", "saul.goodman", "asher.roth", "archer.sterling", "rick.morty", "sam.sepiol", "elliot.alderson", "joe.macmillan", "gordon.clark", "cameron.howe", "donna.clark"]
     
@@ -163,7 +160,7 @@ class UserTVC: JAQBlurryTableViewController {
         
         /* Choose one random among predefined ones */
         let index = Int(arc4random_uniform(UInt32(UserTVC.mailPlaceholders.count)))
-        mailField.placeholder = UserTVC.mailPlaceholders[index] + "@" + UserTVC.mailDomain
+        mailField.placeholder = UserTVC.mailPlaceholders[index] + "@" + User.mailDomain
     }
     
     /// Called when text in fields is edited.
@@ -222,9 +219,6 @@ class UserTVC: JAQBlurryTableViewController {
         /* Allow inner selection and ensure the view is always visible (scrollable to) */
         self.tableView.emptyDataSetView.contentView.frame.size.height += UserTVC.optionsTableMargin + optionsTable.frame.height
         self.tableView.emptyDataSetView.tapGesture.cancelsTouchesInView = false
-        if DataStore.isUserLogged {
-            self.tableView.contentInset.bottom = UserTVC.optionsTableYPos + CGFloat(UserTVC.optionsNbr * 44) + 80
-        }
         optionsTable.reloadData()
     }
     
@@ -370,7 +364,7 @@ extension UserTVC: UITextFieldDelegate {
                !mailTxt.contains("@") &&        // autocomplete just once
                proposedStr.hasSuffix("@") {     // the @ is at the end
                 /* Update the text field */
-                mailField.text = proposedStr + UserTVC.mailDomain
+                mailField.text = proposedStr + User.mailDomain
                 shouldAutoUpdateField = false
             }
             
@@ -421,7 +415,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
         /* Say hello to the user if we have their name */
-        if let username = JNKeychain.loadValue(forKey: KeychainKey.name) as? String {
+        if let username = Keychain.string(for: .name) {
             
             let welcomeString = "Bonjour\n" + username
             

@@ -32,11 +32,10 @@ protocol APIResult: Decodable {
 /// Tools to contact the server
 class API {
     
-    /// Common URL for all API requests
-    static private let url     = "https://api.bdeeseo.fr/"
+    /// Common URL for all API requests.
+    /// TODO: Set a debug environment to automatically switch between beta & production.
+    static private let url     = "https://api.bdeeseo.fr/"  // "https://beta.api.bdeeseo.fr/"
     static private let version = "1"
-    
-    static let assetsURL = "https://portail.bdeeseo.fr/modules/lacommande/assets/"
     
     
     /// Available API endpoints
@@ -47,6 +46,12 @@ class API {
         
         /// Get news articles
         case news         = "news"
+        
+        /// Get clubs list
+        case clubs        = "clubs"
+        /// Same as `clubs` but to be used with `APIArchiver` instead of `clubs`.
+        /// Why? Because I only found this solution to fix a weirdass problem
+        case clubsCache   = "clubsCache"
         
         /// Get cafet order history
         case orders       = "me/orders"
@@ -182,7 +187,9 @@ class API {
                                         delegateQueue: nil)  // create new queue
         let dataTask = defaultSession.dataTask(with: request) { data, _, error in
             
+            #if os(iOS)
             Utils.requiresActivityIndicator(false)
+            #endif
             
             guard let d = data, error == nil else {
                 failure?(error, data)
@@ -193,7 +200,9 @@ class API {
         }
         
         /* Fire! */
+        #if os(iOS)
         Utils.requiresActivityIndicator(true)
+        #endif
         dataTask.resume()
     }
     
@@ -201,8 +210,10 @@ class API {
     enum HandleFailureMode {
         /// Only get error info (default)
         case onlyFetchMessage
+        #if os(iOS)
         /// Present alert from decoded error info
         case presentFetchedMessage(UIViewController)
+        #endif
     }
     
     /// Tries to analyse bad API response data to at least get an error message.
@@ -220,6 +231,7 @@ class API {
             result = APIError(message: cause, code: error.uid)
         }
         
+        #if os(iOS)
         if case let .presentFetchedMessage(parentVC) = mode {
             
             let alert = UIAlertController(title: "Erreur",
@@ -230,6 +242,7 @@ class API {
                 parentVC.present(alert, animated: true)
             }
         }
+        #endif
         
         return result
     }

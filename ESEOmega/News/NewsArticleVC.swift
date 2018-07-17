@@ -103,7 +103,7 @@ class NewsArticleVC: UIViewController {
         let activity = NSUserActivity(activityType: ActivityType.article.type)
         activity.title = article.title
         activity.isEligibleForSearch = true
-        activity.isEligibleForSearch = true
+        activity.isEligibleForHandoff = true
         activity.isEligibleForPublicIndexing = true
         self.userActivity = activity
         

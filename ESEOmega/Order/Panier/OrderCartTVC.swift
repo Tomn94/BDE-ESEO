@@ -44,7 +44,7 @@ class OrderCartTVC: UITableViewController {
                                viewController: UITableViewController) {
         
         guard let cafetToken = Data.shared().cafetToken,
-              let  userToken = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+              let  userToken = Keychain.string(for: .token)
             else { return }
         
         API.request(.sendOrder,

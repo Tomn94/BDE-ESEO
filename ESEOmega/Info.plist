@@ -10,6 +10,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AVÉSEO</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-7</string>
+				</array>
+			</dict>
 			<key>BDEl'dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -65,6 +72,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AVÉSEO</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-7</string>
+				</array>
+			</dict>
 			<key>BDEl'dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -125,7 +139,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.1</string>
+	<string>6.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -142,7 +156,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5.1</string>
+	<string>6.0.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>twitter</string>
@@ -175,6 +189,9 @@
 		<string>com.eseomega.ESEOmega.clubs</string>
 		<string>com.eseomega.ESEOmega.cafet</string>
 		<string>com.eseomega.ESEOmega.sponsors</string>
+		<string>com.eseomega.ESEOmega.order</string>
+		<string>com.eseomega.ESEOmega.rooms</string>
+		<string>com.eseomega.ESEOmega.families</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
@@ -192,7 +209,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Commander</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>com.eseomega.ESEOmega.cafet</string>
+			<string>com.eseomega.ESEOmega.order</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>

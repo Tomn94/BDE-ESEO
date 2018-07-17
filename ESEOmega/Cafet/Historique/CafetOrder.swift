@@ -19,10 +19,10 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-import Foundation
+import UIKit
 
 /// Describes an order requested by the user at the school cafétéria
-struct CafetOrder: Codable {
+struct CafetOrder: Equatable, Codable {
     
     /// Unique ID
     let idcmd: Int
@@ -32,6 +32,11 @@ struct CafetOrder: Codable {
     
     /// Modulo applied on `idcmd`, usually written after `strcmd`
     let modcmd: Int
+    
+    /// Order number: strcmd + modcmd
+    var number: String {
+        return String(format: "%@%03d", strcmd, modcmd)
+    }
     
     /// Cooking status
     let status: Status
@@ -108,6 +113,10 @@ struct CafetOrder: Codable {
         case alreadyPaid = 1
     }
     
+    static func == (left: CafetOrder, right: CafetOrder) -> Bool {
+        return left.idcmd == right.idcmd && left.status == right.status
+    }
+    
 }
 
 
@@ -123,6 +132,10 @@ struct CafetServiceResult: APIResult, Decodable {
 
 /// Describes a CafetOrder list JSON response from API
 struct CafetOrdersResult: APIResult, Decodable {
+    
+    /// `API.ErrorResult.Error.uid` value if wrong token was given
+    static let wrongTokenErrorCode = 13
+    
     
     let success: Bool
     

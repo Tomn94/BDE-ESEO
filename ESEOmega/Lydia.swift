@@ -62,7 +62,7 @@ import StoreKit
             vc = window?.rootViewController
         }
         guard vc != nil,
-              let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String
+              let token = Keychain.string(for: .token)
             else { return }
         
         let alert = UIAlertController(title: "État du paiement Lydia",
@@ -164,7 +164,7 @@ import StoreKit
         }
         guard vc != nil else { return }
         
-        guard JNKeychain.loadValue(forKey: KeychainKey.phone) == nil else {
+        guard !Keychain.hasValue(for: .phone) else {
             Lydia.sendRequest(for: order, type: type, viewController: vc)
             return
         }
@@ -205,7 +205,7 @@ import StoreKit
             vc = window?.rootViewController
         }
         
-        guard let token = JNKeychain.loadValue(forKey: KeychainKey.token) as? String else {
+        guard let token = Keychain.string(for: .token) else {
             
             let alert = UIAlertController(title: "Vous n'êtes pas connecté",
                                           message: "Impossible de payer une commande Lydia.",
@@ -215,7 +215,7 @@ import StoreKit
             return
         }
         
-        var phone = JNKeychain.loadValue(forKey: KeychainKey.phone) as? String
+        var phone = Keychain.string(for: .phone)
         if phone == nil {
             
             guard let num = Data.shared().tempPhone,
@@ -229,7 +229,7 @@ import StoreKit
                 
             phone = num
             Data.shared().tempPhone = nil
-            JNKeychain.saveValue(num, forKey: KeychainKey.phone)
+            Keychain.save(value: num, for: .phone)
         }
         guard let phoneB64 = phone?.data(using: .utf8)?.base64EncodedString()
             else { return }
@@ -330,7 +330,7 @@ import StoreKit
                     return
                 }
             } else if status == -2 {
-                JNKeychain.deleteValue(forKey: KeychainKey.phone)
+                Keychain.deleteValue(for: .phone)
             } else if status <= -8000 {  // Lydia error
                 errorMessage += "\nCode erreur : \(status)"
             }

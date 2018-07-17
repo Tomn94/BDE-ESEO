@@ -24,7 +24,7 @@ import Messages
 
 class StickerBrowserViewController: MSStickerBrowserViewController {
     
-    private let folder = "stickers"
+    private let folder = "cachedStickers"
     
     var stickers = [RawSticker]()
     
@@ -39,19 +39,20 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     /// Fetch cached stickers
     func getStickersFromCache() {
         
-        guard let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
-              let cachedStickers = try? JSONDecoder().decode(StickersResult.self, from: cache)
-            else { return }
-        
         let fileManager = FileManager.default
         do {
             let cacheURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask,
                                                   appropriateFor: nil,
                                                   create: true).appendingPathComponent(folder,
                                                                                        isDirectory: true)
+            // Create cache folder anyway
             try fileManager.createDirectory(at: cacheURL,
                                             withIntermediateDirectories: true,
                                             attributes: nil)
+            
+            guard let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
+                  let cachedStickers = try? JSONDecoder().decode(StickersResult.self, from: cache)
+                else { return }
                 
             for cachedSticker in cachedStickers.stickers {
                 
@@ -131,18 +132,18 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
     func save(imageNamed imageName: String, data: Data) -> URL? {
         
         let fileManager = FileManager.default
-        // Get cache folder given by OS
         guard let cacheURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask,
-                                                  appropriateFor: nil, create: true)
+                                                  appropriateFor: nil,
+                                                  create: true).appendingPathComponent(folder,
+                                                                                       isDirectory: true)
             else { return nil }
         
-        let folderURL = cacheURL.appendingPathComponent(folder, isDirectory: true)
         do {
             // Get sub-folder, create if doesn't exist
-            try fileManager.createDirectory(at: folderURL,
+            try fileManager.createDirectory(at: cacheURL,
                                             withIntermediateDirectories: true)
             
-            let fileURL = folderURL.appendingPathComponent(imageName)
+            let fileURL = cacheURL.appendingPathComponent(imageName)
             if fileManager.fileExists(atPath: fileURL.absoluteString) {
                 // If sticker already exists, we'll replace the file
                 do {
@@ -188,24 +189,6 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
         for file in remainingFiles {
             try? fileManager.removeItem(atPath: cacheURL.appendingPathComponent(file).path)
         }
-    }
-    
-    func debugCache() {
-        
-        let keyName = "debuggedStickersV511"
-        guard !UserDefaults.standard.bool(forKey: keyName)
-            else { return }
-        
-        let fileManager = FileManager.default
-        guard let cacheURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask,
-                                                  appropriateFor: nil, create: true)
-            else { return }
-        
-        let folderURL = cacheURL.appendingPathComponent(folder, isDirectory: true)
-        do {
-            try fileManager.removeItem(at: folderURL)
-            UserDefaults.standard.set(true, forKey: keyName)
-        } catch {}
     }
     
 }

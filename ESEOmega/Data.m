@@ -27,7 +27,6 @@
 + (Data *) sharedData {
     static Data *instance = nil;
     if (instance == nil) {
-//        NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
         
         static dispatch_once_t pred;        // Lock
         dispatch_once(&pred, ^{             // This code is called at most once per app
@@ -48,33 +47,14 @@
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"eventsCmds"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
-        instance.clubs      = (![ec hasCacheForKey:@"clubs"]) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"clubs"]
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
-        instance.cmds       = (![ec hasCacheForKey:@"cmds"] || !DataStore.isUserLogged) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"cmds"]
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
-        instance.service    = nil;
-        instance.menus      = (![ec hasCacheForKey:@"menus"]) ? nil
-                                                             : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"menus"]
-                                                                                               options:kNilOptions
-                                                                                                 error:nil];
         instance.sponsors   = (![ec hasCacheForKey:@"sponsors"]) ? nil
                                                              : [NSJSONSerialization JSONObjectWithData:[ec dataForKey:@"sponsors"]
                                                                                                options:kNilOptions
                                                                                                  error:nil];
         NSNumber *time      = [NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]];
-        instance.lastCheck  = [NSMutableDictionary dictionaryWithDictionary:@{ @"news":      time,
-                                                                               @"events":    time,
+        instance.lastCheck  = [NSMutableDictionary dictionaryWithDictionary:@{ @"events":    time,
                                                                                @"eventsCmds":time,
-                                                                               @"clubs":     time,
-                                                                               @"cmds":      time,
-                                                                               @"menus":     time,
-                                                                               @"sponsors":  time,
-                                                                               @"rooms":     time,
-                                                                               @"ingenews":  time }];
+                                                                               @"sponsors":  time }];
         instance.cafetToken      = @"";
         instance.cafetDebut      = 0;
         instance.cafetCmdEnCours = NO;
@@ -368,17 +348,11 @@
     return newImage;
 }
 
-+ (BOOL) isiPad {
-    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-}
-
 #pragma mark - Update Data
 
 - (BOOL) shouldUpdateJSON:(NSString *)JSONname
 {
-    NSTimeInterval max = ([JSONname isEqualToString:@"cmds"]) ? 10 : 30;
-    /*if (!([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max))
-        NSLog(@"Refusé. Mis à jour il y a peu.");*/
+    NSTimeInterval max = 30;
     return ([NSDate timeIntervalSinceReferenceDate] - [_lastCheck[JSONname] doubleValue] > max);
 }
 
@@ -392,12 +366,8 @@
     /* Set URL */
     int randCache = (int)arc4random_uniform(9999);
     NSURL *url;
-    if ([JSONname isEqualToString:@"cmds"])
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_CMDS, randCache]];
-    else if ([JSONname isEqualToString:@"eventsCmds"])
+    if ([JSONname isEqualToString:@"eventsCmds"])
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_EVENT_CM, randCache]];
-    else if ([JSONname isEqualToString:@"service"])
-        url = [NSURL URLWithString:[NSString stringWithFormat:URL_SERVICE, randCache]];
     else
         url = [NSURL URLWithString:[NSString stringWithFormat:URL_JSONS, JSONname, randCache]];
     
@@ -409,32 +379,10 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     /* Set POST CONTENT */
-    if ([JSONname isEqualToString:@"cmds"])
+    if ([JSONname isEqualToString:@"eventsCmds"])
     {
         if (!DataStore.isUserLogged)
         {
-            _cmds = nil;
-            [[EGOCache globalCache] removeCacheForKey:@"cmds"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"cmdsSent" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"cmds" object:nil];
-            return;
-        }
-        
-        NSString *login  = @"nil";//[JNKeychain loadValueForKey:@"login"];
-        NSString *pass   = @"nil";//[JNKeychain loadValueForKey:@"passw"];
-        NSString *toHash = [[@"Connexion au serveur ..." stringByAppendingString:login] stringByAppendingString:pass];
-        NSString *body   = [NSString stringWithFormat:@"client=%@&password=%@&hash=%@",
-                            [Data encoderPourURL:login],
-                            [Data encoderPourURL:pass],
-                            [Data encoderPourURL:[Data hashed_string:toHash]]];
-        [request setHTTPMethod:@"POST"];
-        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    else if ([JSONname isEqualToString:@"eventsCmds"])
-    {
-        if (!DataStore.isUserLogged)
-        {
-            _cmds = nil;
             [[EGOCache globalCache] removeCacheForKey:@"eventsCmds"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmdsSent" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmds" object:nil];
@@ -444,7 +392,6 @@
         NSString *login  = [JNKeychain loadValueForKey:@"login"];
         NSString *pass   = [JNKeychain loadValueForKey:@"passw"];
         if (login == nil || pass == nil) {
-            _cmds = nil;
             [[EGOCache globalCache] removeCacheForKey:@"eventsCmds"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmdsSent" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eventsCmds" object:nil];
@@ -474,14 +421,8 @@
                                               JSON = baseJSON;    // ESEOasis API: [content] -> { "key": [content] }
                                               if ([baseJSON isKindOfClass:[NSArray class]]) {
                                                   NSString *key = JSONname;
-                                                  if ([JSONname isEqualToString:@"news"])
-                                                      key = @"articles";
-                                                  else if ([JSONname isEqualToString:@"eventsCmds"])
+                                                  if ([JSONname isEqualToString:@"eventsCmds"])
                                                       key = @"tickets";
-                                                  else if ([JSONname isEqualToString:@"cmds"])
-                                                      key = @"history";
-                                                  else if ([JSONname isEqualToString:@"rooms"])
-                                                      key = @"rooms";
                                                   
                                                   JSON = [NSDictionary dictionaryWithObject:baseJSON
                                                                                      forKey:key];
@@ -494,7 +435,7 @@
                                                   JSON = JSON[@"data"];
                                               
                                               /* Cache data */
-                                              if (JSON != nil && JSON.count && ![JSONname isEqualToString:@"service"])
+                                              if (JSON != nil && JSON.count)
                                                   [[EGOCache globalCache] setData:data
                                                                            forKey:JSONname
                                                               withTimeoutInterval:90 * 86400];
@@ -512,14 +453,6 @@
                                                   _events = JSON;
                                               else if ([JSONname isEqualToString:@"eventsCmds"])
                                                   _eventsCmds = JSON;
-                                              else if ([JSONname isEqualToString:@"clubs"])
-                                                  _clubs = JSON;
-                                              else if ([JSONname isEqualToString:@"cmds"])
-                                                  _cmds = JSON;
-                                              else if ([JSONname isEqualToString:@"service"])
-                                                  _service = JSON;
-                                              else if ([JSONname isEqualToString:@"menus"])
-                                                  _menus = JSON;
                                               else if ([JSONname isEqualToString:@"sponsors"])
                                                   _sponsors = JSON;
                                               
@@ -661,6 +594,7 @@ shouldChangeCharactersInRange:(NSRange)range
     if (mailAddress != nil)
     {
         [self send:mailAddress with:data in:vc];
+        return;
     }
     /* Otherwise, we ask the mail address as before */
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Entrez votre mail pour recevoir votre place"
@@ -742,6 +676,20 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void) openURL:(NSString *)url
        currentVC:(UIViewController *)vc
 {
+    [self openURL:url currentVC:vc title:nil];
+}
+
+/**
+ Common function to Open URL. Configures a customized Safari View Controller.
+
+ @param url Website to visit
+ @param vc Parent view controller presenting Safari View Controller
+ @param defaultWebsiteTitle Provide a title if you want to support Handoff/Siri Shortcuts, otherwise leave nil
+ */
+- (void) openURL:(NSString *)url
+       currentVC:(UIViewController *)vc
+           title:(NSString *)defaultWebsiteTitle
+{
     if ([[url substringToIndex:6] isEqualToString:@"mailto"])
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
@@ -756,17 +704,34 @@ shouldChangeCharactersInRange:(NSRange)range
         safari.preferredBarTintColor = [UINavigationBar appearance].barTintColor;
         safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
     }
+    
+    /* Update Handoff/Siri Shortcuts */
+    // SFSafariViewController already broadcasts Handoff, but is inhibited by the app's own Handoff suggestions.
+    // Currently used for Campus/Portail/Mails ESEO quick links.
+    if (defaultWebsiteTitle != nil && ![defaultWebsiteTitle isEqualToString:@""])
+    {
+        NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+        userActivity.title = defaultWebsiteTitle;
+        userActivity.webpageURL = cleanURL;
+        userActivity.eligibleForSearch = YES;
+        userActivity.eligibleForHandoff = YES;
+        userActivity.eligibleForPublicIndexing = YES;
+        safari.userActivity = userActivity;
+        [userActivity becomeCurrent];
+    }
+    
     [vc presentViewController:safari animated:YES completion:nil];
 }
 
 - (void) twitter:(NSString *)username
        currentVC:(UIViewController *)vc
 {
-    NSURL *twitter = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", username]];
+    NSString *nickname = [username stringByReplacingOccurrencesOfString:@"@" withString:@""];
+    NSURL *twitter = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", nickname]];
     if ([[UIApplication sharedApplication] canOpenURL:twitter])
         [[UIApplication sharedApplication] openURL:twitter];
     else
-        [self openURL:[NSString stringWithFormat:@"https://twitter.com/%@", username] currentVC:vc];
+        [self openURL:[NSString stringWithFormat:@"https://twitter.com/%@", nickname] currentVC:vc];
 }
 /*
 - (void) youtube:(NSString *)username

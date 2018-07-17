@@ -49,6 +49,9 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
     if (DataStore.isUserLogged)
         [Data registeriOSPush:self];
     
+    /* APPLE WATCH */
+    [ConnectivityHandler.sharedHandler startSession];
+    
     // OPENED APP FROM NOTIFICATION
     if (@available(iOS 10.0, *))
     {
@@ -110,20 +113,25 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
             completionHandler:(void (^)(BOOL))completionHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
-    if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.cafet"])
+    if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.order"])
     {
         [tab setSelectedIndex:3];
-        NSNotification *notif = [NSNotification notificationWithName:@"btnCommanderCafet" object:nil];
-        [[NSNotificationCenter defaultCenter] performSelector:@selector(postNotification:) withObject:notif afterDelay:0.5];
+        
+        UINavigationController *navVC =   tab.viewControllers[3];
+        CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
+        if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
+            [ordersVC order];
     }
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.portail"])
         [[Data sharedData] openURL:[LinksToolbar portalQuickLink]
-                         currentVC:tab];
+                         currentVC:tab
+                             title:@"Portail ESEO"];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.campus"])
         [[Data sharedData] openURL:[LinksToolbar campusQuickLink]
-                         currentVC:tab];
+                         currentVC:tab
+                             title:@"Campus ESEO"];
     else if ([shortcutItem.type isEqualToString:@"com.eseomega.ESEOmega.salles"]) {
         BOOL dontReopen = NO;
         UIViewController *vc = self.window.rootViewController.presentedViewController;
@@ -446,6 +454,8 @@ continueUserActivity:(NSUserActivity *)userActivity
   restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     TabBarController *tab = (TabBarController *)(self.window.rootViewController);
+    if ([Data sharedData].cafetCmdEnCours)
+        return YES;
     if (tab.presentedViewController != nil) {
         [tab dismissViewControllerAnimated:true completion:nil];
     }
@@ -462,12 +472,35 @@ continueUserActivity:(NSUserActivity *)userActivity
         [detail continueReadingWithUserInfo:userActivity.userInfo];
         [newsSplit showDetailViewController:detail sender:nil];
     }
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.rooms"])
+    {
+        [tab setSelectedIndex:0];
+        
+        NewsSplit *newsSplit = tab.viewControllers.firstObject;
+        [newsSplit.master performSegueWithIdentifier:@"showRooms" sender:newsSplit.master];
+    }
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.families"])
+    {
+        [tab setSelectedIndex:0];
+        
+        NewsSplit *newsSplit = tab.viewControllers.firstObject;
+        [newsSplit.master performSegueWithIdentifier:@"showFamilies" sender:newsSplit.master];
+    }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.events"])
         [tab setSelectedIndex:1];
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.clubs"])
         [tab setSelectedIndex:2];
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.cafet"])
         [tab setSelectedIndex:3];
+    else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.order"])
+    {
+        [tab setSelectedIndex:3];
+        
+        UINavigationController *navVC =   tab.viewControllers[3];
+        CafetOrdersTVC      *ordersVC = navVC.viewControllers.firstObject;
+        if ([ordersVC isKindOfClass:[CafetOrdersTVC class]])
+            [ordersVC order];
+    }
     else if ([userActivity.activityType isEqualToString:@"com.eseomega.ESEOmega.sponsors"])
         [tab setSelectedIndex:4];
     

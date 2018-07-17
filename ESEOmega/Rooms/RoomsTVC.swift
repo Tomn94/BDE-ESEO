@@ -70,6 +70,22 @@ class RoomsTVC: UITableViewController {
                                                    name: .debugRefresh,
                                                    object: nil)
         }
+        
+        /* Handoff */
+        let info = ActivityType.rooms
+        let activity = NSUserActivity(activityType: info.type)
+        activity.title = info.title
+        activity.webpageURL = info.url
+        activity.isEligibleForSearch = true
+        activity.isEligibleForHandoff = true
+        activity.isEligibleForPublicIndexing = true
+        self.userActivity = activity
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        userActivity?.becomeCurrent()
     }
     
     
