@@ -50,7 +50,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
 ## Licence
 
-    Copyright © 2015-2018 Thomas NAUDET
+    Copyright © 2015-2018 Thomas NAUDET and other repository contributors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -64,6 +64,17 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 
     You should have received a copy of the GNU General Public License
     along with this program. If not, see http://www.gnu.org/licenses/
+
+###### Règles spécifiques :
+
+	- Chaque contributeur passé et présent de l'application BDE ESEO iOS/watchOS/… bénéficie d'un droit d’accès au code non limité sur le contenu, ni dans le temps.
+	- Chaque publication nécessite citation des contributeurs.
+	- Chaque contributeur bénéficie d'un droit de regard sur ce qui est distributé, notamment sur l'App Store, incluant textes, images, données, interface, outils, tarifs, décisions.
+	- Il conserve un accès intégral à la gestion de l'application, incluant App Store Connect.
+	- La prise d'une décision cruciale nécessite un accord entre les différents participants. Une décision nécessite 81 % d'adhésion parmi tous les contributeurs.
+	- Chaque personne est le propriétaire et responsable légal de son code et de ses actions.
+	- Chaque contributeur bénéficie d'un droit d’accès au back-end, ceci pour pouvoir réaliser entièrement l’app. Cela peut prendre une forme passive : possibilité d'ouvrir une pull request sur l'environnement de travail du back-end, ou la participation active en interagissant avec le serveur. Chaque contributeur a accès à des outils de test et de production adéquats.
+	- Sauf exception claire, un contributeur ne peut être déchu.
 
 
 ## Informations techniques
