@@ -75,6 +75,7 @@ Télécharger : [App Store](https://itunes.apple.com/app/apple-store/id966385182
 	- Chaque personne est le propriétaire et responsable légal de son code et de ses actions.
 	- Chaque contributeur bénéficie d'un droit d’accès au back-end, ceci pour pouvoir réaliser entièrement l’app. Cela peut prendre une forme passive : possibilité d'ouvrir une pull request sur l'environnement de travail du back-end, ou la participation active en interagissant avec le serveur. Chaque contributeur a accès à des outils de test et de production adéquats.
 	- Sauf exception claire, un contributeur ne peut être déchu.
+	- Chaque contributeur doit connaître, comprendre et appliquer ces règles.
 
 
 ## Informations techniques
