@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4395B19A2137DF1600959CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395B1992137DF1600959CB8 /* AppDelegate.swift */; };
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
 		6403BA8A1FB79C120063A65A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29761F63760A001F79AC /* API.swift */; };
@@ -176,8 +177,6 @@
 		64F84CFC1F632F5F0064F696 /* CreditsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F84CFB1F632F5F0064F696 /* CreditsTVC.swift */; };
 		64F84CFE1F633CBD0064F696 /* NewsArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F84CFD1F633CBD0064F696 /* NewsArticle.swift */; };
 		64F8AE001E408ACF00489198 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8ADFF1E408ACF00489198 /* ThemeManager.swift */; };
-		64F93EA61B5EA97900EE5C72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EA51B5EA97900EE5C72 /* main.m */; };
-		64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F93EA81B5EA97900EE5C72 /* AppDelegate.m */; };
 		64F93EB21B5EA97900EE5C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB01B5EA97900EE5C72 /* Main.storyboard */; };
 		64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB31B5EA97900EE5C72 /* Assets.xcassets */; };
 		64FDD9541D95C33800A3ED8F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FDD9531D95C33800A3ED8F /* NotificationService.swift */; };
@@ -289,6 +288,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4395B1992137DF1600959CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaUITests.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
 		640200051F6490EF009668DB /* APIArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIArchiver.swift; sourceTree = "<group>"; };
@@ -507,9 +507,6 @@
 		64F84CFD1F633CBD0064F696 /* NewsArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticle.swift; sourceTree = "<group>"; };
 		64F8ADFF1E408ACF00489198 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		64F93EA11B5EA97900EE5C72 /* BDE ESEO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BDE ESEO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		64F93EA51B5EA97900EE5C72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		64F93EA71B5EA97900EE5C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		64F93EA81B5EA97900EE5C72 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		64F93EB11B5EA97900EE5C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64F93EB31B5EA97900EE5C72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64F93EB81B5EA97900EE5C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1012,8 +1009,7 @@
 		64F93EA31B5EA97900EE5C72 /* ESEOmega */ = {
 			isa = PBXGroup;
 			children = (
-				64F93EA71B5EA97900EE5C72 /* AppDelegate.h */,
-				64F93EA81B5EA97900EE5C72 /* AppDelegate.m */,
+				4395B1992137DF1600959CB8 /* AppDelegate.swift */,
 				64ED610F1B6D7A4D00456B01 /* Data.h */,
 				64ED61101B6D7A4D00456B01 /* Data.m */,
 				64493F171E465811009C995B /* DataStore.swift */,
@@ -1068,7 +1064,6 @@
 		64F93EA41B5EA97900EE5C72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				64F93EA51B5EA97900EE5C72 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1249,16 +1244,17 @@
 				TargetAttributes = {
 					64000B9D1B60063100C16830 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = X5VH8S4YW7;
 						TestTargetID = 64F93EA01B5EA97900EE5C72;
 					};
 					641EDF231FB780790047900C = {
 						CreatedOnToolsVersion = 9.1;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						ProvisioningStyle = Automatic;
 					};
 					641EDF2F1FB780790047900C = {
 						CreatedOnToolsVersion = 9.1;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -1268,24 +1264,24 @@
 					};
 					64508FC920B9AB0B00EE8A19 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 64F93EA01B5EA97900EE5C72;
 					};
 					64EEB8ED1D9BAE25003678E2 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						ProvisioningStyle = Automatic;
 					};
 					64EEB8F61D9BAE25003678E2 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					64F93EA01B5EA97900EE5C72 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1305,7 +1301,7 @@
 					};
 					64FDD9501D95C33800A3ED8F = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7HW87TV8LC;
+						DevelopmentTeam = X5VH8S4YW7;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -1549,7 +1545,6 @@
 				642BEC971F13B0480043701B /* IngeNews.swift in Sources */,
 				647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
-				64F93EA91B5EA97900EE5C72 /* AppDelegate.m in Sources */,
 				648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */,
 				645C29771F63760A001F79AC /* API.swift in Sources */,
 				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
@@ -1563,9 +1558,9 @@
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
 				648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */,
+				4395B19A2137DF1600959CB8 /* AppDelegate.swift in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
-				64F93EA61B5EA97900EE5C72 /* main.m in Sources */,
 				64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */,
 				64A271F31B645A350001063A /* CommandesCell.m in Sources */,
 				64582C321BD6A9F50007C104 /* JTSImageViewController.m in Sources */,
@@ -1682,6 +1677,7 @@
 		64000BA61B60063100C16830 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = ESEOmegaUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1695,6 +1691,7 @@
 		64000BA71B60063100C16830 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = ESEOmegaUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1716,7 +1713,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = BDE_Watch_Extension;
 				INFOPLIST_FILE = "BDE-Watch/Info.plist";
@@ -1743,7 +1740,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = BDE_Watch_Extension;
 				INFOPLIST_FILE = "BDE-Watch/Info.plist";
@@ -1767,7 +1764,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "BDE-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1794,7 +1791,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "BDE-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1820,7 +1817,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -1845,7 +1842,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ESEOmegaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -1866,7 +1863,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
@@ -1887,7 +1884,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = "Stickers ESEO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eseomega.ESEOmega;
@@ -1905,7 +1902,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1928,7 +1925,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -2053,7 +2050,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2085,7 +2082,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				GCC_PREPROCESSOR_DEFINITIONS = "iPAD=\"(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)\"";
 				INFOPLIST_FILE = ESEOmega/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2107,7 +2104,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -2129,7 +2126,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7HW87TV8LC;
+				DEVELOPMENT_TEAM = X5VH8S4YW7;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
