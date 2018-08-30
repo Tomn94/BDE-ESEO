@@ -9,7 +9,6 @@
 #ifndef ESEOmega_Bridging_Header_h
 #define ESEOmega_Bridging_Header_h
 
-#import "AppDelegate.h"
 #import "Data.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "JAQBlurryTableViewController.h"
@@ -19,5 +18,9 @@
 #import "ClubsMasterCell.h"
 #import "JTSImageInfo.h"
 #import "JTSImageViewController.h"
+#import "Data.h"
+#import "TabBarController.h"
+#import "UIImageView+WebCache.h"
+
 
 #endif /* ESEOmega_Bridging_Header_h */

@@ -205,6 +205,8 @@
     if (!DataStore.isUserLogged)
         return;
     
+    
+    
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession              *defaultSession      = [NSURLSession sessionWithConfiguration:defaultConfigObject
                                                                                    delegate:nil
@@ -224,6 +226,9 @@
     [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *r, NSError *error)
                                       {
+                                          NSError *parseError = nil;
+                                          NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+                                          NSLog(@"The response is - %@",responseDictionary);
                                           [[EGOCache globalCache] setData:[[Data sharedData] pushToken] forKey:@"deviceTokenPush"];
                                       }];
     [dataTask resume];
