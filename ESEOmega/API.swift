@@ -92,6 +92,9 @@ class API {
         /// MessagesExtension, list of stickers
         case stickers     = "stickers"
         
+        /// Register push token
+        case pushRegister = "me/devices"
+        
     }
     
     

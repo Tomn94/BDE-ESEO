@@ -45,7 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         ThemeManager.updateTheme(appIcon: false)
         
-        // TODO: Notif
+        if (DataStore.isUserLogged) {
+            Data.registeriOSPush(self)
+        }
         
         /* APPLE WATCH */
         ConnectivityHandler.sharedHandler.startSession()
@@ -53,11 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // OPENED APP FROM NOTIFICATION
         if #available(iOS 10.0, *) {
             if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] != nil {
-                let userInfo: Dictionary<String, Any> = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as! Dictionary
-                if (userInfo["aps"] as! Bool) {
-                    let version:Double = userInfo["version"] as! Double
+                guard let userInfo = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as? [String: Any] else { return false }
+                if (userInfo["aps"] != nil) {
+                    guard let version = userInfo["version"] as? Double else { return false }
                     if (version <= VERSION_NOTIFS_iOS) {
-                        let val: Int = userInfo["action"] as! Int
+                        guard let val = userInfo["action"] as? Int else { return false }
                         if (val >= 0) {
                             openNotif(userInfo)
                         }
@@ -136,7 +138,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Foundation.Data) {
         Data.shared()?.pushToken = deviceToken
-        Data.sendPushToken()
+        
+        guard let token = Keychain.string(for: .token)
+            else { return }
+        let sToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        API.request(.pushRegister, post: ["token": sToken, "os": "IOS", ], authentication: token, completed: { data in
+        }, failure: nil, noCache: true)
+        
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -150,8 +158,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                       withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo: Dictionary<String, Any> = notification.request.content.userInfo as! Dictionary<String, Any>
         
-        let vers: Double = userInfo["version"] as! Double
-        let val: Int = userInfo["action"] as! Int
+        guard let vers = userInfo["version"] as? Double else {
+            return
+        }
+
+        guard let val = userInfo["action"] as? Int else {
+            return
+        }
         
         if (vers > VERSION_NOTIFS_iOS || val == 21) {
             let alert = UIAlertController(title: NV_VERSION_TITRE, message: NV_VERSION_MESSG, preferredStyle: .alert)
@@ -180,8 +193,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // pre-iOS 10
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        let vers: Double = userInfo["version"] as! Double
-        let val: Int = userInfo["action"] as! Int
+        guard let vers = userInfo["version"] as? Double else {
+            return
+        }
+        
+        guard let val = userInfo["action"] as? Int else {
+            return
+        }
         
         if (vers > VERSION_NOTIFS_iOS || val == 21) {
             let alert: UIAlertController = UIAlertController(title: NV_VERSION_TITRE, message: NV_VERSION_MESSG, preferredStyle: .alert)
@@ -229,7 +247,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func openNotif(_ userInfo: [AnyHashable: Any]) {
-        let val: Int = userInfo["action"] as! Int
+        guard let val = userInfo["action"] as? Int else {
+            return
+        }
+        
         let tab: TabBarController = self.window?.rootViewController as! TabBarController
         
         switch val {
@@ -404,9 +425,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             let navVC = tab.viewControllers![3] as! UINavigationController
             let ordersVC = navVC.viewControllers.first as! CafetOrdersTVC
-            if (ordersVC is CafetOrdersTVC) {
-                ordersVC.order()
-            }
+            ordersVC.order()
         } else if (userActivity.activityType == "com.eseomega.ESEOmega.sponsors") {
             tab.selectedIndex = 4
         }
