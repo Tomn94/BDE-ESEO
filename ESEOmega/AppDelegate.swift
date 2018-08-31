@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // MARK - 3D Touch
+    // MARK: - 3D Touch
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
@@ -134,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler(true)
     }
     
-    // MARK - Notifications
+    // MARK: - Notifications
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Foundation.Data) {
         Data.shared()?.pushToken = deviceToken
@@ -339,7 +339,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    // PRAGMA - URL Scheme Lydia
+    // MARK: - URL Scheme Lydia
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         let tab: TabBarController = self.window?.rootViewController as! TabBarController
@@ -388,7 +388,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return true
     }
-    // PRAGMA - Handoff
+    // MARK: - Handoff
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         let tab = self.window?.rootViewController as! TabBarController
