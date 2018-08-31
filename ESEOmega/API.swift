@@ -34,7 +34,7 @@ class API {
     
     /// Common URL for all API requests.
     /// TODO: Set a debug environment to automatically switch between beta & production.
-    static private let url     = "https://api.bdeeseo.fr/"  // "https://beta.api.bdeeseo.fr/"
+    static private let url     = Bundle.main.infoDictionary!["API_BASE_URL"] as! String
     static private let version = "1"
     
     
