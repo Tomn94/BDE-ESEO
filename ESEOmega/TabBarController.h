@@ -22,7 +22,6 @@
 @import UIKit;
 #import "Data.h"
 #import "EventsTVC.h"
-#import "SponsorsTVC.h"
 #import "GameVC.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 

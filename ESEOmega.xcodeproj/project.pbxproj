@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4392A65921471FD60050C245 /* SponsorsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392A65821471FD60050C245 /* SponsorsTVC.swift */; };
+		4392A65B21471FF10050C245 /* SponsorsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392A65A21471FF10050C245 /* SponsorsCell.swift */; };
+		4392A65D214722A90050C245 /* Sponsor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392A65C214722A90050C245 /* Sponsor.swift */; };
 		4395B19A2137DF1600959CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395B1992137DF1600959CB8 /* AppDelegate.swift */; };
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
@@ -137,8 +140,6 @@
 		64A271F31B645A350001063A /* CommandesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A271F21B645A350001063A /* CommandesCell.m */; };
 		64A85B291D9CCF7800020D18 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64EEB8F71D9BAE25003678E2 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AC81491E490E6C00C1AB8E /* UserTV.swift */; };
-		64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */; };
-		64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AD83D21B60230500AD4C25 /* SponsorsCell.m */; };
 		64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */; };
 		64AF21451DC7409C0000F987 /* GenealogySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21441DC7409C0000F987 /* GenealogySearch.swift */; };
 		64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AF21481DC8746B0000F987 /* Genealogy.swift */; };
@@ -288,6 +289,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4392A65821471FD60050C245 /* SponsorsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsTVC.swift; sourceTree = "<group>"; };
+		4392A65A21471FF10050C245 /* SponsorsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsCell.swift; sourceTree = "<group>"; };
+		4392A65C214722A90050C245 /* Sponsor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sponsor.swift; sourceTree = "<group>"; };
 		4395B1992137DF1600959CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64000B9E1B60063100C16830 /* ESEOmegaUITests.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESEOmegaUITests.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		640026261C0A305D00AEF79B /* Rooms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rooms.storyboard; sourceTree = "<group>"; };
@@ -442,10 +446,6 @@
 		64A271F11B645A350001063A /* CommandesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandesCell.h; sourceTree = "<group>"; };
 		64A271F21B645A350001063A /* CommandesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandesCell.m; sourceTree = "<group>"; };
 		64AC81491E490E6C00C1AB8E /* UserTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTV.swift; sourceTree = "<group>"; };
-		64AD83CE1B601E0F00AD4C25 /* SponsorsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsorsTVC.h; sourceTree = "<group>"; };
-		64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsTVC.m; sourceTree = "<group>"; };
-		64AD83D11B60230500AD4C25 /* SponsorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsorsCell.h; sourceTree = "<group>"; };
-		64AD83D21B60230500AD4C25 /* SponsorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SponsorsCell.m; sourceTree = "<group>"; };
 		64AF213F1DC73E010000F987 /* ESEOmega-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESEOmega-Bridging-Header.h"; sourceTree = "<group>"; };
 		64AF21421DC73FBF0000F987 /* GenealogySearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GenealogySearch.storyboard; sourceTree = "<group>"; };
 		64AF21441DC7409C0000F987 /* GenealogySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenealogySearch.swift; sourceTree = "<group>"; };
@@ -827,10 +827,9 @@
 		64AD83CD1B601DD800AD4C25 /* Sponsors */ = {
 			isa = PBXGroup;
 			children = (
-				64AD83CE1B601E0F00AD4C25 /* SponsorsTVC.h */,
-				64AD83CF1B601E0F00AD4C25 /* SponsorsTVC.m */,
-				64AD83D11B60230500AD4C25 /* SponsorsCell.h */,
-				64AD83D21B60230500AD4C25 /* SponsorsCell.m */,
+				4392A65C214722A90050C245 /* Sponsor.swift */,
+				4392A65821471FD60050C245 /* SponsorsTVC.swift */,
+				4392A65A21471FF10050C245 /* SponsorsCell.swift */,
 			);
 			path = Sponsors;
 			sourceTree = "<group>";
@@ -1502,7 +1501,7 @@
 				645F7E4D1F954DB9006F521B /* OrderCartTVC.swift in Sources */,
 				64E93CF91C439F60005FC9CF /* EventsHistoryCell.m in Sources */,
 				64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */,
-				64AD83D31B60230500AD4C25 /* SponsorsCell.m in Sources */,
+				4392A65D214722A90050C245 /* Sponsor.swift in Sources */,
 				64339B571F16EE2800EDA97D /* SDWebImageManager.m in Sources */,
 				64339B5E1F16EE2800EDA97D /* UIImageView+WebCache.m in Sources */,
 				64E63A6F1BC1F7F0005C350F /* JNKeychain.m in Sources */,
@@ -1522,6 +1521,7 @@
 				642E47DB1F5F65E2002CC48E /* RoomsTVC.swift in Sources */,
 				6459F9AC1E36861500C6812D /* UserTVC.swift in Sources */,
 				64F84CFC1F632F5F0064F696 /* CreditsTVC.swift in Sources */,
+				4392A65921471FD60050C245 /* SponsorsTVC.swift in Sources */,
 				648A394420D57BFC0001D023 /* BDELinksVC.swift in Sources */,
 				647DE7B420BAE9EE00F8919F /* ConnectivityHandler.swift in Sources */,
 				64E0D2621BEAA4C9003A623C /* TUSafariActivity.m in Sources */,
@@ -1548,7 +1548,6 @@
 				648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */,
 				645C29771F63760A001F79AC /* API.swift in Sources */,
 				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
-				64AD83D01B601E0F00AD4C25 /* SponsorsTVC.m in Sources */,
 				64339B531F16EE2800EDA97D /* SDWebImageCompat.m in Sources */,
 				64339B5D1F16EE2800EDA97D /* UIImageView+HighlightedWebCache.m in Sources */,
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
@@ -1566,6 +1565,7 @@
 				64582C321BD6A9F50007C104 /* JTSImageViewController.m in Sources */,
 				6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */,
 				64ED61081B6D24F000456B01 /* OrderMenuTVC.m in Sources */,
+				4392A65B21471FF10050C245 /* SponsorsCell.swift in Sources */,
 				64339B601F16EE2800EDA97D /* UIView+WebCacheOperation.m in Sources */,
 				643DC59F1DCC75AE00212DA5 /* GenealogyPathsView.swift in Sources */,
 				64582C351BD6A9F50007C104 /* UIImage+JTSImageEffects.m in Sources */,
@@ -1943,7 +1943,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				API_BASE_URL = "https://beta.api.bdeeseo.fr/";
+				API_BASE_URL = "https://api.bdeeseo.fr/";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
