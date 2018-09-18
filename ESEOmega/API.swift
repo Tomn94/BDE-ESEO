@@ -60,13 +60,13 @@ class API {
         case order        = "orders/"
         
         /// Begin new cafet order
-        case newOrder     = "cafeteria/orders/token"
+        case newOrder     = "orders/token"
         
         /// Get available items to order
-        case menus        = "cafeteria"
+        case menus        = "orders/items"
         
         /// Send validated cafet order
-        case sendOrder    = "cafeteria/orders"
+        case sendOrder    = "orders"
         
         /// Get available items to order
         case orderService = "apps/service"
@@ -96,7 +96,7 @@ class API {
         case pushRegister = "me/devices"
         
         /// Download sponsors list
-        case sponsors = "apps/sponsors"
+        case sponsors = "sponsors"
         
     }
     

@@ -32,7 +32,7 @@ struct Sponsor: Codable, Equatable {
     let description: String
     
     /// Sponsor image URL
-    let img: String?
+    let image: String?
     
     /// Sponsor URL
     let url: String?

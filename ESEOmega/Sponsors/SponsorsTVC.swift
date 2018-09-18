@@ -206,7 +206,7 @@ extension SponsorsTVC {
         
         cell.contactLabel?.text = contact
         
-        if let image = sponsor.img {
+        if let image = sponsor.image {
             cell.logoView?.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder"))
         } else {
             cell.logoView?.image = UIImage(named: "placeholder")
@@ -234,7 +234,7 @@ extension SponsorsTVC: UITableViewDataSourcePrefetching {
         let thumbnailURLs: [URL] = indexPaths.flatMap { indexPath in
             
             guard indexPath.row != sponsors.count,
-                let articleImg = sponsors[indexPath.row].img
+                let articleImg = sponsors[indexPath.row].image
                 else { return nil }
             
             return URL(string: articleImg)
