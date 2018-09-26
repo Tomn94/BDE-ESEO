@@ -44,7 +44,7 @@ extension UserTVC {
         let password  = self.passField.text ?? ""
         
         /* Set URL Session */
-        API.request(.userLogin, get: ["email"    : cleanMail,
+        API.request(.userLogin, post: ["email"    : cleanMail,
                                       "password" : password],
         completed: { data in
             
