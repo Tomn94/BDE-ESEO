@@ -20,6 +20,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SponsorsTVC: UITableViewController {
     private let reuseIdentifier     = "sponsorsCell"
@@ -246,11 +247,14 @@ extension SponsorsTVC: UITableViewDataSourcePrefetching {
 // MARK: - Table view controller Delegate
 extension SponsorsTVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let url = sponsors[indexPath.row].url
-        if (url == nil || url == "") {
-            return;
+        guard let url = URL(string: sponsors[indexPath.row].url ?? "") else {
+            self.tableView.deselectRow(at: indexPath, animated: true)
+            return
+            
         }
-        // TODO: - Open URL
+
+        let svc = SFSafariViewController(url: url)
+        self.present(svc, animated: true, completion: nil)
         
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
