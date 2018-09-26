@@ -185,14 +185,14 @@ extension SponsorsTVC {
         cell.descLabel?.text = sponsor.description
         
         var contact = ""
-        if (sponsor.url != nil) {
+        if (sponsor.url != nil && sponsor.url != "") {
             guard var url = sponsor.url else { return UITableViewCell() }
+            NSLog(url)
             url = url.trimmingCharacters(in: CharacterSet.whitespaces)
             if (url.hasSuffix("/")) {
-                let index = url.index(url.startIndex, offsetBy: 1)
+                let index = url.index(url.startIndex, offsetBy: url.count - 1)
                 url = String(url.prefix(upTo: index))
             }
-            
             contact = url.replacingOccurrences(of: "https://", with: "").replacingOccurrences(of: "www.", with: "").replacingOccurrences(of: "http://", with: "")
             
         }
