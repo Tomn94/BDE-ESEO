@@ -26,8 +26,6 @@ fileprivate extension Selector {
     static let triggerUpdate = #selector(CafetOrderVC.fetchDetailedOrder)
     /// Called when Low Power mode toggled
     static let toggleUpdates = #selector(CafetOrderVC.toggleUpdates)
-    /// Tapped Pay Bar Button item
-    static let askPayOrder   = #selector(CafetOrderVC.askPayOrder)
     /// Dismiss modal view on iPad
     static let dismissDetail = #selector(CafetOrdersTVC.dismissDetail)
 }
@@ -156,7 +154,7 @@ class CafetOrderVC: UIViewController {
         numCmdBack.backgroundColor = lighterColor
         
         /* Title */
-        let dateString = DateFormatter.localizedString(from: order.datetime,
+        let dateString = DateFormatter.localizedString(from: order.startTime,
                                                        dateStyle: .full,
                                                        timeStyle: .none)
         titreLabel.text = "Votre commande du " +
@@ -167,23 +165,26 @@ class CafetOrderVC: UIViewController {
         numberFormatter.numberStyle = .currency
         numberFormatter.locale      = Locale(identifier: "fr_FR")
         var priceString = numberFormatter.string(from: NSDecimalNumber(value: order.price)) ?? "Unknown price"
-        if order.status == .notPaid {
+        if order.paid == 0 {
             priceString += " ⚠️"
         }
         prix.attributedText = NSAttributedString(string: priceString,
                                                  attributes: [.textEffect : NSAttributedString.TextEffectStyle.letterpressStyle])
         
         /* Detail */
-        let resume = "– " + order.resume.replacingOccurrences(of: "<br>", with: "\n– ")
+        let resume = "– " + order.friendlyText.replacingOccurrences(of: "<br>", with: "\n– ")
         detailLabel.text = resume
         
         /* Instructions */
         var instructions = resume
         var addedInstructions = false
-        if order.instructions != "" {
-            instructions += "\n\nCommentaire :\n" + order.instructions
-            addedInstructions = true
+        guard let instr = order.instructions else {
+            instructions = ""
+            return
         }
+        instructions += "\n\nCommentaire :\n" + instr
+        addedInstructions = true
+        
 
         let attrStr = NSMutableAttributedString(string: instructions,
                                                 attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline)])
@@ -194,7 +195,7 @@ class CafetOrderVC: UIViewController {
         detailLabel.attributedText = attrStr
         
         /* Num */
-        let numString = String(format: "%@ %03d", order.strcmd, order.modcmd)
+        let numString = String(format: "%03d", order.modID)
         numCmdLabel.attributedText = NSAttributedString(string: numString,
                                                         attributes: [.textEffect : NSAttributedString.TextEffectStyle.letterpressStyle])
         
@@ -217,19 +218,11 @@ class CafetOrderVC: UIViewController {
         }
         
         /* Pay Bar Button Item */
-        if order.paidbefore == .alreadyPaid {
+        if order.paid == 1{
             
             let item = UIBarButtonItem(title: "Payée", style: .plain,
                                        target: nil, action: nil)
             item.isEnabled = false
-            navigationItem.rightBarButtonItem = item
-            
-        } else if let isLydiaEnabled = order.lydia_enabled,
-                  isLydiaEnabled && order.status != .done &&
-                  Lydia.isValid(price: order.price) {
-            
-            let item = UIBarButtonItem(title: "Payer", style: .plain,
-                                       target: self, action: .askPayOrder)
             navigationItem.rightBarButtonItem = item
             
         } else {
@@ -245,7 +238,7 @@ class CafetOrderVC: UIViewController {
         
         let defaultMessage = "Détails de la commande indisponibles"
         
-        API.request(.order, appendPath: String(order.idcmd),
+        API.request(.order, appendPath: "/" + String(order.ID),
                     authentication: userToken, completed: { data in
                         
             let decoder = JSONDecoder()
@@ -253,6 +246,13 @@ class CafetOrderVC: UIViewController {
             dateFormatter.dateFormat = CafetOrder.dateFormat
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
+            do {
+                let decoded = try JSONDecoder().decode(CafetOrderResult.self, from: data)
+                print(decoded)
+            } catch {
+                print(error)
+            }
+                        
             guard let result = try? decoder.decode(CafetOrderResult.self, from: data),
                   result.success else {
                 API.handleFailure(data: data, mode: .presentFetchedMessage(self),
@@ -261,7 +261,7 @@ class CafetOrderVC: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.order = result.order
+                self.order = result.orders[0]
                 self.showOrder()
             }
                         
@@ -270,43 +270,6 @@ class CafetOrderVC: UIViewController {
             API.handleFailure(data: data, mode: .presentFetchedMessage(self),
                               defaultMessage: defaultMessage)
         })
-    }
-    
-    @objc func askPayOrder() {
-        
-        guard let order   = self.order,
-              let idLydia = order.idlydia,
-              DataStore.isUserLogged
-            else { return }
-        
-        guard order.paidbefore == .notPaidYet &&
-              Lydia.isValid(price: order.price)
-            else { return }
-        
-        if idLydia != -1 {
-            Lydia.checkStatus(for: String(order.idcmd), type: .cafet,
-                              viewController: self, showRating: false)
-            
-        } else {
-            let alert = UIAlertController(title: "Voulez-vous payer votre commande dès maintenant avec Lydia ?",
-                                          message: "Plus besoin de se déplacer pour payer !",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Payer plus tard au comptoir 💰",
-                                          style: .cancel))
-            let payAction = UIAlertAction(title: "Payer immédiatement 💳",
-                                          style: .default, handler: { _ in
-                if UI_USER_INTERFACE_IDIOM() == .pad {
-                    self.dismiss(animated: true) {
-                        self.payOrder()
-                    }
-                } else {
-                    self.payOrder()
-                }
-            })
-            alert.addAction(payAction)
-            alert.preferredAction = payAction
-            present(alert, animated: true)
-        }
     }
     
     func payOrder() {
@@ -322,7 +285,7 @@ class CafetOrderVC: UIViewController {
             return
         }
         
-        Lydia.startRequest(for: order.idcmd, type: .cafet,
+        Lydia.startRequest(for: order.ID, type: .cafet,
                            viewController: self)
     }
     

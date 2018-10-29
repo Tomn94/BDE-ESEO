@@ -25,96 +25,95 @@ import UIKit
 struct CafetOrder: Equatable, Codable {
     
     /// Unique ID
-    let idcmd: Int
-    
-    /// Generated string identifiant, used in front of `modcmd`
-    let strcmd: String
+    let ID: Int
     
     /// Modulo applied on `idcmd`, usually written after `strcmd`
-    let modcmd: Int
-    
-    /// Order number: strcmd + modcmd
-    var number: String {
-        return String(format: "%@%03d", strcmd, modcmd)
-    }
+    let modID: Int
     
     /// Cooking status
     let status: Status
     
-    /// Request date
-    let datetime: Date
+    /// Date for status 0 (Token has been requested)
+    let startTime: Date
+    
+    /// Date for status 1 (User has completed his order)
+    let completeTime: Date?
+    
+    /// Date for status 2 (Kitchen has taken the order)
+    let takenTime: Date?
+    
+    /// Date for status 3 (Order is ready)
+    let readyTime: Date?
+    
+    /// Date for status 4 (Order is finished)
+    let endTime: Date?
     
     /// Generated text describing the order
-    let resume: String
+    let friendlyText: String
     
     /// Client requests concerning their food/delivery
-    let instructions: String
+    let instructions: String?
     
     /// Price of the whole order
     let price: Double
     
-    /// Whether the order is already paid (before it's been `Status.done`)
-    let paidbefore: PaidBeforeStatus
+    /// Whether the order is paid
+    let paid: Int
     
+    let username: String?
+    
+    let clientName: String?
+    
+    let source: String?
+    
+    let token: String?
+    
+    let oder: String?
     
     // MARK: Available after requesting details
     
     /// Category illustration
     let imgurl: String?
     
-    /// ID of the transaction with Lydia, -1 otherwise
-    /// means `paidbefore == .alreadyPaid`
-    let idlydia: Int?
-    
-    /// Whether Lydia is enabled on the server
-    let lydia_enabled: Bool?
-    
-    
     static let dateFormat = "yyyy-MM-dd HH:mm:ss"
     
     /// Order status and associated raw JSON value
     enum Status: Int, Codable {
         /// Initial state
-        case preparing = 0
-        /// Kitchen finished preparing
-        case ready     = 1
-        /// Kitchen's done preparing and user paid for it
-        case done      = 2
-        /// Order was done but not paid
-        case notPaid   = 3
+        case created = 0
+        /// User has completed his order
+        case complete     = 1
+        /// Kitchen is has taken the order, started preparing
+        case preparing      = 2
+        /// Kitchen has finished to prepare the order. It is waiting for the user to take it
+        case ready   = 3
+        /// The user has taken his order
+        case finished = 4
         
         
         var color: UIColor {
-            let values = [#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5490196078, green: 0.8235294118, blue: 0, alpha: 1), .darkGray, #colorLiteral(red: 1, green: 0.1764705882, blue: 0.3333333333, alpha: 1)]
+            let values = [UIColor.darkGray, UIColor.darkGray, #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), #colorLiteral(red: 0.5490196078, green: 0.8235294118, blue: 0, alpha: 1), UIColor.darkGray]
             return values[self.rawValue]
         }
         
         var pluralName: String {
-            let values = ["En préparation", "Prêtes", "Terminées", "Impayées"]
+            let values = ["", "En attente", "En préparation", "Prêtes", "Terminées"]
             return values[self.rawValue]
         }
         
         var singularName: String {
-            let values = ["En préparation", "Prête",  "Terminée",  "Impayée"]
+            let values = ["", "En attente", "En préparation", "Prête",  "Terminée"]
             return values[self.rawValue]
         }
         
         var fullName: String {
-            let values = ["Commande en préparation", "Commande prête",  "Commande terminée",  "Commande impayée"]
+            let values = ["", "Commande en attente", "Commande en préparation", "Commande prête",  "Commande terminée"]
             return values[self.rawValue]
         }
     }
     
-    /// Payment status during `Status.preparing` or `Status.ready` states
-    enum PaidBeforeStatus: Int, Codable {
-        /// User will likely pay at the counter when their order is `Status.done`
-        case notPaidYet  = 0
-        /// Paid using Lydia or at the counter, before order is `Status.done`
-        case alreadyPaid = 1
-    }
-    
     static func == (left: CafetOrder, right: CafetOrder) -> Bool {
-        return left.idcmd == right.idcmd && left.status == right.status
+        return left.ID == right.ID && left.status == right.status
     }
     
 }
@@ -148,7 +147,7 @@ struct CafetOrderResult: APIResult, Decodable {
     
     let success: Bool
     
-    let order: CafetOrder
+    let orders: [CafetOrder]
     
 }
 
@@ -170,7 +169,9 @@ struct CafetMenusResult: APIResult, Decodable {
     
     let menus: [CafetMenu]
     
-    let elements: [CafetElement]
+    let mainElements: [CafetMainElement]
+    
+    let subElement: [CafetSubElement]
     
     let ingredients: [CafetIngredient]
     
@@ -180,39 +181,57 @@ struct CafetCategory: Decodable {
     
     let position: Int
     let name: String
-    let firstPrice: Double
     let imgUrl: String
-    let catname: String
-    let briefText: String
+    let description: String
 }
 
 struct CafetMenu: Decodable {
     
-    let idstr: String
+    let ID: Int
     let name: String
     let price: Double
-    let mainElemStr: String
-    let nbMainElem: Int
-    let nbSecoElem: Int
+    let nbMainElements: Int
+    let nbSubElements: Int
+    let category: Int
+    let available: Bool
+    let temporary: Bool
+    let startDate: Date
+    let endDate: Date
+    
+    let mainElements: [CafetMainElement]
+    let subElements: [CafetSubElement]
+    
+    let selectedMainElements: [CafetMainElement]?
+    let selectedSubElements: [CafetSubElement]?
 }
 
-struct CafetElement: Decodable {
+struct CafetMainElement: Decodable {
     
-    let idstr: String
+    let ID: Int
     let name: String
+    let price: Double
+    let idCategory: Int
+    let available: Bool
+    let ingredients: [CafetIngredient]
+    
+    let selectedIngredients: [CafetIngredient]?
+}
+
+struct CafetSubElement: Decodable {
+    
+    let ID: Int
+    let name: String
+    let price: Double
+    let idCategory: Int
     let stock: Int
-    let priceuni: Double
-    let pricemore: Double
-    let outofmenu: Int
-    let hasingredients: Int
-    let idcat: String
-    let countFor: Int
+    let countsFor: Int
+    
 }
 
 struct CafetIngredient: Decodable {
     
-    let idstr: String
+    let ID: Int
     let name: String
-    let stock: Int
-    let priceuni: Double
+    let available: Bool
+    let price: Double
 }

@@ -47,7 +47,7 @@ class OrderCartTVC: UITableViewController {
               let  userToken = Keychain.string(for: .token)
             else { return }
         
-        API.request(.sendOrder,
+        API.request(.order,
                     post: ["token"        : cafetToken,
                            "data"         : cart,
                            "instructions" : instructions ?? ""],

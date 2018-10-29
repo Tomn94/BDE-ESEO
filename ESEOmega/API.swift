@@ -34,7 +34,7 @@ class API {
     
     /// Common URL for all API requests.
     /// TODO: Set a debug environment to automatically switch between beta & production.
-    static private let url     = Bundle.main.infoDictionary!["API_BASE_URL"] as! String
+    static private let url     = "https://api.bdeeseo.fr/"
     static private let version = "1"
     
     
@@ -56,17 +56,14 @@ class API {
         /// Get cafet order history
         case orders       = "me/orders"
         
-        /// Information about a specific cafet order. `idcmd` number must be suffixed.
-        case order        = "orders/"
+        /// Information about a specific cafet order. `idcmd` number must be suffixed. Also used to send order
+        case order        = "cafeteria/orders"
         
         /// Begin new cafet order
-        case newOrder     = "orders/token"
+        case newOrder     = "cafeteria/orders/token"
         
         /// Get available items to order
-        case menus        = "orders/items"
-        
-        /// Send validated cafet order
-        case sendOrder    = "orders"
+        case menus        = "cafeteria"
         
         /// Get available items to order
         case orderService = "apps/service"
@@ -158,6 +155,7 @@ class API {
         if let suffixPath = appendPath {
             rawURL += suffixPath
         }
+        NSLog(rawURL);
         guard var urlComponents = URLComponents(string: rawURL) else {
             failure?(nil, nil)
             return

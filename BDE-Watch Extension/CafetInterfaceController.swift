@@ -134,6 +134,8 @@ class CafetInterfaceController: WKInterfaceController {
     
     /// Display fetched orders
     private func load(orders: [CafetOrder]) {
+        let groupedOrdersByPayement = Dictionary(grouping: orders,
+                                                 by: { order in order.paid })
         
         let groupedOrdersByStatus = Dictionary(grouping: orders,
                                                by: { order in order.status })
@@ -142,21 +144,13 @@ class CafetInterfaceController: WKInterfaceController {
         let sortedKeys = Array(groupedOrdersByStatus.keys).sorted {
             $0.rawValue < $1.rawValue
         }
-        if let notPaid = groupedOrdersByStatus[.notPaid] {
+        if let notPaid = groupedOrdersByPayement[0] {
             // Added first since their rawValue is 3 (> 0, 1, 2)
             // but we need them on top
             sortedOrders += notPaid
         }
-        for key in sortedKeys where key != .notPaid {
-            let orders = groupedOrdersByStatus[key]!
-            if key != .done {
-                sortedOrders += orders
-            } else {
-                let notLongAgo = Date().addingTimeInterval(-86400)  // 24h ago
-                sortedOrders += orders.filter { order in
-                    order.datetime > notLongAgo
-                }
-            }
+        for _ in sortedKeys{
+            sortedOrders += orders
         }
         
         /* Don't refresh if data is the same */
@@ -176,7 +170,7 @@ class CafetInterfaceController: WKInterfaceController {
             
             let row = table.rowController(at: index) as! CafetRowController
             
-            row.number.setText(order.number)
+            row.number.setText(String(order.modID))
             row.number.setTextColor(order.status.color)
             
             let formatter = NumberFormatter()
@@ -184,7 +178,7 @@ class CafetInterfaceController: WKInterfaceController {
             formatter.locale      = Locale(identifier: "fr_FR")
             row.price.setText(formatter.string(from: NSNumber(value: order.price)))
             
-            row.content.setText(order.resume.replacingOccurrences(of: "<br>", with: ", "))
+            row.content.setText(order.friendlyText.replacingOccurrences(of: "<br>", with: ", "))
             
             switch order.status
             {
@@ -194,11 +188,11 @@ class CafetInterfaceController: WKInterfaceController {
             case .ready:
                 row.icon.setImage(#imageLiteral(resourceName: "cafetReady"))
                 
-            case .done:
+            case .finished:
                 row.icon.setImage(#imageLiteral(resourceName: "cafetDone"))
                 
-            case .notPaid:
-                row.icon.setImage(#imageLiteral(resourceName: "cafetNotPaid"))
+            default:
+                row.icon.setImage(#imageLiteral(resourceName: "cafetDone"))
             }
         }
         
