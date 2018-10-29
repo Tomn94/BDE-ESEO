@@ -545,9 +545,9 @@ extension CafetOrdersTVC: APIViewer {
             if label.text != self.serviceStatus {
                 let animation = CATransition()
                 animation.duration = 0.42
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                animation.type     = "cube"
-                animation.subtype  = kCATransitionFromBottom
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                animation.type     = convertToCATransitionType("cube")
+                animation.subtype  = CATransitionSubtype.fromBottom
                 label.layer.add(animation, forKey: nil)
             }
             
@@ -760,7 +760,7 @@ extension CafetOrdersTVC: DZNEmptyDataSetSource {
     }
     
     func buttonTitle(forEmptyDataSet scrollView: UIScrollView!,
-                     for state: UIControlState) -> NSAttributedString! {
+                     for state: UIControl.State) -> NSAttributedString! {
         
         let buttonTitle = DataStore.isUserLogged ? "Commander" : "Me connecter"
         return NSAttributedString(string: buttonTitle,
@@ -795,4 +795,9 @@ extension CafetOrdersTVC: DZNEmptyDataSetDelegate {
         order()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCATransitionType(_ input: String) -> CATransitionType {
+	return CATransitionType(rawValue: input)
 }

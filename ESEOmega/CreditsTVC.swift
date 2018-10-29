@@ -104,14 +104,14 @@ Une question, un problème ? ↓
                                      attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline),
                                                   .foregroundColor : UIColor.lightGray])
         
-        let boldAttr = [NSAttributedStringKey.font : UIFont(descriptor: boldSubheadDescriptor, size: 0)]
+        let boldAttr = [NSAttributedString.Key.font : UIFont(descriptor: boldSubheadDescriptor, size: 0)]
         mas.setAttributes(boldAttr, range: NSMakeRange(2,  13))               // my name
         mas.setAttributes(boldAttr, range: NSMakeRange(text.count - 29, 29))  // question?
         
         return mas
     }
     
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
         
         return NSAttributedString(string: "Contacter",
                                   attributes: [.font : UIFont.preferredFont(forTextStyle: .headline),

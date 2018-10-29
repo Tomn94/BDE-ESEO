@@ -134,7 +134,7 @@ import UIKit
         /* Customize Navigation Bars */
         UINavigationBar.appearance().barTintColor = currentTheme.themeValue.bars
         UINavigationBar.appearance().tintColor    = currentTheme.themeValue.barButtons
-        let titleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        let titleAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = titleAttributes
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes

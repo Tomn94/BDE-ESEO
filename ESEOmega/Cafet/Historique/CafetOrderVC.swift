@@ -208,9 +208,9 @@ class CafetOrderVC: UIViewController {
                 
                 let animation = CATransition()
                 animation.duration = 0.42
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                animation.type     = kCATransitionMoveIn
-                animation.subtype  = kCATransitionFromBottom
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                animation.type     = CATransitionType.moveIn
+                animation.subtype  = CATransitionSubtype.fromBottom
                 self.bandeau.layer.add(animation, forKey: nil)
                 self.loaded = true
             })

@@ -40,11 +40,11 @@ class MessagesViewController: MSMessagesAppViewController {
         stickerBrowserViewController = StickerBrowserViewController(stickerSize: .small)
         stickerBrowserViewController.view.frame = view.bounds
         stickerBrowserViewController.stickerBrowserView.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.8039215686, blue: 1, alpha: 1)
-        addChildViewController(stickerBrowserViewController)
+        addChild(stickerBrowserViewController)
         
         stickerBrowserViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stickerBrowserViewController.view)
-        stickerBrowserViewController.didMove(toParentViewController: self)
+        stickerBrowserViewController.didMove(toParent: self)
         
         label.frame = view.bounds
         label.translatesAutoresizingMaskIntoConstraints = false

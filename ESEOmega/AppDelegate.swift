@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var NV_VERSION_TITRE = "Une nouvelle version de l'app est disponible"
     var NV_VERSION_MESSG = "Impossible de recevoir les notifications, merci de mettre l'application à jour sur l'App Store."
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if (UserDefaults.standard.bool(forKey: "alreadyLaunchedv4NewAPI")) {
             SDImageCache.shared().clearDisk(onCompletion: nil)
             SDImageCache.shared().clearMemory()
@@ -54,8 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // OPENED APP FROM NOTIFICATION
         if #available(iOS 10.0, *) {
-            if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] != nil {
-                guard let userInfo = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as? [String: Any] else { return false }
+            if launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] != nil {
+                guard let userInfo = launchOptions![UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] else { return false }
                 if (userInfo["aps"] != nil) {
                     guard let version = userInfo["version"] as? Double else { return false }
                     if (version <= VERSION_NOTIFS_iOS) {
@@ -390,7 +390,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     // MARK: - Handoff
     
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         let tab = self.window?.rootViewController as! TabBarController
         if ((Data.shared()?.cafetCmdEnCours)!) {
             return true
