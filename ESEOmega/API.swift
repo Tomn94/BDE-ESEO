@@ -65,8 +65,9 @@ class API {
         /// Get available items to order
         case menus        = "cafeteria"
         
-        /// Get available items to order
-        case orderService = "apps/service"
+        /// Get current cafet service message
+        case orderService = "cafeteria/settings/service_message"
+        
         
         /// Begin Lydia payment for order
         case lydiaAsk     = "lydia/ask"
@@ -142,6 +143,7 @@ class API {
                         appendPath: String? = nil,
                         get  getParameters:  [String : String] = [:],
                         post postParameters: [String : String] = [:],
+                        postData: Foundation.Data? = nil,
                         authentication authToken: String? = nil,
                         completed: @escaping (Foundation.Data) -> (),
                         failure: ((Error?, Foundation.Data?) -> ())? = nil,
@@ -183,6 +185,11 @@ class API {
             urlComponents.queryItems = postParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
             let postString           = urlComponents.query ?? ""
             request.httpBody         = postString.data(using: .utf8)
+        }
+        
+        if let data = postData {
+            request.httpMethod = "POST"
+            request.httpBody = data
         }
         
         /* Configure completion */

@@ -144,7 +144,7 @@ class CafetInterfaceController: WKInterfaceController {
         let sortedKeys = Array(groupedOrdersByStatus.keys).sorted {
             $0.rawValue < $1.rawValue
         }
-        if let notPaid = groupedOrdersByPayement[0] {
+        if let notPaid = groupedOrdersByPayement[false] {
             // Added first since their rawValue is 3 (> 0, 1, 2)
             // but we need them on top
             sortedOrders += notPaid

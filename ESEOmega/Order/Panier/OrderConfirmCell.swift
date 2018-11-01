@@ -1,9 +1,9 @@
 //
-//  OrderPanierTVC.h
-//  ESEOmega
+//  OrderConfirmCell.swift
+//  BDE-ESEO
 //
-//  Created by Thomas NAUDET on 01/08/2015.
-//  Copyright © 2015 Thomas NAUDET
+//  Created by Benjamin Gondange on 01/11/2018.
+//  Copyright © 2018 Benjamin Gondange
 
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -19,23 +19,21 @@
 //  along with this program. If not, see http://www.gnu.org/licenses/
 //
 
-@import UIKit;
-@import LocalAuthentication;
-#import "Data.h"
-#import "OrderItemCell.h"
-#import "OrderConfirmCell.h"
-#import "UIScrollView+EmptyDataSet.h"
+import UIKit
 
-@interface OrderPanierTVC : UITableViewController <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UITextFieldDelegate>
-{
-    BOOL cmdEnCours;
-    NSString *txtInstructions;
+class OrderConfirmCell: UITableViewCell {
+
+    @IBOutlet weak var button: UIButton!;
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
 }
-
-- (void) rotateInsets;
-+ (NSDictionary *) dataForIDStr:(NSDictionary *)d;
-- (double) getTotalPrice;
-- (void) lancerCommande;
-- (void) sendPanier;
-
-@end

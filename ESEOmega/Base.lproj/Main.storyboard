@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1133,26 +1131,26 @@ Bâtiment : F. Rolland</string>
         </scene>
     </scenes>
     <resources>
-        <image name="batiment" width="667" height="417"/>
-        <image name="cafet" width="24" height="24"/>
-        <image name="cafetNotPaid" width="48" height="48"/>
-        <image name="cafetSel" width="24" height="24"/>
+        <image name="batiment" width="1334" height="834"/>
+        <image name="cafet" width="48" height="48"/>
+        <image name="cafetNotPaid" width="96" height="96"/>
+        <image name="cafetSel" width="48" height="48"/>
         <image name="clubs" width="30" height="30"/>
         <image name="clubsSel" width="30" height="30"/>
-        <image name="events" width="24" height="24"/>
-        <image name="eventsSel" width="24" height="24"/>
+        <image name="events" width="48" height="48"/>
+        <image name="eventsSel" width="48" height="48"/>
         <image name="genealogy" width="24" height="24"/>
-        <image name="ingenews" width="25" height="25"/>
-        <image name="news" width="24" height="21"/>
-        <image name="newsSel" width="24" height="21"/>
+        <image name="ingenews" width="50" height="50"/>
+        <image name="news" width="24" height="21.5"/>
+        <image name="newsSel" width="24" height="21.5"/>
         <image name="salles" width="24" height="24"/>
-        <image name="sponsors" width="24" height="24"/>
-        <image name="sponsorsSel" width="24" height="24"/>
-        <image name="ticket" width="25" height="25"/>
-        <image name="user" width="24" height="24"/>
+        <image name="sponsors" width="48" height="48"/>
+        <image name="sponsorsSel" width="48" height="48"/>
+        <image name="ticket" width="50" height="50"/>
+        <image name="user" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yVs-TG-kRj"/>
+        <segue reference="Lkv-Aq-dDA"/>
         <segue reference="Sw7-7B-Dky"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>

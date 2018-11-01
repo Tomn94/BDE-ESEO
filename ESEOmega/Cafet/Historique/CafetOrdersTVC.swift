@@ -317,8 +317,12 @@ class CafetOrdersTVC: UITableViewController {
         let defaultError = "Impossible de récupérer les menus"
         
         API.request(.menus, authentication: userToken, completed: { data in
+            let decoder = JSONDecoder();
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = CafetMenu.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
-            guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
+            guard let result = try? decoder.decode(CafetMenusResult.self, from: data),
                   result.success else {
                 
                 API.handleFailure(data: data, mode: .presentFetchedMessage(self),
@@ -348,10 +352,9 @@ class CafetOrdersTVC: UITableViewController {
         /* Converts current API structure to older format.
            The best would be to rewrite Objective-C Order code in Swift.
            Including Data class. */
-        // Categories
-        let categories = menus.categories.sorted { $0.position < $1.position }
+        DataStore.shared.cafetData = menus.cafeteria
         
-        
+        DataStore.shared.cafetPanier = CafetPanier(token: token)
         
         /* Present menu */
         let storyboard = UIStoryboard(name: "Order", bundle: nil)
@@ -359,6 +362,7 @@ class CafetOrdersTVC: UITableViewController {
         orderVC.modalPresentationStyle = .formSheet
         orderVC.modalTransitionStyle   = self.traitCollection.horizontalSizeClass == .regular
                                        ? .coverVertical : .flipHorizontal
+        
         DispatchQueue.main.async {
             self.present(orderVC, animated: true)
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
@@ -470,13 +474,13 @@ extension CafetOrdersTVC: APIViewer {
         API.request(.orderService, authentication: token,
                     completed: { data in
             
-            guard let result = try? JSONDecoder().decode(CafetServiceResult.self, from: data),
+            guard let result = try? JSONDecoder().decode(CafeteriaSettingResult.self, from: data),
                   result.success else {
                 self.serviceStatus = unavailableStatus
                 return
             }
             
-            self.serviceStatus = result.message.replacingOccurrences(of: "\\n", with: "\n")
+            self.serviceStatus = result.setting[0].value.replacingOccurrences(of: "\\n", with: "\n")
             self.updateService()
 
         }, failure: { error, data in
@@ -634,7 +638,7 @@ extension CafetOrdersTVC {
         formatter.numberStyle = .currency
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
-        cell.numLabel.text    = formatter.string(from: NSNumber(value: order.modID))
+        cell.numLabel.text    = String(order.modID)
         
         return cell
     }

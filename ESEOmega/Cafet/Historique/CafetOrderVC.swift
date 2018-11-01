@@ -165,7 +165,7 @@ class CafetOrderVC: UIViewController {
         numberFormatter.numberStyle = .currency
         numberFormatter.locale      = Locale(identifier: "fr_FR")
         var priceString = numberFormatter.string(from: NSDecimalNumber(value: order.price)) ?? "Unknown price"
-        if order.paid == 0 {
+        if !order.paid {
             priceString += " ⚠️"
         }
         prix.attributedText = NSAttributedString(string: priceString,
@@ -218,7 +218,7 @@ class CafetOrderVC: UIViewController {
         }
         
         /* Pay Bar Button Item */
-        if order.paid == 1{
+        if order.paid {
             
             let item = UIBarButtonItem(title: "Payée", style: .plain,
                                        target: nil, action: nil)
@@ -245,15 +245,8 @@ class CafetOrderVC: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = CafetOrder.dateFormat
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
-            
-            do {
-                let decoded = try JSONDecoder().decode(CafetOrderResult.self, from: data)
-                print(decoded)
-            } catch {
-                print(error)
-            }
                         
-            guard let result = try? decoder.decode(CafetOrderResult.self, from: data),
+            guard let result = try? decoder.decode(CafetOrdersResult.self, from: data),
                   result.success else {
                 API.handleFailure(data: data, mode: .presentFetchedMessage(self),
                                   defaultMessage: defaultMessage)
