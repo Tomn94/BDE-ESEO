@@ -107,7 +107,9 @@ class OrderIngredTVC: UITableViewController {
         
         let ids = mainElement.selectedIngredients.compactMap { $0.ID }
         
-        if ((ids.contains(indexPath.row + 1))) {
+        let currentId = mainElement.availableIngredients[indexPath.row].ID
+        
+        if ((ids.contains(currentId))) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

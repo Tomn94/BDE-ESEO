@@ -21,6 +21,7 @@
 
 import UIKit
 import LocalAuthentication
+import Intents
 
 class OrderPanierTVC: UITableViewController {
 
