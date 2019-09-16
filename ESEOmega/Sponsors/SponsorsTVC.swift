@@ -43,12 +43,6 @@ class SponsorsTVC: UITableViewController {
         
         /* Refresh control */
         reloadRefreshControl()
-
-        
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-
-        }
         
         if (self.traitCollection.forceTouchCapability == UIForceTouchCapability.available) {
             self.registerForPreviewing(with: self, sourceView: self.tableView)

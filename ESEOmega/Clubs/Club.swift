@@ -100,7 +100,7 @@ struct ClubContactInfo: Codable {
 
 
 /// Describes a Club/BDE/… and its attributes
-struct Club: Codable, Equatable {
+class Club: Codable, Equatable {
     
     /// Unique identifier for the club
     let ID: String
@@ -157,7 +157,7 @@ struct Club: Codable, Equatable {
     
     
     /// Sort users by decreasing responsibilities
-    mutating func sortClubMembers() {
+    func sortClubMembers() {
         
         // Define increasing order for each role
         let weightForRole: (String, String) -> Int = { user, role in

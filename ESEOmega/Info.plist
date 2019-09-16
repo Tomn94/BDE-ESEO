@@ -12,6 +12,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>ESEOKAMI</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-8</string>
+				</array>
+			</dict>
 			<key>AVÉSEO</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -19,7 +26,7 @@
 					<string>App-Icon-7</string>
 				</array>
 			</dict>
-			<key>BDEl'dorado</key>
+			<key>BDEl&apos;dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
@@ -33,7 +40,7 @@
 					<string>App-Icon-1</string>
 				</array>
 			</dict>
-			<key>ESE'On Fire</key>
+			<key>ESE&apos;On Fire</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
@@ -74,6 +81,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>ESEOKAMI</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>App-Icon-8</string>
+				</array>
+			</dict>
 			<key>AVÉSEO</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -81,7 +95,7 @@
 					<string>App-Icon-7</string>
 				</array>
 			</dict>
-			<key>BDEl'dorado</key>
+			<key>BDEl&apos;dorado</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
@@ -95,7 +109,7 @@
 					<string>App-Icon-1</string>
 				</array>
 			</dict>
-			<key>ESE'On Fire</key>
+			<key>ESE&apos;On Fire</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
@@ -178,11 +192,11 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>L'accès à vos calendriers vous permet d'y ajouter des événements.</string>
+	<string>L&apos;accès à vos calendriers vous permet d&apos;y ajouter des événements.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>L'accès à Face ID vous permet de valider votre commande de manière sécurisée.</string>
+	<string>L&apos;accès à Face ID vous permet de valider votre commande de manière sécurisée.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>L'accès aux photos vous permet de choisir une photo de profil.</string>
+	<string>L&apos;accès aux photos vous permet de choisir une photo de profil.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>com.eseomega.ESEOmega.news</string>
@@ -217,7 +231,7 @@
 			<key>UIApplicationShortcutItemIconFile</key>
 			<string>salles-homescreen</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>À l'ESEO Angers</string>
+			<string>À l&apos;ESEO Angers</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Trouver une salle</string>
 			<key>UIApplicationShortcutItemType</key>

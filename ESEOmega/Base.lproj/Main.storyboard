@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -26,10 +23,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" textLabel="Wc0-Ky-eT3" detailTextLabel="0Wh-SM-9B9" style="IBUITableViewCellStyleSubtitle" id="VJD-mW-V5r">
-                                <rect key="frame" x="0.0" y="22" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VJD-mW-V5r" id="Hff-qB-flU">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wc0-Ky-eT3">
@@ -90,10 +87,10 @@
                         <inset key="separatorInset" minX="123" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sponsorsCell" rowHeight="207" id="Vzf-zu-EHZ" customClass="SponsorsCell" customModule="BDE_ESEO" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="22" width="375" height="207"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vzf-zu-EHZ" id="y02-m3-xku">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="206.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="207"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batiment" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-Ci-3lm">
@@ -206,10 +203,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsDetailCell" textLabel="jOh-1N-lBN" detailTextLabel="hgl-pA-9i2" style="IBUITableViewCellStyleSubtitle" id="J64-Bb-giS">
-                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J64-Bb-giS" id="3Jh-gM-LTL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOh-1N-lBN">
@@ -247,7 +244,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCQ-hW-ESw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="663"/>
+            <point key="canvasLocation" x="3391.1999999999998" y="662.51874062968523"/>
         </scene>
         <!--Cafet OrderVC-->
         <scene sceneID="Ds5-fh-Dpv">
@@ -377,14 +374,14 @@ Paquet de chips</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpS-m8-duf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="1466"/>
+            <point key="canvasLocation" x="3391.1999999999998" y="1465.8170914542729"/>
         </scene>
         <!--Empty Data Set Delegate-->
         <scene sceneID="PXp-Jw-w15">
             <objects>
                 <tableViewController id="jdp-au-bz4" customClass="UserTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Tmk-Rp-3dD">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="647"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -394,7 +391,7 @@ Paquet de chips</string>
                                         <rect key="frame" x="0.0" y="55.5" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAr-jP-Q9f" id="rzK-4R-rBz">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-UZ-zXo">
@@ -407,7 +404,7 @@ Paquet de chips</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="sam.sepiol@reseau.eseo.fr" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-AO-5QM">
-                                                    <rect key="frame" x="142" y="0.0" width="242" height="43.5"/>
+                                                    <rect key="frame" x="142" y="0.0" width="242" height="44"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
@@ -441,7 +438,7 @@ Paquet de chips</string>
                                         <rect key="frame" x="0.0" y="99.5" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3n4-0p-LxX" id="1U0-fk-4yx">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de passe" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-z6-eXP">
@@ -454,7 +451,7 @@ Paquet de chips</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sfW-ly-SOx">
-                                                    <rect key="frame" x="142" y="0.0" width="242" height="43.5"/>
+                                                    <rect key="frame" x="142" y="0.0" width="242" height="44"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
@@ -493,14 +490,14 @@ Nous n'avons pas accès à votre mot de passe, il permet uniquement à Outlook d
 Bâtiment : F. Rolland</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilCoCell" textLabel="0RU-mS-Rdu" style="IBUITableViewCellStyleDefault" id="NiU-es-bbA">
-                                        <rect key="frame" x="0.0" y="163.5" width="384" height="44"/>
+                                        <rect key="frame" x="0.0" y="175.5" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NiU-es-bbA" id="EV6-nd-VpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Connexion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0RU-mS-Rdu">
-                                                    <rect key="frame" x="16" y="0.0" width="352" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="352" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" red="0.078431372550000003" green="0.70588235290000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -522,7 +519,7 @@ Bâtiment : F. Rolland</string>
                     <navigationItem key="navigationItem" title="Mon profil" id="Tfn-or-51y">
                         <barButtonItem key="leftBarButtonItem" id="IM3-rw-UNJ">
                             <view key="customView" contentMode="scaleToFill" id="9Ht-68-0nJ">
-                                <rect key="frame" x="16" y="5.5" width="30" height="33"/>
+                                <rect key="frame" x="16" y="11.5" width="30" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WLZ-wH-p2O">
@@ -553,7 +550,7 @@ Bâtiment : F. Rolland</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yRE-8o-y0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4382" y="169"/>
+            <point key="canvasLocation" x="4320" y="-63"/>
         </scene>
         <!--Empty Data Set Delegate-->
         <scene sceneID="kej-Tk-Ugi">
@@ -565,7 +562,7 @@ Bâtiment : F. Rolland</string>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clubsMasterCell" rowHeight="142" id="zZB-eN-ivf" customClass="ClubsMasterCell">
-                                <rect key="frame" x="0.0" y="22" width="375" height="142"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZB-eN-ivf" id="4FT-8Z-gmo">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
@@ -700,7 +697,7 @@ Bâtiment : F. Rolland</string>
                                 <rect key="frame" x="0.0" y="100.5" width="375" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UvV-Fm-Ak6" id="OPa-8T-lSc">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="60.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="347.5" height="61"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="21 janvier 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-oQ-fbt">
@@ -710,13 +707,13 @@ Bâtiment : F. Rolland</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="3,99 €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oa2-Oc-56c">
-                                            <rect key="frame" x="160" y="16" width="175" height="20"/>
+                                            <rect key="frame" x="160" y="16" width="181.5" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="GUY042" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB4-Na-c2j">
-                                            <rect key="frame" x="168" y="32" width="167" height="14"/>
+                                            <rect key="frame" x="168" y="32" width="173.5" height="14"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -777,7 +774,7 @@ Bâtiment : F. Rolland</string>
                             </barButtonItem>
                             <barButtonItem id="rSv-Al-Asb">
                                 <view key="customView" contentMode="scaleToFill" id="Rx9-uM-bdd">
-                                    <rect key="frame" x="52.5" y="22" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="57" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-dp-cv4">
@@ -811,7 +808,7 @@ Bâtiment : F. Rolland</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGN-p9-NhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="1466"/>
+            <point key="canvasLocation" x="2560.8000000000002" y="1465.8170914542729"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -826,7 +823,7 @@ Bâtiment : F. Rolland</string>
                     </tabBar>
                     <connections>
                         <segue destination="fBW-LR-6io" kind="relationship" relationship="viewControllers" id="UFd-UZ-ZBX"/>
-                        <segue destination="hyy-J3-VJz" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="VtH-E8-Gcx" kind="relationship" relationship="viewControllers" id="wZn-hS-P4q"/>
                         <segue destination="v30-u5-2ae" kind="relationship" relationship="viewControllers" id="wpR-iP-Zoi"/>
                         <segue destination="MJI-Qx-EYb" kind="relationship" relationship="viewControllers" id="pJF-y1-KeM"/>
                         <segue destination="qr5-8U-DHh" kind="relationship" relationship="viewControllers" id="oGg-fA-D1u"/>
@@ -889,10 +886,10 @@ Bâtiment : F. Rolland</string>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterMoreCell" id="glO-Ej-odd" customClass="NewsListMoreCell" customModule="BDE_ESEO" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glO-Ej-odd" id="Mmh-UE-zbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charger les anciens articles…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17q-cl-Lv2">
@@ -920,21 +917,21 @@ Bâtiment : F. Rolland</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsMasterCell" textLabel="TCT-IX-hrN" detailTextLabel="nXJ-mV-K1B" style="IBUITableViewCellStyleSubtitle" id="CRf-kt-mgJ">
-                                <rect key="frame" x="0.0" y="66" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CRf-kt-mgJ" id="k0p-CZ-xYZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TCT-IX-hrN">
-                                            <rect key="frame" x="16" y="4" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="5" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nXJ-mV-K1B">
-                                            <rect key="frame" x="16" y="23.5" width="47" height="16"/>
+                                            <rect key="frame" x="16" y="24.5" width="47" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <color key="textColor" red="0.62745098039215685" green="0.62745098039215685" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1026,7 +1023,7 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Bons plans" image="sponsors" selectedImage="sponsorsSel" id="sSY-rw-nz9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="krn-aS-nQJ">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1045,7 +1042,7 @@ Bâtiment : F. Rolland</string>
                     <tabBarItem key="tabBarItem" title="Cafétéria" image="cafet" selectedImage="cafetSel" id="pfX-fs-rpx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UmN-d8-iIC">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1055,7 +1052,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="si6-Fq-SUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="1466"/>
+            <point key="canvasLocation" x="1751.2" y="1465.8170914542729"/>
         </scene>
         <!--Événements-->
         <scene sceneID="wcl-RU-Akc">
@@ -1065,7 +1062,7 @@ Bâtiment : F. Rolland</string>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kmd-T4-Thd">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1083,7 +1080,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Njh-RV-AH8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bIi-bw-Kn2">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1101,7 +1098,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZa-VF-6Df" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fCe-Zp-Ibl">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1111,7 +1108,7 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JYi-a3-QII" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="663"/>
+            <point key="canvasLocation" x="2560.8000000000002" y="662.51874062968523"/>
         </scene>
         <!--Light Status BarNVC-->
         <scene sceneID="ASy-Qf-UMM">
@@ -1119,7 +1116,7 @@ Bâtiment : F. Rolland</string>
                 <navigationController storyboardIdentifier="Connex" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="GbG-dZ-NEX" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2W-8W-8mC">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1129,7 +1126,183 @@ Bâtiment : F. Rolland</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5q-UZ-zJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3681" y="169"/>
+            <point key="canvasLocation" x="3602" y="-63"/>
+        </scene>
+        <!--Révisions-->
+        <scene sceneID="OzR-mh-V3d">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VtH-E8-Gcx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Révisions" image="document" id="Ygz-sf-fVL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pJI-AR-ieS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VgD-HB-ZNT" kind="relationship" relationship="rootViewController" id="6gX-vQ-buE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2xG-hy-1NZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1927" y="1102"/>
+        </scene>
+        <!--Annales d'examens-->
+        <scene sceneID="X7t-cO-6iQ">
+            <objects>
+                <collectionViewController id="VgD-HB-ZNT" customClass="DocumentsCVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="pEv-PO-nq4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7Ky-4A-wKW">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="50" height="58"/>
+                            <size key="footerReferenceSize" width="50" height="62"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="HVg-jh-KJX" customClass="DocumentsCollectionViewCell" customModule="BDE_ESEO" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="58" width="151" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LHS-3i-DSW">
+                                    <rect key="frame" x="0.0" y="0.0" width="151" height="71"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                                <color key="backgroundColor" red="0.85098039219999999" green="0.23554611989999999" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="customSize" width="151" height="71"/>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="titleDocumentsHeader" id="uWR-LO-zBa" customClass="DocumentsCollectionReusableView" customModule="BDE_ESEO" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsz-Rm-WWU">
+                                    <rect key="frame" x="20" y="16.5" width="52.5" height="25.5"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Xsz-Rm-WWU" firstAttribute="leading" secondItem="uWR-LO-zBa" secondAttribute="leading" constant="20" id="T2U-JK-BcV"/>
+                                <constraint firstItem="Xsz-Rm-WWU" firstAttribute="centerY" secondItem="uWR-LO-zBa" secondAttribute="centerY" id="m5H-Wt-aqd"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="titleLabel" destination="Xsz-Rm-WWU" id="A9y-n7-Aar"/>
+                            </connections>
+                        </collectionReusableView>
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="footerView" id="0yD-hu-jyZ" customClass="DocumentsFooter" customModule="BDE_ESEO" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="129" width="375" height="62"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Les documents pour les B3 arrivent l'année prochaine..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-0x-nUb">
+                                    <rect key="frame" x="14" y="11" width="353" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="RA1-0x-nUb" secondAttribute="trailing" constant="8" id="0CO-1b-hyT"/>
+                                <constraint firstItem="RA1-0x-nUb" firstAttribute="leading" secondItem="0yD-hu-jyZ" secondAttribute="leading" constant="14" id="3Fn-SO-iFZ"/>
+                                <constraint firstAttribute="bottom" secondItem="RA1-0x-nUb" secondAttribute="bottom" constant="10" id="BTL-Ux-Hs9"/>
+                                <constraint firstItem="RA1-0x-nUb" firstAttribute="top" secondItem="0yD-hu-jyZ" secondAttribute="top" constant="11" id="Wb5-U1-8u1"/>
+                            </constraints>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="VgD-HB-ZNT" id="CFL-kQ-tKd"/>
+                            <outlet property="delegate" destination="VgD-HB-ZNT" id="pTO-TH-sK5"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Annales d'examens" id="RKN-Os-m4C"/>
+                    <connections>
+                        <segue destination="hFk-fv-Tgp" kind="show" identifier="showYears" id="erN-lb-CEu"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3hw-Sb-ktz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-938" y="1101"/>
+        </scene>
+        <!--Years DetailCVC-->
+        <scene sceneID="iMX-PL-xha">
+            <objects>
+                <collectionViewController id="hFk-fv-Tgp" customClass="YearsDetailCVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="P3J-Eu-C5E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hsz-sV-8g0">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="PQr-Vy-lVf" customClass="YearCollectionViewCell" customModule="BDE_ESEO" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="151" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4YO-4a-yQD">
+                                    <rect key="frame" x="0.0" y="0.0" width="151" height="71"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                                <size key="customSize" width="151" height="71"/>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="hFk-fv-Tgp" id="1Zo-em-Uyo"/>
+                            <outlet property="delegate" destination="hFk-fv-Tgp" id="sNU-wy-3aQ"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="Y0F-p6-Fkx"/>
+                    <connections>
+                        <segue destination="ve9-Ub-t5S" kind="show" identifier="showPDF" id="A0O-l1-J6t"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yRR-Pr-gJd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="1101"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Bms-k9-nEM">
+            <objects>
+                <viewController id="ve9-Ub-t5S" customClass="PDFViewController" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iSs-zB-Mhd"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mbh-kK-UZ6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pj5-H7-1Gn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFs-JV-KkZ">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="mPS-02-r5s">
+                                <rect key="frame" x="177.5" y="324" width="20" height="19"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Mbh-kK-UZ6" firstAttribute="top" secondItem="mPS-02-r5s" secondAttribute="bottom" constant="275" id="3HR-Kp-7VX"/>
+                            <constraint firstItem="mPS-02-r5s" firstAttribute="centerY" secondItem="Pj5-H7-1Gn" secondAttribute="centerY" id="91N-Eq-bSU"/>
+                            <constraint firstItem="RFs-JV-KkZ" firstAttribute="bottom" secondItem="Pj5-H7-1Gn" secondAttribute="bottomMargin" id="AMQ-iM-o87"/>
+                            <constraint firstItem="RFs-JV-KkZ" firstAttribute="centerX" secondItem="mPS-02-r5s" secondAttribute="centerX" id="HM3-X8-V3W"/>
+                            <constraint firstItem="RFs-JV-KkZ" firstAttribute="top" secondItem="Pj5-H7-1Gn" secondAttribute="topMargin" id="Jao-yb-2W0"/>
+                            <constraint firstItem="mPS-02-r5s" firstAttribute="centerX" secondItem="Pj5-H7-1Gn" secondAttribute="centerX" id="Oj7-A1-d8X"/>
+                            <constraint firstItem="RFs-JV-KkZ" firstAttribute="leading" secondItem="Pj5-H7-1Gn" secondAttribute="leadingMargin" constant="-16" id="qOT-hV-lka"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Je0-kk-wHd"/>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="mPS-02-r5s" id="Wh9-uK-0q3"/>
+                        <outlet property="pdfWebView" destination="RFs-JV-KkZ" id="0rT-cE-ViP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7AW-4Z-f28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="901.60000000000002" y="1100.5997001499252"/>
         </scene>
     </scenes>
     <resources>
@@ -1139,12 +1312,13 @@ Bâtiment : F. Rolland</string>
         <image name="cafetSel" width="24" height="24"/>
         <image name="clubs" width="30" height="30"/>
         <image name="clubsSel" width="30" height="30"/>
+        <image name="document" width="30" height="30"/>
         <image name="events" width="24" height="24"/>
         <image name="eventsSel" width="24" height="24"/>
         <image name="genealogy" width="24" height="24"/>
         <image name="ingenews" width="25" height="25"/>
-        <image name="news" width="24" height="21"/>
-        <image name="newsSel" width="24" height="21"/>
+        <image name="news" width="24" height="21.5"/>
+        <image name="newsSel" width="24" height="21.5"/>
         <image name="salles" width="24" height="24"/>
         <image name="sponsors" width="24" height="24"/>
         <image name="sponsorsSel" width="24" height="24"/>
@@ -1152,7 +1326,7 @@ Bâtiment : F. Rolland</string>
         <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yVs-TG-kRj"/>
+        <segue reference="JkH-fa-vWF"/>
         <segue reference="Sw7-7B-Dky"/>
         <segue reference="h8p-a8-6YF"/>
     </inferredMetricsTieBreakers>

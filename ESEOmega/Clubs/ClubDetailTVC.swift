@@ -167,7 +167,6 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         }
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
-            navigationController?.navigationBar.prefersLargeTitles = true
         }
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true

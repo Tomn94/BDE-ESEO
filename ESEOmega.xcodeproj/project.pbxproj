@@ -14,7 +14,6 @@
 		640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 640026261C0A305D00AEF79B /* Rooms.storyboard */; };
 		640200061F6490EF009668DB /* APIArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640200051F6490EF009668DB /* APIArchiver.swift */; };
 		6403BA8A1FB79C120063A65A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645C29761F63760A001F79AC /* API.swift */; };
-		6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
 		6403BA8D1FB79CAD0063A65A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF31F5F8F2C00BA97BA /* Room.swift */; };
 		6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418FFA01F939DEE0044206B /* CafetOrderVC.swift */; };
 		641E43511FB7D1E0006063A6 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641E43501FB7D1E0006063A6 /* Keychain.swift */; };
@@ -131,7 +130,6 @@
 		64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64900CD71F54D9C100E2F09D /* App-Icon-6@2x.png */; };
 		6497243620B9B0AD00596A79 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6497243520B9B0AD00596A79 /* User.swift */; };
 		6497243720B9B0B500596A79 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6497243520B9B0AD00596A79 /* User.swift */; };
-		6497243820B9B14100596A79 /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
 		6497243920B9B14C00596A79 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645BFFF51F60C7B100BA97BA /* Utils.swift */; };
 		649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D411C44423A00FDF2A8 /* EventsOrderTVC.m */; };
 		649D9D481C44534C00FDF2A8 /* EventsOrderNavTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D9D471C44534C00FDF2A8 /* EventsOrderNavTVC.m */; };
@@ -182,10 +180,21 @@
 		64F93EB41B5EA97900EE5C72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64F93EB31B5EA97900EE5C72 /* Assets.xcassets */; };
 		64FDD9541D95C33800A3ED8F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FDD9531D95C33800A3ED8F /* NotificationService.swift */; };
 		64FDD9581D95C33800A3ED8F /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 64FDD9511D95C33800A3ED8F /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		64FFB9BA1F60EB9900986F1C /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
-		64FFB9BB1F60EC7800986F1C /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */; };
 		64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */; };
 		64FFB9BF1F60F04300986F1C /* UserTVC+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */; };
+		7EDC02E2232E63A100518E23 /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02E1232E63A100518E23 /* PrivateConstants.swift */; };
+		7EDC02E6232E6BE100518E23 /* App-Icon-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDC02E3232E6BE100518E23 /* App-Icon-8@2x.png */; };
+		7EDC02E7232E6BE100518E23 /* App-Icon-8@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDC02E4232E6BE100518E23 /* App-Icon-8@3x.png */; };
+		7EDC02E8232E6BE100518E23 /* App-Icon-8@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDC02E5232E6BE100518E23 /* App-Icon-8@2x~ipad.png */; };
+		7EDC02EC232E712A00518E23 /* DocumentsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02EB232E712A00518E23 /* DocumentsCVC.swift */; };
+		7EDC02EE232E71A800518E23 /* DocumetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02ED232E71A800518E23 /* DocumetsCollectionViewCell.swift */; };
+		7EDC02F0232E71C300518E23 /* DocumentsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02EF232E71C300518E23 /* DocumentsCollectionReusableView.swift */; };
+		7EDC02F2232E7C3B00518E23 /* YearsDetailCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02F1232E7C3B00518E23 /* YearsDetailCVC.swift */; };
+		7EDC02F5232E7C8200518E23 /* YearCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02F4232E7C8200518E23 /* YearCollectionViewCell.swift */; };
+		7EDC02F7232E846200518E23 /* DocumentsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02F6232E846200518E23 /* DocumentsFooter.swift */; };
+		7EDC02F9232E8B6700518E23 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02F8232E8B6700518E23 /* PDFViewController.swift */; };
+		7EFFF18023302F41003635A3 /* YearsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFF17F23302F41003635A3 /* YearsConstants.swift */; };
+		7EFFF182233030AD003635A3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFF181233030AD003635A3 /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -515,9 +524,21 @@
 		64FDD9511D95C33800A3ED8F /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FDD9531D95C33800A3ED8F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		64FDD9551D95C33800A3ED8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateConstants.swift; sourceTree = "<group>"; };
 		64FFB9BC1F60EF9900986F1C /* UserTVC+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTVC+Avatar.swift"; sourceTree = "<group>"; };
 		64FFB9BE1F60F04300986F1C /* UserTVC+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTVC+Login.swift"; sourceTree = "<group>"; };
+		7EDC02E1232E63A100518E23 /* PrivateConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateConstants.swift; sourceTree = "<group>"; };
+		7EDC02E3232E6BE100518E23 /* App-Icon-8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-8@2x.png"; sourceTree = "<group>"; };
+		7EDC02E4232E6BE100518E23 /* App-Icon-8@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-8@3x.png"; sourceTree = "<group>"; };
+		7EDC02E5232E6BE100518E23 /* App-Icon-8@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App-Icon-8@2x~ipad.png"; sourceTree = "<group>"; };
+		7EDC02EB232E712A00518E23 /* DocumentsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCVC.swift; sourceTree = "<group>"; };
+		7EDC02ED232E71A800518E23 /* DocumetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumetsCollectionViewCell.swift; sourceTree = "<group>"; };
+		7EDC02EF232E71C300518E23 /* DocumentsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCollectionReusableView.swift; sourceTree = "<group>"; };
+		7EDC02F1232E7C3B00518E23 /* YearsDetailCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsDetailCVC.swift; sourceTree = "<group>"; };
+		7EDC02F4232E7C8200518E23 /* YearCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCollectionViewCell.swift; sourceTree = "<group>"; };
+		7EDC02F6232E846200518E23 /* DocumentsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFooter.swift; sourceTree = "<group>"; };
+		7EDC02F8232E8B6700518E23 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		7EFFF17F23302F41003635A3 /* YearsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsConstants.swift; sourceTree = "<group>"; };
+		7EFFF181233030AD003635A3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -661,6 +682,9 @@
 				64DF777920D5CCAC0056C91B /* App-Icon-7@2x.png */,
 				64DF777A20D5CCAD0056C91B /* App-Icon-7@2x~ipad.png */,
 				64DF777B20D5CCAD0056C91B /* App-Icon-7@3x.png */,
+				7EDC02E3232E6BE100518E23 /* App-Icon-8@2x.png */,
+				7EDC02E5232E6BE100518E23 /* App-Icon-8@2x~ipad.png */,
+				7EDC02E4232E6BE100518E23 /* App-Icon-8@3x.png */,
 			);
 			path = "App Icons";
 			sourceTree = "<group>";
@@ -1017,8 +1041,8 @@
 				6469B05E1FAF458500290E6D /* Lydia.swift */,
 				645C29761F63760A001F79AC /* API.swift */,
 				640200051F6490EF009668DB /* APIArchiver.swift */,
+				7EDC02E1232E63A100518E23 /* PrivateConstants.swift */,
 				641E43501FB7D1E0006063A6 /* Keychain.swift */,
-				64FFB9B91F60EB9900986F1C /* PrivateConstants.swift */,
 				64F8ADFF1E408ACF00489198 /* ThemeManager.swift */,
 				64D6A7841CFB9507005E1CB9 /* Launch Screen.storyboard */,
 				64F93EB01B5EA97900EE5C72 /* Main.storyboard */,
@@ -1030,6 +1054,7 @@
 				64E273481B72444B00A84E68 /* Game */,
 				6487C2EB1B5EF81300DC3B77 /* News */,
 				6430D2711B63DC9100F5C7F5 /* Events */,
+				7EDC02EA232E710100518E23 /* Documents */,
 				64AD83C91B6013B100AD4C25 /* Clubs */,
 				64CDF0951B642C6E0051C7BB /* Cafet */,
 				64AD83CD1B601DD800AD4C25 /* Sponsors */,
@@ -1083,6 +1108,30 @@
 				64FDD9551D95C33800A3ED8F /* Info.plist */,
 			);
 			path = NotificationService;
+			sourceTree = "<group>";
+		};
+		7EDC02EA232E710100518E23 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				7EDC02EB232E712A00518E23 /* DocumentsCVC.swift */,
+				7EFFF181233030AD003635A3 /* OnboardingView.swift */,
+				7EFFF17F23302F41003635A3 /* YearsConstants.swift */,
+				7EDC02F6232E846200518E23 /* DocumentsFooter.swift */,
+				7EDC02ED232E71A800518E23 /* DocumetsCollectionViewCell.swift */,
+				7EDC02EF232E71C300518E23 /* DocumentsCollectionReusableView.swift */,
+				7EDC02F3232E7C7200518E23 /* Detail */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
+		7EDC02F3232E7C7200518E23 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				7EDC02F1232E7C3B00518E23 /* YearsDetailCVC.swift */,
+				7EDC02F4232E7C8200518E23 /* YearCollectionViewCell.swift */,
+				7EDC02F8232E8B6700518E23 /* PDFViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1386,6 +1435,7 @@
 			files = (
 				644D36571E923D5E0047EDDA /* App-Icon-5@2x.png in Resources */,
 				644D36531E923D5E0047EDDA /* App-Icon-3@3x.png in Resources */,
+				7EDC02E6232E6BE100518E23 /* App-Icon-8@2x.png in Resources */,
 				644D36591E923D5E0047EDDA /* App-Icon-5@3x.png in Resources */,
 				6425D8371BACB2BE00F15BDD /* EventAlertView.xib in Resources */,
 				6488AA551B72C8DE000E2660 /* PerfectDOSVGA437.ttf in Resources */,
@@ -1398,11 +1448,13 @@
 				644D364C1E923D5E0047EDDA /* App-Icon-1@2x~ipad.png in Resources */,
 				643B89901C28CFEF00B3A568 /* IngeNews.storyboard in Resources */,
 				64900CDC1F54DCD000E2F09D /* App-Icon-6@2x.png in Resources */,
+				7EDC02E8232E6BE100518E23 /* App-Icon-8@2x~ipad.png in Resources */,
 				640026271C0A305D00AEF79B /* Rooms.storyboard in Resources */,
 				64DF777C20D5CCAD0056C91B /* App-Icon-7@2x.png in Resources */,
 				644D36541E923D5E0047EDDA /* App-Icon-4@2x.png in Resources */,
 				64D6A7851CFB9507005E1CB9 /* Launch Screen.storyboard in Resources */,
 				644D36551E923D5E0047EDDA /* App-Icon-4@2x~ipad.png in Resources */,
+				7EDC02E7232E6BE100518E23 /* App-Icon-8@3x.png in Resources */,
 				64E93CF61C43980F005FC9CF /* Events.storyboard in Resources */,
 				6488AA501B728CEE000E2660 /* ka1.ttf in Resources */,
 				64AF21431DC73FBF0000F987 /* GenealogySearch.storyboard in Resources */,
@@ -1454,7 +1506,6 @@
 				6403BA8A1FB79C120063A65A /* API.swift in Sources */,
 				641EDF481FB786230047900C /* RoomsInterfaceController.swift in Sources */,
 				64433E791FB7A7C600106F7D /* CafetOrder.swift in Sources */,
-				6403BA8C1FB79C6D0063A65A /* PrivateConstants.swift in Sources */,
 				64433E7C1FB7AD9B00106F7D /* Constants.swift in Sources */,
 				641E43541FB7D505006063A6 /* Keychain.swift in Sources */,
 			);
@@ -1471,7 +1522,6 @@
 				64508FD520B9AC0200EE8A19 /* Constants.swift in Sources */,
 				64508FDB20B9ADB100EE8A19 /* CafetOrder.swift in Sources */,
 				64508FDA20B9ADAE00EE8A19 /* Sticker.swift in Sources */,
-				6497243820B9B14100596A79 /* PrivateConstants.swift in Sources */,
 				64508FD920B9ADAC00EE8A19 /* Student.swift in Sources */,
 				6497243720B9B0B500596A79 /* User.swift in Sources */,
 				64508FD720B9ADA600EE8A19 /* Room.swift in Sources */,
@@ -1486,7 +1536,6 @@
 			files = (
 				64EEB8FF1D9BAE25003678E2 /* MessagesViewController.swift in Sources */,
 				645C297A1F638792001F79AC /* Sticker.swift in Sources */,
-				64FFB9BB1F60EC7800986F1C /* PrivateConstants.swift in Sources */,
 				645C297D1F640D7F001F79AC /* Utils.swift in Sources */,
 				64EEB90E1D9BAF9A003678E2 /* StickerBrowserViewController.swift in Sources */,
 				645BFFFB1F60CAE600BA97BA /* Constants.swift in Sources */,
@@ -1501,6 +1550,7 @@
 				645F7E4D1F954DB9006F521B /* OrderCartTVC.swift in Sources */,
 				64E93CF91C439F60005FC9CF /* EventsHistoryCell.m in Sources */,
 				64582C341BD6A9F50007C104 /* UIApplication+JTSImageViewController.m in Sources */,
+				7EDC02F9232E8B6700518E23 /* PDFViewController.swift in Sources */,
 				4392A65D214722A90050C245 /* Sponsor.swift in Sources */,
 				64339B571F16EE2800EDA97D /* SDWebImageManager.m in Sources */,
 				64339B5E1F16EE2800EDA97D /* UIImageView+WebCache.m in Sources */,
@@ -1514,6 +1564,7 @@
 				64AF21491DC8746B0000F987 /* Genealogy.swift in Sources */,
 				647F6BFA1F65E508006FA132 /* NewsSplit.swift in Sources */,
 				64339B561F16EE2800EDA97D /* SDWebImageDownloaderOperation.m in Sources */,
+				7EDC02F0232E71C300518E23 /* DocumentsCollectionReusableView.swift in Sources */,
 				64E054A41B8620EB00C35F35 /* OrderMenuCell.m in Sources */,
 				647DE7B820C2CEA900F8919F /* ClubDetailTVC.swift in Sources */,
 				64339B581F16EE2800EDA97D /* SDWebImagePrefetcher.m in Sources */,
@@ -1534,6 +1585,8 @@
 				649D9D421C44423A00FDF2A8 /* EventsOrderTVC.m in Sources */,
 				6479F2F91B6D126C0004C867 /* OrderPVC.m in Sources */,
 				64339B5A1F16EE2800EDA97D /* UIImage+GIF.m in Sources */,
+				7EDC02F5232E7C8200518E23 /* YearCollectionViewCell.swift in Sources */,
+				7EFFF182233030AD003635A3 /* OnboardingView.swift in Sources */,
 				64339B5C1F16EE2800EDA97D /* UIImage+WebP.m in Sources */,
 				641E43511FB7D1E0006063A6 /* Keychain.swift in Sources */,
 				64AC814A1E490E6C00C1AB8E /* UserTV.swift in Sources */,
@@ -1545,10 +1598,12 @@
 				642BEC971F13B0480043701B /* IngeNews.swift in Sources */,
 				647F6BF81F65ACF8006FA132 /* NewsArticleVC.swift in Sources */,
 				64E93CF41C439457005FC9CF /* EventsHistoryTVC.m in Sources */,
+				7EDC02E2232E63A100518E23 /* PrivateConstants.swift in Sources */,
 				648A55D41F8A994A003424D5 /* CafetOrder.swift in Sources */,
 				645C29771F63760A001F79AC /* API.swift in Sources */,
 				645BFFF41F5F8F2C00BA97BA /* Room.swift in Sources */,
 				64339B531F16EE2800EDA97D /* SDWebImageCompat.m in Sources */,
+				7EFFF18023302F41003635A3 /* YearsConstants.swift in Sources */,
 				64339B5D1F16EE2800EDA97D /* UIImageView+HighlightedWebCache.m in Sources */,
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
 				6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */,
@@ -1556,14 +1611,17 @@
 				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
+				7EDC02EE232E71A800518E23 /* DocumetsCollectionViewCell.swift in Sources */,
 				648A55D21F8A8EBE003424D5 /* CafetOrdersTVC.swift in Sources */,
 				4395B19A2137DF1600959CB8 /* AppDelegate.swift in Sources */,
 				64339B591F16EE2800EDA97D /* UIButton+WebCache.m in Sources */,
 				64339B501F16EE2800EDA97D /* NSImage+WebCache.m in Sources */,
+				7EDC02F2232E7C3B00518E23 /* YearsDetailCVC.swift in Sources */,
 				64B7B37F1B86980700A0E296 /* OrderIngredTVC.m in Sources */,
 				64A271F31B645A350001063A /* CommandesCell.m in Sources */,
 				64582C321BD6A9F50007C104 /* JTSImageViewController.m in Sources */,
 				6425D83A1BACB7F700F15BDD /* EventAlertView.m in Sources */,
+				7EDC02EC232E712A00518E23 /* DocumentsCVC.swift in Sources */,
 				64ED61081B6D24F000456B01 /* OrderMenuTVC.m in Sources */,
 				4392A65B21471FF10050C245 /* SponsorsCell.swift in Sources */,
 				64339B601F16EE2800EDA97D /* UIView+WebCacheOperation.m in Sources */,
@@ -1572,12 +1630,12 @@
 				642E47DD1F5F7EBC002CC48E /* DismissSegue.swift in Sources */,
 				640200061F6490EF009668DB /* APIArchiver.swift in Sources */,
 				6482C3BD1BB33A7A008F8DF8 /* OrderConfirmCell.m in Sources */,
-				64FFB9BA1F60EB9900986F1C /* PrivateConstants.swift in Sources */,
 				64493F181E465811009C995B /* DataStore.swift in Sources */,
 				647DE7B620C2CD6800F8919F /* ClubsSplit.swift in Sources */,
 				6458529A1DC722A3008AF43C /* Student.swift in Sources */,
 				6488AA531B72C299000E2660 /* LoseScreen.m in Sources */,
 				647F6BF21F64B311006FA132 /* NewsListTVC.swift in Sources */,
+				7EDC02F7232E846200518E23 /* DocumentsFooter.swift in Sources */,
 				64E273441B723E8000A84E68 /* GameScene.m in Sources */,
 				64C4B21F1B657F5600F43FB9 /* UIImage+ImageEffects.m in Sources */,
 				64C4B21E1B657F5600F43FB9 /* UIImage+Fit.m in Sources */,
