@@ -27,6 +27,10 @@ class YearsDetailCVC: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var yearRank: YearRank = YearRank(name: "", years: [""], urls: [""])
     var colors = [UIColor]()
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +69,7 @@ class YearsDetailCVC: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: ((view.frame.width / 2) - 20), height: 110)
     }
+    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Open PDF from URL

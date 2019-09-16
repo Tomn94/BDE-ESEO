@@ -92,6 +92,10 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
         return grades.count
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return grades[section].count
