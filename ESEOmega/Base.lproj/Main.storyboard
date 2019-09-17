@@ -1218,6 +1218,7 @@ Bâtiment : F. Rolland</string>
                     <navigationItem key="navigationItem" title="Annales d'examens" id="RKN-Os-m4C"/>
                     <connections>
                         <segue destination="hFk-fv-Tgp" kind="show" identifier="showYears" id="erN-lb-CEu"/>
+                        <segue destination="w7l-fU-czb" kind="presentation" identifier="showDocumentsOnboarding" id="FUz-BA-XwP"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hw-Sb-ktz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1304,6 +1305,80 @@ Bâtiment : F. Rolland</string>
             </objects>
             <point key="canvasLocation" x="901.60000000000002" y="1100.5997001499252"/>
         </scene>
+        <!--Documents Onboarding View Controller-->
+        <scene sceneID="eIL-d4-ToR">
+            <objects>
+                <viewController id="w7l-fU-czb" customClass="DocumentsOnboardingViewController" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pDS-he-FSS"/>
+                        <viewControllerLayoutGuide type="bottom" id="sg3-Kb-icZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yKY-dX-Jx0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5d4-TB-Cqq">
+                                <rect key="frame" x="128.5" y="66" width="118" height="32"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcp-mx-ENd">
+                                <rect key="frame" x="16" y="134" width="343" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="br5-f8-OTH"/>
+                                    <constraint firstAttribute="width" constant="343" id="ins-v5-swb"/>
+                                </constraints>
+                                <string key="text">Voici la fonctionnalité Documents, une des promesses de campagne de ton BDE ESEOKAMI. Elle te permet de consulter les annales d'examens des années passées, pour tes révisions. Plein d'autres fonctionnalités arriveront tout au long de l'année</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="eseokami" translatesAutoresizingMaskIntoConstraints="NO" id="oE7-ld-9o2">
+                                <rect key="frame" x="104" y="342" width="167" height="81"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="167" id="BtP-tg-5JF"/>
+                                    <constraint firstAttribute="height" constant="81" id="PqR-Me-fk5"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iT3-VB-ewf">
+                                <rect key="frame" x="97" y="528" width="181" height="49"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="181" id="6PJ-j5-QjK"/>
+                                    <constraint firstAttribute="height" constant="49" id="GsC-Bs-YkD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <state key="normal" title="C'est parti">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="dismissView:" destination="w7l-fU-czb" eventType="touchUpInside" id="Gdc-tB-PYr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="5d4-TB-Cqq" firstAttribute="centerX" secondItem="yKY-dX-Jx0" secondAttribute="centerX" id="Agv-RL-LiR"/>
+                            <constraint firstItem="oE7-ld-9o2" firstAttribute="top" secondItem="Lcp-mx-ENd" secondAttribute="bottom" constant="8" id="L0D-vi-VeC"/>
+                            <constraint firstItem="sg3-Kb-icZ" firstAttribute="top" secondItem="iT3-VB-ewf" secondAttribute="bottom" constant="70" id="LdS-bP-Zd1"/>
+                            <constraint firstItem="Lcp-mx-ENd" firstAttribute="centerX" secondItem="yKY-dX-Jx0" secondAttribute="centerX" id="THr-7n-QGs"/>
+                            <constraint firstItem="oE7-ld-9o2" firstAttribute="centerX" secondItem="yKY-dX-Jx0" secondAttribute="centerX" id="UwQ-Ap-Rks"/>
+                            <constraint firstItem="Lcp-mx-ENd" firstAttribute="top" secondItem="5d4-TB-Cqq" secondAttribute="bottom" constant="36" id="d0X-vl-d4T"/>
+                            <constraint firstItem="iT3-VB-ewf" firstAttribute="centerX" secondItem="yKY-dX-Jx0" secondAttribute="centerX" id="hkf-wL-a8z"/>
+                            <constraint firstItem="5d4-TB-Cqq" firstAttribute="top" secondItem="pDS-he-FSS" secondAttribute="bottom" constant="66" id="tUf-pN-3JE"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AkW-oZ-U1e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-938.39999999999998" y="1830.1349325337333"/>
+        </scene>
     </scenes>
     <resources>
         <image name="batiment" width="667" height="417"/>
@@ -1313,6 +1388,7 @@ Bâtiment : F. Rolland</string>
         <image name="clubs" width="30" height="30"/>
         <image name="clubsSel" width="30" height="30"/>
         <image name="document" width="30" height="30"/>
+        <image name="eseokami" width="1169" height="965"/>
         <image name="events" width="24" height="24"/>
         <image name="eventsSel" width="24" height="24"/>
         <image name="genealogy" width="24" height="24"/>

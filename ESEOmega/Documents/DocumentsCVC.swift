@@ -36,10 +36,6 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
     
     /// Black color for the title
     let titleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-    
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,20 +43,13 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
         setupNavigationBar()
         setupCollectionView()
         
-        if #available(iOS 13.0, *) {
-            // Show the onboarding view, made with SwiftUI
-            if !UserDefaults.standard.bool(forKey: "didShowOnboarding") {
-                let onboardingController = UIHostingController(rootView: OnboardingView())
-            
-                self.present(onboardingController, animated: true) {
-                    UserDefaults.standard.set(true, forKey: "didShowOnboarding")
-                }
-            }
-            
-            
-        }
-
         
+        // Show the onboarding view, made with SwiftUI
+        if !UserDefaults.standard.bool(forKey: "didShowOnboarding") {
+            
+            performSegue(withIdentifier: "showDocumentsOnboarding", sender: self)
+            UserDefaults.standard.set(true, forKey: "didShowOnboarding")
+        }
     }
     
     fileprivate func setupNavigationBar() {

@@ -195,6 +195,7 @@
 		7EDC02F9232E8B6700518E23 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC02F8232E8B6700518E23 /* PDFViewController.swift */; };
 		7EFFF18023302F41003635A3 /* YearsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFF17F23302F41003635A3 /* YearsConstants.swift */; };
 		7EFFF182233030AD003635A3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFF181233030AD003635A3 /* OnboardingView.swift */; };
+		7EFFF1842330B9F3003635A3 /* DocumentsOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFFF1832330B9F3003635A3 /* DocumentsOnboardingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -539,6 +540,7 @@
 		7EDC02F8232E8B6700518E23 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		7EFFF17F23302F41003635A3 /* YearsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsConstants.swift; sourceTree = "<group>"; };
 		7EFFF181233030AD003635A3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		7EFFF1832330B9F3003635A3 /* DocumentsOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsOnboardingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1114,6 +1116,7 @@
 			isa = PBXGroup;
 			children = (
 				7EDC02EB232E712A00518E23 /* DocumentsCVC.swift */,
+				7EFFF1832330B9F3003635A3 /* DocumentsOnboardingViewController.swift */,
 				7EFFF181233030AD003635A3 /* OnboardingView.swift */,
 				7EFFF17F23302F41003635A3 /* YearsConstants.swift */,
 				7EDC02F6232E846200518E23 /* DocumentsFooter.swift */,
@@ -1608,6 +1611,7 @@
 				6425D8341BACB22000F15BDD /* CustomIOSAlertView.m in Sources */,
 				6418FFA11F939DEE0044206B /* CafetOrderVC.swift in Sources */,
 				647DE7BA20C2CF5F00F8919F /* Club.swift in Sources */,
+				7EFFF1842330B9F3003635A3 /* DocumentsOnboardingViewController.swift in Sources */,
 				64FFB9BD1F60EF9900986F1C /* UserTVC+Avatar.swift in Sources */,
 				64339B5B1F16EE2800EDA97D /* UIImage+MultiFormat.m in Sources */,
 				647F6BF41F64C4E2006FA132 /* LinksToolbar.swift in Sources */,
