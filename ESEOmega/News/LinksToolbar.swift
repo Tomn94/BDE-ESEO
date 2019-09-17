@@ -94,6 +94,11 @@ class LinksToolbar: UIView {
                                            width: frame.width, height: 20))
         header.text = "LIENS RAPIDES"
         header.textColor = UIColor(white: 0.5, alpha: 1)
+        
+        if #available(iOS 13.0, *) {
+            backgroundColor = .systemBackground
+        }
+        
         header.sizeToFit()
         header.font = UIFont.preferredFont(forTextStyle: .caption2)
         addSubview(header)
@@ -101,8 +106,15 @@ class LinksToolbar: UIView {
         toolbar.frame = CGRect(x: 0, y: 16, width: frame.width, height: 48)
         toolbar.autoresizingMask = .flexibleWidth
         toolbar.delegate = self
-        toolbar.setBackgroundImage(UIImage(),
-                                   forToolbarPosition: .any, barMetrics: .default)
+        
+        if #available(iOS 13.0, *) {
+            toolbar.backgroundColor = .systemBackground
+        } else {
+            toolbar.setBackgroundImage(UIImage(),
+                                              forToolbarPosition: .any, barMetrics: .default)
+        }
+       
+        
         
         reloadItems()
         

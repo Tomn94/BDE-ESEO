@@ -56,7 +56,12 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
         /// Set up the NavBar
         let navigationBar = navigationController!.navigationBar
         navigationBar.tintColor = .white
-        navigationBar.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            navigationBar.backgroundColor = .systemBackground
+        } else {
+            navigationBar.backgroundColor = .white
+        }
+        
         /// Hide the thin separator view between the navigation bar and the view itself
         navigationBar.shadowImage = UIImage()
         
@@ -66,7 +71,6 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
     }
     
     fileprivate func setupCollectionView() {
-        
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical

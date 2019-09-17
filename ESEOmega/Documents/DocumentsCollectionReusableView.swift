@@ -24,9 +24,4 @@ import UIKit
 class DocumentsCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var titleLabel: UILabel!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        titleLabel.textColor = .black // support du dark mode plus tard
-    }
 }

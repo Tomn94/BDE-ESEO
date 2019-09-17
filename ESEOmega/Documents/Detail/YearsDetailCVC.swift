@@ -34,8 +34,6 @@ class YearsDetailCVC: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView!.backgroundColor = .white
 
         
     }
