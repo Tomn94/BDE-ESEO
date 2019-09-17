@@ -421,7 +421,7 @@ extension UserTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             
             /* Return the string with some style */
             return NSAttributedString(string: welcomeString,
-                                      attributes: [.foregroundColor : UIColor.darkGray])
+                                      attributes: [.foregroundColor : UIColor(named: "ActivityIndicatorColor")!])
         }
         
         return NSAttributedString(string: "", attributes: [:])
