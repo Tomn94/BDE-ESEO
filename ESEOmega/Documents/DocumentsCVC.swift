@@ -67,6 +67,8 @@ class DocumentsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayo
     
     fileprivate func setupCollectionView() {
         
+        print("klmnn")
+        
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }
