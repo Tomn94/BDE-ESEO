@@ -73,7 +73,6 @@ class CafetOrdersTVC: UITableViewController {
         /* Refresh control */
         if #available(iOS 11.0, *) {
             tableView.separatorInsetReference = .fromAutomaticInsets
-            navigationController?.navigationBar.prefersLargeTitles = true
             refreshControl?.tintColor = .white
         } else {
             refreshControl?.tintColor = UINavigationBar.appearance().barTintColor ?? .blue

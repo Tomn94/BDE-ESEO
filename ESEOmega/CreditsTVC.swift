@@ -94,6 +94,8 @@ extension CreditsTVC: DZNEmptyDataSetSource {
         
         let text = """
 © Thomas NAUDET ESEOmega 2015-2018
+© Benjamin GONDANGE Avéseo 2018-2019
+© Romain RABOUAN ESEOKAMI 2019-2020
 Une question, un problème ? ↓
 """
         
@@ -104,8 +106,10 @@ Une question, un problème ? ↓
                                      attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline),
                                                   .foregroundColor : UIColor.lightGray])
         
-        let boldAttr = [NSAttributedString.Key.font : UIFont(descriptor: boldSubheadDescriptor, size: 0)]
-        mas.setAttributes(boldAttr, range: NSMakeRange(2,  13))               // my name
+        let boldAttr = [NSAttributedStringKey.font : UIFont(descriptor: boldSubheadDescriptor, size: 0)]
+        mas.setAttributes(boldAttr, range: NSMakeRange(2,  13))
+        mas.setAttributes(boldAttr, range: NSMakeRange(36, 18))
+        mas.setAttributes(boldAttr, range: NSMakeRange(73, 15))
         mas.setAttributes(boldAttr, range: NSMakeRange(text.count - 29, 29))  // question?
         
         return mas

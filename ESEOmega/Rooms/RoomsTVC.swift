@@ -461,6 +461,7 @@ extension RoomsTVC: UISearchResultsUpdating {
     /// Called when user changes the text of the search bar
     func updateSearchResults(for searchController: UISearchController) {
         
+        
         // Reset results and get what's been typed
         filteredRooms = []
         let query = searchController.searchBar.text ?? ""

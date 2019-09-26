@@ -62,6 +62,8 @@ class NewsListTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         tableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         let toolbar = LinksToolbar()
         toolbar.viewController = self
@@ -74,9 +76,12 @@ class NewsListTVC: UITableViewController {
         if #available(iOS 10.0, *) {
             tableView.prefetchDataSource = self
         }
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
+        
+        if #available(iOS 13.0, *) {
+            navigationItem.standardAppearance = navigationController!.navigationBar.scrollEdgeAppearance
         }
+        
+
         
         /* Refresh control */
         reloadRefreshControl()

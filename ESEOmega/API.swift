@@ -36,6 +36,7 @@ class API {
     /// TODO: Set a debug environment to automatically switch between beta & production.
     static private let url     = "https://api.bdeeseo.fr/"
     static private let version = "1"
+    static private let key = "Adrl87VaVmMIPWJgiklbet2muRHTfQ"
     
     
     /// Available API endpoints

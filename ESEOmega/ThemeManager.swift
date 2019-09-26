@@ -60,6 +60,9 @@ import UIKit
         /// Un grand thème
         case aveseo     = 7
         
+        /// Un thème lointain
+        case eseokami   = 8
+        
        
         // MARK: Themes associated attributes
         
@@ -78,6 +81,7 @@ import UIKit
             case .eseoasis:   return (bars: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1), barButtons: #colorLiteral(red: 0.9608, green: 0.9205, blue: 0.816, alpha: 1), window: #colorLiteral(red: 1, green: 0.5, blue: 0, alpha: 1))
             case .eseodin:    return (bars: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1), barButtons: #colorLiteral(red: 0.68, green: 0.8986666667, blue: 1, alpha: 1), window: #colorLiteral(red: 0.137254902, green: 0.2509803922, blue: 0.5607843137, alpha: 1))
             case .aveseo:     return (bars: #colorLiteral(red: 0.6705882353, green: 0.137254902, blue: 0.1568627451, alpha: 1), barButtons: #colorLiteral(red: 1, green: 0.8392156863, blue: 0.8392156863, alpha: 1), window: #colorLiteral(red: 0.6705882353, green: 0.137254902, blue: 0.1568627451, alpha: 1))
+            case .eseokami:   return (bars: #colorLiteral(red: 0.6901960784, green: 0.2431372549, blue: 0.3098039216, alpha: 1), barButtons: #colorLiteral(red: 0.9333333333, green: 0.4823529412, blue: 0.1843137255, alpha: 1), window: #colorLiteral(red: 0.6901960784, green: 0.2431372549, blue: 0.3098039216, alpha: 1))
             }
         }
         
@@ -93,6 +97,7 @@ import UIKit
             case .eseoasis:   return "ESEOasis"
             case .eseodin:    return "ESEOdin"
             case .aveseo:     return "AVÉSEO"
+            case .eseokami:   return "ESEOKAMI"
             }
         }
     }
@@ -106,7 +111,8 @@ import UIKit
                 .eseomega,
                 .eseoasis,
                 .eseodin,
-                .aveseo]
+                .aveseo,
+                .eseokami]
     }
     
     
@@ -134,7 +140,8 @@ import UIKit
         /* Customize Navigation Bars */
         UINavigationBar.appearance().barTintColor = currentTheme.themeValue.bars
         UINavigationBar.appearance().tintColor    = currentTheme.themeValue.barButtons
-        let titleAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        
+        let titleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = titleAttributes
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes

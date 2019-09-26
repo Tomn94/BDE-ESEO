@@ -149,7 +149,7 @@ extension GenealogySearch: DZNEmptyDataSetSource {
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         
-        return NSAttributedString(string: "Venez vous présenter au module RCII du BDE si vous n'êtes pas dans la liste !",
+        return NSAttributedString(string: "Venez vous présenter au module RCIIA du BDE si vous n'êtes pas dans la liste !",
                                   attributes: [.font : UIFont.preferredFont(forTextStyle: .subheadline),
                                                .foregroundColor : UIColor.lightGray])
     }

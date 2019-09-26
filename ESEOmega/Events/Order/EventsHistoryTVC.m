@@ -37,7 +37,6 @@
     
     /* Use Large Title on iOS 11 */
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
         self.refreshControl.tintColor = [UIColor whiteColor];
     } else {
         [ctr addObserver:self.refreshControl selector:@selector(endRefreshing)

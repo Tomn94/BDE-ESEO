@@ -39,9 +39,6 @@ class ClubsListTVC: UITableViewController {
         if #available(iOS 10.0, *) {
             tableView.prefetchDataSource = self
         }
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
         var refreshColor: UIColor = .white
         if #available(iOS 11.0, *) {
         } else {

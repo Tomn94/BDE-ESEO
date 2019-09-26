@@ -345,7 +345,7 @@ extension Genealogy: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
     
         return NSAttributedString(string: "Retrouvez ici les familles de parrainage à l'ESEO",
-                                  attributes: [.foregroundColor: UIColor.darkGray])
+                                  attributes: [.foregroundColor: UIColor(named: "ActivityIndicatorColor")!])
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
