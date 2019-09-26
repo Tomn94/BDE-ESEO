@@ -172,7 +172,7 @@ class ClubDetailTVC: JAQBlurryTableViewController {
         navigationItem.leftItemsSupplementBackButton = true
         
         NotificationCenter.default.addObserver(self, selector: .rotatePic,
-                                               name: .UIDeviceOrientationDidChange, object: nil)
+                                               name: UIDevice.orientationDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: .updateTheme,
                                                name: .themeChanged, object: nil)
         

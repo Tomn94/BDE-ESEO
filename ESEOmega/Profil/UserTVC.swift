@@ -240,7 +240,7 @@ class UserTVC: JAQBlurryTableViewController {
         /* Make a simple transition */
         let animation = CATransition()
         animation.duration = 0.42
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         self.tableView.layer.add(animation, forKey: nil)
     }
     

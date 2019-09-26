@@ -23,9 +23,28 @@ import Foundation
 
 
 /// Stores all crucial data for the app,
-/// and has some convenience methods revolving around them
+/// and has some convenient methods revolving around them
 @objc class DataStore: NSObject {
     
+    /// Singleton instance
+    static let shared = DataStore()
+    
+    /// Cafeteria fetched data
+    var cafetData: CafetInfo? = nil
+    
+    /// Current cafeteria cart
+    var cafetPanier: CafetPanier? = nil
+    
+    /// Current order token
+    var cafetToken: String? = ""
+    
+    /// Current order starting time
+    var cafetDebut: TimeInterval? = TimeInterval(exactly: 0)
+    
+    /// Is the user ordering ?
+    var cmdEnCours: Bool = false
+    
+    override init() {}
     
     // MARK: - User Login
     

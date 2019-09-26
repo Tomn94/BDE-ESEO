@@ -130,7 +130,7 @@ class RoomsTVC: UITableViewController {
         /* UI transition */
         let transition = CATransition()
         transition.duration = 0.42
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         tableView.layer.add(transition, forKey: nil)
         
         /* Update UI */
@@ -353,7 +353,7 @@ extension RoomsTVC {
             }
         }
         // Add Search icon
-        initials.insert(UITableViewIndexSearch, at: 0)
+        initials.insert(UITableView.indexSearch, at: 0)
         
         return initials
     }

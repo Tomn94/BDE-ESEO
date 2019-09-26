@@ -23,7 +23,6 @@
 @import LocalAuthentication;
 
 #import "Data.h"
-#import "OrderMenuCell.h"
 #import "EventsOrderNavTVC.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "../../SDWebImage/UIImageView+WebCache.h"

@@ -115,7 +115,7 @@ Une question, un problème ? ↓
         return mas
     }
     
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
         
         return NSAttributedString(string: "Contacter",
                                   attributes: [.font : UIFont.preferredFont(forTextStyle: .headline),

@@ -243,7 +243,7 @@ class Genealogy: UITableViewController {
             /* Reload data, display No Results accordingly and animate */
             let animation = CATransition()
             animation.duration = 0.45
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             self.tableView.layer.add(animation, forKey: nil)
             
             self.tableView.reloadData()

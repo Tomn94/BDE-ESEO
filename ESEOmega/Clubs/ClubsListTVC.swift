@@ -277,7 +277,7 @@ extension ClubsListTVC: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView,
                    prefetchRowsAt indexPaths: [IndexPath]) {
         
-        let thumbnailURLs: [URL] = indexPaths.flatMap { indexPath in
+        let thumbnailURLs: [URL] = indexPaths.compactMap { indexPath in
             
             guard let imgURL = URL(string: clubs[indexPath.row].img)
                 else { return nil }

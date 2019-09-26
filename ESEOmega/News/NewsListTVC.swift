@@ -426,7 +426,7 @@ extension NewsListTVC: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView,
                    prefetchRowsAt indexPaths: [IndexPath]) {
         
-        let thumbnailURLs: [URL] = indexPaths.flatMap { indexPath in
+        let thumbnailURLs: [URL] = indexPaths.compactMap { indexPath in
             
             guard indexPath.row != news.count,
                   let articleImg = news[indexPath.row].img

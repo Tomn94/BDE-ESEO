@@ -1377,10 +1377,10 @@ Bâtiment : F. Rolland</string>
         </scene>
     </scenes>
     <resources>
-        <image name="batiment" width="667" height="417"/>
-        <image name="cafet" width="24" height="24"/>
-        <image name="cafetNotPaid" width="48" height="48"/>
-        <image name="cafetSel" width="24" height="24"/>
+        <image name="batiment" width="1334" height="834"/>
+        <image name="cafet" width="48" height="48"/>
+        <image name="cafetNotPaid" width="96" height="96"/>
+        <image name="cafetSel" width="48" height="48"/>
         <image name="clubs" width="30" height="30"/>
         <image name="clubsSel" width="30" height="30"/>
         <image name="document" width="30" height="30"/>

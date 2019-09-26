@@ -82,7 +82,7 @@ class UserTVDelegate: NSObject, UITableViewDelegate {
            Nicer animation than reloadSections:withRowAnimation: */
         let animation = CATransition()
         animation.duration = 0.3
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         userTVC?.optionsTable.layer.add(animation, forKey: nil)
     }
     

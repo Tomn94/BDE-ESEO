@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ORt-n2-GYV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ORt-n2-GYV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,7 +14,7 @@
             <objects>
                 <navigationController storyboardIdentifier="Order" id="ORt-n2-GYV" customClass="LightStatusBarNVC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="igy-OZ-zhb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -29,11 +28,11 @@
         <!--Commander ce midi-->
         <scene sceneID="acF-9V-TBT">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="8LJ-Dh-Bkg" customClass="OrderPVC" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="8LJ-Dh-Bkg" customClass="OrderPVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Commander ce midi" id="sXU-oT-0Ga">
                         <barButtonItem key="rightBarButtonItem" title="Annuler" style="done" id="7F8-GS-CEo">
                             <connections>
-                                <action selector="fermer:" destination="8LJ-Dh-Bkg" id="tie-Vp-iNA"/>
+                                <action selector="fermer" destination="8LJ-Dh-Bkg" id="LvZ-pm-6cG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -47,13 +46,13 @@
         <!--Order PanierTVC-->
         <scene sceneID="Rt4-7B-EZQ">
             <objects>
-                <tableViewController storyboardIdentifier="OrderPanier" id="E6n-bP-8m2" customClass="OrderPanierTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OrderPanier" id="E6n-bP-8m2" customClass="OrderPanierTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="qvl-BH-D4e">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderItemCell" id="y4K-QU-mgb" customClass="OrderItemCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderItemCell" id="y4K-QU-mgb" customClass="OrderItemCell" customModule="BDE_ESEO" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="384" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y4K-QU-mgb" id="SAy-Jg-DOI">
@@ -61,19 +60,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sandwich" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSf-Yo-A4c">
-                                            <rect key="frame" x="15" y="25" width="51" height="14"/>
+                                            <rect key="frame" x="23" y="23.5" width="51" height="13.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="X €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGx-Mk-2Eq">
-                                            <rect key="frame" x="76" y="12" width="293" height="20"/>
+                                            <rect key="frame" x="84" y="12" width="277" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgf-FG-JeE">
-                                            <rect key="frame" x="15" y="5" width="51" height="21"/>
+                                            <rect key="frame" x="23" y="8" width="51" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="0XI-FE-cLd"/>
                                             </constraints>
@@ -115,7 +114,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="X €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aky-20-Amp">
-                                            <rect key="frame" x="343" y="12" width="26" height="19.5"/>
+                                            <rect key="frame" x="342" y="12" width="26" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,7 +124,7 @@
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderConfirmCell" id="Fgt-kw-7kG" customClass="OrderConfirmCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderConfirmCell" id="Fgt-kw-7kG" customClass="OrderConfirmCell" customModule="BDE_ESEO" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="143.5" width="384" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fgt-kw-7kG" id="a7j-uZ-BJG">
@@ -163,13 +162,13 @@
         <!--Order MenuTVC-->
         <scene sceneID="VzS-EP-1TY">
             <objects>
-                <tableViewController storyboardIdentifier="OrderMenu" id="m6B-MW-4iA" customClass="OrderMenuTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OrderMenu" id="m6B-MW-4iA" customClass="OrderMenuTVC" customModule="BDE_ESEO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="150" sectionHeaderHeight="22" sectionFooterHeight="22" id="seR-aC-tWt">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderMenuCell" rowHeight="135" id="3r4-Je-N1U" customClass="OrderMenuCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderMenuCell" rowHeight="135" id="3r4-Je-N1U" customClass="OrderMenuCell" customModule="BDE_ESEO" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="384" height="135"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3r4-Je-N1U" id="bkY-co-xUZ">
