@@ -37,7 +37,7 @@ class SponsorsTVC: UITableViewController {
             self.tableView.prefetchDataSource = self;
         }
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
+        self.tableView.rowHeight = UITableView.automaticDimension;
         self.tableView.estimatedRowHeight = 131;
         self.refreshControl?.tintColor = UINavigationBar.appearance().tintColor
         
@@ -232,7 +232,7 @@ extension SponsorsTVC: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView,
                    prefetchRowsAt indexPaths: [IndexPath]) {
         
-        let thumbnailURLs: [URL] = indexPaths.flatMap { indexPath in
+        let thumbnailURLs: [URL] = indexPaths.compactMap { indexPath in
             
             guard indexPath.row != sponsors.count,
                 let articleImg = sponsors[indexPath.row].image

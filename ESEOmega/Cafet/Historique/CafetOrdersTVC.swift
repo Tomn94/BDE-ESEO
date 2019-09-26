@@ -40,7 +40,6 @@ fileprivate extension Selector {
     static let toggleUpdates = #selector(CafetOrdersTVC.toggleUpdates)
 }
 
-
 /// Lists user's orders at the cafétéria
 class CafetOrdersTVC: UITableViewController {
     
@@ -318,8 +317,12 @@ class CafetOrdersTVC: UITableViewController {
         let defaultError = "Impossible de récupérer les menus"
         
         API.request(.menus, authentication: userToken, completed: { data in
+            let decoder = JSONDecoder();
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = CafetMenu.dateFormat
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
-            guard let result = try? JSONDecoder().decode(CafetMenusResult.self, from: data),
+            guard let result = try? decoder.decode(CafetMenusResult.self, from: data),
                   result.success else {
                 
                 API.handleFailure(data: data, mode: .presentFetchedMessage(self),
@@ -349,56 +352,9 @@ class CafetOrdersTVC: UITableViewController {
         /* Converts current API structure to older format.
            The best would be to rewrite Objective-C Order code in Swift.
            Including Data class. */
-        // Categories
-        let categories = menus.categories.sorted { $0.position < $1.position }
-        var objcCategories = [[String : String]]()
-        for category in categories {
-            objcCategories.append(["name"       : category.name,
-                                   "imgUrl"     : category.imgUrl,
-                                   "firstPrice" : String(category.firstPrice),
-                                   "catname"    : category.catname,
-                                   "briefText"  : category.briefText])
-        }
-        // Menus
-        var objcMenus = [[String : Any]]()
-        for menu in menus.menus {
-            objcMenus.append(["name"        : menu.name,
-                              "idstr"       : menu.idstr,
-                              "price"       : String(menu.price),
-                              "mainElemStr" : menu.mainElemStr,
-                              "nbMainElem"  : menu.nbMainElem,
-                              "nbSecoElem"  : menu.nbSecoElem])
-        }
-        // Elements
-        var objcElements = [[String : Any]]()
-        for element in menus.elements {
-            objcElements.append(["name"           : element.name,
-                                 "idstr"          : element.idstr,
-                                 "priceuni"       : String(element.priceuni),
-                                 "pricemore"      : String(element.pricemore),
-                                 "stock"          : String(element.stock),
-                                 "outofmenu"      : String(element.outofmenu),
-                                 "hasingredients" : String(element.hasingredients),
-                                 "idcat"          : element.idcat,
-                                 "countFor"       : element.countFor]) // new in API
-        }
-        // Ingredients
-        var objcIngredients = [[String : String]]()
-        for ingredient in menus.ingredients {
-            objcIngredients.append(["name"     : ingredient.name,
-                                    "idstr"    : ingredient.idstr,
-                                    "priceuni" : String(ingredient.priceuni),
-                                    "stock"    : String(ingredient.stock)])
-        }
-        // Gather it all
-        let objcBridgedData = [["lacmd-categories"  : objcCategories],
-                               ["lacmd-menus"       : objcMenus],
-                               ["lacmd-elements"    : objcElements],
-                               ["lacmd-ingredients" : objcIngredients]]
+        DataStore.shared.cafetData = menus.cafeteria
         
-        Data.shared().cafetCmdEnCours = false
-        Data.shared().cafetData       = objcBridgedData
-        Data.shared().cafetToken      = token
+        DataStore.shared.cafetPanier = CafetPanier(token: token)
         
         /* Present menu */
         let storyboard = UIStoryboard(name: "Order", bundle: nil)
@@ -406,6 +362,7 @@ class CafetOrdersTVC: UITableViewController {
         orderVC.modalPresentationStyle = .formSheet
         orderVC.modalTransitionStyle   = self.traitCollection.horizontalSizeClass == .regular
                                        ? .coverVertical : .flipHorizontal
+        
         DispatchQueue.main.async {
             self.present(orderVC, animated: true)
             self.navigationItem.setLeftBarButton(self.orderButton, animated: true)
@@ -463,10 +420,14 @@ extension CafetOrdersTVC: APIViewer {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = CafetOrder.dateFormat
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
-            
+                        
             guard let result = try? decoder.decode(CafetOrdersResult.self, from: data),
                   result.success
-                else { return }
+                else {
+                    
+                    return
+                    
+                        }
             
             self.loadData(result.orders)
             APIArchiver.save(data: result.orders, for: .orders)
@@ -479,20 +440,14 @@ extension CafetOrdersTVC: APIViewer {
     }
     
     func loadData(_ data: [CafetOrder]) {
-        
         let groupedOrdersByStatus = Dictionary(grouping: data,
-                                               by: { order in order.status })
+                                                by: { order in order.status })
         
         orders = []
         let sortedKeys = Array(groupedOrdersByStatus.keys).sorted {
             $0.rawValue < $1.rawValue
         }
-        if let notPaid = groupedOrdersByStatus[.notPaid] {
-            // Added first since their rawValue is 3 (> 0, 1, 2)
-            // but we need them on top
-            orders.append(notPaid)
-        }
-        for key in sortedKeys where key != .notPaid {
+        for key in sortedKeys {
             orders.append(groupedOrdersByStatus[key]!)
         }
         
@@ -519,13 +474,13 @@ extension CafetOrdersTVC: APIViewer {
         API.request(.orderService, authentication: token,
                     completed: { data in
             
-            guard let result = try? JSONDecoder().decode(CafetServiceResult.self, from: data),
+            guard let result = try? JSONDecoder().decode(CafeteriaSettingResult.self, from: data),
                   result.success else {
                 self.serviceStatus = unavailableStatus
                 return
             }
             
-            self.serviceStatus = result.message.replacingOccurrences(of: "\\n", with: "\n")
+            self.serviceStatus = result.setting[0].value.replacingOccurrences(of: "\\n", with: "\n")
             self.updateService()
 
         }, failure: { error, data in
@@ -545,9 +500,9 @@ extension CafetOrdersTVC: APIViewer {
             if label.text != self.serviceStatus {
                 let animation = CATransition()
                 animation.duration = 0.42
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                animation.type     = "cube"
-                animation.subtype  = kCATransitionFromBottom
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                animation.type     = convertToCATransitionType("cube")
+                animation.subtype  = CATransitionSubtype.fromBottom
                 label.layer.add(animation, forKey: nil)
             }
             
@@ -610,14 +565,16 @@ extension CafetOrdersTVC {
             else { return nil }
         
         switch firstOrderStatus {
-        case .preparing:
+        case .created:
             return ""
+        case .complete:
+            return "Votre commande est en attente."
+        case .preparing:
+            return "Votre commande est en préparation."
         case .ready:
             return "Merci de venir à la cafet chercher votre repas."
-        case .done:
+        case .finished:
             return ""
-        case .notPaid:
-            return "Merci de venir à la cafet ou au BDE régler au plus vite, sinon contactez-nous.\nVous ne pouvez pas commander sans régler ceci au préalable."
         }
     }
     
@@ -642,6 +599,8 @@ extension CafetOrdersTVC {
         let color = order.status.color
         switch order.status
         {
+        case .complete:
+            cell.imgView.image = #imageLiteral(resourceName: "cafetPreparing")
         case .preparing:
             cell.imgView.image = #imageLiteral(resourceName: "cafetPreparing")
                 
@@ -650,15 +609,14 @@ extension CafetOrdersTVC {
             cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
             cell.imgView.image  = #imageLiteral(resourceName: "cafetReady")
                 
-        case .done:
+        case .finished:
             cell.dateLabel.textColor = .lightGray
             cell.numLabel.textColor  = .lightGray
             cell.imgView.image       = #imageLiteral(resourceName: "cafetDone")
             
-        case .notPaid:
-            cell.nomLabel.font  = UIFont.preferredFont(forTextStyle: .callout).bold()
-            cell.prixLabel.font = UIFont.preferredFont(forTextStyle: .callout).bold()
-            cell.imgView.image  = #imageLiteral(resourceName: "cafetNotPaid")
+        default:
+            break
+            
         }
         
         cell.nomLabel.textColor  = color
@@ -671,8 +629,8 @@ extension CafetOrdersTVC {
         cell.imgView.layer.shadowOpacity = 1
         cell.imgView.layer.shadowRadius  = 1
         
-        cell.nomLabel.text  = order.resume.replacingOccurrences(of: "<br>", with: ", ")
-        cell.dateLabel.text = DateFormatter.localizedString(from: order.datetime,
+        cell.nomLabel.text  = order.friendlyText.replacingOccurrences(of: "<br>", with: ", ")
+        cell.dateLabel.text = DateFormatter.localizedString(from: order.startTime,
                                                             dateStyle: .full,
                                                             timeStyle: .short)
         
@@ -680,7 +638,7 @@ extension CafetOrdersTVC {
         formatter.numberStyle = .currency
         formatter.locale      = Locale(identifier: "fr_FR")
         cell.prixLabel.text   = formatter.string(from: NSNumber(value: order.price))
-        cell.numLabel.text    = order.number
+        cell.numLabel.text    = String(order.modID)
         
         return cell
     }
@@ -760,7 +718,7 @@ extension CafetOrdersTVC: DZNEmptyDataSetSource {
     }
     
     func buttonTitle(forEmptyDataSet scrollView: UIScrollView!,
-                     for state: UIControlState) -> NSAttributedString! {
+                     for state: UIControl.State) -> NSAttributedString! {
         
         let buttonTitle = DataStore.isUserLogged ? "Commander" : "Me connecter"
         return NSAttributedString(string: buttonTitle,
@@ -795,4 +753,9 @@ extension CafetOrdersTVC: DZNEmptyDataSetDelegate {
         order()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCATransitionType(_ input: String) -> CATransitionType {
+	return CATransitionType(rawValue: input)
 }

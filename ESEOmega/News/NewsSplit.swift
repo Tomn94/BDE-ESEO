@@ -101,7 +101,7 @@ extension NewsSplit: UISplitViewControllerDelegate {
     }
     
     func splitViewController(_ svc: UISplitViewController,
-                             willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+                             willChangeTo displayMode: UISplitViewController.DisplayMode) {
         
         self.setupBarButtons()
     }

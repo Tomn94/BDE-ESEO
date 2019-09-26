@@ -34,7 +34,7 @@ class API {
     
     /// Common URL for all API requests.
     /// TODO: Set a debug environment to automatically switch between beta & production.
-    static private let url     = Bundle.main.infoDictionary!["API_BASE_URL"] as! String
+    static private let url     = "https://api.bdeeseo.fr/"
     static private let version = "1"
     
     
@@ -56,20 +56,18 @@ class API {
         /// Get cafet order history
         case orders       = "me/orders"
         
-        /// Information about a specific cafet order. `idcmd` number must be suffixed.
-        case order        = "orders/"
+        /// Information about a specific cafet order. `idcmd` number must be suffixed. Also used to send order
+        case order        = "cafeteria/orders"
         
         /// Begin new cafet order
-        case newOrder     = "orders/token"
+        case newOrder     = "cafeteria/orders/token"
         
         /// Get available items to order
-        case menus        = "orders/items"
+        case menus        = "cafeteria"
         
-        /// Send validated cafet order
-        case sendOrder    = "orders"
+        /// Get current cafet service message
+        case orderService = "cafeteria/settings/service_message"
         
-        /// Get available items to order
-        case orderService = "apps/service"
         
         /// Begin Lydia payment for order
         case lydiaAsk     = "lydia/ask"
@@ -145,6 +143,7 @@ class API {
                         appendPath: String? = nil,
                         get  getParameters:  [String : String] = [:],
                         post postParameters: [String : String] = [:],
+                        postData: Foundation.Data? = nil,
                         authentication authToken: String? = nil,
                         completed: @escaping (Foundation.Data) -> (),
                         failure: ((Error?, Foundation.Data?) -> ())? = nil,
@@ -158,6 +157,7 @@ class API {
         if let suffixPath = appendPath {
             rawURL += suffixPath
         }
+        NSLog(rawURL);
         guard var urlComponents = URLComponents(string: rawURL) else {
             failure?(nil, nil)
             return
@@ -185,6 +185,11 @@ class API {
             urlComponents.queryItems = postParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
             let postString           = urlComponents.query ?? ""
             request.httpBody         = postString.data(using: .utf8)
+        }
+        
+        if let data = postData {
+            request.httpMethod = "POST"
+            request.httpBody = data
         }
         
         /* Configure completion */

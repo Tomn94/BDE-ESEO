@@ -139,7 +139,7 @@ extension UserTVC {
                                                       retina: false) {
             
             /* Create data representation */
-            let imgData = UIImagePNGRepresentation(scaledDownPic)
+            let imgData = scaledDownPic.pngData()
             do {
                 /* Try to write data to destination */
                 try imgData?.write(to: saveURL)
@@ -185,10 +185,13 @@ extension UserTVC: UIImagePickerControllerDelegate {
     ///   - picker: The controller of the image picker
     ///   - info: Used to get the selected picture back
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
         /* Get the chosen image */
-        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        guard let chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage
             else { return }
         
         /* Save it to disk */
@@ -236,4 +239,14 @@ extension UserTVC: UINavigationControllerDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

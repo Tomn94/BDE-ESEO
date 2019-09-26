@@ -177,7 +177,7 @@ class StickerBrowserViewController: MSStickerBrowserViewController {
         if let cache = UserDefaults.standard.object(forKey: UserDefaultsKey.stickers) as? Data,
             let cachedStickers = try? JSONDecoder().decode([Sticker].self, from: cache) {
             
-            cachedFileNames = cachedStickers.flatMap { sticker in
+            cachedFileNames = cachedStickers.compactMap { sticker in
                 sticker.img.pathComponents.last
             }
         }
